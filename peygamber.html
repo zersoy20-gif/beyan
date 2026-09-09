@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peygamber — Beyan</title>
+<meta name="description" content="Kur'an'da adı geçen peygamberler — kaç kez, hangi sûrelerde geçtiği doğrulanmış rakamlarla, kıssası doğrudan ayetlerle, hadis bilgisi ayrıca ve açıkça belirtilerek.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .prophet-stats{display:flex; gap:14px; flex-wrap:wrap; margin:22px 0 8px;}
+  .prophet-stat{border:1px solid var(--border-soft); border-radius:12px; padding:14px 20px; background:var(--glass); backdrop-filter:blur(10px); text-align:center; min-width:120px;}
+  .prophet-stat .num{font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--gold-bright); display:block; line-height:1.1;}
+  .prophet-stat .lbl{font-size:0.74rem; color:var(--muted-2); margin-top:4px; display:block;}
+  .prophet-surah-list{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 6px;}
+  .prophet-surah-chip{font-size:0.76rem; color:var(--muted); border:1px solid var(--border-soft); border-radius:14px; padding:4px 12px;}
+
+  .kaynak-etiket{display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; padding:5px 12px; border-radius:12px; margin:4px 0 18px;}
+  .kaynak-etiket.ayet{color:var(--teal); border:1px solid rgba(73,214,196,0.35); background:rgba(73,214,196,0.08);}
+  .kaynak-etiket.hadis{color:var(--gold-bright); border:1px solid var(--border); background:rgba(217,178,107,0.08);}
+  .kaynak-etiket .dot{width:6px; height:6px; border-radius:50%; background:currentColor;}
+
+  .prophet-section{margin-top:44px;}
+  .prophet-section h2{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.5rem; color:var(--text); margin:0 0 18px; display:flex; align-items:center; gap:10px;}
+  .prophet-body{color:var(--muted); font-size:0.96rem; line-height:1.85; max-width:760px;}
+  .prophet-body p{margin:0 0 16px;}
+  .prophet-body strong{color:var(--text);}
+
+  .other-figures-note{border:1px solid var(--border); border-radius:12px; padding:16px 20px; background:rgba(217,178,107,0.06); font-size:0.85rem; color:var(--muted); margin-top:18px;}
+
+  .prophet-picker{margin:36px 0 10px;}
+  .prophet-picker select{background:var(--glass-strong); color:var(--text); border:1px solid var(--border-soft); border-radius:10px; padding:9px 14px; font-size:0.88rem; font-family:inherit; cursor:pointer;}
+
+  .btn-ghost-sm{background:none; border:1px solid var(--border-soft); color:var(--muted); padding:8px 16px; border-radius:20px; font-size:0.8rem; cursor:pointer; transition:border-color .2s, color .2s; font-family:inherit; text-decoration:none; display:inline-block;}
+  .btn-ghost-sm:hover{border-color:var(--gold); color:var(--gold-bright);}
+  .btn-ghost-sm[disabled]{opacity:0.3; pointer-events:none;}
+  .ders-nav{display:flex; justify-content:space-between; margin-top:48px; padding-top:22px; border-top:1px solid var(--border-soft); gap:12px; flex-wrap:wrap;}
+
+  #loadingMsg, #notFoundMsg{color:var(--muted-2); font-size:0.9rem; padding:40px 0;}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <a class="topic-back" href="peygamberler.html">‹ Tüm peygamberler</a>
+    <p class="kicker" id="pKicker">Peygamberler</p>
+    <h1 class="section-title" style="max-width:760px;" id="pTitle">Yükleniyor…</h1>
+    <p class="section-body" style="max-width:660px;" id="pUnvan"></p>
+
+    <div class="prophet-stats" id="pStats"></div>
+    <div class="prophet-surah-list" id="pSurahList"></div>
+  </div>
+</header>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:820px;">
+
+    <div id="loadingMsg">Yükleniyor…</div>
+    <div id="notFoundMsg" hidden>
+      <p>Bu peygamber bulunamadı. Lütfen <a href="peygamberler.html" style="color:var(--gold-bright);">tüm peygamberler listesine</a> dönüp oradan seçin.</p>
+    </div>
+
+    <div id="pContent" hidden>
+      <span class="kaynak-etiket ayet"><span class="dot"></span>Kaynak: doğrudan Kur'an ayetleri</span>
+      <div class="prophet-body" id="pGiris"></div>
+
+      <div class="prophet-section">
+        <h2>📖 Kur'an'da Kıssası</h2>
+        <div class="prophet-body" id="pKissa"></div>
+      </div>
+
+      <div class="prophet-section">
+        <h2>Doğrudan Ayetler</h2>
+        <div id="pAyetler"></div>
+      </div>
+
+      <div class="prophet-section" id="pHadisSection">
+        <h2>🕌 Hadiste Neler Var?</h2>
+        <span class="kaynak-etiket hadis"><span class="dot"></span>Kaynak: hadis (Kur'an'da yok)</span>
+        <div class="prophet-body" id="pHadis"></div>
+      </div>
+
+      <div class="prophet-section" id="pNotSection" hidden>
+        <div class="other-figures-note" id="pNot"></div>
+      </div>
+    </div>
+
+    <div class="prophet-picker">
+      <label style="font-size:0.85rem; color:var(--muted); margin-right:10px;">Başka bir peygambere geç:</label>
+      <select id="pPicker"></select>
+    </div>
+
+    <div class="ders-nav">
+      <a class="btn-ghost-sm" id="prevBtn" href="#">‹ Önceki peygamber</a>
+      <a class="btn-ghost-sm" id="nextBtn" href="#">Sonraki peygamber ›</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Ayet metni ve meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>Geçiş sayısı, ayet ve sûre istatistikleri bu sitenin kendi Kur'an verisinden programatik olarak sayılmış, Türkçe mealle çapraz kontrol edilerek doğrulanmıştır.</span>
+      <span>Hadis bilgileri yalnızca yaygın olarak sahih kabul edilen (Buhârî, Müslim gibi) kaynaklara dayanır; İsrâiliyat kaynaklı rivayetlere bu sayfada bilerek yer verilmemiştir.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const TR_SURAH = {1:'Fâtiha',2:'Bakara',3:'Âl-i İmrân',4:'Nisâ',5:'Mâide',6:"En'âm",7:"A'râf",8:'Enfâl',9:'Tevbe',10:'Yûnus',
+  11:'Hûd',12:'Yûsuf',13:"Ra'd",14:'İbrâhim',15:'Hicr',16:'Nahl',17:'İsrâ',18:'Kehf',19:'Meryem',20:'Tâhâ',
+  21:'Enbiyâ',22:'Hac',23:"Mü'minûn",24:'Nûr',25:'Furkān',26:'Şuarâ',27:'Neml',28:'Kasas',29:'Ankebût',30:'Rûm',
+  31:'Lokmân',32:'Secde',33:'Ahzâb',34:"Sebe'",35:'Fâtır',36:'Yâsîn',37:'Sâffât',38:'Sâd',39:'Zümer',40:"Mü'min",
+  41:'Fussilet',42:'Şûrâ',43:'Zuhruf',44:'Duhân',45:'Câsiye',46:'Ahkāf',47:'Muhammed',48:'Fetih',49:'Hucurât',50:'Kāf',
+  51:'Zâriyât',52:'Tûr',53:'Necm',54:'Kamer',55:'Rahmân',56:'Vâkıa',57:'Hadîd',58:'Mücâdele',59:'Haşr',60:'Mümtehine',
+  61:'Saff',62:"Cum'a",63:'Münâfikûn',64:'Tegābün',65:'Talâk',66:'Tahrîm',67:'Mülk',68:'Kalem',69:'Hâkka',70:'Meâric',
+  71:'Nûh',72:'Cin',73:'Müzzemmil',74:'Müddessir',75:'Kıyâme',76:'İnsân',77:'Mürselât',78:"Nebe'",79:'Nâziât',80:'Abese',
+  81:'Tekvîr',82:'İnfitâr',83:'Mutaffifîn',84:'İnşikāk',85:'Bürûc',86:'Târık',87:"A'lâ",88:'Gāşiye',89:'Fecr',90:'Beled',
+  91:'Şems',92:'Leyl',93:'Duhâ',94:'İnşirâh',95:'Tîn',96:'Alak',97:'Kadir',98:'Beyyine',99:'Zilzâl',100:'Âdiyât',
+  101:'Kāria',102:'Tekâsür',103:'Asr',104:'Hümeze',105:'Fîl',106:'Kureyş',107:'Mâûn',108:'Kevser',109:'Kâfirûn',110:'Nasr',
+  111:'Tebbet',112:'İhlâs',113:'Felak',114:'Nâs'};
+
+  let ALL_PROPHETS = [];   // sıradaki 25 peygamber (ana liste)
+  let OTHER_FIGURES = [];  // Zülkarneyn, Lokmân, Üzeyir gibi tartışmalı şahsiyetler
+
+  function ayahCardHtml(a){
+    return `
+      <div class="ayah-card">
+        <p class="ayah-arabic arabic">${a.ar}</p>
+        <p class="ayah-meal">"${a.tr}."</p>
+        <p class="ayah-ref">${a.sure_adi} Sûresi, ${a.ayet_id}. Ayet · <a class="ayet-git" href="oku.html?sure=${a.sure_id}&ayet=${a.ayet_id}" style="font-size:0.76rem; color:var(--teal); text-decoration:underline;">ayete git →</a></p>
+      </div>
+    `;
+  }
+
+  function renderProphet(p, isOther){
+    document.title = `${p.isim} — Beyan`;
+    document.getElementById('pKicker').textContent = isOther ? `Kur'an'da Adı Geçen Diğer Şahsiyetler` : `Peygamberler · ${p.sira}/25`;
+    document.getElementById('pTitle').innerHTML = `Hz. <span class="grad-word">${p.isim}</span>`;
+    document.getElementById('pUnvan').textContent = p.unvan + (isOther ? '' : `  ·  Arapça: ${p.arapca}`);
+
+    document.getElementById('pStats').innerHTML = `
+      <div class="prophet-stat"><span class="num">${p.stats.gecen}</span><span class="lbl">kez adı geçiyor</span></div>
+      <div class="prophet-stat"><span class="num">${p.stats.ayet}</span><span class="lbl">ayette</span></div>
+      <div class="prophet-stat"><span class="num">${p.stats.sure}</span><span class="lbl">sûrede</span></div>
+    `;
+    document.getElementById('pSurahList').innerHTML = p.sureler.map(sid =>
+      `<span class="prophet-surah-chip">${TR_SURAH[sid] || sid}</span>`
+    ).join('');
+
+    document.getElementById('pGiris').innerHTML = p.giris;
+    document.getElementById('pKissa').innerHTML = p.kissa_html;
+    document.getElementById('pAyetler').innerHTML = p.ayetler.map(ayahCardHtml).join('');
+
+    const hadisSection = document.getElementById('pHadisSection');
+    if(p.hadis_html){
+      document.getElementById('pHadis').innerHTML = p.hadis_html;
+      hadisSection.hidden = false;
+    }else{
+      document.getElementById('pHadis').innerHTML = `<p>Bu peygamber hakkında, Kur'an'ın anlattıklarına sahih hadislerde önemli/bağımsız bir ekleme bulunmuyor — bilgilerin tamamı doğrudan Kur'an ayetlerine dayanır. (Rivayet/İsrâiliyat kaynaklı ayrıntılara, doğruluğu belirsiz olduğu için bu sayfada bilerek yer verilmedi.)</p>`;
+      hadisSection.hidden = false;
+    }
+
+    const notSection = document.getElementById('pNotSection');
+    if(p.not_html){
+      document.getElementById('pNot').innerHTML = p.not_html;
+      notSection.hidden = false;
+    }else{
+      notSection.hidden = true;
+    }
+
+    document.getElementById('loadingMsg').hidden = true;
+    document.getElementById('notFoundMsg').hidden = true;
+    document.getElementById('pContent').hidden = false;
+  }
+
+  function buildPickerAndNav(currentId, isOther){
+    const picker = document.getElementById('pPicker');
+    picker.innerHTML =
+      '<optgroup label="25 Peygamber">' +
+      ALL_PROPHETS.map(p => `<option value="${p.id}" ${p.id===currentId?'selected':''}>${p.sira}. ${p.isim}</option>`).join('') +
+      '</optgroup>' +
+      '<optgroup label="Diğer Şahsiyetler (peygamber olduğu kesin değil)">' +
+      OTHER_FIGURES.map(p => `<option value="${p.id}" ${p.id===currentId?'selected':''}>${p.isim}</option>`).join('') +
+      '</optgroup>';
+    picker.addEventListener('change', () => {
+      window.location.href = `peygamber.html?id=${picker.value}`;
+    });
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    if(isOther){
+      const idx = OTHER_FIGURES.findIndex(p => p.id === currentId);
+      if(idx > 0){ prevBtn.href = `peygamber.html?id=${OTHER_FIGURES[idx-1].id}`; } else { prevBtn.href = `peygamber.html?id=${ALL_PROPHETS[ALL_PROPHETS.length-1].id}`; }
+      if(idx < OTHER_FIGURES.length-1){ nextBtn.href = `peygamber.html?id=${OTHER_FIGURES[idx+1].id}`; } else { nextBtn.setAttribute('disabled',''); nextBtn.href='#'; }
+    }else{
+      const idx = ALL_PROPHETS.findIndex(p => p.id === currentId);
+      if(idx > 0){ prevBtn.href = `peygamber.html?id=${ALL_PROPHETS[idx-1].id}`; } else { prevBtn.setAttribute('disabled',''); prevBtn.href='#'; }
+      if(idx < ALL_PROPHETS.length-1){ nextBtn.href = `peygamber.html?id=${ALL_PROPHETS[idx+1].id}`; } else { nextBtn.href = `peygamber.html?id=${OTHER_FIGURES[0].id}`; }
+    }
+  }
+
+  async function init(){
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id') || 'adem';
+    try{
+      const data = await fetch('data/quran/peygamberler.json').then(r => r.json());
+      ALL_PROPHETS = data.peygamberler;
+      OTHER_FIGURES = data.diger_sahsiyetler;
+    }catch(e){
+      document.getElementById('loadingMsg').textContent = 'Veri yüklenemedi — bu sayfayı bir yerel sunucu üzerinden açtığınızdan emin olun.';
+      return;
+    }
+
+    let p = ALL_PROPHETS.find(x => x.id === id);
+    let isOther = false;
+    if(!p){ p = OTHER_FIGURES.find(x => x.id === id); isOther = true; }
+
+    if(!p){
+      document.getElementById('loadingMsg').hidden = true;
+      document.getElementById('notFoundMsg').hidden = false;
+      return;
+    }
+    renderProphet(p, isOther);
+    buildPickerAndNav(id, isOther);
+  }
+  init();
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

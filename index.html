@@ -408,7 +408,7 @@
       <a class="tile tile-a" href="peygamberler.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v4M8 7h8l-1 5H9L8 7Z"/><path d="M6 21c1-4 3-6 6-6s5 2 6 6"/></svg>
         <h3>Peygamberler Hayatı</h3>
-        <p>Kur'an'da adı geçen peygamberlerin kıssaları, doğrudan ilgili ayetlerle birlikte anlatılır.</p>
+        <p>Kur'an'da adı geçen 25 peygamberin tamamı — her biri kendi sayfasında, kaç kez geçtiği doğrulanmış rakamlarla ve doğrudan ayetlerle.</p>
       </a>
       <a class="tile tile-b" href="mucizeler.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
@@ -487,6 +487,14 @@
     <p class="section-body reveal" style="margin-bottom:48px;">Yorumlar meal ve tefsirin altına karışmaz; ayrı bir forum alanında, Kur'an metninden doğan ilgi çekici konular üzerine paylaşım yapılır.</p>
 
     <div class="forum-list reveal-stagger" id="forumList">
+      <div class="forum-card" data-thread="Kur'an Hakkında Müslümanların Bilmesi Gerekenler">
+        <div class="forum-icon">📖</div>
+        <div class="forum-body">
+          <h4>Kur'an Hakkında Müslümanların Bilmesi Gerekenler</h4>
+          <p>Kaç sayfa, kaç ayet? İlk vahiy nasıl indi, hangi melek getirdi, Mushaf'a dönüşü nasıl oldu?</p>
+        </div>
+        <div class="forum-meta"><span>24 yorum</span><span>·</span><span>bugün aktif</span></div>
+      </div>
       <div class="forum-card active" data-thread="Kur'an'da Adı Geçen Cennet İsimleri">
         <div class="forum-icon">🌿</div>
         <div class="forum-body">
@@ -958,13 +966,34 @@
   const forumList = document.getElementById('forumList');
   const forumThread = document.getElementById('forumThread');
   const forumThreadTitle = document.getElementById('forumThreadTitle');
+  const forumThreadBody = forumThread.querySelector('.thread');
+  const DEFAULT_THREAD_BUBBLES = forumThreadBody.innerHTML; // "Cennet İsimleri" — sayfanın orijinal örnek içeriği
+
+  // Her forum konusunun KENDİ gerçek içeriği — önceden tüm kartlar tıklanınca
+  // hep aynı ("Cennet İsimleri") baloncukları gösteriyordu, başlık değişse de içerik değişmiyordu.
+  // Kayıtlı olmayan konular (henüz doldurulmamış eski mockup'lar) yine varsayılan içeriği gösterir.
+  const FORUM_THREAD_CONTENT = {
+    "Kur'an Hakkında Müslümanların Bilmesi Gerekenler": `
+      <div class="bubble"><p class="who">bir okuyucu</p><p>İlk vahiy nasıl indi biliyor musunuz? Alak sûresinin ilk 5 ayeti, Hira mağarasında, Cebrail (a.s.) aracılığıyla Hz. Muhammed'e (40 yaşındayken) geldi. İlk kelime "İkra" — yani "Oku!"</p></div>
+      <div class="bubble right"><p class="who">bir okuyucu</p><p>Kur'an'ın Peygamber'e inişi Cebrail (er-Rûhu'l-Emîn) aracılığıyla oldu, bu bizzat Kur'an'da geçiyor: "Onu er-Rûhu'l-Emîn indirdi" (Şuarâ, 193) ve "Onu Ruhu'l-Kudüs, Rabbinden hak olarak indirdi" (Nahl, 102) — ikisi de Cebrail'e işaret eder.</p></div>
+      <div class="bubble"><p class="who">bir okuyucu</p><p>Mushaf haline gelişi de ilginç: vahiy geldikçe kâtipler yazıyor, sahabe ezberliyordu. Hz. Ebû Bekir zamanında, Yemâme Savaşı'nda çok sayıda hafız şehit olunca, Zeyd b. Sâbit başkanlığında yazılı parçalar TEK bir nüshada (suhuf) toplandı. Hz. Osman zamanında da bu nüshadan çoğaltılıp standart Mushaf'lar ana şehirlere gönderildi.</p></div>
+      <div class="bubble right"><p class="who">bir okuyucu</p><p>Sayısal bilgiler de güzel: 114 sûre, 6236 ayet, 30 cüz — bunu bu sitenin kendi verisinden saydırdım, tam tutuyor. Yaygın Medine Mushafı baskısına göre 604 sayfa. Mekke'de inen 86, Medine'de inen 28 sûre var.</p></div>
+      <div class="bubble"><p class="who">bir okuyucu</p><p>En uzun sûre 286 ayetle Bakara; en kısa ise 3'er ayetle Asr, Kevser ve Nasr — üçü de eşit, sadece Kevser'i bilmek yeterli değilmiş meğer! Vahiy toplam yaklaşık 23 yıl sürmüş (610-632).</p></div>
+    `,
+  };
+
+  function renderThread(threadTitle){
+    forumThreadTitle.textContent = threadTitle;
+    forumThreadBody.innerHTML = FORUM_THREAD_CONTENT[threadTitle] || DEFAULT_THREAD_BUBBLES;
+  }
+
   // Event delegation: sonradan eklenen (kullanıcının önerdiği) kartlar için de çalışır
   forumList.addEventListener('click', (e) => {
     const card = e.target.closest('.forum-card');
     if(!card) return;
     forumList.querySelectorAll('.forum-card').forEach(c => c.classList.remove('active'));
     card.classList.add('active');
-    forumThreadTitle.textContent = card.dataset.thread;
+    renderThread(card.dataset.thread);
     forumThread.classList.add('open');
     forumThread.scrollIntoView({behavior:'smooth', block:'nearest'});
   });

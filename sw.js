@@ -29,6 +29,7 @@ const PRECACHE_URLS = [
   'isimler.html',
   'namaz.html',
   'peygamberler.html',
+  'peygamber.html',
   'mucizeler.html',
   'bilim.html',
   'bayramlar.html',

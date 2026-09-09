@@ -17,12 +17,36 @@
 })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peygamberler Hayatı — Beyan</title>
-<meta name="description" content="Kur'an'da adı geçen peygamberlerin kıssaları, ilgili ayetlerle.">
+<title>Peygamberler — Beyan</title>
+<meta name="description" content="Kur'an'da adı geçen 25 peygamberin tamamı — her biri kaç kez, hangi sûrelerde geçtiği doğrulanmış rakamlarla, kendi sayfasında ayrıntılı kıssasıyla.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .prophet-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px;}
+  @media (max-width:900px){ .prophet-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .prophet-grid{grid-template-columns:1fr;} }
+  .prophet-card{
+    display:block; text-decoration:none; border:1px solid var(--border-soft); border-radius:14px; padding:22px 22px;
+    background:var(--glass); backdrop-filter:blur(10px); transition:border-color .25s, transform .2s;
+  }
+  .prophet-card:hover{border-color:var(--border); transform:translateY(-3px);}
+  .prophet-card .pc-top{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;}
+  .prophet-card .pc-num{font-size:0.72rem; color:var(--muted-2);}
+  .prophet-card h3{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.25rem; margin:0 0 6px; color:var(--text);}
+  .prophet-card .pc-arabic{font-family:'Amiri',serif; direction:rtl; color:var(--gold-bright); font-size:1.1rem; margin-bottom:8px; display:block;}
+  .prophet-card .pc-unvan{font-size:0.82rem; color:var(--muted); line-height:1.6; margin-bottom:12px; min-height:2.6em;}
+  .prophet-card .pc-stats{display:flex; gap:14px; font-size:0.74rem; color:var(--muted-2); border-top:1px solid var(--border-soft); padding-top:10px;}
+  .prophet-card .pc-stats b{color:var(--gold-bright); font-weight:500;}
+
+  .other-section{margin-top:64px; padding-top:44px; border-top:1px solid var(--border-soft);}
+  .search-box{margin-bottom:28px;}
+  .search-box input{
+    width:100%; max-width:420px; background:var(--glass-strong); color:var(--text); border:1px solid var(--border-soft);
+    border-radius:20px; padding:11px 18px; font-size:0.9rem; font-family:inherit;
+  }
+</style>
 </head>
 <body>
 
@@ -55,55 +79,26 @@
   <div class="wrap">
     <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
     <p class="kicker">Konular</p>
-    <h1 class="section-title" style="max-width:760px;">Kur'an'da <span class="grad-word">Peygamberler</span></h1>
-    <p class="section-body" style="max-width:640px;">Kur'an'da adı geçen peygamberlerden birkaçının kıssası, doğrudan ilgili ayetle birlikte. Rivayet değil, ayetin kendisi.</p>
+    <h1 class="section-title" style="max-width:760px;">Kur'an'da Adı Geçen <span class="grad-word">25 Peygamber</span></h1>
+    <p class="section-body" style="max-width:660px;">Kur'an'da ismen anılan peygamberlerin <strong style="color:var(--text);">tamamı</strong> — her birinin kendi sayfasında: kaç kez, hangi sûrelerde geçtiği (bu sitenin kendi verisinden sayılıp doğrulanmış), kıssası doğrudan ayetlerle, hadis bilgisi Kur'an'dan ayrı ve açıkça etiketlenerek.</p>
   </div>
 </header>
-<section><div class="wrap">
-      <div class="ayah-card">
-        <h4>Âdem</h4>
-        <p class="ayah-arabic arabic">وَعَلَّمَ ءَادَمَ ٱلۡأَسۡمَآءَ كُلَّهَا ثُمَّ عَرَضَهُمۡ عَلَى ٱلۡمَلَـٰٓئِكَةِ فَقَالَ أَنۢبِـُٔونِي بِأَسۡمَآءِ هَـٰٓؤُلَآءِ إِن كُنتُمۡ صَٰدِقِينَ</p>
-        <p class="ayah-meal">Ve Adem'e bütün isimleri öğretti, sonra eşyayı meleklere gösterdi. "Eğer sözünüzde samimi iseniz bunların isimlerini bana söyleyin" dedi.</p>
-        <p class="ayah-ref">Bakara Sûresi, 31. Ayet</p>
-      </div>
-      <div class="ayah-card">
-        <h4>Nûh</h4>
-        <p class="ayah-arabic arabic">إِنَّآ أَرۡسَلۡنَا نُوحًا إِلَىٰ قَوۡمِهِۦٓ أَنۡ أَنذِرۡ قَوۡمَكَ مِن قَبۡلِ أَن يَأۡتِيَهُمۡ عَذَابٌ أَلِيمٞ</p>
-        <p class="ayah-meal">Milletine can yakıcı bir azap gelmezden önce onları uyar, diye Nûh'u milletine gönderdik.</p>
-        <p class="ayah-ref">Nûh Sûresi, 1. Ayet</p>
-      </div>
-      <div class="ayah-card">
-        <h4>İbrahim</h4>
-        <p class="ayah-arabic arabic">قُلۡنَا يَٰنَارُ كُونِي بَرۡدٗا وَسَلَٰمًا عَلَىٰٓ إِبۡرَٰهِيمَ</p>
-        <p class="ayah-meal">Biz: "Ey ateş! İbrahim'e karşı serin ve zararsız ol" dedik.</p>
-        <p class="ayah-ref">Enbiyâ Sûresi, 69. Ayet</p>
-      </div>
-      <div class="ayah-card">
-        <h4>Yûsuf</h4>
-        <p class="ayah-arabic arabic">إِذۡ قَالَ يُوسُفُ لِأَبِيهِ يَـٰٓأَبَتِ إِنِّي رَأَيۡتُ أَحَدَ عَشَرَ كَوۡكَبٗا وَٱلشَّمۡسَ وَٱلۡقَمَرَ رَأَيۡتُهُمۡ لِي سَٰجِدِينَ</p>
-        <p class="ayah-meal">Yûsuf babasına: "Babacığım! Rüyamda onbir yıldız, güneş ve ayın bana secde ettiklerini gördüm" demişti.</p>
-        <p class="ayah-ref">Yûsuf Sûresi, 4. Ayet</p>
-      </div>
-      <div class="ayah-card">
-        <h4>Mûsâ</h4>
-        <p class="ayah-arabic arabic">وَأَوۡحَيۡنَآ إِلَىٰٓ أُمِّ مُوسَىٰٓ أَنۡ أَرۡضِعِيهِۖ فَإِذَا خِفۡتِ عَلَيۡهِ فَأَلۡقِيهِ فِي ٱلۡيَمِّ وَلَا تَخَافِي وَلَا تَحۡزَنِيٓۖ إِنَّا رَآدُّوهُ إِلَيۡكِ وَجَاعِلُوهُ مِنَ ٱلۡمُرۡسَلِينَ</p>
-        <p class="ayah-meal">Mûsâ'nın annesine: "Çocuğu emzir, başına gelecekten korktuğun zaman onu suya bırak; korkma, üzülme; Biz şüphesiz onu sana döndüreceğiz ve peygamber yapacağız" diye bildirmiştik.</p>
-        <p class="ayah-ref">Kasas Sûresi, 7. Ayet</p>
-      </div>
-      <div class="ayah-card">
-        <h4>Meryem</h4>
-        <p class="ayah-arabic arabic">قَالَتۡ أَنَّىٰ يَكُونُ لِي غُلَٰمٞ وَلَمۡ يَمۡسَسۡنِي بَشَرٞ وَلَمۡ أَكُ بَغِيّٗا</p>
-        <p class="ayah-meal">Meryem: "Bana bir insan temas etmemişken, ben kötü kadın da olmadığım halde nasıl oğlum olabilir?" dedi.</p>
-        <p class="ayah-ref">Meryem Sûresi, 20. Ayet</p>
-      </div>
-      <div class="ayah-card">
-        <h4>Muhammed</h4>
-        <p class="ayah-arabic arabic">مَّا كَانَ مُحَمَّدٌ أَبَآ أَحَدٖ مِّن رِّجَالِكُمۡ وَلَٰكِن رَّسُولَ ٱللَّهِ وَخَاتَمَ ٱلنَّبِيِّـۧنَۗ وَكَانَ ٱللَّهُ بِكُلِّ شَيۡءٍ عَلِيمٗا</p>
-        <p class="ayah-meal">Muhammed içinizden herhangi bir adamın babası değil, Allah'ın elçisi ve peygamberlerin sonuncusudur. Allah her şeyi bilendir.</p>
-        <p class="ayah-ref">Ahzâb Sûresi, 40. Ayet</p>
-      </div>
-  <div class="topic-note">Bu sayfa, Kur'an'da adı geçen yirmi küsur peygamberden yalnızca birkaçını örnekliyor. Zamanla diğer peygamberler (Dâvûd, Süleyman, Yûnus, Zekeriyya, Yahya, İsa ve diğerleri) de eklenecek.</div>
-</div></section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Bir peygamber ara (ör. Yûsuf, Mûsâ, İdris)…">
+    </div>
+    <div class="prophet-grid" id="prophetGrid"></div>
+
+    <div class="other-section">
+      <p class="kicker">Ayrıca Kur'an'da geçen</p>
+      <h2 class="section-title" style="max-width:700px; margin-bottom:14px;">Peygamber olduğu <span class="grad-word">kesin belirtilmeyen</span> şahsiyetler</h2>
+      <p class="section-body" style="max-width:640px; margin-bottom:28px;">Zülkarneyn, Lokmân ve Üzeyir Kur'an'da adı geçen önemli isimlerdir, ama Kur'an hiçbirini açıkça "peygamber/nebî" olarak nitelemez — bu yüzden yukarıdaki 25'in dışında, ayrı bir başlıkta tutuluyorlar.</p>
+      <div class="prophet-grid" id="otherGrid"></div>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap">
@@ -127,14 +122,68 @@
       </div>
     </div>
     <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
-      <span>Kur'an metni ve Türkçe meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> (Arapça aslı QuranEnc.com, harf çevirisi Tanzil.net, meal Diyanet kaynaklı) — CC BY-SA 4.0 lisansı ile; atıf zorunlu ve bu veriyle üretilen türev de aynı lisansla paylaşılmalıdır.</span>
-      <span>Tefsir örnekleri: <a href="https://github.com/spa5k/tafsir_api" style="color:var(--muted); text-decoration:underline;">spa5k/tafsir_api</a> (qul.tarteel.ai üzerinden) — her tefsirin telif durumu kendi orijinal kaynağına tabidir.</span>
+      <span>Ayet metni ve Türkçe meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>Geçiş sayısı, ayet ve sûre istatistikleri bu sitenin kendi Kur'an verisinden programatik olarak sayılmış, Türkçe mealle çapraz kontrol edilerek doğrulanmıştır.</span>
       <span>© Beyan</span>
     </div>
   </div>
 </footer>
 
+<script>
+  function cardHtml(p, isOther){
+    return `
+      <a class="prophet-card" href="peygamber.html?id=${p.id}">
+        <div class="pc-top"><span class="pc-num">${isOther ? '' : (p.sira + '. Peygamber')}</span></div>
+        <span class="pc-arabic">${p.arapca}</span>
+        <h3>${p.isim}</h3>
+        <p class="pc-unvan">${p.unvan}</p>
+        <div class="pc-stats">
+          <span><b>${p.stats.gecen}</b> kez</span>
+          <span><b>${p.stats.ayet}</b> ayet</span>
+          <span><b>${p.stats.sure}</b> sûre</span>
+        </div>
+      </a>
+    `;
+  }
 
+  let PROPHETS = [], OTHERS = [];
+
+  async function init(){
+    try{
+      const data = await fetch('data/quran/peygamberler.json').then(r => r.json());
+      PROPHETS = data.peygamberler;
+      OTHERS = data.diger_sahsiyetler;
+    }catch(e){
+      document.getElementById('prophetGrid').innerHTML = '<p style="color:var(--muted-2);">Veri yüklenemedi — bu sayfayı bir yerel sunucu üzerinden açtığınızdan emin olun.</p>';
+      return;
+    }
+    renderGrids(PROPHETS, OTHERS);
+
+    // Türkçe'ye özgü büyük/küçük harf normalizasyonu — tarayıcıların
+    // toLocaleLowerCase('tr-TR') uygulaması İ/I harflerinde tutarsız
+    // davranabildiği için (bazı ayarlarda "İ" -> "i" yerine birleşik
+    // noktalı bir karaktere dönüşüyor), kendi basit eşlememizi kullanıyoruz.
+    // Ayrıca inceltme işaretlerini (â/î/û gibi) sadeleştiriyoruz ki
+    // "Idris" yazan biri de düzeltme işaretli "İdrîs" ismini bulabilsin.
+    function trLower(s){
+      return s.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase()
+        .replace(/[âaà]/g, 'a').replace(/[îiìı]/g, 'i').replace(/[ûuù]/g, 'u');
+    }
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const q = trLower(e.target.value.trim());
+      if(!q){ renderGrids(PROPHETS, OTHERS); return; }
+      const filt = arr => arr.filter(p => trLower(p.isim).includes(q) || trLower(p.unvan).includes(q));
+      renderGrids(filt(PROPHETS), filt(OTHERS));
+    });
+  }
+
+  function renderGrids(prophets, others){
+    document.getElementById('prophetGrid').innerHTML = prophets.map(p => cardHtml(p, false)).join('') || '<p style="color:var(--muted-2);">Sonuç bulunamadı.</p>';
+    document.getElementById('otherGrid').innerHTML = others.map(p => cardHtml(p, true)).join('');
+  }
+
+  init();
+</script>
 <script>
 (function(){
   var toggle = document.getElementById('themeToggle');
