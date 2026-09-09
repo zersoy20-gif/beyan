@@ -122,7 +122,9 @@ Diyanet dışında **8 farklı Türkçe meal** — her biri `{"sûre:ayet": "met
 
 ## `/quran/gunun-ayeti.json`
 
-Ana sayfadaki "Günün Ayeti" widget'ı için **27 elle seçilmiş, bağlamından kopuk olmayan** ayet (Bakara 286, İhlas sûresi tamamı, Asr sûresi tamamı, Ayetel Kürsî'nin bir kısmı vb.). Rastgele 6236 ayetten seçmek yerine küratörlü liste kullanıldı çünkü pek çok ayet (örn. bir öncekine bağlı zamir/bağlaç) tek başına anlamsız kalıyor.
+Ana sayfadaki "Günlük Bülten"in "Günün Ayeti" kartı için **27 elle seçilmiş, bağlamından kopuk olmayan** ayet (Bakara 286, İhlas sûresi tamamı, Asr sûresi tamamı, Ayetel Kürsî'nin bir kısmı vb.). Rastgele 6236 ayetten seçmek yerine küratörlü liste kullanıldı çünkü pek çok ayet (örn. bir öncekine bağlı zamir/bağlaç) tek başına anlamsız kalıyor.
+
+- **`not` alanı (2026-09-10 eklendi):** Her kayda, ayetin doğrudan içeriğine dayanan, 2-3 cümlelik kısa bir düşündürücü not eklendi. Bu notlar **yorum/tefekkür** niteliğindedir — tartışmalı fıkhî/itikadî hüküm içermez, doğrulanamayan bir tarihsel iddiada (esbâb-ı nüzul gibi) bulunmaz; bir yerde bir söz birine atfedildiyse ("İmam Şâfiî'ye atfedilen bir söze göre" gibi) bu açıkça belirtilir, kesin bir alıntı olarak sunulmaz.
 
 ## `/quran/isimler.json`
 

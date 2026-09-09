@@ -107,6 +107,60 @@
   </header>
 </div>
 
+<!-- ---- Günlük Bülten ----
+     Nav ile peygamber-isimleri şeridi (.marquee-band) arasına, kullanıcının
+     isteğiyle yerleştirilen, her gün otomatik güncellenen küçük bülten kartı.
+     4 bölüm: Günün Ayeti (eski .votd-band'in yerini alıyor, artık ayrı
+     gösterilmiyor — kısa düşündürücü notla birlikte tek yerde), Bugün Forumda
+     (mevcut 13 forum konusundan güne göre biri), Biliyor muydunuz? (doğrulanmış
+     Kur'an istatistikleri), Hicrî Takvim (hesaplanmış tarih + yaklaşan mübarek
+     güne geri sayım). Üstte ayrıca salt-okunur bir okuma serisi (streak)
+     rozeti var — oku.html'deki GERÇEK seriyi günceller, burada sadece gösterir. -->
+<section class="daily-bulletin" id="dailyBulletin">
+  <div class="wrap">
+    <div class="bulletin-head">
+      <div class="bulletin-head-text">
+        <p class="kicker">İkra Kur'an Günlük</p>
+        <h2 class="bulletin-title">Günlük Bülten</h2>
+      </div>
+      <div class="bulletin-meta">
+        <span class="bulletin-date" id="bulletinDate"></span>
+        <a class="bulletin-streak" id="bulletinStreak" href="oku.html"></a>
+      </div>
+    </div>
+    <div class="bulletin-grid reveal-stagger">
+      <article class="bulletin-card bulletin-ayah">
+        <h3><span class="bulletin-icon">📖</span> Günün Ayeti</h3>
+        <p class="bulletin-arabic arabic" id="bulletinAyahArabic">…</p>
+        <p class="bulletin-ayah-meal" id="bulletinAyahMeal">Yükleniyor…</p>
+        <p class="bulletin-ayah-note" id="bulletinAyahNote"></p>
+        <div class="bulletin-card-foot">
+          <span class="bulletin-ayah-ref" id="bulletinAyahRef"></span>
+          <a class="bulletin-link" id="bulletinAyahLink" href="oku.html">Bu ayetten oku →</a>
+        </div>
+      </article>
+      <article class="bulletin-card bulletin-forum">
+        <h3><span class="bulletin-icon">💬</span> Bugün Forumda</h3>
+        <div class="bulletin-forum-body" id="bulletinForumBody">Yükleniyor…</div>
+        <div class="bulletin-card-foot">
+          <span class="bulletin-forum-meta" id="bulletinForumMeta"></span>
+          <a class="bulletin-link" id="bulletinForumLink" href="#sosyal">Foruma katıl →</a>
+        </div>
+      </article>
+      <article class="bulletin-card bulletin-trivia">
+        <h3><span class="bulletin-icon">💡</span> Biliyor muydunuz?</h3>
+        <p class="bulletin-trivia-text" id="bulletinTrivia">Yükleniyor…</p>
+      </article>
+      <article class="bulletin-card bulletin-hijri">
+        <h3><span class="bulletin-icon">🌙</span> Hicrî Takvim</h3>
+        <p class="bulletin-hijri-date" id="bulletinHijriDate">Yükleniyor…</p>
+        <p class="bulletin-hijri-countdown" id="bulletinHijriCountdown"></p>
+        <p class="bulletin-hijri-note">Hesaplanmış tahmini tarihtir; resmi/gözleme dayalı takvimden 1-2 gün farklı olabilir.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <div class="marquee-band">
   <div class="marquee-track">
     <span><i>۞</i> Âdem</span><span><i>۞</i> Nûh</span><span><i>۞</i> İbrahim</span><span><i>۞</i> Yûsuf</span>
@@ -114,21 +168,6 @@
     <span><i>۞</i> Zekeriyya</span><span><i>۞</i> Yahya</span><span><i>۞</i> İsa</span><span><i>۞</i> Muhammed</span>
     <span><i>۞</i> Âdem</span><span><i>۞</i> Nûh</span><span><i>۞</i> İbrahim</span><span><i>۞</i> Yûsuf</span>
     <span><i>۞</i> Mûsâ</span><span><i>۞</i> Dâvûd</span><span><i>۞</i> Süleyman</span><span><i>۞</i> Yûnus</span>
-  </div>
-</div>
-
-<div class="votd-band">
-  <div class="wrap votd-inner">
-    <div class="votd-label">
-      <span class="votd-kicker">Bugün</span>
-      <span class="votd-title">Günün Ayeti</span>
-    </div>
-    <div class="votd-content">
-      <p class="votd-arabic arabic" id="votdArabic">…</p>
-      <p class="votd-meal" id="votdMeal">Yükleniyor…</p>
-      <p class="votd-ref" id="votdRef"></p>
-    </div>
-    <a class="votd-link" id="votdLink" href="oku.html">Bu ayetten oku →</a>
   </div>
 </div>
 
@@ -722,21 +761,165 @@
   }
   loadRealQuranData();
 
-  /* ---- Günün Ayeti: küratörlü listeden, güne göre sabit bir seçim ---- */
+  /* ==== Günlük Bülten: nav ile peygamber isimleri şeridi arasındaki kart ====
+     Tüm alt bölümler AYNI "dayOfYear" değerine göre seçiliyor — böylece
+     "Günün Ayeti" ile buradaki diğer bölümler her gün birlikte, tutarlı
+     şekilde değişiyor (eski ayrı .votd-band ile birebir aynı gün-seçim
+     mantığı: Math.floor((şimdi - yılbaşı) / gün)). */
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+
+  (function renderBulletinDate(){
+    const el = document.getElementById('bulletinDate');
+    if(!el) return;
+    try{
+      el.textContent = new Intl.DateTimeFormat('tr-TR', { day:'numeric', month:'long', year:'numeric' }).format(new Date());
+    }catch(e){ el.textContent = new Date().toLocaleDateString(); }
+  })();
+
+  /* ---- 1) Günün Ayeti + kısa düşündürücü not (eski .votd-band'in yerini alıyor) ---- */
   async function loadVerseOfTheDay(){
     try{
       const list = await fetch('data/quran/gunun-ayeti.json').then(r => r.json());
-      const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
       const item = list[dayOfYear % list.length];
-      document.getElementById('votdArabic').textContent = item.arabic;
-      document.getElementById('votdMeal').textContent = item.meal;
-      document.getElementById('votdRef').textContent = `${item.surahName} Sûresi, ${item.ayah}. Ayet`;
-      document.getElementById('votdLink').href = `oku.html?sure=${item.surah}&ayet=${item.ayah}`;
+      document.getElementById('bulletinAyahArabic').textContent = item.arabic;
+      document.getElementById('bulletinAyahMeal').textContent = `"${item.meal}"`;
+      document.getElementById('bulletinAyahNote').textContent = item.not || '';
+      document.getElementById('bulletinAyahRef').textContent = `${item.surahName} Sûresi, ${item.ayah}. Ayet`;
+      document.getElementById('bulletinAyahLink').href = `oku.html?sure=${item.surah}&ayet=${item.ayah}`;
     }catch(err){
       console.info('Günün ayeti yüklenemedi:', err.message);
     }
   }
   loadVerseOfTheDay();
+
+  /* ---- 2) Bugün Forumda: mevcut 13 forum konusundan güne göre biri ----
+     Veri TEKRAR YAZILMIYOR — doğrudan #forumList'teki gerçek kartlardan
+     okunuyor, "Foruma katıl" tıklanınca o kartın kendi click-delegasyonu
+     (aşağıda forumList.addEventListener ile tanımlı) tetiklenip aynı
+     içerik açılıyor. */
+  function renderBulletinForum(){
+    const cards = document.querySelectorAll('#forumList .forum-card');
+    const linkEl = document.getElementById('bulletinForumLink');
+    if(!cards.length || !linkEl) return;
+    const card = cards[dayOfYear % cards.length];
+    const icon = card.querySelector('.forum-icon')?.textContent || '💬';
+    const title = card.querySelector('h4')?.textContent || card.dataset.thread || '';
+    const teaser = card.querySelector('.forum-body p')?.textContent || '';
+    const metaText = Array.from(card.querySelectorAll('.forum-meta span')).map(s => s.textContent).join(' ');
+    document.getElementById('bulletinForumBody').innerHTML =
+      `<span class="bulletin-forum-icon">${icon}</span><div><strong>${title}</strong><p>${teaser}</p></div>`;
+    document.getElementById('bulletinForumMeta').textContent = metaText;
+    linkEl.addEventListener('click', (e) => {
+      e.preventDefault();
+      card.click();
+      document.getElementById('sosyal').scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+  renderBulletinForum();
+
+  /* ---- 3) Biliyor muydunuz?: sitenin KENDİ verisinden hesaplanmış istatistikler ----
+     Hiçbir sayı ezbere/hatırlanarak yazılmadı — kök sayıları data/quran/roots-index.json'dan
+     (bu oturumda daha önce çapraz doğrulanmıştı), peygamber sayısı data/quran/peygamberler.json'dan,
+     diğerleri (en uzun/kısa ayet, besmele, Meryem) quran-arabic.json üzerinde çalıştırılan ayrı
+     bir Python betiğiyle bizzat sayılıp doğrulandı (bkz. commit notu). */
+  const QURAN_TRIVIA = [
+    'Kur\'an\'da "صبر" (sabır) kökü tam 93 kez geçer.',
+    'Kur\'an\'da "صلو" (namaz/salât) kökü 90 kez geçer.',
+    'Kur\'an\'da "رحم" (rahmet) kökü 313 kez geçer — Kur\'an\'ın en sık tekrarlanan köklerinden biridir.',
+    'Kur\'an\'da "حمد" (hamd/övgü) kökü 66 kez geçer.',
+    'Kur\'an\'da "علم" (ilim) kökü 728 kez geçer — en sık geçen köklerden biridir.',
+    'Kur\'an\'da "ذكر" (zikir/anma) kökü 264 kez geçer.',
+    'Kur\'an\'da "هدي" (hidayet) kökü 268 kez geçer.',
+    'Kur\'an\'ın en uzun ayeti Bakara sûresinin 282. ayetidir ("Deyn/Borç" ayeti) — 128 kelimeden oluşur.',
+    'Kur\'an\'ın en kısa ayeti Bakara sûresinin 1. ayetidir: tek bir kelimeden oluşan "Elif-Lâm-Mîm" (hurûf-ı mukattaa).',
+    'Asr, Kevser ve Nasr sûreleri, Kur\'an\'ın en kısa sûreleridir — üçü de sadece 3\'er ayetten oluşur.',
+    'Besmele Kur\'an\'da toplam 114 kez yer alır: 113 sûrenin başında (Tevbe sûresi hariç) + Neml sûresinin 30. ayetinde (Süleyman\'ın mektubunun içinde) bir kez daha.',
+    'Kur\'an\'da adı en çok geçen peygamber Mûsâ\'dır (a.s.) — 136 kez, 131 ayette, 34 farklı sûrede.',
+    'Kur\'an\'da adıyla anılan tek kadın Meryem\'dir — adı 34 kez, 12 farklı sûrede geçer ve kendi adına bir sûre (19. sûre) vardır.',
+    'Kur\'an 114 sûre, 6.236 ayetten oluşur ve okuma kolaylığı için 30 cüze ayrılmıştır.',
+  ];
+  (function renderBulletinTrivia(){
+    const el = document.getElementById('bulletinTrivia');
+    if(el) el.textContent = QURAN_TRIVIA[dayOfYear % QURAN_TRIVIA.length];
+  })();
+
+  /* ---- 4) Hicrî Takvim + yaklaşan mübarek güne geri sayım ----
+     Kuwaiti/tabular Hicri algoritması (astronomik gözlem DEĞİL, hesaplanmış/
+     tahmini bir takvim) kullanılıyor — bilinen 3 referans noktasıyla (Hicri
+     epok 1/1/1 = 19 Temmuz 622; 1 Muharrem 1447 ≈ 27 Haziran 2025; 1 Ramazan
+     1447 ≈ 18 Şubat 2026) çapraz doğrulandı. Yine de resmi/gözleme dayalı
+     takvimden 1-2 gün farklı çıkabileceği kart içinde AÇIKÇA belirtiliyor. */
+  function gregorianToJDN(gy, gm, gd){
+    const a = Math.floor((14 - gm) / 12);
+    const y = gy + 4800 - a;
+    const m = gm + 12 * a - 3;
+    return gd + Math.floor((153 * m + 2) / 5) + 365 * y + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400) - 32045;
+  }
+  function gregorianToHijri(gy, gm, gd){
+    const jd = gregorianToJDN(gy, gm, gd);
+    let l = jd - 1948440 + 10632;
+    const n = Math.floor((l - 1) / 10631);
+    l = l - 10631 * n + 354;
+    const j = Math.floor((10985 - l) / 5316) * Math.floor((50 * l) / 17719) + Math.floor(l / 5670) * Math.floor((43 * l) / 15238);
+    l = l - Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) - Math.floor(j / 16) * Math.floor((15238 * j) / 43) + 29;
+    const hm = Math.floor((24 * l) / 709);
+    const hd = l - Math.floor((709 * hm) / 24);
+    const hy = 30 * n + j - 30;
+    return { year: hy, month: hm, day: hd };
+  }
+  const HIJRI_AYLAR = ['Muharrem','Safer','Rebîülevvel','Rebîülâhir','Cemâziyelevvel','Cemâziyelâhir','Receb','Şaban','Ramazan','Şevval','Zilkade','Zilhicce'];
+  const MUBAREK_GUNLER = [
+    { ad: 'Hicrî Yılbaşı', tamlama: "Hicrî Yılbaşı'na", ay: 1, gun: 1 },
+    { ad: 'Aşure Günü', tamlama: "Aşure Günü'ne", ay: 1, gun: 10 },
+    { ad: 'Mevlid Kandili', tamlama: "Mevlid Kandili'ne", ay: 3, gun: 12 },
+    { ad: 'Mirac Kandili', tamlama: "Mirac Kandili'ne", ay: 7, gun: 27 },
+    { ad: 'Berat Kandili', tamlama: "Berat Kandili'ne", ay: 8, gun: 15 },
+    { ad: 'Ramazan Başlangıcı', tamlama: "Ramazan Başlangıcı'na", ay: 9, gun: 1 },
+    { ad: 'Ramazan (Şeker) Bayramı', tamlama: "Ramazan (Şeker) Bayramı'na", ay: 10, gun: 1 },
+    { ad: 'Kurban Bayramı', tamlama: "Kurban Bayramı'na", ay: 12, gun: 10 },
+  ];
+  function renderBulletinHijri(){
+    const today = new Date();
+    const h = gregorianToHijri(today.getFullYear(), today.getMonth() + 1, today.getDate());
+    const dateEl = document.getElementById('bulletinHijriDate');
+    if(dateEl) dateEl.textContent = `${h.day} ${HIJRI_AYLAR[h.month - 1]} ${h.year}`;
+
+    // En yakın mübarek günü, bugünden itibaren gün gün ileri tarayarak bulur
+    // (ters formül yerine bilinçli olarak bu daha basit/hataya dayanıklı yöntem seçildi).
+    const cursor = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    let found = null;
+    for(let i = 0; i <= 400; i++){
+      const hh = gregorianToHijri(cursor.getFullYear(), cursor.getMonth() + 1, cursor.getDate());
+      const match = MUBAREK_GUNLER.find(m => m.ay === hh.month && m.gun === hh.day);
+      if(match){ found = { ad: match.ad, tamlama: match.tamlama, gun: i }; break; }
+      cursor.setDate(cursor.getDate() + 1);
+    }
+    const cdEl = document.getElementById('bulletinHijriCountdown');
+    if(cdEl && found) cdEl.textContent = found.gun === 0 ? `🎉 Bugün: ${found.ad}` : `${found.tamlama} ${found.gun} gün`;
+  }
+  renderBulletinHijri();
+
+  /* ---- 5) Okuma serisi rozeti: SALT OKUNUR ----
+     oku.html'deki GERÇEK okuma serisini (beyan-reading-streak) sadece okuyup
+     gösterir, ASLA YAZMAZ — ana sayfayı ziyaret etmek seriyi artırmaz, sadece
+     gerçekten "Kur'an'ı Oku"dan okumak artırır (bkz. oku.html'deki updateStreak()). */
+  (function renderBulletinStreak(){
+    const el = document.getElementById('bulletinStreak');
+    if(!el) return;
+    let data;
+    try{ data = JSON.parse(localStorage.getItem('beyan-reading-streak') || 'null'); }catch(e){ data = null; }
+    const today = new Date().toISOString().slice(0, 10);
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    if(data && data.lastDate === today && data.streak > 1){
+      el.textContent = `🔥 ${data.streak} gündür üst üste okuyorsunuz`;
+    }else if(data && data.lastDate === today){
+      el.textContent = '🔥 Bugün okudunuz, harika başlangıç!';
+    }else if(data && data.lastDate === yesterday && data.streak > 0){
+      el.textContent = `🔥 ${data.streak} gün üst üste okudunuz — bugün de okuyarak sürdürün →`;
+    }else{
+      el.textContent = 'Henüz bugün okumadınız — okumaya başlayın →';
+    }
+  })();
 
   /* ---- Notlarım: localStorage tabanlı kalıcı not defteri ---- */
   const NOTES_KEY = 'beyan-notes-v1';
