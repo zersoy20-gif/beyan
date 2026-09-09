@@ -18,7 +18,7 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>İlmihal — Beyan</title>
-<meta name="description" content="İlmihal nedir, kim geliştirmiştir, ne işe yarar? İman esasları, temizlik, namaz, oruç, zekât, hac ve İslam ahlakının temel bilgileri — her başlıkta kaynağın ayet mi, hadis/fıkıh mı olduğu açıkça belirtilir.">
+<meta name="description" content="İlmihal nedir, kim geliştirmiştir, ne işe yarar? Ahkâm-ı şer'iyye (farz-vacip-sünnet), iman esasları, temizlik, namaz, oruç, zekât, hac, İslam ahlakı ve Otuz İki Farz — her başlıkta kaynağın ayet mi, hadis/fıkıh mı olduğu açıkça belirtilir.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -97,7 +97,7 @@
     <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
     <p class="kicker">İlmihal</p>
     <h1 class="section-title" style="max-width:760px;">Bir Müslümanın <span class="grad-word">bilmesi gerekenler</span></h1>
-    <p class="section-body" style="max-width:660px;">İman esasları, temizlik, namaz, oruç, zekât, hac ve İslam ahlakının temel bilgileri — sade bir dille, kaynağının ayet mi yoksa hadis/fıkıh mı olduğu her başlıkta açıkça belirtilerek.</p>
+    <p class="section-body" style="max-width:660px;">Ahkâm-ı şer'iyye, iman esasları, temizlik, namaz, oruç, zekât, hac, İslam ahlakı ve geleneksel "Otuz İki Farz" derlemesi — sade bir dille, kaynağının ayet mi yoksa hadis/fıkıh mı olduğu her başlıkta açıkça belirtilerek.</p>
   </div>
 </header>
 
@@ -127,17 +127,50 @@
     </div>
 
     <div class="ilmihal-tabs" id="ilmihalTabs">
-      <button class="ilmihal-tab-btn active" data-tab="iman">1. İman Esasları</button>
-      <button class="ilmihal-tab-btn" data-tab="taharet">2. Temizlik</button>
-      <button class="ilmihal-tab-btn" data-tab="namaz">3. Namaz</button>
-      <button class="ilmihal-tab-btn" data-tab="oruc">4. Oruç</button>
-      <button class="ilmihal-tab-btn" data-tab="zekat">5. Zekât</button>
-      <button class="ilmihal-tab-btn" data-tab="hac">6. Hac ve Umre</button>
-      <button class="ilmihal-tab-btn" data-tab="ahlak">7. Ahlak</button>
+      <button class="ilmihal-tab-btn active" data-tab="ahkam">1. Ahkâm-ı Şer'iyye</button>
+      <button class="ilmihal-tab-btn" data-tab="iman">2. İman Esasları</button>
+      <button class="ilmihal-tab-btn" data-tab="taharet">3. Temizlik</button>
+      <button class="ilmihal-tab-btn" data-tab="namaz">4. Namaz</button>
+      <button class="ilmihal-tab-btn" data-tab="oruc">5. Oruç</button>
+      <button class="ilmihal-tab-btn" data-tab="zekat">6. Zekât</button>
+      <button class="ilmihal-tab-btn" data-tab="hac">7. Hac ve Umre</button>
+      <button class="ilmihal-tab-btn" data-tab="ahlak">8. Ahlak</button>
+      <button class="ilmihal-tab-btn" data-tab="otuzikifarz">9. Otuz İki Farz</button>
     </div>
 
-    <!-- 1. İMAN ESASLARI -->
-    <div class="ilmihal-panel active" data-panel="iman">
+    <!-- 1. AHKÂM-I ŞER'İYYE (TEKLİFİ HÜKÜMLER) -->
+    <div class="ilmihal-panel active" data-panel="ahkam">
+      <span class="kaynak-etiket fikih"><span class="dot"></span>Fıkıh usulü (terminoloji)</span>
+      <p class="ilmihal-lead">Bu sayfada sürekli geçen <strong>"farz", "vacip", "sünnet", "mekruh"</strong> gibi terimlerin ne anlama geldiğini önce netleştirelim — ilmihal kitapları da genelde bu terimlerle başlar, çünkü bir davranışın dinen "ne kadar istendiğini/istenmediğini" bu terimler belirler.</p>
+
+      <div class="ilmihal-block">
+        <h4>Yapılması İstenen Davranışlar</h4>
+        <ul>
+          <li><strong>Farz</strong> — Kur'an'ın açık bir ayeti veya şüphe götürmeyen (mütevâtir) bir sünnetle kesin olarak istenen davranış. İnkârı kişiyi dinden çıkarır. <em>Örnek: beş vakit namaz, oruç.</em></li>
+          <li><strong>Vacip</strong> — Farz kadar kesin olmayan (zannî) bir delille istenen davranış — bu, sadece <strong>Hanefi mezhebine özgü</strong> bir ayrımdır (diğer üç mezhep vacibi farzın içinde sayar). İnkârı büyük günahtır ama dinden çıkarmaz. <em>Örnek: vitir namazı, gücü yetenin kurban kesmesi.</em></li>
+          <li><strong>Sünnet-i Müekkede</strong> — Hz. Peygamber'in sürekli yapıp nadiren terk ettiği davranış; terki kınanır. <em>Örnek: sabah namazının sünneti.</em></li>
+          <li><strong>Sünnet-i Gayr-i Müekkede</strong> — Hz. Peygamber'in bazen yapıp bazen terk ettiği davranış; terkinde sakınca yoktur. <em>Örnek: ikindi namazının sünneti.</em></li>
+          <li><strong>Müstehab / Mendûb</strong> — dinin güzel gördüğü, yapılması sevap olan ama üzerinde ısrar edilmeyen davranış. <em>Örnek: misvak kullanmak.</em></li>
+          <li><strong>Mübah</strong> — yapılması ile yapılmaması dince eşit olan, tamamen serbest davranış. <em>Örnek: günlük yeme, içme, gezme gibi işler.</em></li>
+        </ul>
+      </div>
+
+      <div class="ilmihal-block">
+        <h4>Yapılmaması İstenen Davranışlar</h4>
+        <ul>
+          <li><strong>Mekruh (tenzîhen)</strong> — yapılması hoş karşılanmayan ama haram olmayan, terki daha iyi olan davranış.</li>
+          <li><strong>Mekruh (tahrîmen)</strong> — harama yakın, zannî bir delille yasaklanan davranış; vacibin zıttı gibi düşünülebilir — bir vacibin terk edilmesi genellikle bu kapsama girer.</li>
+          <li><strong>Haram</strong> — Kur'an'ın açık ayeti veya mütevâtir bir sünnetle kesin olarak yasaklanmış davranış. Helal saymak kişiyi dinden çıkarır. <em>Örnek: faiz, içki, haksız yere adam öldürmek.</em></li>
+        </ul>
+      </div>
+
+      <div class="topic-note">
+        <strong style="color:var(--gold-bright);">Farz ile vacip arasındaki ince fark:</strong> Şâfiî, Mâlikî ve Hanbelî mezhepleri "vacip" ile "farz"ı aynı anlamda kullanır. Hanefi mezhebi ise bu ikisini <em>delilin kesinlik derecesine</em> göre ayırır: delil kat'î (Kur'an'ın açık ifadesi veya mütevâtir sünnet) ise hüküm <strong style="color:var(--text);">farz</strong>, delil zannî (haber-i vâhid gibi) ise hüküm <strong style="color:var(--text);">vaciptir</strong>. Sonuç da farklıdır — farzı inkâr eden dinden çıkar, vacibi inkâr eden büyük günah işlemiş olur ama Müslümanlıktan çıkmaz. <span style="font-size:0.78rem; color:var(--muted-2);">(Kaynak: TDV İslam Ansiklopedisi, "Vâcip" maddesi.)</span>
+      </div>
+    </div>
+
+    <!-- 2. İMAN ESASLARI -->
+    <div class="ilmihal-panel" data-panel="iman" hidden>
       <span class="kaynak-etiket ayet"><span class="dot"></span>Ayet + temel akaid kaynaklı</span>
       <p class="ilmihal-lead">İslam inancının temeli, kısaca <strong>"Âmentü"</strong> diye anılan <strong>6 iman esasına</strong> dayanır. Bu esasların altısı da, Kur'an'ın tek bir ayetinde topluca sayılır. Aşağıda her esas, Ömer Nasuhi Bilmen'in <em>Büyük İslam İlmihali</em> ve Diyanet'in <em>İlmihal</em> eserlerinde işlendiği çerçeveyle, kendi alt başlığında ayrı ayrı ele alınıyor.</p>
 
@@ -201,15 +234,15 @@
         <p>"İman esasları" <em>neye inanılacağını</em>, "İslam'ın şartları" denen 5 madde ise <em>nasıl ibadet edileceğini</em> anlatır — biri inanç, diğeri amel/ibadet boyutudur, birlikte bütünü oluşturur:</p>
         <ol>
           <li><strong>Kelime-i şehadet</strong> — "Eşhedü en lâ ilâhe illallah ve eşhedü enne Muhammeden abdühû ve rasûlüh" (Şehadet ederim ki Allah'tan başka ilah yoktur, yine şehadet ederim ki Muhammed O'nun kulu ve elçisidir) sözünü inanarak söylemek — İslam'a girişin ilk şartıdır.</li>
-          <li><strong>Namaz</strong> — bkz. bu sayfada "3. Namaz" başlığı.</li>
-          <li><strong>Oruç</strong> — bkz. bu sayfada "4. Oruç" başlığı.</li>
-          <li><strong>Zekât</strong> — bkz. bu sayfada "5. Zekât" başlığı.</li>
-          <li><strong>Hac</strong> — bkz. bu sayfada "6. Hac ve Umre" başlığı (gücü yetenler için).</li>
+          <li><strong>Namaz</strong> — bkz. bu sayfada "4. Namaz" başlığı.</li>
+          <li><strong>Oruç</strong> — bkz. bu sayfada "5. Oruç" başlığı.</li>
+          <li><strong>Zekât</strong> — bkz. bu sayfada "6. Zekât" başlığı.</li>
+          <li><strong>Hac</strong> — bkz. bu sayfada "7. Hac ve Umre" başlığı (gücü yetenler için).</li>
         </ol>
       </div>
     </div>
 
-    <!-- 2. TEMİZLİK (TAHARET) -->
+    <!-- 3. TEMİZLİK (TAHARET) -->
     <div class="ilmihal-panel" data-panel="taharet" hidden>
       <span class="kaynak-etiket fikih"><span class="dot"></span>Ayet + fıkıh kaynaklı</span>
       <p class="ilmihal-lead">İbadetin, özellikle namazın ön şartı <strong>temizliktir (taharet)</strong>. İki türü vardır: bedeni/eşyayı ilgilendiren <strong>necasetten temizlik</strong> ve manevi bir hükümsüzlük hâlini gideren <strong>hadesten temizlik</strong> (abdest, gusül, teyemmüm). Üçü de tek bir ayette birlikte anlatılır:</p>
@@ -226,12 +259,21 @@
         <p><strong style="color:var(--text);">Abdesti bozan başlıca haller:</strong> tuvalet ihtiyacının giderilmesi, vücuttan kan/irin gibi bir sıvının akması, ağız dolusu kusmak, yatarak/dayanarak derin uykuya dalmak, bayılmak veya aklı gidermek.</p>
       </div>
       <div class="ilmihal-block">
-        <h4>Gusül</h4>
-        <p>Cünüplük (eşler arası ilişki veya ihtilam), hayız ve nifas (loğusalık) sonrasında farz olur; tüm bedenin suyla yıkanmasını gerektirir.</p>
+        <h4>Gusül — 3 Farzı</h4>
+        <p>Cünüplük (eşler arası ilişki veya ihtilam), hayız ve nifas (loğusalık) sonrasında farz olur:</p>
+        <ol>
+          <li><strong>Ağza su vermek</strong> (mazmaza)</li>
+          <li><strong>Burna su vermek</strong> (istinşak)</li>
+          <li><strong>Bütün bedeni yıkamak</strong> — hiçbir yeri kuru kalmayacak şekilde</li>
+        </ol>
       </div>
       <div class="ilmihal-block">
-        <h4>Teyemmüm</h4>
-        <p>Su bulunmadığında veya kullanmaya güç yetirilemediğinde (hastalık, susuzluk tehlikesi vb.), temiz toprak cinsi bir yüzeye eller sürülerek yapılan, abdest ve guslün yerine geçen sembolik temizliktir.</p>
+        <h4>Teyemmüm — 2 Farzı</h4>
+        <p>Su bulunmadığında veya kullanmaya güç yetirilemediğinde (hastalık, susuzluk tehlikesi vb.), abdest ve guslün yerine geçen sembolik temizliktir:</p>
+        <ol>
+          <li><strong>Niyet etmek</strong></li>
+          <li><strong>İki eli temiz toprak cinsi bir yüzeye vurup yüzü ve elleri (dirseklere kadar) meshetmek</strong></li>
+        </ol>
       </div>
 
       <div class="topic-note">
@@ -239,7 +281,7 @@
       </div>
     </div>
 
-    <!-- 3. NAMAZ -->
+    <!-- 4. NAMAZ -->
     <div class="ilmihal-panel" data-panel="namaz" hidden>
       <span class="kaynak-etiket fikih"><span class="dot"></span>Fıkıh/hadis kaynaklı</span>
       <p class="ilmihal-lead">Namazın Kur'an'daki yeri, vakitlere işaret eden ayetler ve namaz vakti/kıble araçları için <a href="namaz.html" style="color:var(--gold-bright);">"Namaz Vakti"</a> sayfasına bakabilirsiniz. Burada yalnızca <strong>rekat sayıları, şartlar ve rükünler gibi Kur'an'da doğrudan yer almayan, fıkıh kaynaklı pratik çerçeve</strong> ele alınır.</p>
@@ -276,12 +318,23 @@
         </ul>
       </div>
       <div class="ilmihal-block">
+        <h4>Namazı Bozan Başlıca Durumlar</h4>
+        <ul>
+          <li>Konuşmak (namaz dışı bir söz söylemek)</li>
+          <li>Kasıtlı olarak bir şey yiyip içmek</li>
+          <li>Sesli gülmek (kahkaha) — hem namazı hem abdesti bozar</li>
+          <li>Göğsü kıbleden tamamen çevirecek şekilde dönmek</li>
+          <li>Avret yerinin namazı bozacak ölçüde açılması</li>
+          <li>Namazda iken bir farzı bilerek terk etmek</li>
+        </ul>
+      </div>
+      <div class="ilmihal-block">
         <h4>Cemaat ve Cuma</h4>
         <p>Cemaatle namaz kılmak, hadislerde tek başına kılınana göre kat kat sevaplı olarak nitelenir. Cuma namazı ise erkekler için farz-ı ayndır; cemaatle, hutbeyle ve öğle vakti içinde kılınır, öğle namazının yerine geçer.</p>
       </div>
     </div>
 
-    <!-- 4. ORUÇ -->
+    <!-- 5. ORUÇ -->
     <div class="ilmihal-panel" data-panel="oruc" hidden>
       <span class="kaynak-etiket ayet"><span class="dot"></span>Ayet (farziyet) + fıkıh (detaylar)</span>
       <p class="ilmihal-lead">Ramazan orucunun farziyeti doğrudan Kur'an'da bildirilir:</p>
@@ -310,7 +363,7 @@
       </div>
     </div>
 
-    <!-- 5. ZEKÂT -->
+    <!-- 6. ZEKÂT -->
     <div class="ilmihal-panel" data-panel="zekat" hidden>
       <span class="kaynak-etiket ayet"><span class="dot"></span>Ayet (farziyet, alıcılar) + fıkıh (oranlar, nisap)</span>
       <p class="ilmihal-lead">Zekât, Kur'an'da çoğunlukla namazla birlikte, ikisi bir bütünmüş gibi zikredilir:</p>
@@ -347,7 +400,7 @@
       </div>
     </div>
 
-    <!-- 6. HAC VE UMRE -->
+    <!-- 7. HAC VE UMRE -->
     <div class="ilmihal-panel" data-panel="hac" hidden>
       <span class="kaynak-etiket ayet"><span class="dot"></span>Ayet (farziyet) + fıkıh (rükün/vacip detayları)</span>
       <p class="ilmihal-lead">Haccın farziyeti, "gücü yetenler" şartıyla birlikte doğrudan Kur'an'da geçer:</p>
@@ -376,7 +429,7 @@
       </div>
     </div>
 
-    <!-- 7. AHLAK -->
+    <!-- 8. AHLAK -->
     <div class="ilmihal-panel" data-panel="ahlak" hidden>
       <span class="kaynak-etiket ayet"><span class="dot"></span>Ayet kaynaklı</span>
       <p class="ilmihal-lead">İman ve ibadetin yanında İlmihal'in üçüncü büyük konusu <strong>ahlaktır</strong> — bu başlık, sitenin geri kalanıyla aynı şekilde doğrudan ayetlere dayanır.</p>
@@ -407,7 +460,48 @@
         </ul>
       </div>
 
-      <div class="topic-note" style="margin-top:8px;">
+    </div>
+
+    <!-- 9. OTUZ İKİ FARZ -->
+    <div class="ilmihal-panel" data-panel="otuzikifarz" hidden>
+      <span class="kaynak-etiket fikih"><span class="dot"></span>Geleneksel öğretim derlemesi (fıkıh kaynaklı)</span>
+      <p class="ilmihal-lead">Osmanlı'dan beri Türkiye'deki Kur'an kurslarında ve mahalle mekteplerinde ezberletilen <strong>"Otuz İki Farz"</strong>, iman, temizlik ve namazla ilgili farzları <strong>6 grupta</strong> tek bir listede toplayan geleneksel bir hafıza/öğretim aracıdır. Aşağıdaki her grup, bu sayfada zaten ayrıntılı anlatılan bir konunun özetidir — sayı toplamı tam <strong style="color:var(--gold-bright);">32</strong> eder.</p>
+
+      <div style="text-align:center; padding:18px 0 8px;">
+        <span style="font-family:'Cormorant Garamond',serif; font-size:3.4rem; color:var(--gold-bright); text-shadow:0 0 24px rgba(243,206,142,0.35);">32</span>
+        <p style="font-size:0.78rem; color:var(--muted-2); letter-spacing:0.08em; margin-top:-6px;">TOPLAM FARZ</p>
+      </div>
+
+      <div class="ilmihal-block">
+        <h4>1) İmanın Şartları — 6</h4>
+        <p>Allah'a, meleklerine, kitaplarına, peygamberlerine, ahiret gününe ve kadere (hayrın-şerrin Allah'tan olduğuna) iman etmek. <span style="color:var(--teal);">→ ayrıntı: "2. İman Esasları" sekmesi.</span></p>
+      </div>
+      <div class="ilmihal-block">
+        <h4>2) İslam'ın Şartları — 5</h4>
+        <p>Kelime-i şehadet getirmek, namaz kılmak, oruç tutmak, zekât vermek, gücü yetenin hacca gitmesi. <span style="color:var(--teal);">→ ayrıntı: "2. İman Esasları" sekmesi içindeki "İslam'ın Şartları" bölümü.</span></p>
+      </div>
+      <div class="ilmihal-block">
+        <h4>3) Namazın Farzları — 12 (Şartları 6 + Rükünleri 6)</h4>
+        <p><strong style="color:var(--text);">Namazın şartları (6):</strong> hadesten taharet, necasetten taharet, setr-i avret, istikbal-i kıble, vakit, niyet. <strong style="color:var(--text);">Namazın rükünleri (6):</strong> iftitah tekbiri, kıyam, kıraat, rükû, secde, ka'de-i ahîre. <span style="color:var(--teal);">→ ayrıntı: "4. Namaz" sekmesi.</span></p>
+      </div>
+      <div class="ilmihal-block">
+        <h4>4) Abdestin Farzları — 4</h4>
+        <p>Yüzü yıkamak, kolları dirseklerle birlikte yıkamak, başın dörtte birini meshetmek, ayakları topuklarla birlikte yıkamak. <span style="color:var(--teal);">→ ayrıntı: "3. Temizlik" sekmesi.</span></p>
+      </div>
+      <div class="ilmihal-block">
+        <h4>5) Guslün Farzları — 3</h4>
+        <p>Ağza su vermek (mazmaza), burna su vermek (istinşak), bütün bedeni yıkamak. <span style="color:var(--teal);">→ ayrıntı: "3. Temizlik" sekmesi.</span></p>
+      </div>
+      <div class="ilmihal-block">
+        <h4>6) Teyemmümün Farzları — 2</h4>
+        <p>Niyet etmek, iki eli temiz toprak cinsi bir yüzeye vurup yüzü ve elleri meshetmek. <span style="color:var(--teal);">→ ayrıntı: "3. Temizlik" sekmesi.</span></p>
+      </div>
+
+      <div class="topic-note">
+        <strong style="color:var(--gold-bright);">Dürüstlük notu:</strong> "32" sayısı Kur'an'da toplu olarak geçen bir rakam değildir — bu, âlimlerin farklı konulardaki farzları ezberlenmesi kolay olsun diye bir araya getirdiği <strong style="color:var(--text);">geleneksel bir derlemedir</strong>. Her bir alt başlığın kendi dayanağı (ayet, hadis veya fıkhî içtihat) yukarıda kendi sekmesinde ayrı ayrı gösterilmiştir.
+      </div>
+
+      <div class="topic-note" style="margin-top:16px;">
         <strong style="color:var(--gold-bright);">Devamı için:</strong> Elif-Bâ öğreticisindeki <a href="elifba.html" style="color:var(--gold-bright);">tecvid dersleri</a> ile bu sayfadaki ilmihal bilgilerini tamamladıysanız, artık hem Kur'an'ı doğru okuyabilir hem de günlük ibadetlerinizi bilinçli şekilde yerine getirebilirsiniz. Sorularınız için <a href="ansiklopedi.html" style="color:var(--gold-bright);">İslam Ansiklopedisi</a> sayfasından terim araması yapabilirsiniz.
       </div>
     </div>
@@ -451,7 +545,7 @@
 <script>
   const tabs = document.querySelectorAll('.ilmihal-tab-btn');
   const panels = document.querySelectorAll('.ilmihal-panel');
-  const tabOrder = ['iman', 'taharet', 'namaz', 'oruc', 'zekat', 'hac', 'ahlak'];
+  const tabOrder = ['ahkam', 'iman', 'taharet', 'namaz', 'oruc', 'zekat', 'hac', 'ahlak', 'otuzikifarz'];
 
   function showTab(name){
     tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
