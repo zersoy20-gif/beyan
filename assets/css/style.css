@@ -146,6 +146,18 @@
     .nav-btns .btn-nav-fill{padding:9px 13px; font-size:0.78rem;}
   }
 
+  /* ---- Giriş sunumu (intro splash) ----
+     Eskiden .hero, sayfanın normal akışında SÜREKLİ görünen ilk bölümdü. Artık
+     .intro-splash içine alınıp sadece sayfa ilk açıldığında ~12sn tam ekran
+     gösteriliyor, sonra soluklaşıp kayboluyor (bkz. index.html'deki dismissSplash()).
+     body.splash-lock, sunum açıkken arkadaki sayfanın kaymasını/kaydırılmasını önler. */
+  body.splash-lock{overflow:hidden; height:100vh;}
+  .intro-splash{
+    position:fixed; inset:0; z-index:500; background:var(--void);
+    transition:opacity 0.9s ease, visibility 0.9s ease;
+  }
+  .intro-splash.is-hidden{opacity:0; visibility:hidden; pointer-events:none;}
+
   .hero{position:relative; min-height:100vh; display:flex; flex-direction:column; overflow:hidden; isolation:isolate;}
   .atmos{position:absolute; inset:0; z-index:0;
     background:

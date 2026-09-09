@@ -23,21 +23,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="splash-lock">
 
 <div class="grain"></div>
 <canvas id="stars"></canvas>
 <div class="scroll-bar" id="scrollBar"></div>
 
-<button class="replay-btn" id="replayBtn">
-  <span class="pulse"></span>
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
-  Oku'yu tekrar dinle
-</button>
-
 <nav class="nav">
   <div class="wrap">
-    <a class="brand" href="#top">
+    <a class="brand" href="#">
       <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
       <span class="brand-name">Beyan</span>
     </a>
@@ -69,35 +63,49 @@
   </div>
 </nav>
 
-<header class="hero" id="top">
-  <div class="atmos"></div>
-  <div class="fog"><span class="f1"></span><span class="f2"></span><span class="f3"></span></div>
-  <div class="beam-wrap"><div class="beam"></div><div class="beam-reflection"></div></div>
-  <div class="horizon"></div>
-  <svg class="ornament" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4">
-    <path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/><circle cx="50" cy="50" r="42" stroke-dasharray="2 6"/>
-  </svg>
-  <div class="hero-vignette"></div>
-  <div class="spotlight" id="spotlight"></div>
+<!-- ---- Giriş sunumu (intro splash) ----
+     Bu blok eskiden sayfanın normal, sürekli görünen ilk bölümüydü (kahraman/hero).
+     Artık sadece sayfa İLK AÇILDIĞINDA ~12 saniyeliğine tam ekran gösterilen, "ikra"
+     sesiyle 3 kez eşlik edilen bir açılış sunumu — sonra kayboluyor ve sayfanın normal
+     akışı doğrudan alttaki .marquee-band ile devam ediyor. Bu alana ileride ayrı,
+     haber/duyuru benzeri bir kart eklenecek (henüz eklenmedi). -->
+<div class="intro-splash" id="introSplash">
+  <button class="replay-btn" id="replayBtn">
+    <span class="pulse"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+    Oku'yu tekrar dinle
+  </button>
 
-  <div class="hero-inner">
-    <span class="badge"><span class="dot"></span> İlk vahiy: "Oku"</span>
-    <p class="hero-ayah arabic" id="heroAyah"></p>
-    <p class="hero-meal">"Andolsun, Kur'an'ı düşünüp anlaşılması için kolaylaştırdık. Öğüt alan yok mu?"</p>
-    <p class="hero-ref">Kamer Sûresi, 17. Ayet</p>
-    <div class="hero-actions">
-      <a class="btn-primary" href="oku.html">Okumaya başla</a>
-      <a class="btn-ghost" href="#deneyimle">Nasıl çalışır</a>
-    </div>
-  </div>
+  <header class="hero">
+    <div class="atmos"></div>
+    <div class="fog"><span class="f1"></span><span class="f2"></span><span class="f3"></span></div>
+    <div class="beam-wrap"><div class="beam"></div><div class="beam-reflection"></div></div>
+    <div class="horizon"></div>
+    <svg class="ornament" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/><circle cx="50" cy="50" r="42" stroke-dasharray="2 6"/>
+    </svg>
+    <div class="hero-vignette"></div>
+    <div class="spotlight" id="spotlight"></div>
 
-  <div class="hero-sources wrap">
-    <span class="label">Kaynak olarak kullanılıyor</span>
-    <div class="list">
-      <span>QuranEnc.com</span><span>Tanzil Project</span><span>Diyanet Vakfı Meali</span><span>QUL (tefsir)</span>
+    <div class="hero-inner">
+      <span class="badge"><span class="dot"></span> İlk vahiy: "Oku"</span>
+      <p class="hero-ayah arabic" id="heroAyah"></p>
+      <p class="hero-meal">"Andolsun, Kur'an'ı düşünüp anlaşılması için kolaylaştırdık. Öğüt alan yok mu?"</p>
+      <p class="hero-ref">Kamer Sûresi, 17. Ayet</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="oku.html">Okumaya başla</a>
+        <a class="btn-ghost" href="#deneyimle" id="introHowLink">Nasıl çalışır</a>
+      </div>
     </div>
-  </div>
-</header>
+
+    <div class="hero-sources wrap">
+      <span class="label">Kaynak olarak kullanılıyor</span>
+      <div class="list">
+        <span>QuranEnc.com</span><span>Tanzil Project</span><span>Diyanet Vakfı Meali</span><span>QUL (tefsir)</span>
+      </div>
+    </div>
+  </header>
+</div>
 
 <div class="marquee-band">
   <div class="marquee-track">
@@ -619,7 +627,7 @@
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="brand" href="#top">
+        <a class="brand" href="#">
           <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
           <span class="brand-name">Beyan</span>
         </a>
@@ -1088,8 +1096,45 @@
     }
     next();
   }
-  window.addEventListener('load', () => { setTimeout(speakIkraThrice, 700); });
+
+  /* ---- Giriş sunumu (intro splash) ----
+     Sayfa her açıldığında ~12 saniyeliğine tam ekran gösterilen "İlk vahiy" sunumu
+     (bkz. yukarıdaki #introSplash bloğu) — bu sürede "ikra" sesi 3 kez çalar, sonra
+     sunum kayboluyor ve arkadaki normal sayfa (marquee/günün ayeti/vs.) ortaya çıkıyor.
+     Sunum sırasında "Okumaya başla"/"Nasıl çalışır" butonlarına tıklamak sunumu hemen
+     kapatıyor (12 saniye beklemeye gerek kalmadan). */
+  const SPLASH_DURATION_MS = 12000;
+  let splashDismissed = false;
+  function dismissSplash(){
+    if(splashDismissed) return;
+    splashDismissed = true;
+    const splash = document.getElementById('introSplash');
+    if(splash){
+      splash.classList.add('is-hidden');
+      setTimeout(() => { splash.style.display = 'none'; }, 950);
+    }
+    document.body.classList.remove('splash-lock');
+    if('speechSynthesis' in window) window.speechSynthesis.cancel();
+  }
+  window.addEventListener('load', () => {
+    setTimeout(speakIkraThrice, 700);
+    setTimeout(dismissSplash, SPLASH_DURATION_MS);
+  });
   document.getElementById('replayBtn').addEventListener('click', speakIkraThrice);
+  const introHowLink = document.getElementById('introHowLink');
+  if(introHowLink){
+    introHowLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      dismissSplash();
+      setTimeout(() => {
+        const target = document.getElementById('deneyimle');
+        if(target) target.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    });
+  }
+  document.querySelectorAll('#introSplash .hero-actions a:not(#introHowLink)').forEach(a => {
+    a.addEventListener('click', dismissSplash);
+  });
 </script>
 <script>
 (function(){
