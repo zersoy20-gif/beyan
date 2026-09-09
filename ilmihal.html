@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İlmihal — Beyan</title>
+<meta name="description" content="İlmihal nedir, kim geliştirmiştir, ne işe yarar? İman esasları, temizlik, namaz, oruç, zekât, hac ve İslam ahlakının temel bilgileri — her başlıkta kaynağın ayet mi, hadis/fıkıh mı olduğu açıkça belirtilir.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* ---- giriş kartları (İlmihal nedir / kim geliştirdi / ne işe yarar) ---- */
+  .ilmihal-intro-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:28px;}
+  @media (max-width:900px){ .ilmihal-intro-grid{grid-template-columns:1fr;} }
+  .intro-card{border:1px solid var(--border-soft); border-radius:14px; padding:26px 24px; background:var(--glass); backdrop-filter:blur(10px);}
+  .intro-card .intro-icon{width:30px; height:30px; color:var(--gold-bright); margin-bottom:16px; filter:drop-shadow(0 0 8px rgba(243,206,142,0.35));}
+  .intro-card h3{font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.15rem; margin:0 0 10px; color:var(--text);}
+  .intro-card p{margin:0; color:var(--muted); font-size:0.88rem; line-height:1.7;}
+
+  /* ---- sekmeler (elifba.html ile aynı görsel dil, ayrı isim alanı) ---- */
+  .ilmihal-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:30px; border-bottom:1px solid var(--border-soft); padding-bottom:0;}
+  .ilmihal-tab-btn{
+    background:none; border:none; color:var(--muted-2); font-size:0.88rem; padding:0 0 14px; cursor:pointer;
+    position:relative; font-family:inherit; white-space:nowrap;
+  }
+  .ilmihal-tab-btn.active{color:var(--gold-bright);}
+  .ilmihal-tab-btn.active::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:linear-gradient(90deg,var(--gold),var(--teal));}
+  .ilmihal-panel{display:none;}
+  .ilmihal-panel.active{display:block;}
+
+  .ilmihal-lead{color:var(--muted); font-size:0.95rem; line-height:1.75; margin-bottom:22px; max-width:720px;}
+  .ilmihal-lead strong{color:var(--text);}
+
+  .kaynak-etiket{display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; padding:5px 12px; border-radius:12px; margin-bottom:20px;}
+  .kaynak-etiket.ayet{color:var(--teal); border:1px solid rgba(73,214,196,0.35); background:rgba(73,214,196,0.08);}
+  .kaynak-etiket.fikih{color:var(--gold-bright); border:1px solid var(--border); background:rgba(217,178,107,0.08);}
+  .kaynak-etiket .dot{width:6px; height:6px; border-radius:50%; background:currentColor;}
+
+  .ilmihal-block{margin-bottom:26px;}
+  .ilmihal-block h4{font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.1rem; color:var(--gold-bright); margin:0 0 10px;}
+  .ilmihal-block p{color:var(--muted); font-size:0.9rem; line-height:1.75; margin:0 0 10px;}
+  .ilmihal-block ul, .ilmihal-block ol{margin:0; padding-left:22px; color:var(--muted); font-size:0.9rem; line-height:1.85;}
+  .ilmihal-block li{margin-bottom:4px;}
+  .ilmihal-block li strong{color:var(--text);}
+
+  .ayet-git{font-size:0.76rem; color:var(--teal); text-decoration:underline;}
+
+  .ders-nav{display:flex; justify-content:space-between; margin-top:36px; padding-top:22px; border-top:1px solid var(--border-soft);}
+  .btn-ghost-sm{background:none; border:1px solid var(--border-soft); color:var(--muted); padding:8px 16px; border-radius:20px; font-size:0.8rem; cursor:pointer; transition:border-color .2s, color .2s; font-family:inherit;}
+  .btn-ghost-sm:hover{border-color:var(--gold); color:var(--gold-bright);}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
+    <p class="kicker">İlmihal</p>
+    <h1 class="section-title" style="max-width:760px;">Bir Müslümanın <span class="grad-word">bilmesi gerekenler</span></h1>
+    <p class="section-body" style="max-width:660px;">İman esasları, temizlik, namaz, oruç, zekât, hac ve İslam ahlakının temel bilgileri — sade bir dille, kaynağının ayet mi yoksa hadis/fıkıh mı olduğu her başlıkta açıkça belirtilerek.</p>
+  </div>
+</header>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:900px;">
+
+    <div class="ilmihal-intro-grid">
+      <div class="intro-card">
+        <svg class="intro-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 8v.01M11 11h1v5h1"/></svg>
+        <h3>İlmihal nedir?</h3>
+        <p>İlmihal, İslam dininin inanç (iman), ibadet ve günlük yaşayışla ilgili <strong style="color:var(--text);">temel bilgilerini</strong> sade ve öğretici bir dille anlatan eser türüne verilen isimdir. Kelime, Arapça "ilm" (bilgi) ile Farsça "hâl" (durum) kelimelerinin birleşiminden oluşur; kabaca "bir kimsenin dinî açıdan bilmesi gereken hâlin bilgisi" anlamına gelir. Konu başlıklarına ayrılmış, bazen soru-cevap tarzında yazılan bu eserler bir Müslümanın bilmesi gereken asgari dinî bilgiyi kapsar.</p>
+      </div>
+      <div class="intro-card">
+        <svg class="intro-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+        <h3>Kim geliştirmiştir?</h3>
+        <p>İlmihal, tek bir kişinin icat ettiği bir kavram değildir — İslam âlimlerinin yüzyıllar içinde, halkın kolayca anlayabileceği bir sadelikte oluşturduğu bir <strong style="color:var(--text);">öğretim geleneğidir</strong>. Türkçede en çok bilinen klasik örneklerden biri, eski Diyanet İşleri Başkanı Ömer Nasuhi Bilmen'in 20. yüzyılda kaleme aldığı "Büyük İslam İlmihali"dir. Günümüzde ise Türkiye Diyanet Vakfı İslâm Araştırmaları Merkezi (İSAM) bünyesinde bir ilim heyeti tarafından hazırlanan 2 ciltlik "İlmihal" (İman ve İbadetler / İslam ve Toplum), en yaygın kullanılan güncel referanslardan biridir.</p>
+      </div>
+      <div class="intro-card">
+        <svg class="intro-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+        <h3>Ne işe yarar?</h3>
+        <p>İlmihal, karmaşık fıkıh kitaplarına girmeden; "Namazı nasıl kılarım, abdestim ne zaman bozulur, zekâtımı kime veririm?" gibi <strong style="color:var(--text);">günlük ve pratik sorulara</strong> doğru cevap bulmayı sağlar. Bu yüzden tarih boyunca hem evde hem Kur'an kurslarında temel dinî eğitimin ilk basamağı olmuştur — bu sayfa da aynı amaçla, sade ve doğrulanabilir kaynaklara dayanarak hazırlanmıştır.</p>
+      </div>
+    </div>
+
+    <div class="topic-note" style="margin-bottom:36px;">
+      <strong style="color:var(--gold-bright);">Kaynak notu (lütfen okuyun):</strong> Bu sayfadaki iman esasları ve ahlak ilkeleri büyük ölçüde <strong style="color:var(--text);">doğrudan Kur'an ayetlerine</strong> dayanır ve ilgili ayet her başlıkta gösterilir. Namaz, oruç, zekât ve haccın çoğu pratik detayı (rekat sayıları, abdestin farz sayısı, nisap miktarları gibi) ise Kur'an'da yer almaz; <strong style="color:var(--text);">hadis, sünnet ve fıkıh</strong> (Türkiye'de yaygın olan Hanefi mezhebi esas alınmıştır) kaynaklıdır. Sitenin "sadece Kur'an" ilkesinin bilinçli bir istisnası olarak, kullanıcıların en çok sorduğu pratik dinî bilgileri güvenilir ilmihal kaynaklarına dayanarak sunmak için bu sayfa hazırlanmıştır. Her başlığın üstündeki <span class="kaynak-etiket ayet" style="margin:0 2px; padding:2px 8px;"><span class="dot"></span>Ayet</span> / <span class="kaynak-etiket fikih" style="margin:0 2px; padding:2px 8px;"><span class="dot"></span>Fıkıh-Hadis</span> etiketi bilginin kökenini gösterir.
+    </div>
+
+    <div class="ilmihal-tabs" id="ilmihalTabs">
+      <button class="ilmihal-tab-btn active" data-tab="iman">1. İman Esasları</button>
+      <button class="ilmihal-tab-btn" data-tab="taharet">2. Temizlik</button>
+      <button class="ilmihal-tab-btn" data-tab="namaz">3. Namaz</button>
+      <button class="ilmihal-tab-btn" data-tab="oruc">4. Oruç</button>
+      <button class="ilmihal-tab-btn" data-tab="zekat">5. Zekât</button>
+      <button class="ilmihal-tab-btn" data-tab="hac">6. Hac ve Umre</button>
+      <button class="ilmihal-tab-btn" data-tab="ahlak">7. Ahlak</button>
+    </div>
+
+    <!-- 1. İMAN ESASLARI -->
+    <div class="ilmihal-panel active" data-panel="iman">
+      <span class="kaynak-etiket ayet"><span class="dot"></span>Ayet kaynaklı</span>
+      <p class="ilmihal-lead">İslam inancının temeli, kısaca <strong>"Âmentü"</strong> diye anılan <strong>6 iman esasına</strong> dayanır. Bu esasların altısı da, Kur'an'ın tek bir ayetinde topluca sayılır:</p>
+
+      <div class="ayah-card">
+        <p class="ayah-arabic arabic">ءَامَنَ ٱلرَّسُولُ بِمَآ أُنزِلَ إِلَيۡهِ مِن رَّبِّهِۦ وَٱلۡمُؤۡمِنُونَۚ كُلٌّ ءَامَنَ بِٱللَّهِ وَمَلَـٰٓئِكَتِهِۦ وَكُتُبِهِۦ وَرُسُلِهِۦ لَا نُفَرِّقُ بَيۡنَ أَحَدٖ مِّن رُّسُلِهِۦۚ وَقَالُواْ سَمِعۡنَا وَأَطَعۡنَاۖ غُفۡرَانَكَ رَبَّنَا وَإِلَيۡكَ ٱلۡمَصِيرُ</p>
+        <p class="ayah-meal">"Peygamber ve inananlar, ona Rabb'inden indirilene inandı. Hepsi Allah'a, meleklerine, kitaplarına, peygamberlerine inandı. 'Peygamberleri arasından hiçbirini ayırt etmeyiz, işittik, itaat ettik, Rabbimiz! Affını dileriz, dönüş Sanadır' dediler."</p>
+        <p class="ayah-ref">Bakara Sûresi, 285. Ayet · <a class="ayet-git" href="oku.html?sure=2&ayet=285">ayete git →</a></p>
+      </div>
+
+      <div class="ilmihal-block">
+        <h4>6 İman Esası (Âmentü)</h4>
+        <ol>
+          <li><strong>Allah'a iman</strong> — Allah'ın varlığına, birliğine (tevhid) ve tüm kemal sıfatlarına inanmak.</li>
+          <li><strong>Meleklere iman</strong> — nurdan yaratılmış, gözle görülmeyen, Allah'a mutlak itaat eden varlıklara inanmak.</li>
+          <li><strong>Kitaplara iman</strong> — Allah'ın peygamberlere gönderdiği kitaplara (Tevrat, Zebûr, İncil, Kur'an-ı Kerîm) inanmak; Kur'an'ın önceki kitapları tasdik eden, korunmuş son kitap olduğuna inanmak.</li>
+          <li><strong>Peygamberlere iman</strong> — Hz. Âdem'den Hz. Muhammed'e (son peygamber) kadar gönderilen tüm peygamberlere inanmak, aralarında ayrım yapmamak.</li>
+          <li><strong>Ahiret gününe iman</strong> — ölümden sonra dirilişe, hesaba ve karşılığına (cennet/cehennem) inanmak.</li>
+          <li><strong>Kadere iman</strong> — hayrın da şerrin de Allah'ın takdiriyle, bir ölçü ve düzen içinde gerçekleştiğine inanmak.</li>
+        </ol>
+      </div>
+
+      <div class="ayah-card">
+        <p class="ayah-arabic arabic">إِنَّا كُلَّ شَيۡءٍ خَلَقۡنَٰهُ بِقَدَرٖ</p>
+        <p class="ayah-meal">"Şüphesiz Biz her şeyi bir ölçüye göre yaratmışızdır."</p>
+        <p class="ayah-ref">Kamer Sûresi, 49. Ayet · <a class="ayet-git" href="oku.html?sure=54&ayet=49">ayete git →</a></p>
+      </div>
+
+      <div class="topic-note">
+        <strong style="color:var(--gold-bright);">Karıştırılmaması gereken bir ayrım:</strong> "İman esasları" (yukarıdaki 6 madde) <em>neye inanılacağını</em>, "İslam'ın şartları" denen 5 madde (kelime-i şehadet, namaz, oruç, zekât, hac) ise <em>nasıl ibadet edileceğini</em> anlatır. Biri inanç, diğeri amel/ibadet boyutudur — ikisi birbirinin yerine geçmez, birlikte bütünü oluşturur.
+      </div>
+    </div>
+
+    <!-- 2. TEMİZLİK (TAHARET) -->
+    <div class="ilmihal-panel" data-panel="taharet" hidden>
+      <span class="kaynak-etiket fikih"><span class="dot"></span>Ayet + fıkıh kaynaklı</span>
+      <p class="ilmihal-lead">İbadetin, özellikle namazın ön şartı <strong>temizliktir (taharet)</strong>. İki türü vardır: bedeni/eşyayı ilgilendiren <strong>necasetten temizlik</strong> ve manevi bir hükümsüzlük hâlini gideren <strong>hadesten temizlik</strong> (abdest, gusül, teyemmüm). Üçü de tek bir ayette birlikte anlatılır:</p>
+
+      <div class="ayah-card">
+        <p class="ayah-arabic arabic">يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓاْ إِذَا قُمۡتُمۡ إِلَى ٱلصَّلَوٰةِ فَٱغۡسِلُواْ وُجُوهَكُمۡ وَأَيۡدِيَكُمۡ إِلَى ٱلۡمَرَافِقِ وَٱمۡسَحُواْ بِرُءُوسِكُمۡ وَأَرۡجُلَكُمۡ إِلَى ٱلۡكَعۡبَيۡنِۚ وَإِن كُنتُمۡ جُنُبٗا فَٱطَّهَّرُواْۚ وَإِن كُنتُم مَّرۡضَىٰٓ أَوۡ عَلَىٰ سَفَرٍ أَوۡ جَآءَ أَحَدٞ مِّنكُم مِّنَ ٱلۡغَآئِطِ أَوۡ لَٰمَسۡتُمُ ٱلنِّسَآءَ فَلَمۡ تَجِدُواْ مَآءٗ فَتَيَمَّمُواْ صَعِيدٗا طَيِّبٗا فَٱمۡسَحُواْ بِوُجُوهِكُمۡ وَأَيۡدِيكُم مِّنۡهُۚ مَا يُرِيدُ ٱللَّهُ لِيَجۡعَلَ عَلَيۡكُم مِّنۡ حَرَجٖ وَلَٰكِن يُرِيدُ لِيُطَهِّرَكُمۡ وَلِيُتِمَّ نِعۡمَتَهُۥ عَلَيۡكُمۡ لَعَلَّكُمۡ تَشۡكُرُونَ</p>
+        <p class="ayah-meal">"Ey İnananlar! Namaza kalktığınızda yüzlerinizi, dirseklere kadar ellerinizi, başlarınızı meshedip topuk kemiklerine kadar ayaklarınızı yıkayın. Eğer cünüpseniz yıkanıp temizlenin; şayet hasta veya yolculukta iseniz veya ayak yolundan gelmişseniz yahut kadınlara yaklaşmışsanız ve su bulamamışsanız temiz bir toprağa teyemmüm edin, yüzlerinizi ve ellerinizi onunla meshedin. Allah sizi zorlamak istemez, sizi arıtıp üzerinizdeki nimetini tamamlamak ister ki şükredesiniz."</p>
+        <p class="ayah-ref">Mâide Sûresi, 6. Ayet · <a class="ayet-git" href="oku.html?sure=5&ayet=6">ayete git →</a></p>
+      </div>
+
+      <div class="ilmihal-block">
+        <h4>Abdest</h4>
+        <p>Yukarıdaki ayete dayanarak (Hanefi fıkhına göre) abdestin 4 farzı: yüzü yıkamak, kolları dirseklerle birlikte yıkamak, başın dörtte birini meshetmek, ayakları topuklarla birlikte yıkamak.</p>
+        <p><strong style="color:var(--text);">Abdesti bozan başlıca haller:</strong> tuvalet ihtiyacının giderilmesi, vücuttan kan/irin gibi bir sıvının akması, ağız dolusu kusmak, yatarak/dayanarak derin uykuya dalmak, bayılmak veya aklı gidermek.</p>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Gusül</h4>
+        <p>Cünüplük (eşler arası ilişki veya ihtilam), hayız ve nifas (loğusalık) sonrasında farz olur; tüm bedenin suyla yıkanmasını gerektirir.</p>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Teyemmüm</h4>
+        <p>Su bulunmadığında veya kullanmaya güç yetirilemediğinde (hastalık, susuzluk tehlikesi vb.), temiz toprak cinsi bir yüzeye eller sürülerek yapılan, abdest ve guslün yerine geçen sembolik temizliktir.</p>
+      </div>
+
+      <div class="topic-note">
+        Bu bölümdeki farz sayısı gibi bazı ayrıntılar mezhepler arasında (Hanefi, Şâfiî, Mâlikî, Hanbelî) küçük farklılıklar gösterebilir; burada Türkiye'de yaygın olarak öğretilen Hanefi fıkhı esas alınmıştır.
+      </div>
+    </div>
+
+    <!-- 3. NAMAZ -->
+    <div class="ilmihal-panel" data-panel="namaz" hidden>
+      <span class="kaynak-etiket fikih"><span class="dot"></span>Fıkıh/hadis kaynaklı</span>
+      <p class="ilmihal-lead">Namazın Kur'an'daki yeri, vakitlere işaret eden ayetler ve namaz vakti/kıble araçları için <a href="namaz.html" style="color:var(--gold-bright);">"Namaz Vakti"</a> sayfasına bakabilirsiniz. Burada yalnızca <strong>rekat sayıları, şartlar ve rükünler gibi Kur'an'da doğrudan yer almayan, fıkıh kaynaklı pratik çerçeve</strong> ele alınır.</p>
+
+      <div class="ilmihal-block">
+        <h4>Namazın Şartları (namaza başlamadan önce)</h4>
+        <ul>
+          <li><strong>Hadesten taharet</strong> — abdestli/gerekiyorsa gusüllü olmak</li>
+          <li><strong>Necasetten taharet</strong> — beden, elbise ve namaz kılınan yerin temiz olması</li>
+          <li><strong>Setr-i avret</strong> — örtülmesi gereken vücut bölgelerini kapatmak</li>
+          <li><strong>İstikbal-i kıble</strong> — Kâbe yönüne dönmek</li>
+          <li><strong>Vakit</strong> — namazın kendi vakti içinde kılınması</li>
+          <li><strong>Niyet</strong> — hangi namazı kıldığını kalben (ve gerekirse dille) belirlemek</li>
+        </ul>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Namazın Rükünleri (namaz içindeki farzlar)</h4>
+        <ul>
+          <li>İftitah tekbiri ("Allâhu ekber" ile başlamak)</li>
+          <li>Kıyam (güç yetirebilenin ayakta durması)</li>
+          <li>Kıraat (Kur'an'dan bir miktar okumak)</li>
+          <li>Rükû</li>
+          <li>Secde</li>
+          <li>Ka'de-i ahîre (namazın sonundaki oturuş)</li>
+        </ul>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Namaz Çeşitleri</h4>
+        <ul>
+          <li><strong>Farz</strong> — beş vakit günlük namaz</li>
+          <li><strong>Vacip</strong> — vitir namazı, bayram namazları</li>
+          <li><strong>Sünnet</strong> — müekked (Hz. Peygamber'in devamlı kıldığı) ve gayr-i müekked sünnetler</li>
+          <li><strong>Nafile</strong> — teheccüd, duhâ gibi ekstra gönüllü namazlar</li>
+        </ul>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Cemaat ve Cuma</h4>
+        <p>Cemaatle namaz kılmak, hadislerde tek başına kılınana göre kat kat sevaplı olarak nitelenir. Cuma namazı ise erkekler için farz-ı ayndır; cemaatle, hutbeyle ve öğle vakti içinde kılınır, öğle namazının yerine geçer.</p>
+      </div>
+    </div>
+
+    <!-- 4. ORUÇ -->
+    <div class="ilmihal-panel" data-panel="oruc" hidden>
+      <span class="kaynak-etiket ayet"><span class="dot"></span>Ayet (farziyet) + fıkıh (detaylar)</span>
+      <p class="ilmihal-lead">Ramazan orucunun farziyeti doğrudan Kur'an'da bildirilir:</p>
+
+      <div class="ayah-card">
+        <p class="ayah-arabic arabic">يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ كُتِبَ عَلَيۡكُمُ ٱلصِّيَامُ كَمَا كُتِبَ عَلَى ٱلَّذِينَ مِن قَبۡلِكُمۡ لَعَلَّكُمۡ تَتَّقُونَ</p>
+        <p class="ayah-meal">"Ey İnananlar! Oruç, sizden öncekilere farz kılındığı gibi, Allah'a karşı gelmekten sakınasınız diye size sayılı günlerde farz kılındı. İçinizden hasta olan veya yolculukta bulunan, tutamadığı günlerin sayısınca diğer günlerde tutar. Oruca dayanamayanlar, bir düşkünü doyuracak kadar fidye verir. Kim gönülden iyilik yaparsa o iyilik kendisinedir. Oruç tutmanız, eğer bilirseniz, sizin için hayırlıdır."</p>
+        <p class="ayah-ref">Bakara Sûresi, 183. Ayet · <a class="ayet-git" href="oku.html?sure=2&ayet=183">ayete git →</a></p>
+      </div>
+
+      <div class="ilmihal-block">
+        <h4>Orucun Şartları</h4>
+        <ul><li>Müslüman olmak</li><li>Akıllı ve bulûğa ermiş olmak</li><li>Mukim olmak (aynı ayette belirtildiği gibi yolcu olmayan)</li><li>Sağlık bakımından oruca güç yetirebilmek</li></ul>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Orucu Bozan Haller — Kaza ve Keffaret Farkı</h4>
+        <p>Unutarak yiyip içmek orucu bozmaz (hadiste açıkça belirtilir). Kasten yiyip içmek yalnızca <strong style="color:var(--text);">kazayı</strong> (o günü sonradan tutmayı) gerektirirken, kasten cinsel ilişki gibi ağır bir ihlal hem kaza hem <strong style="color:var(--text);">keffareti</strong> (aralıksız 60 gün oruç tutmak ya da bir fakiri doyurmayı) gerektirir.</p>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Oruç Tutamayanlar</h4>
+        <p>Hasta ve yolcu (iyileştiğinde/döndüğünde kaza eder), hamile ve emzikli kadınlar, iyileşme umudu olmayan yaşlı ve hastalar (bunlar için fidye hükmü, aynı Bakara sûresinin devamındaki 184-185. ayetlerde yer alır).</p>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Nafile (Sünnet) Oruçlar</h4>
+        <p>Pazartesi-Perşembe günleri, Şevval ayının altı günü, Aşure günü (Muharrem ayının 10.) gibi Ramazan dışında tutulan gönüllü oruçlar — bunlar hadis/sünnet kaynaklıdır.</p>
+      </div>
+    </div>
+
+    <!-- 5. ZEKÂT -->
+    <div class="ilmihal-panel" data-panel="zekat" hidden>
+      <span class="kaynak-etiket ayet"><span class="dot"></span>Ayet (farziyet, alıcılar) + fıkıh (oranlar, nisap)</span>
+      <p class="ilmihal-lead">Zekât, Kur'an'da çoğunlukla namazla birlikte, ikisi bir bütünmüş gibi zikredilir:</p>
+
+      <div class="ayah-card">
+        <p class="ayah-arabic arabic">وَأَقِيمُواْ ٱلصَّلَوٰةَ وَءَاتُواْ ٱلزَّكَوٰةَ وَٱرۡكَعُواْ مَعَ ٱلرَّـٰكِعِينَ</p>
+        <p class="ayah-meal">"Namazı kılın, zekâtı verin, rükû edenlerle birlikte rükû edin."</p>
+        <p class="ayah-ref">Bakara Sûresi, 43. Ayet · <a class="ayet-git" href="oku.html?sure=2&ayet=43">ayete git →</a></p>
+      </div>
+
+      <div class="ilmihal-block">
+        <h4>Zekâtın Şartı: Nisap</h4>
+        <p>Zekât, belirli bir zenginlik eşiğine (<strong style="color:var(--text);">nisap</strong>) ulaşan ve üzerinden bir kamerî yıl geçen mallardan verilir; nisabın altındaki servet ve borçlar zekâta tabi değildir.</p>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Zekâta Tabi Mallar ve Oranları</h4>
+        <ul>
+          <li>Altın, gümüş, nakit para ve ticaret malları: <strong style="color:var(--text);">%2,5 (kırkta bir)</strong></li>
+          <li>Deve, sığır, koyun/keçi gibi hayvanlar: sayılarına göre değişen özel oranlar</li>
+          <li>Toprak ürünleri (öşür): yağmurla sulanan arazide %10, suni sulamayla %5</li>
+        </ul>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Zekât Kimlere Verilir? (8 sınıf)</h4>
+        <div class="ayah-card" style="margin-top:6px;">
+          <p class="ayah-arabic arabic">إِنَّمَا ٱلصَّدَقَٰتُ لِلۡفُقَرَآءِ وَٱلۡمَسَٰكِينِ وَٱلۡعَٰمِلِينَ عَلَيۡهَا وَٱلۡمُؤَلَّفَةِ قُلُوبُهُمۡ وَفِي ٱلرِّقَابِ وَٱلۡغَٰرِمِينَ وَفِي سَبِيلِ ٱللَّهِ وَٱبۡنِ ٱلسَّبِيلِۖ فَرِيضَةٗ مِّنَ ٱللَّهِۗ وَٱللَّهُ عَلِيمٌ حَكِيمٞ</p>
+          <p class="ayah-meal">"Zekâtlar; Allah'tan bir farz olarak yoksullara, düşkünlere, onu toplayan memurlara, kalpleri (İslam'a) ısındırılacaklara verilir; kölelerin özgürlüğü, borçlular, Allah yolunda olanlar ve yolda kalmışlar uğrunda sarf edilir. Allah bilendir, hüküm ve hikmet sahibidir."</p>
+          <p class="ayah-ref">Tevbe Sûresi, 60. Ayet · <a class="ayet-git" href="oku.html?sure=9&ayet=60">ayete git →</a></p>
+        </div>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Sadaka-i Fıtır (Fitre)</h4>
+        <p>Ramazan bayramından önce, imkânı olan her Müslümanın kendisi ve bakmakla yükümlü olduğu kişiler adına vermesi gereken bir sadakadır; miktarı (temel gıda maddesi değeri üzerinden) her yıl güncellenir. Zekâttan farklı bir yükümlülüktür.</p>
+      </div>
+    </div>
+
+    <!-- 6. HAC VE UMRE -->
+    <div class="ilmihal-panel" data-panel="hac" hidden>
+      <span class="kaynak-etiket ayet"><span class="dot"></span>Ayet (farziyet) + fıkıh (rükün/vacip detayları)</span>
+      <p class="ilmihal-lead">Haccın farziyeti, "gücü yetenler" şartıyla birlikte doğrudan Kur'an'da geçer:</p>
+
+      <div class="ayah-card">
+        <p class="ayah-arabic arabic">فِيهِ ءَايَٰتُۢ بَيِّنَٰتٞ مَّقَامُ إِبۡرَٰهِيمَۖ وَمَن دَخَلَهُۥ كَانَ ءَامِنٗاۗ وَلِلَّهِ عَلَى ٱلنَّاسِ حِجُّ ٱلۡبَيۡتِ مَنِ ٱسۡتَطَاعَ إِلَيۡهِ سَبِيلٗاۚ وَمَن كَفَرَ فَإِنَّ ٱللَّهَ غَنِيٌّ عَنِ ٱلۡعَٰلَمِينَ</p>
+        <p class="ayah-meal">"Orada apaçık deliller, İbrahim'in makamı vardır; oraya giren güvenlik içinde olur. Yoluna gücü yeten insanlara Allah için Beytullah'ı haccetmeleri gereklidir. Kim inkâr ederse bilsin ki Allah bütün âlemlerden müstağnidir."</p>
+        <p class="ayah-ref">Âl-i İmrân Sûresi, 97. Ayet · <a class="ayet-git" href="oku.html?sure=3&ayet=97">ayete git →</a></p>
+      </div>
+
+      <div class="ilmihal-block">
+        <h4>Haccın Şartları (kimlere farzdır)</h4>
+        <ul><li>Müslüman olmak</li><li>Akıllı ve bulûğa ermiş olmak</li><li>Hür olmak</li><li><strong style="color:var(--text);">İstitaat</strong> — bedenen sağlıklı olmak, yol masrafını ve geride kalanların geçimini karşılayabilmek, yolun güvenli olması</li></ul>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Haccın Farzları (Rükünleri)</h4>
+        <ul><li>İhrama girmek</li><li>Arafat vakfesi (Zilhicce ayının 9. günü)</li><li>Ziyaret (ifâza) tavafı</li></ul>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Haccın Vacipleri</h4>
+        <ul><li>Müzdelife'de vakfe</li><li>Şeytan taşlama</li><li>Sa'y (Safâ ile Merve arasında yürümek)</li><li>Saç tıraşı olmak/kısaltmak</li><li>Veda tavafı</li></ul>
+      </div>
+      <div class="ilmihal-block">
+        <h4>Umre ile Farkı</h4>
+        <p>Umre; tavaf, sa'y ve tıraştan oluşan, hac vakti dışında yılın herhangi bir zamanında yapılabilen bir ziyarettir. Hac gibi farz değildir, ama ömürde en az bir kez yapılması tavsiye edilen güçlü bir sünnettir.</p>
+      </div>
+    </div>
+
+    <!-- 7. AHLAK -->
+    <div class="ilmihal-panel" data-panel="ahlak" hidden>
+      <span class="kaynak-etiket ayet"><span class="dot"></span>Ayet kaynaklı</span>
+      <p class="ilmihal-lead">İman ve ibadetin yanında İlmihal'in üçüncü büyük konusu <strong>ahlaktır</strong> — bu başlık, sitenin geri kalanıyla aynı şekilde doğrudan ayetlere dayanır.</p>
+
+      <div class="ayah-card">
+        <p class="ayah-arabic arabic">إِنَّ ٱللَّهَ يَأۡمُرُ بِٱلۡعَدۡلِ وَٱلۡإِحۡسَٰنِ وَإِيتَآيِٕ ذِي ٱلۡقُرۡبَىٰ وَيَنۡهَىٰ عَنِ ٱلۡفَحۡشَآءِ وَٱلۡمُنكَرِ وَٱلۡبَغۡيِۚ يَعِظُكُمۡ لَعَلَّكُمۡ تَذَكَّرُونَ</p>
+        <p class="ayah-meal">"Allah şüphesiz adaleti, iyilik yapmayı, yakınlara bakmayı emreder; hayasızlığı, fenalığı ve haddi aşmayı yasaklar. Düşünüp öğüt alasınız diye size öğüt verir."</p>
+        <p class="ayah-ref">Nahl Sûresi, 90. Ayet · <a class="ayet-git" href="oku.html?sure=16&ayet=90">ayete git →</a></p>
+      </div>
+      <div class="ayah-card">
+        <p class="ayah-arabic arabic">وَقَضَىٰ رَبُّكَ أَلَّا تَعۡبُدُوٓاْ إِلَّآ إِيَّاهُ وَبِٱلۡوَٰلِدَيۡنِ إِحۡسَٰنًاۚ إِمَّا يَبۡلُغَنَّ عِندَكَ ٱلۡكِبَرَ أَحَدُهُمَآ أَوۡ كِلَاهُمَا فَلَا تَقُل لَّهُمَآ أُفّٖ وَلَا تَنۡهَرۡهُمَا وَقُل لَّهُمَا قَوۡلٗا كَرِيمٗا</p>
+        <p class="ayah-meal">"Rabbin, yalnız Kendisine kulluk etmenizi ve ana babaya iyilik etmenizi emretti. Onlardan biri ya da her ikisi senin yanında yaşlanırsa, onlara 'öf' bile deme, onları azarlama; ikisine de gönül alıcı, güzel sözler söyle."</p>
+        <p class="ayah-ref">İsrâ Sûresi, 23. Ayet · <a class="ayet-git" href="oku.html?sure=17&ayet=23">ayete git →</a></p>
+      </div>
+      <div class="ayah-card">
+        <p class="ayah-arabic arabic">يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ ٱجۡتَنِبُواْ كَثِيرٗا مِّنَ ٱلظَّنِّ إِنَّ بَعۡضَ ٱلظَّنِّ إِثۡمٞۖ وَلَا تَجَسَّسُواْ وَلَا يَغۡتَب بَّعۡضُكُم بَعۡضًاۚ أَيُحِبُّ أَحَدُكُمۡ أَن يَأۡكُلَ لَحۡمَ أَخِيهِ مَيۡتٗا فَكَرِهۡتُمُوهُۚ وَٱتَّقُواْ ٱللَّهَۚ إِنَّ ٱللَّهَ تَوَّابٞ رَّحِيمٞ</p>
+        <p class="ayah-meal">"Ey inananlar! Zannın çoğundan sakının, zira zannın bir kısmı günahtır. Birbirinizin kusurunu araştırmayın, kimse kimseyi çekiştirmesin. Hanginiz ölü kardeşinin etini yemekten hoşlanır? Elbette tiksinirsiniz. Allah'tan sakının; şüphesiz Allah tevbeleri çokça kabul eden, çok merhamet edendir."</p>
+        <p class="ayah-ref">Hucurât Sûresi, 12. Ayet · <a class="ayet-git" href="oku.html?sure=49&ayet=12">ayete git →</a></p>
+      </div>
+
+      <div class="ilmihal-block">
+        <h4>Öne çıkan ilkeler</h4>
+        <ul>
+          <li><strong>Adalet ve ihsan</strong> — hem hak ölçüsünde davranmak hem de bunun ötesinde iyilik etmek</li>
+          <li><strong>Ana-babaya iyilik</strong> — özellikle yaşlılıklarında sabır ve güzel sözle davranmak</li>
+          <li><strong>Gıybetten sakınmak</strong> — birinin arkasından hoşuna gitmeyecek şeyler konuşmamak</li>
+          <li><strong>Zandan kaçınmak</strong> — insanlar hakkında delilsiz kötü ihtimale inanmamak</li>
+        </ul>
+      </div>
+
+      <div class="topic-note" style="margin-top:8px;">
+        <strong style="color:var(--gold-bright);">Devamı için:</strong> Elif-Bâ öğreticisindeki <a href="elifba.html" style="color:var(--gold-bright);">tecvid dersleri</a> ile bu sayfadaki ilmihal bilgilerini tamamladıysanız, artık hem Kur'an'ı doğru okuyabilir hem de günlük ibadetlerinizi bilinçli şekilde yerine getirebilirsiniz. Sorularınız için <a href="ansiklopedi.html" style="color:var(--gold-bright);">İslam Ansiklopedisi</a> sayfasından terim araması yapabilirsiniz.
+      </div>
+    </div>
+
+    <div class="ders-nav">
+      <button class="btn-ghost-sm" id="dersPrevBtn">‹ Önceki konu</button>
+      <button class="btn-ghost-sm" id="dersNextBtn">Sonraki konu ›</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Ayet metni ve meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile (sitenin geri kalanıyla aynı veri kaynağı).</span>
+      <span>İlmihal bilgileri, Türkiye'de yaygın kullanılan klasik ve güncel ilmihal kaynaklarının (bkz. sayfa girişindeki "Kim geliştirmiştir?" bölümü) genel içeriğine dayanılarak sadeleştirilmiştir; fıkhi ayrıntılarda Hanefi mezhebi esas alınmıştır.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.ilmihal-tab-btn');
+  const panels = document.querySelectorAll('.ilmihal-panel');
+  const tabOrder = ['iman', 'taharet', 'namaz', 'oruc', 'zekat', 'hac', 'ahlak'];
+
+  function showTab(name){
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    panels.forEach(p => {
+      const match = p.dataset.panel === name;
+      p.classList.toggle('active', match);
+      p.hidden = !match;
+    });
+    window.scrollTo({ top: document.getElementById('ilmihalTabs').offsetTop - 100, behavior: 'smooth' });
+  }
+  tabs.forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+
+  document.getElementById('dersPrevBtn').addEventListener('click', () => {
+    const current = tabOrder.indexOf(document.querySelector('.ilmihal-tab-btn.active').dataset.tab);
+    if(current > 0) showTab(tabOrder[current - 1]);
+  });
+  document.getElementById('dersNextBtn').addEventListener('click', () => {
+    const current = tabOrder.indexOf(document.querySelector('.ilmihal-tab-btn.active').dataset.tab);
+    if(current < tabOrder.length - 1) showTab(tabOrder[current + 1]);
+  });
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kur'an'da Allah'ın İsimleri — Beyan</title>
+<meta name="description" content="Allah'ın Kur'an'da geçen isim ve sıfatları — her biri gerçek bir ayet referansıyla.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .isim-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(190px, 1fr)); gap:14px; margin-bottom:40px;}
+  .isim-chip{
+    border:1px solid var(--border-soft); border-radius:12px; padding:16px 16px; background:var(--glass);
+    backdrop-filter:blur(10px); cursor:pointer; text-align:center; transition:border-color .2s, transform .2s;
+  }
+  .isim-chip:hover{border-color:var(--gold); transform:translateY(-2px);}
+  .isim-chip.active{border-color:var(--gold); background:rgba(217,178,107,0.08);}
+  .isim-chip .isim-ar{font-family:'Amiri', serif; direction:rtl; font-size:1.4rem; color:var(--gold-bright); margin-bottom:6px;}
+  .isim-chip .isim-tr{font-size:0.78rem; color:var(--muted); display:block;}
+  .isim-detail{border:1px solid var(--border); border-radius:16px; padding:28px 30px; background:rgba(217,178,107,0.06); display:none;}
+  .isim-detail.open{display:block;}
+  .isim-detail .isim-detail-ar{font-family:'Amiri', serif; direction:rtl; font-size:2rem; color:var(--gold-bright); margin-bottom:6px;}
+  .isim-detail .isim-detail-tr{font-family:'Cormorant Garamond', serif; font-size:1.2rem; color:var(--text); margin-bottom:4px;}
+  .isim-detail .isim-detail-meaning{color:var(--muted); font-size:0.92rem; margin-bottom:20px;}
+  .isim-detail .isim-ayah-arabic{font-family:'Amiri', serif; direction:rtl; font-size:1.4rem; line-height:2.1; color:var(--text); margin-bottom:12px;}
+  .isim-detail .isim-ayah-meal{font-family:'Cormorant Garamond', serif; font-size:1.05rem; color:var(--muted); margin-bottom:8px;}
+  .isim-detail .isim-ayah-ref{font-size:0.78rem; color:var(--teal);}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
+    <p class="kicker">Konular</p>
+    <h1 class="section-title" style="max-width:760px;">Kur'an'da <span class="grad-word">Allah'ın İsimleri</span></h1>
+    <p class="section-body" style="max-width:640px;">"Sadece Kur'an" ilkesi gereği, yaygın bilinen "99 isim" listesini değil; Allah'ın Kur'an'da doğrudan geçen isim ve sıfatlarını, her birini gerçek bir ayet referansıyla gösteriyoruz.</p>
+  </div>
+</header>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:900px;">
+    <div class="topic-note" style="margin-bottom:32px;">
+      <strong style="color:var(--gold-bright);">Neden "99 isim" demiyoruz?</strong> Yaygın bilinen doksan dokuzluk liste bir hadisten derlenir; ayetlerin kendisinde böyle numaralandırılmış, kapalı bir liste yoktur (Kur'an sadece "en güzel isimler O'nundur" der — Tâhâ 20:8, Haşr 59:24). Bu sayfadaki her isim ise doğrudan bir ayette geçtiği için buradadır; sayı 99 değildir, kesin/kapalı bir liste de değildir — zamanla yeni doğrulanmış isimler eklenebilir.
+    </div>
+
+    <div class="isim-grid" id="isimGrid"></div>
+    <div class="isim-detail" id="isimDetail"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Kur'an metni ve Türkçe meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  async function init(){
+    let names = [];
+    try{
+      names = await fetch('data/quran/isimler.json').then(r => r.json());
+    }catch(e){
+      document.getElementById('isimGrid').innerHTML = '<p style="color:var(--muted-2);">Veri yüklenemedi — bu sayfayı bir yerel sunucu üzerinden açtığınızdan emin olun.</p>';
+      return;
+    }
+
+    document.getElementById('isimGrid').innerHTML = names.map((n, i) => `
+      <button class="isim-chip" data-i="${i}">
+        <span class="isim-ar">${n.arabic}</span>
+        <span class="isim-tr">${n.translit}</span>
+      </button>
+    `).join('');
+
+    document.querySelectorAll('.isim-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.isim-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const n = names[parseInt(chip.dataset.i, 10)];
+        const detail = document.getElementById('isimDetail');
+        detail.innerHTML = `
+          <p class="isim-detail-ar">${n.arabic}</p>
+          <p class="isim-detail-tr">${n.translit}</p>
+          <p class="isim-detail-meaning">${n.meaning}</p>
+          <p class="isim-ayah-arabic">${n.ayahArabic}</p>
+          <p class="isim-ayah-meal">${n.ayahMeal}</p>
+          <p class="isim-ayah-ref">${n.surahName} Sûresi, ${n.ayah}. Ayet · <a href="oku.html?sure=${n.surah}&ayet=${n.ayah}" style="color:var(--gold-bright);">bu ayetten oku →</a></p>
+        `;
+        detail.classList.add('open');
+        detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    });
+
+    // ilk ismi otomatik göster
+    if(names.length) document.querySelector('.isim-chip').click();
+  }
+  init();
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

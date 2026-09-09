@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kur'an'ı Oku — Beyan</title>
+<meta name="description" content="Meal, tefsir ya da hatim modunda; gerçek kâri sesiyle, kelime kelime takip ederek Kur'an-ı Kerim okuyun.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .mode-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px; margin-top:8px;}
+  @media (max-width:800px){ .mode-grid{grid-template-columns:1fr;} }
+  .mode-card{
+    text-align:left; border:1px solid var(--border-soft); border-radius:16px; padding:32px 26px;
+    background:var(--glass); backdrop-filter:blur(12px); cursor:pointer; color:var(--text);
+    font-family:inherit; transition:border-color .25s, transform .25s, box-shadow .25s;
+  }
+  .mode-card:hover{border-color:var(--border); transform:translateY(-4px); box-shadow:0 18px 40px rgba(0,0,0,0.35);}
+  .mode-card .mode-icon{font-size:1.8rem; margin-bottom:14px; display:block;}
+  .mode-card h3{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.3rem; margin:0 0 10px; color:var(--gold-bright);}
+  .mode-card p{margin:0; color:var(--muted); font-size:0.88rem; line-height:1.6;}
+
+  .reading-topbar{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:20px;}
+  .btn-ghost-sm{background:none; border:1px solid var(--border-soft); color:var(--muted); padding:8px 16px; border-radius:20px; font-size:0.8rem; cursor:pointer; transition:border-color .2s, color .2s;}
+  .btn-ghost-sm:hover{border-color:var(--gold); color:var(--gold-bright);}
+  .btn-ghost-sm:disabled{opacity:0.3; cursor:not-allowed;}
+  .reading-progress{display:flex; align-items:center; gap:10px; flex:1; max-width:320px; min-width:180px;}
+  .reading-progress-track{flex:1; height:5px; background:var(--border-soft); border-radius:3px; overflow:hidden;}
+  .reading-progress-fill{height:100%; width:0%; background:linear-gradient(90deg, var(--teal), var(--gold)); transition:width .3s ease;}
+  .reading-progress span{font-size:0.74rem; color:var(--muted-2); white-space:nowrap;}
+
+  .hatim-banner{border:1px solid var(--border); border-radius:12px; padding:16px 20px; background:rgba(217,178,107,0.07); margin-bottom:20px; font-size:0.88rem; color:var(--text);}
+  .hatim-banner strong{color:var(--gold-bright);}
+
+  /* ---- ses çubuğu (gerçek kâri sesi + kelime takibi) ---- */
+  .audio-bar{
+    display:flex; align-items:center; gap:16px; border:1px solid var(--border-soft); border-radius:14px;
+    padding:14px 20px; background:linear-gradient(155deg, #101B18, #0A1310); margin-bottom:24px;
+  }
+  /* açık temada sabit koyu gradyan yerine, sayfanın kendi "biraz daha koyu panel" tonları kullanılıyor */
+  :root[data-theme="light"] .audio-bar{background:linear-gradient(155deg, var(--void-2), var(--void-3));}
+  .audio-play-btn{
+    width:46px; height:46px; border-radius:50%; border:1px solid var(--border); background:var(--glass);
+    color:var(--gold-bright); font-size:1.1rem; cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    transition:box-shadow .2s;
+  }
+  .audio-play-btn:hover{box-shadow:0 0 22px rgba(217,178,107,0.4);}
+  .audio-info{flex:1; min-width:0;}
+  .audio-reciter{display:block; font-size:0.72rem; color:var(--muted-2);}
+  .reciter-select{
+    background:none; border:none; color:var(--muted-2); font-size:0.72rem; font-family:inherit;
+    padding:0; margin-bottom:2px; cursor:pointer; max-width:100%;
+  }
+  .reciter-select:focus{outline:none; color:var(--gold-bright);}
+  .audio-current-ref{display:block; font-size:0.88rem; color:var(--text); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .audio-track{width:80px; height:4px; background:var(--border-soft); border-radius:2px; overflow:hidden; flex-shrink:0;}
+  @media (max-width:560px){ .audio-track{display:none;} }
+  .audio-track-fill{height:100%; width:0%; background:linear-gradient(90deg, var(--teal), var(--gold));}
+
+  /* ---- kaynak seçim ekranı ---- */
+  .source-hint{color:var(--muted); font-size:0.88rem; margin-bottom:24px;}
+  .source-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+  @media (max-width:640px){ .source-grid{grid-template-columns:1fr;} }
+  .source-group-label{grid-column:1 / -1; font-size:0.76rem; color:var(--muted-2); text-transform:uppercase; letter-spacing:0.06em; margin:18px 0 -2px;}
+  .source-group-label:first-child{margin-top:0;}
+  .source-card{
+    display:flex; align-items:center; gap:14px; text-align:left; border:1px solid var(--border-soft); border-radius:12px;
+    padding:16px 18px; background:var(--glass); backdrop-filter:blur(10px); cursor:pointer; color:var(--text);
+    font-family:inherit; font-size:0.92rem; transition:border-color .2s, background .2s;
+  }
+  .source-card:hover{border-color:var(--border);}
+  .source-card.selected{border-color:var(--gold); background:rgba(217,178,107,0.08);}
+  .source-check{
+    width:20px; height:20px; border-radius:50%; border:1px solid var(--border-soft); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:transparent; transition:all .2s;
+  }
+  .source-card.selected .source-check{border-color:var(--gold); background:var(--gold); color:var(--ink);}
+  .source-select-actions{display:flex; justify-content:space-between; align-items:center; margin-top:28px; flex-wrap:wrap; gap:14px;}
+
+  .source-indicator-row{align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap;}
+  .source-indicator-row:not([hidden]){display:flex;}
+  .source-chip{border:1px solid var(--border); border-radius:16px; padding:6px 14px; font-size:0.78rem; color:var(--gold-bright); background:rgba(217,178,107,0.06);}
+
+  .compare-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:6px;}
+  @media (max-width:640px){ .compare-grid{grid-template-columns:1fr;} }
+  .compare-col{border-left:2px solid var(--border-soft); padding-left:14px;}
+  @media (max-width:640px){ .compare-col{border-left:none; border-top:1px solid var(--border-soft); padding-left:0; padding-top:12px;} }
+  .compare-col .source-label{display:block; font-size:0.74rem; color:var(--teal); margin-bottom:6px;}
+
+  /* ---- ayet listesi (birden fazla ayet aynı ekranda) ---- */
+  #ayahList{display:flex; flex-direction:column; gap:6px;}
+  .ayah-block{
+    border:1px solid var(--border-soft); border-radius:14px; padding:24px 26px; background:var(--glass);
+    backdrop-filter:blur(10px); transition:border-color .3s, box-shadow .3s;
+  }
+  .ayah-block.playing{border-color:var(--gold); box-shadow:0 0 0 1px rgba(217,178,107,0.2), 0 0 30px rgba(217,178,107,0.12);}
+  .ayah-block-head{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  .ayah-number{
+    width:26px; height:26px; border-radius:50%; border:1px solid var(--border); color:var(--gold-bright);
+    font-size:0.72rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .ayah-icon-btn{
+    background:none; border:none; color:var(--muted-2); cursor:pointer; font-size:0.95rem; padding:4px;
+    transition:color .2s, transform .2s; line-height:1;
+  }
+  .ayah-icon-btn:hover{color:var(--gold-bright); transform:scale(1.15);}
+  .ayah-icon-btn.saved{color:var(--teal);}
+  .ayah-arabic{font-family:'Amiri', serif; direction:rtl; font-size:calc(1.65rem * var(--text-scale, 1)); line-height:2.4; color:var(--text); margin:0 0 14px;}
+  #ayahList.dinle-mode .ayah-arabic{font-size:calc(2.1rem * var(--text-scale, 1)); line-height:2.7; text-align:center;}
+  #ayahList.dinle-mode .ayah-block{text-align:center;}
+  #ayahList.dinle-mode .ayah-block-head{justify-content:center;}
+  #ayahList.dinle-mode .ayah-meal{text-align:center; max-width:640px; margin-left:auto; margin-right:auto;}
+  .ayah-arabic .word{display:inline-block; padding:0 1px; border-radius:4px; transition:color .15s, background-color .15s;}
+  .ayah-arabic .word.active{background:rgba(217,178,107,0.2); text-shadow:0 0 10px rgba(243,206,142,0.35); box-shadow:0 0 0 1px rgba(217,178,107,0.3);}
+
+  /* ---- tecvid (tajweed) renk kodlaması ---- */
+  .tj-silent{color:#8FA39A;}
+  .tj-ghunnah{color:#E08FC4;}
+  .tj-qalqalah{color:#E8615A; font-weight:600;}
+  .tj-idgham{color:#5FC97A;}
+  .tj-ikhfa{color:#E0A458;}
+  .tj-iqlab{color:#B084E0;}
+  .tj-madd{color:#5B9FE0;}
+  .tajweed-toggle-row{display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap;}
+  .tajweed-toggle-row label{display:flex; align-items:center; gap:8px; font-size:0.84rem; color:var(--muted); cursor:pointer;}
+  .tajweed-toggle-row input{accent-color:var(--gold);}
+  .tajweed-legend{display:none; flex-wrap:wrap; gap:12px; font-size:0.74rem; color:var(--muted-2); margin-bottom:20px; padding:12px 16px; border:1px solid var(--border-soft); border-radius:10px;}
+  .tajweed-legend.open{display:flex;}
+  .tajweed-legend span{display:flex; align-items:center; gap:5px;}
+  .tajweed-legend .dot{width:9px; height:9px; border-radius:50%; display:inline-block;}
+  .ayah-meal{font-family:'Cormorant Garamond',serif; font-size:calc(1.05rem * var(--text-scale, 1)); color:var(--muted); margin:0 0 8px; line-height:1.65;}
+  .ayah-tefsir{font-size:calc(0.88rem * var(--text-scale, 1)); color:var(--muted); line-height:1.75; margin-top:4px;}
+  .ayah-tefsir .tefsir-author{color:var(--teal); font-size:0.74rem; display:block; margin-bottom:6px; direction:ltr; unicode-bidi:isolate; font-family:'Work Sans', sans-serif;}
+  .ayah-tefsir.arabic{font-size:calc(1.05rem * var(--text-scale, 1)); line-height:2.1; text-align:right;}
+
+  /* ---- yazı boyutu kontrolü ---- */
+  .font-size-control{display:flex; align-items:center; gap:6px; margin-left:auto;}
+  .font-size-label{font-size:0.8rem; color:var(--muted); margin-right:2px;}
+  .font-size-btn{
+    background:none; border:1px solid var(--border-soft); border-radius:8px; color:var(--muted);
+    cursor:pointer; width:34px; height:32px; display:flex; align-items:center; justify-content:center;
+    font-family:inherit; line-height:1; transition:border-color .2s, color .2s;
+  }
+  .font-size-btn:hover{border-color:var(--gold); color:var(--gold-bright);}
+  .font-size-btn.active{border-color:var(--gold); background:rgba(217,178,107,0.12); color:var(--gold-bright);}
+
+  .page-nav{display:flex; justify-content:space-between; align-items:center; margin-top:24px; padding-top:20px; border-top:1px solid var(--border-soft);}
+
+  /* ---- ayet paylaşım görseli ---- */
+  .share-modal-overlay{
+    position:fixed; inset:0; z-index:200; background:rgba(2,4,3,0.82); backdrop-filter:blur(6px);
+    align-items:center; justify-content:center; padding:24px;
+  }
+  .share-modal-overlay:not([hidden]){display:flex;}
+  .share-modal{
+    background:#0A1310; border:1px solid var(--border); border-radius:18px; padding:24px;
+    max-width:420px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:0 30px 70px rgba(0,0,0,0.5);
+  }
+  .share-modal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--gold-bright);}
+  .share-modal-close{background:none; border:none; color:var(--muted); font-size:1.1rem; cursor:pointer; padding:4px; line-height:1;}
+  .share-modal-close:hover{color:var(--gold-bright);}
+  .share-canvas-wrap{border-radius:12px; overflow:hidden; border:1px solid var(--border-soft); margin-bottom:14px; background:#050906;}
+  .share-canvas-wrap canvas{display:block; width:100%; height:auto;}
+  .share-modal-note{font-size:0.76rem; color:var(--muted-2); margin:0 0 16px; line-height:1.5;}
+  .share-modal-actions{display:flex; gap:10px; flex-wrap:wrap;}
+
+  /* ---- cüz seçici ---- */
+  .juz-modal-overlay{
+    position:fixed; inset:0; z-index:200; background:rgba(2,4,3,0.82); backdrop-filter:blur(6px);
+    align-items:center; justify-content:center; padding:24px;
+  }
+  .juz-modal-overlay:not([hidden]){display:flex;}
+  .juz-modal{
+    background:var(--void-2); border:1px solid var(--border); border-radius:18px; padding:24px;
+    max-width:460px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:0 30px 70px rgba(0,0,0,0.5);
+  }
+  .juz-modal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--gold-bright);}
+  .juz-modal-close{background:none; border:none; color:var(--muted); font-size:1.1rem; cursor:pointer; padding:4px; line-height:1;}
+  .juz-modal-close:hover{color:var(--gold-bright);}
+  .juz-picker-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:8px;}
+  @media (max-width:420px){ .juz-picker-grid{grid-template-columns:repeat(4,1fr);} }
+  .juz-picker-btn{
+    background:none; border:1px solid var(--border-soft); border-radius:10px; padding:10px 4px; color:var(--muted);
+    font-family:inherit; font-size:0.82rem; cursor:pointer; transition:border-color .2s, color .2s, background .2s;
+  }
+  .juz-picker-btn:hover{border-color:var(--gold); color:var(--gold-bright);}
+  .juz-picker-btn.current{border-color:var(--gold); background:rgba(217,178,107,0.14); color:var(--gold-bright); font-weight:600;}
+  .juz-picker-btn.done{color:var(--teal); border-color:var(--teal);}
+
+  .juz-grid{display:grid; grid-template-columns:repeat(10,1fr); gap:5px; margin-top:12px;}
+  @media (max-width:520px){ .juz-grid{grid-template-columns:repeat(6,1fr);} }
+  .juz-cell{
+    aspect-ratio:1; border-radius:5px; border:1px solid var(--border-soft); display:flex; align-items:center; justify-content:center;
+    font-size:0.68rem; color:var(--muted-2);
+  }
+  .juz-cell.done{background:rgba(73,214,196,0.14); border-color:var(--teal); color:var(--teal);}
+  .juz-cell.current{background:rgba(217,178,107,0.16); border-color:var(--gold); color:var(--gold-bright); font-weight:600;}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <a class="topic-back" href="index.html">‹ Ana sayfaya dön</a>
+    <p class="kicker">Kur'an'ı Oku</p>
+    <h1 class="section-title" style="max-width:700px;">Nasıl okumak istersiniz?</h1>
+    <p class="section-body" style="max-width:600px;">Fâtiha Sûresi'nin ilk ayetinden başlayarak, sırayla okuyacaksınız. Gerçek kâri sesiyle dinlerken, okunan kelime gözünüzün önünde vurgulanır. Önce okuma şeklinizi seçin.</p>
+  </div>
+</header>
+
+<section id="modeSelect">
+  <div class="wrap" style="max-width:960px;">
+    <div class="mode-grid">
+      <button class="mode-card" data-mode="meal">
+        <span class="mode-icon">📖</span>
+        <h3>Meal ile Oku</h3>
+        <p>Her ayetin altında gerçek Türkçe meali görün, kendi hızınızda ilerleyin.</p>
+      </button>
+      <button class="mode-card" data-mode="tefsir">
+        <span class="mode-icon">📚</span>
+        <h3>Tefsirle Oku</h3>
+        <p>Her ayetin altında seçtiğiniz bir tefsir kaynağından açıklama görün.</p>
+      </button>
+      <button class="mode-card" data-mode="hatim">
+        <span class="mode-icon">🕌</span>
+        <h3>Hatim Modu</h3>
+        <p>Kaldığınız yerden devam edin; 6.236 ayet üzerinden ilerlemenizi takip edin.</p>
+      </button>
+      <button class="mode-card" data-mode="dinle">
+        <span class="mode-icon">🎧</span>
+        <h3>Sadece Dinle</h3>
+        <p>Metin okumadan, sadece kâri sesiyle dinleyin — isterseniz altında bir mealin de gösterilmesini seçebilirsiniz.</p>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="sourceSelect" hidden>
+  <div class="wrap" style="max-width:760px;">
+    <a class="topic-back" href="#" id="backToModeBtn">‹ Moda dön</a>
+    <p class="kicker" id="sourceKicker">Kaynak seçimi</p>
+    <h2 class="section-title" style="max-width:700px;" id="sourceTitle">Hangi kaynaktan okumak istersiniz?</h2>
+    <p class="source-hint" id="sourceHint">Bir kaynak seçin, ya da yan yana karşılaştırmak için iki kaynak seçin.</p>
+
+    <div class="source-grid" id="sourceGrid"></div>
+
+    <div class="source-select-actions">
+      <span style="font-size:0.82rem; color:var(--muted-2);" id="sourceSelectionSummary">Henüz kaynak seçilmedi</span>
+      <button class="btn-primary" id="sourceContinueBtn" style="border:none; cursor:pointer;" disabled>Okumaya başla →</button>
+    </div>
+  </div>
+</section>
+
+<section id="readingArea" hidden>
+  <div class="wrap" style="max-width:820px;">
+    <div class="reading-topbar">
+      <button class="btn-ghost-sm" id="changeModeBtn">‹ Modu değiştir</button>
+      <button class="btn-ghost-sm" id="juzPickerBtn">📖 <span id="juzBadge">1. Cüz</span></button>
+      <a class="btn-ghost-sm" href="ezberlerim.html" style="text-decoration:none;">🧠 Ezberlerim</a>
+      <span id="streakBadge" style="font-size:0.82rem; color:var(--gold-bright);"></span>
+      <div class="reading-progress">
+        <div class="reading-progress-track"><div class="reading-progress-fill" id="progressFill"></div></div>
+        <span id="progressText">– / 6236</span>
+      </div>
+    </div>
+
+    <div id="hatimBanner" class="hatim-banner" hidden>
+      🕌 <strong>Hatim Modu:</strong> Kaldığınız yerden devam ediyorsunuz. Şu ana kadar Kur'an'ın <strong id="hatimPercent">%0</strong>'ını okudunuz — şu an <strong id="hatimJuzText">1. Cüz</strong>'desiniz.
+      <div class="juz-grid" id="hatimJuzGrid"></div>
+    </div>
+
+    <div class="audio-bar">
+      <button class="audio-play-btn" id="playPauseBtn" aria-label="Dinle">
+        <svg id="playIcon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="audio-info">
+        <select class="reciter-select" id="reciterSelect"></select>
+        <span class="audio-current-ref" id="audioCurrentRef">Dinlemek için oynat'a basın</span>
+      </div>
+      <div class="audio-track"><div class="audio-track-fill" id="audioTrackFill"></div></div>
+    </div>
+
+    <div class="source-indicator-row" id="sourceIndicatorRow">
+      <span class="source-chip" id="sourceChips"></span>
+      <button class="btn-ghost-sm" id="changeSourceBtn">Kaynakları değiştir</button>
+    </div>
+
+    <div class="source-indicator-row" id="dinleCaptionRow" hidden>
+      <span class="source-chip">🎧 Sadece Dinle</span>
+      <label style="font-size:0.82rem; color:var(--muted); display:flex; align-items:center; gap:8px;">
+        Altında meal göster:
+        <select class="reciter-select" id="dinleCaptionSelect" style="border:1px solid var(--border-soft); border-radius:16px; padding:4px 10px;"></select>
+      </label>
+    </div>
+
+    <div class="tajweed-toggle-row">
+      <label><input type="checkbox" id="tajweedToggle"> Tecvid renklerini göster</label>
+      <label><input type="checkbox" id="mealSpeechToggle"> 🔊 Meali de sesli oku</label>
+      <span id="mealSpeechNote" style="font-size:0.74rem; color:var(--muted-2);"></span>
+      <div class="font-size-control" role="group" aria-label="Yazı boyutu">
+        <span class="font-size-label">Yazı boyutu:</span>
+        <button class="font-size-btn" data-scale="0.85" style="font-size:12px;" title="Küçük">A</button>
+        <button class="font-size-btn" data-scale="1" style="font-size:14px;" title="Normal">A</button>
+        <button class="font-size-btn" data-scale="1.2" style="font-size:17px;" title="Büyük">A</button>
+        <button class="font-size-btn" data-scale="1.4" style="font-size:19px;" title="Çok büyük">A</button>
+      </div>
+    </div>
+    <div class="tajweed-legend" id="tajweedLegend">
+      <span><span class="dot" style="background:#E8615A;"></span>Kalkale</span>
+      <span><span class="dot" style="background:#5FC97A;"></span>İdgam</span>
+      <span><span class="dot" style="background:#E0A458;"></span>İhfâ</span>
+      <span><span class="dot" style="background:#B084E0;"></span>İklab</span>
+      <span><span class="dot" style="background:#5B9FE0;"></span>Med</span>
+      <span><span class="dot" style="background:#E08FC4;"></span>Gunne</span>
+      <span><span class="dot" style="background:#8FA39A;"></span>Okunmaz (vasıl hemzesi/şemsî lâm)</span>
+    </div>
+
+    <p class="reader-surah-title" id="readerSurahTitle"></p>
+    <p class="reader-surah-sub" id="readerSurahSub"></p>
+
+    <div id="ayahList"></div>
+
+    <div class="page-nav">
+      <button class="btn-ghost-sm" id="prevPageBtn">‹ Önceki sayfa</button>
+      <button class="btn-ghost-sm" id="nextPageBtn">Sonraki sayfa ›</button>
+    </div>
+    <p style="font-size:0.78rem; color:var(--muted-2); margin-top:16px;" id="readerStatus">Yükleniyor…</p>
+  </div>
+</section>
+
+<div class="share-modal-overlay" id="shareModalOverlay" hidden>
+  <div class="share-modal">
+    <div class="share-modal-head">
+      <span>Ayeti Paylaş</span>
+      <button class="share-modal-close" id="shareModalClose" aria-label="Kapat">✕</button>
+    </div>
+    <div class="share-canvas-wrap">
+      <canvas id="shareCanvas"></canvas>
+    </div>
+    <p class="share-modal-note" id="shareModalNote"></p>
+    <div class="share-modal-actions">
+      <button class="btn-primary" id="shareDownloadBtn" style="border:none; cursor:pointer;">Görseli indir (PNG)</button>
+      <button class="btn-ghost-sm" id="shareCopyBtn" hidden>Panoya kopyala</button>
+    </div>
+  </div>
+</div>
+
+<div class="juz-modal-overlay" id="juzModalOverlay" hidden>
+  <div class="juz-modal">
+    <div class="juz-modal-head">
+      <span>Cüz Seç</span>
+      <button class="juz-modal-close" id="juzModalClose" aria-label="Kapat">✕</button>
+    </div>
+    <div class="juz-picker-grid" id="juzPickerGrid"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Kur'an metni ve Türkçe meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>Tefsir: <a href="https://github.com/spa5k/tafsir_api" style="color:var(--muted); text-decoration:underline;">spa5k/tafsir_api</a> (qul.tarteel.ai üzerinden).</span>
+      <span>Ses: <a href="https://everyayah.com" style="color:var(--muted); text-decoration:underline;">EveryAyah.com</a> · Kelime zamanlaması: <a href="https://github.com/cpfair/quran-align" style="color:var(--muted); text-decoration:underline;">cpfair/quran-align</a> (CC BY 4.0).</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const RECITERS = [
+    { id: 'alafasy',    name: 'Mişarî Raşid el-Afâsî',   folder: 'Alafasy_128kbps',            file: 'alafasy-word-timings.json' },
+    { id: 'abdulbasit', name: 'Abdülbâsıt Abdüssamed',   folder: 'Abdul_Basit_Murattal_64kbps', file: 'abdulbasit-word-timings.json' },
+    { id: 'husary',     name: 'Mahmûd Halîl el-Husarî',  folder: 'Husary_64kbps',               file: 'husary-word-timings.json' },
+    { id: 'shuraym',    name: 'Suûd eş-Şüreym',          folder: 'Saood_ash-Shuraym_128kbps',   file: 'shuraym-word-timings.json' },
+  ];
+  const RECITER_KEY = 'beyan-reciter';
+  let currentReciterId = localStorage.getItem(RECITER_KEY) || 'alafasy';
+  function currentReciter(){ return RECITERS.find(r => r.id === currentReciterId) || RECITERS[0]; }
+  const PAGE_SIZE = 10;
+
+  let arData = null, trData = null;
+  let juzBoundaries = [], juzGlobalStarts = [];
+  const timingsCache = new Map(); // reciterId -> Map("surah:ayah" -> segments)
+  async function ensureTimings(reciterId){
+    if(timingsCache.has(reciterId)) return timingsCache.get(reciterId);
+    const reciter = RECITERS.find(r => r.id === reciterId);
+    const list = await fetch(`data/audio/${reciter.file}`).then(r => r.json());
+    const map = new Map();
+    list.forEach(t => map.set(`${t.surah}:${t.ayah}`, t.segments));
+    timingsCache.set(reciterId, map);
+    return map;
+  }
+  let surahOffsets = [];
+  let totalAyahCount = 0;
+  let state = { mode: null, sources: [], surahIdx: 0, ayahIdx: 0, pageAyahs: [] };
+  let pendingMode = null;
+  let pendingSources = [];
+  let audioEl = new Audio();
+  let playing = false;
+  let playIndexInPage = -1;
+
+  const POSITION_KEY = 'beyan-reading-position';
+  const NOTES_KEY = 'beyan-notes-v1';
+
+  const pad3 = n => String(n).padStart(3, '0');
+
+  /* ---- Meal kaynakları: Diyanet (yerleşik) + Tanzil.net'ten 8 meal (ihtiyaç anında indirilir) ---- */
+  const MEAL_SOURCES = [
+    { id: 'diyanet',    name: 'Diyanet İşleri Başkanlığı' },
+    { id: 'vakfi',      name: "Diyanet Vakfı (Kur'an Yolu)" },
+    { id: 'yazir',      name: 'Elmalılı Hamdi Yazır' },
+    { id: 'ates',       name: 'Süleyman Ateş' },
+    { id: 'ozturk',     name: 'Yaşar Nuri Öztürk' },
+    { id: 'bulac',      name: 'Ali Bulaç' },
+    { id: 'golpinarli', name: 'Abdulbaki Gölpınarlı' },
+    { id: 'yildirim',   name: 'Suat Yıldırım' },
+    { id: 'yuksel',     name: 'Edip Yüksel' },
+  ];
+  /* ---- Tefsir kaynakları: hepsi Kur'an'ın tamamı için canlı çekiliyor ---- */
+  const TAFSIR_SOURCES = [
+    { id: 'tr-tafsir-ibne-kathir',           name: 'Tefsir İbn Kesîr',      group: 'Türkçe' },
+    { id: 'turkish-mokhtasar',               name: 'Muhtasar Tefsir',       group: 'Türkçe' },
+    { id: 'turkish-tafsir-as-saadi-turkish', name: "Tefsir es-Sa'dî",       group: 'Türkçe' },
+    { id: 'ar-tafsir-al-tabari',             name: 'Taberî Tefsiri',        group: 'Arapça (asıl metin)', arabic: true },
+    { id: 'ar-tafsir-ibn-kathir',            name: 'İbn Kesîr Tefsiri',     group: 'Arapça (asıl metin)', arabic: true },
+    { id: 'ar-tafseer-al-qurtubi',           name: 'Kurtubî Tefsiri',       group: 'Arapça (asıl metin)', arabic: true },
+  ];
+  function sourceListFor(mode){ return mode === 'tefsir' ? TAFSIR_SOURCES : MEAL_SOURCES; }
+  function sourceMeta(mode, id){ return sourceListFor(mode).find(s => s.id === id); }
+
+  const mealDataCache = new Map(); // id -> { "surah:ayah": text }
+  async function ensureMealSource(id){
+    if(id === 'diyanet' || mealDataCache.has(id)) return;
+    const data = await fetch(`data/quran/meals/${id}.json`).then(r => r.json());
+    mealDataCache.set(id, data);
+  }
+  function getMealText(sourceId, surahId, ayahId, fallback){
+    if(sourceId === 'diyanet') return fallback;
+    const data = mealDataCache.get(sourceId);
+    return (data && data[`${surahId}:${ayahId}`]) || fallback;
+  }
+
+  /* ---- Tecvid (tajweed) renk kodlaması ----
+     Kaynak: cpfair/quran-tajweed (CC BY 4.0). ÖNEMLİ: bu verinin her sûrenin
+     1. ayetine (Fâtiha ve Tevbe hariç) besmeleyi de metne dahil ederek
+     karakter ofseti hesapladığı, bizim metnimizde ise besmelenin ayrı
+     tutulduğu doğrulandı — bu yüzden o ~112 ayette tecvid rengi BİLEREK
+     gösterilmiyor (yanlış harfi renklendirmemek için), sayfanın geri kalanında
+     (6236 ayetin ~%98'i) tam doğrulanmış şekilde çalışıyor. */
+  const TAJWEED_KEY = 'beyan-tajweed-enabled';
+  let tajweedEnabled = localStorage.getItem(TAJWEED_KEY) === '1';
+  let tajweedMap = null; // "surah:ayah" -> annotations[]
+  const TAJWEED_CLASS = {
+    qalqalah: 'tj-qalqalah',
+    idghaam_ghunnah: 'tj-idgham', idghaam_no_ghunnah: 'tj-idgham', idghaam_mutajanisayn: 'tj-idgham',
+    idghaam_mutaqaribayn: 'tj-idgham', idghaam_shafawi: 'tj-idgham',
+    ikhfa: 'tj-ikhfa', ikhfa_shafawi: 'tj-ikhfa',
+    iqlab: 'tj-iqlab',
+    madd_2: 'tj-madd', madd_246: 'tj-madd', madd_6: 'tj-madd', madd_muttasil: 'tj-madd', madd_munfasil: 'tj-madd',
+    ghunnah: 'tj-ghunnah',
+    hamzat_wasl: 'tj-silent', lam_shamsiyyah: 'tj-silent', silent: 'tj-silent',
+  };
+  async function ensureTajweedData(){
+    if(tajweedMap) return;
+    const list = await fetch('data/tajweed/tajweed-hafs.json').then(r => r.json());
+    tajweedMap = new Map();
+    list.forEach(e => tajweedMap.set(`${e.surah}:${e.ayah}`, e.annotations));
+  }
+  function tajweedUnreliableForAyah(surah, ayah){
+    // Bu ayetler için kaynak verinin besmele içerdiği, bizim metnimizin içermediği doğrulandı
+    return ayah === 1 && surah !== 1 && surah !== 9;
+  }
+  function renderArabicWithTajweed(text, surah, ayah){
+    const words = text.split(' ');
+    const useTajweed = tajweedEnabled && tajweedMap && !tajweedUnreliableForAyah(surah, ayah);
+    const annotations = useTajweed ? (tajweedMap.get(`${surah}:${ayah}`) || []) : [];
+
+    // Her kelimenin metindeki global başlangıç/bitiş karakter aralığını hesapla
+    let pos = 0;
+    const wordRanges = words.map(w => {
+      const start = pos, end = pos + w.length;
+      pos = end + 1; // boşluk için +1
+      return { start, end, text: w };
+    });
+
+    return wordRanges.map((word, wi) => {
+      if(annotations.length === 0){
+        return `<span class="word" data-idx="${wi}">${word.text}</span>`;
+      }
+      const local = annotations
+        .map(a => ({ rule: a.rule, start: Math.max(a.start, word.start) - word.start, end: Math.min(a.end, word.end) - word.start }))
+        .filter(a => a.start < a.end)
+        .sort((a, b) => a.start - b.start);
+      let inner = '', cursor = 0;
+      local.forEach(a => {
+        if(a.start > cursor) inner += word.text.slice(cursor, a.start);
+        const cls = TAJWEED_CLASS[a.rule];
+        inner += cls
+          ? `<span class="${cls}" title="${a.rule}">${word.text.slice(a.start, a.end)}</span>`
+          : word.text.slice(a.start, a.end);
+        cursor = Math.max(cursor, a.end);
+      });
+      if(cursor < word.text.length) inner += word.text.slice(cursor);
+      return `<span class="word" data-idx="${wi}">${inner}</span>`;
+    }).join(' ');
+  }
+
+  /* ---- Kaynak seçim ekranı (1 ya da 2 kaynak, karşılaştırmalı okuma için) ---- */
+  function showSourceSelect(mode){
+    pendingMode = mode;
+    pendingSources = [];
+    document.getElementById('modeSelect').hidden = true;
+    document.getElementById('sourceSelect').hidden = false;
+    document.getElementById('sourceKicker').textContent =
+      mode === 'meal' ? 'Meal ile Oku' : mode === 'tefsir' ? 'Tefsirle Oku' : 'Hatim Modu';
+    document.getElementById('sourceTitle').textContent =
+      mode === 'tefsir' ? 'Hangi tefsir kaynağından okumak istersiniz?' : 'Hangi mealden okumak istersiniz?';
+    renderSourceGrid(mode);
+    updateSourceSelectionUI();
+  }
+  function renderSourceGrid(mode){
+    const list = sourceListFor(mode);
+    const groups = [...new Set(list.map(s => s.group).filter(Boolean))];
+    let html = '';
+    if(groups.length){
+      groups.forEach(g => {
+        html += `<div class="source-group-label">${g}</div>`;
+        html += list.filter(s => s.group === g).map(sourceCardHtml).join('');
+      });
+    }else{
+      html = list.map(sourceCardHtml).join('');
+    }
+    document.getElementById('sourceGrid').innerHTML = html;
+    document.querySelectorAll('.source-card').forEach(card => {
+      card.addEventListener('click', () => toggleSourceSelection(card.dataset.id));
+    });
+  }
+  function sourceCardHtml(s){
+    return `<button class="source-card" data-id="${s.id}"><span class="source-check">✓</span>${s.name}</button>`;
+  }
+  function toggleSourceSelection(id){
+    const i = pendingSources.indexOf(id);
+    if(i >= 0){
+      pendingSources.splice(i, 1);
+    }else{
+      if(pendingSources.length >= 2) pendingSources.shift(); // en eski seçimi bırak, yenisini al
+      pendingSources.push(id);
+    }
+    updateSourceSelectionUI();
+  }
+  function updateSourceSelectionUI(){
+    document.querySelectorAll('.source-card').forEach(card => {
+      card.classList.toggle('selected', pendingSources.includes(card.dataset.id));
+    });
+    const summary = document.getElementById('sourceSelectionSummary');
+    const continueBtn = document.getElementById('sourceContinueBtn');
+    if(pendingSources.length === 0){
+      summary.textContent = 'Henüz kaynak seçilmedi';
+      continueBtn.disabled = true;
+    }else{
+      const names = pendingSources.map(id => sourceMeta(pendingMode, id).name);
+      summary.textContent = pendingSources.length === 2
+        ? `Karşılaştırılacak: ${names.join(' · ')}`
+        : `Seçili: ${names[0]}`;
+      continueBtn.disabled = false;
+    }
+  }
+
+  function getUrlJumpTarget(){
+    const params = new URLSearchParams(location.search);
+    const s = parseInt(params.get('sure'), 10), a = parseInt(params.get('ayet'), 10);
+    if(s >= 1 && s <= arData.length){
+      const maxAyah = arData[s - 1].verses.length;
+      if(a >= 1 && a <= maxAyah) return { surahIdx: s - 1, ayahIdx: a - 1 };
+    }
+    return null;
+  }
+  function loadPosition(){
+    const jump = getUrlJumpTarget();
+    if(jump) return jump;
+    try{
+      const saved = JSON.parse(localStorage.getItem(POSITION_KEY) || 'null');
+      if(saved && typeof saved.surahIdx === 'number' && typeof saved.ayahIdx === 'number') return saved;
+    }catch(e){}
+    return { surahIdx: 0, ayahIdx: 0 };
+  }
+  function savePosition(){
+    localStorage.setItem(POSITION_KEY, JSON.stringify({ surahIdx: state.surahIdx, ayahIdx: state.ayahIdx }));
+  }
+
+  /* ---- Notlar (index.html ile aynı localStorage) ---- */
+  function getNotes(){
+    try{ return JSON.parse(localStorage.getItem(NOTES_KEY) || '[]'); }catch(e){ return []; }
+  }
+  function isNoted(surah, ayah){ return getNotes().some(n => n.surah === surah && n.ayah === ayah); }
+  function saveNote(note){
+    const notes = getNotes();
+    if(isNoted(note.surah, note.ayah)) return;
+    notes.unshift(note);
+    localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+  }
+  function removeNote(surah, ayah){
+    localStorage.setItem(NOTES_KEY, JSON.stringify(getNotes().filter(n => !(n.surah === surah && n.ayah === ayah))));
+  }
+
+  /* ---- Okuma serisi (streak): art arda kaç gün okuduğunuzu takip eder ---- */
+  const STREAK_KEY = 'beyan-reading-streak';
+  function updateStreak(){
+    const today = new Date().toISOString().slice(0, 10);
+    let data;
+    try{ data = JSON.parse(localStorage.getItem(STREAK_KEY) || 'null'); }catch(e){ data = null; }
+    if(!data) data = { lastDate: null, streak: 0 };
+    if(data.lastDate !== today){
+      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      data.streak = (data.lastDate === yesterday) ? data.streak + 1 : 1;
+      data.lastDate = today;
+      localStorage.setItem(STREAK_KEY, JSON.stringify(data));
+    }
+    const badge = document.getElementById('streakBadge');
+    if(badge) badge.textContent = data.streak > 1 ? `🔥 ${data.streak} gündür üst üste okuyorsunuz` : '🔥 Bugün okumaya başladınız';
+  }
+
+  const TEXT_SCALE_KEY = 'beyan-text-scale';
+  function applyTextScale(scale){
+    document.documentElement.style.setProperty('--text-scale', scale);
+    document.querySelectorAll('.font-size-btn').forEach(btn => {
+      btn.classList.toggle('active', parseFloat(btn.dataset.scale) === scale);
+    });
+  }
+
+  /* ---- Türkçe meali sesli okuma (tarayıcının Web Speech API'siyle) ----
+     ÖNEMLİ/DÜRÜST NOT: Bu, profesyonel bir seslendirme DEĞİL — tarayıcınızın/
+     işletim sisteminizin kendi metin-okuma (TTS) sesini kullanır. Kalitesi
+     cihazdan cihaza değişir; bazı cihazlarda Türkçe ses hiç bulunmayabilir.
+     Arapça kâri sesi (EveryAyah) ile karıştırılmamalı — o gerçek bir kâridir,
+     bu sadece mealin robotik bir okunuşudur. */
+  const MEAL_SPEECH_KEY = 'beyan-meal-speech';
+  let mealSpeechEnabled = false;
+  function getTurkishVoice(){
+    if(!('speechSynthesis' in window)) return null;
+    const voices = speechSynthesis.getVoices();
+    return voices.find(v => v.lang && v.lang.toLowerCase().startsWith('tr')) || null;
+  }
+  function cancelMealSpeech(){
+    if('speechSynthesis' in window) speechSynthesis.cancel();
+  }
+  function speakCurrentMeal(){
+    return new Promise((resolve) => {
+      if(!mealSpeechEnabled || !('speechSynthesis' in window)){ resolve(); return; }
+      const a = state.pageAyahs[playIndexInPage];
+      if(!a){ resolve(); return; }
+      const surah = currentSurah();
+      const text = getMealText(state.sources[0] || 'diyanet', surah.id, a.verseAr.id, a.verseTr.translation);
+      if(!text){ resolve(); return; }
+      const utter = new SpeechSynthesisUtterance(text);
+      const voice = getTurkishVoice();
+      utter.lang = voice ? voice.lang : 'tr-TR';
+      if(voice) utter.voice = voice;
+      utter.rate = 0.95;
+      let done = false;
+      const finish = () => { if(!done){ done = true; resolve(); } };
+      utter.onend = finish;
+      utter.onerror = finish;
+      speechSynthesis.speak(utter);
+      // güvenlik ağı: bazı tarayıcılarda onend/onerror hiç tetiklenmeyebiliyor —
+      // bu durumda akış sonsuza kadar takılı kalmasın diye metin uzunluğuna göre bir üst sınır koyuyoruz.
+      setTimeout(finish, Math.max(4000, text.length * 90));
+    });
+  }
+
+  async function init(){
+    try{
+      const [arJson, trJson, juzJson] = await Promise.all([
+        fetch('data/quran/quran-arabic.json').then(r => r.json()),
+        fetch('data/quran/quran-turkish.json').then(r => r.json()),
+        fetch('data/quran/juz-boundaries.json').then(r => r.json()),
+      ]);
+      arData = arJson.slice().sort((a,b) => a.id - b.id);
+      trData = trJson.slice().sort((a,b) => a.id - b.id);
+      juzBoundaries = juzJson;
+      await ensureTimings(currentReciterId);
+
+      document.getElementById('reciterSelect').innerHTML =
+        RECITERS.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
+      document.getElementById('reciterSelect').value = currentReciterId;
+      document.getElementById('reciterSelect').addEventListener('change', async (e) => {
+        stopAudio();
+        currentReciterId = e.target.value;
+        localStorage.setItem(RECITER_KEY, currentReciterId);
+        document.getElementById('readerStatus').textContent = 'Kâri değiştiriliyor…';
+        await ensureTimings(currentReciterId);
+        document.getElementById('readerStatus').textContent = '';
+      });
+
+      const shareOverlay = document.getElementById('shareModalOverlay');
+      document.getElementById('shareModalClose').addEventListener('click', closeShareModal);
+      shareOverlay.addEventListener('click', (e) => { if(e.target === shareOverlay) closeShareModal(); });
+      document.getElementById('shareDownloadBtn').addEventListener('click', () => {
+        if(!currentShareData) return;
+        document.getElementById('shareCanvas').toBlob(blob => {
+          if(!blob) return;
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `beyan-${currentShareData.surah}-${currentShareData.ayah}.png`;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 4000);
+        }, 'image/png');
+      });
+      if(navigator.clipboard && window.ClipboardItem){
+        const copyBtn = document.getElementById('shareCopyBtn');
+        copyBtn.hidden = false;
+        copyBtn.addEventListener('click', () => {
+          document.getElementById('shareCanvas').toBlob(async blob => {
+            if(!blob) return;
+            try{
+              await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+              const prev = copyBtn.textContent;
+              copyBtn.textContent = 'Kopyalandı ✓';
+              setTimeout(() => { copyBtn.textContent = prev; }, 1800);
+            }catch(err){ /* tarayıcı izin vermediyse sessizce yoksay, indir butonu her zaman çalışır */ }
+          }, 'image/png');
+        });
+      }
+
+      let cum = 0;
+      arData.forEach(s => { surahOffsets.push(cum); cum += s.verses.length; });
+      totalAyahCount = cum;
+      juzGlobalStarts = juzBoundaries.map(b => surahOffsets[b.surah - 1] + (b.ayah - 1));
+
+      document.getElementById('juzPickerBtn').addEventListener('click', openJuzModal);
+      document.getElementById('juzModalClose').addEventListener('click', closeJuzModal);
+      const juzOverlay = document.getElementById('juzModalOverlay');
+      juzOverlay.addEventListener('click', (e) => { if(e.target === juzOverlay) closeJuzModal(); });
+
+      const savedScale = parseFloat(localStorage.getItem(TEXT_SCALE_KEY)) || 1;
+      applyTextScale(savedScale);
+      document.querySelectorAll('.font-size-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const scale = parseFloat(btn.dataset.scale);
+          localStorage.setItem(TEXT_SCALE_KEY, scale);
+          applyTextScale(scale);
+        });
+      });
+
+      document.querySelectorAll('.mode-card').forEach(card => {
+        card.addEventListener('click', () => {
+          if(card.dataset.mode === 'dinle') startMode('dinle', []);
+          else showSourceSelect(card.dataset.mode);
+        });
+      });
+
+      document.getElementById('dinleCaptionSelect').innerHTML =
+        '<option value="">Kapalı</option>' + MEAL_SOURCES.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+      document.getElementById('dinleCaptionSelect').addEventListener('change', async (e) => {
+        const id = e.target.value;
+        state.sources = id ? [id] : [];
+        if(id) await ensureMealSource(id);
+        renderPage();
+      });
+      document.getElementById('backToModeBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('sourceSelect').hidden = true;
+        document.getElementById('modeSelect').hidden = false;
+      });
+      document.getElementById('sourceContinueBtn').addEventListener('click', () => {
+        startMode(pendingMode, pendingSources.slice());
+      });
+      document.getElementById('changeSourceBtn').addEventListener('click', () => {
+        stopAudio();
+        document.getElementById('readingArea').hidden = true;
+        showSourceSelect(state.mode);
+        pendingSources = state.sources.slice();
+        updateSourceSelectionUI();
+      });
+      document.getElementById('changeModeBtn').addEventListener('click', showModeSelect);
+      document.getElementById('prevPageBtn').addEventListener('click', () => turnPage(-1));
+      document.getElementById('nextPageBtn').addEventListener('click', () => turnPage(1));
+      document.getElementById('playPauseBtn').addEventListener('click', togglePlay);
+
+      const tajweedToggle = document.getElementById('tajweedToggle');
+      tajweedToggle.checked = tajweedEnabled;
+      document.getElementById('tajweedLegend').classList.toggle('open', tajweedEnabled);
+      if(tajweedEnabled) ensureTajweedData().then(renderPage);
+      tajweedToggle.addEventListener('change', async () => {
+        tajweedEnabled = tajweedToggle.checked;
+        localStorage.setItem(TAJWEED_KEY, tajweedEnabled ? '1' : '0');
+        document.getElementById('tajweedLegend').classList.toggle('open', tajweedEnabled);
+        if(tajweedEnabled) await ensureTajweedData();
+        renderPage();
+      });
+
+      audioEl.addEventListener('timeupdate', onTimeUpdate);
+      audioEl.addEventListener('ended', onAudioEnded);
+
+      mealSpeechEnabled = localStorage.getItem(MEAL_SPEECH_KEY) === '1';
+      const mealSpeechToggle = document.getElementById('mealSpeechToggle');
+      const mealSpeechNote = document.getElementById('mealSpeechNote');
+      mealSpeechToggle.checked = mealSpeechEnabled;
+      if('speechSynthesis' in window){
+        speechSynthesis.getVoices(); // bazı tarayıcılarda ilk çağrı boş döner, sesleri önceden ısıtmak için
+      }
+      mealSpeechToggle.addEventListener('change', () => {
+        mealSpeechEnabled = mealSpeechToggle.checked;
+        localStorage.setItem(MEAL_SPEECH_KEY, mealSpeechEnabled ? '1' : '0');
+        if(!mealSpeechEnabled){
+          mealSpeechNote.textContent = '';
+          cancelMealSpeech();
+        }else if(!('speechSynthesis' in window)){
+          mealSpeechNote.textContent = 'Tarayıcınız sesli okumayı desteklemiyor.';
+        }else if(!getTurkishVoice()){
+          mealSpeechNote.textContent = 'Cihazınızda Türkçe ses bulunamadı, farklı bir sesle okunmaya çalışılacak.';
+        }else{
+          mealSpeechNote.textContent = '';
+        }
+      });
+
+      // "ara.html"dan (Kur'an içinde arama) gelen doğrudan bağlantı: ?sure=X&ayet=Y
+      if(getUrlJumpTarget()){
+        startMode('meal', ['diyanet']);
+      }
+    }catch(err){
+      console.info('Gerçek Kur\'an verisi yüklenemedi (yerel sunucu gerekli olabilir):', err.message);
+      document.querySelector('#modeSelect .wrap').insertAdjacentHTML('beforeend',
+        '<p style="color:var(--muted-2); margin-top:20px; font-size:0.85rem;">Gerçek veri yüklenemedi — bu sayfayı bir yerel sunucu üzerinden açtığınızdan emin olun (bkz. README.md).</p>');
+    }
+  }
+
+  function showModeSelect(){
+    stopAudio();
+    document.getElementById('modeSelect').hidden = false;
+    document.getElementById('sourceSelect').hidden = true;
+    document.getElementById('readingArea').hidden = true;
+  }
+
+  function startMode(mode, sources){
+    stopAudio();
+    updateStreak();
+    state.mode = mode;
+    if(mode === 'dinle'){
+      state.sources = sources || []; // boş = altyazı/meal kapalı
+    }else{
+      state.sources = sources && sources.length ? sources : [mode === 'tefsir' ? TAFSIR_SOURCES[0].id : 'diyanet'];
+    }
+    const pos = loadPosition();
+    state.surahIdx = pos.surahIdx; state.ayahIdx = pos.ayahIdx;
+
+    document.getElementById('modeSelect').hidden = true;
+    document.getElementById('sourceSelect').hidden = true;
+    document.getElementById('readingArea').hidden = false;
+    document.getElementById('hatimBanner').hidden = (mode !== 'hatim');
+
+    document.getElementById('sourceIndicatorRow').hidden = (mode === 'dinle');
+    document.getElementById('dinleCaptionRow').hidden = (mode !== 'dinle');
+    if(mode === 'dinle'){
+      document.getElementById('dinleCaptionSelect').value = state.sources[0] || '';
+    }else{
+      const names = state.sources.map(id => sourceMeta(mode, id).name);
+      document.getElementById('sourceChips').textContent =
+        names.length === 2 ? `${names[0]} · ${names[1]} (karşılaştırmalı)` : names[0];
+    }
+
+    renderPage().then(() => {
+      if(mode === 'dinle') playFromIndex(0);
+    });
+  }
+
+  function currentSurah(){ return arData[state.surahIdx]; }
+  function currentSurahTr(){ return trData[state.surahIdx]; }
+  function globalPos(){ return surahOffsets[state.surahIdx] + state.ayahIdx; }
+
+  function computePageAyahs(){
+    const surah = currentSurah(), surahTr = currentSurahTr();
+    const end = Math.min(state.ayahIdx + PAGE_SIZE, surah.verses.length);
+    const list = [];
+    for(let i = state.ayahIdx; i < end; i++){
+      list.push({ surahIdx: state.surahIdx, verseAr: surah.verses[i], verseTr: surahTr.verses[i] });
+    }
+    return list;
+  }
+
+  async function turnPage(dir){
+    stopAudio();
+    const surah = currentSurah();
+    if(dir > 0){
+      const nextStart = state.ayahIdx + PAGE_SIZE;
+      if(nextStart < surah.verses.length){
+        state.ayahIdx = nextStart;
+      }else if(state.surahIdx < arData.length - 1){
+        state.surahIdx++; state.ayahIdx = 0;
+      }else{
+        return; // Kur'an'ın sonu
+      }
+    }else{
+      if(state.ayahIdx - PAGE_SIZE >= 0){
+        state.ayahIdx -= PAGE_SIZE;
+      }else if(state.surahIdx > 0){
+        state.surahIdx--; state.ayahIdx = 0;
+      }else{
+        return; // Kur'an'ın başı
+      }
+    }
+    savePosition();
+    await renderPage();
+    window.scrollTo({ top: document.getElementById('readingArea').offsetTop - 90, behavior: 'smooth' });
+  }
+
+  function updateProgress(){
+    const pos = globalPos();
+    const pct = ((pos + 1) / totalAyahCount * 100);
+    document.getElementById('progressFill').style.width = pct.toFixed(2) + '%';
+    document.getElementById('progressText').textContent = `${pos + 1} / ${totalAyahCount}`;
+    document.getElementById('hatimPercent').textContent = '%' + pct.toFixed(1).replace('.', ',');
+
+    const juz = juzForGlobalPos(pos);
+    document.getElementById('juzBadge').textContent = `${juz}. Cüz`;
+    document.getElementById('hatimJuzText').textContent = `${juz}. Cüz`;
+    renderJuzGrid(juz);
+  }
+
+  function juzForGlobalPos(pos){
+    let result = 1;
+    for(let i = 0; i < juzGlobalStarts.length; i++){
+      if(pos >= juzGlobalStarts[i]) result = juzBoundaries[i].juz;
+      else break;
+    }
+    return result;
+  }
+
+  function renderJuzGrid(currentJuz){
+    const grid = document.getElementById('hatimJuzGrid');
+    if(!grid) return;
+    grid.innerHTML = Array.from({ length: 30 }, (_, i) => {
+      const n = i + 1;
+      const cls = n < currentJuz ? 'done' : (n === currentJuz ? 'current' : '');
+      return `<div class="juz-cell ${cls}" title="${n}. Cüz${n < currentJuz ? ' — tamamlandı' : (n === currentJuz ? ' — şu an burada' : '')}">${n}</div>`;
+    }).join('');
+  }
+
+  function openJuzModal(){
+    const currentJuz = juzForGlobalPos(globalPos());
+    const grid = document.getElementById('juzPickerGrid');
+    grid.innerHTML = juzBoundaries.map(b => {
+      const cls = b.juz === currentJuz ? 'current' : (b.juz < currentJuz ? 'done' : '');
+      return `<button class="juz-picker-btn ${cls}" data-juz="${b.juz}">${b.juz}. Cüz</button>`;
+    }).join('');
+    grid.querySelectorAll('.juz-picker-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const juzNo = parseInt(btn.dataset.juz, 10);
+        const b = juzBoundaries.find(x => x.juz === juzNo);
+        stopAudio();
+        state.surahIdx = b.surah - 1;
+        state.ayahIdx = b.ayah - 1;
+        closeJuzModal();
+        await renderPage();
+        window.scrollTo({ top: document.getElementById('readingArea').offsetTop - 90, behavior: 'smooth' });
+      });
+    });
+    document.getElementById('juzModalOverlay').hidden = false;
+  }
+  function closeJuzModal(){
+    document.getElementById('juzModalOverlay').hidden = true;
+  }
+
+  function noteBtnHtml(surah, ayah){
+    const noted = isNoted(surah, ayah);
+    return `<button class="ayah-icon-btn note-toggle ${noted ? 'saved' : ''}" data-surah="${surah}" data-ayah="${ayah}" title="Notlarıma ekle">${noted ? '★' : '☆'}</button>`;
+  }
+
+  // ---- basit hıfz (ezber) tekrar planlayıcı — bkz. ezberlerim.html ----
+  const HIFZ_KEY = 'beyan-hifz-v1';
+  const HIFZ_INTERVALS = [1, 3, 7, 16, 35, 90]; // gün cinsinden, kademe kademe artan aralıklı tekrar
+  function loadHifz(){
+    try{ return JSON.parse(localStorage.getItem(HIFZ_KEY) || '{}'); }catch(e){ return {}; }
+  }
+  function saveHifzStore(data){ localStorage.setItem(HIFZ_KEY, JSON.stringify(data)); }
+  function hifzKey(surah, ayah){ return `${surah}:${ayah}`; }
+  function isMemorized(surah, ayah){ return !!loadHifz()[hifzKey(surah, ayah)]; }
+  function toggleHifz(surah, ayah, payload){
+    const data = loadHifz();
+    const key = hifzKey(surah, ayah);
+    let nowMarked;
+    if(data[key]){
+      delete data[key];
+      nowMarked = false;
+    }else{
+      const now = new Date();
+      const next = new Date(now.getTime() + HIFZ_INTERVALS[0] * 86400000);
+      data[key] = {
+        surah, ayah, arabic: payload.arabic, meal: payload.meal, ref: payload.ref,
+        markedAt: now.toISOString(), stage: 0, nextReview: next.toISOString(),
+      };
+      nowMarked = true;
+    }
+    saveHifzStore(data);
+    return nowMarked;
+  }
+  function hifzBtnHtml(surah, ayah){
+    const marked = isMemorized(surah, ayah);
+    return `<button class="ayah-icon-btn hifz-toggle ${marked ? 'saved' : ''}" data-surah="${surah}" data-ayah="${ayah}" title="${marked ? 'Ezber listemden çıkar' : 'Ezberlerime ekle (tekrar planı başlasın)'}">🧠</button>`;
+  }
+
+  const tefsirCache = new Map();
+  async function fetchTefsir(edition, surah, ayah){
+    const key = `${edition}/${surah}/${ayah}`;
+    if(tefsirCache.has(key)) return tefsirCache.get(key);
+    try{
+      const url = `https://raw.githubusercontent.com/spa5k/tafsir_api/main/tafsir/${edition}/${surah}/${ayah}.json`;
+      const res = await fetch(url);
+      if(!res.ok) throw new Error('bulunamadı');
+      const data = await res.json();
+      tefsirCache.set(key, data.text);
+      return data.text;
+    }catch(err){
+      return null;
+    }
+  }
+
+  // ---- ayet paylaşım görseli (Canvas) ----
+  function wrapText(ctx, text, maxWidth){
+    const words = text.split(' ');
+    const lines = [];
+    let current = '';
+    words.forEach(word => {
+      const test = current ? current + ' ' + word : word;
+      if(current && ctx.measureText(test).width > maxWidth){
+        lines.push(current);
+        current = word;
+      }else{
+        current = test;
+      }
+    });
+    if(current) lines.push(current);
+    return lines;
+  }
+
+  async function renderShareCard(canvas, data){
+    try{
+      await Promise.all([
+        document.fonts.load('700 60px Amiri'),
+        document.fonts.load('italic 500 40px "Cormorant Garamond"'),
+        document.fonts.load('600 40px "Cormorant Garamond"'),
+        document.fonts.load('600 24px "Work Sans"'),
+        document.fonts.load('500 24px "Work Sans"'),
+      ]);
+      await document.fonts.ready;
+    }catch(e){ /* fontlar hazır değilse yine de en iyi çabayla çizilir */ }
+
+    const W = 1080;
+    const padX = 110;
+    const maxTextWidth = W - padX * 2;
+    const ctx = canvas.getContext('2d');
+
+    const len = data.arabic.length;
+    const arFont = len <= 60 ? 62 : len <= 120 ? 52 : len <= 220 ? 44 : len <= 400 ? 36 : len <= 700 ? 28 : 22;
+    const arLineHeight = arFont * 1.75;
+    ctx.font = `700 ${arFont}px Amiri`;
+    const arLines = wrapText(ctx, data.arabic, maxTextWidth);
+
+    const mealFont = 30;
+    const mealLineHeight = mealFont * 1.55;
+    ctx.font = `italic 500 ${mealFont}px 'Cormorant Garamond'`;
+    const mealLines = wrapText(ctx, data.meal, maxTextWidth);
+
+    const topLabelH = 100;
+    const gapAfterArabic = 40;
+    const gapAfterMeal = 42;
+    const refH = 50;
+    const watermarkH = 70;
+
+    const contentH = topLabelH
+      + arLines.length * arLineHeight
+      + gapAfterArabic
+      + mealLines.length * mealLineHeight
+      + gapAfterMeal
+      + refH
+      + watermarkH;
+
+    const H = Math.max(1080, Math.round(contentH + 170));
+    canvas.width = W;
+    canvas.height = H;
+
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0B1512');
+    bg.addColorStop(1, '#050906');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    const glow = ctx.createRadialGradient(W / 2, H * 0.32, 40, W / 2, H * 0.32, W * 0.6);
+    glow.addColorStop(0, 'rgba(217,178,107,0.10)');
+    glow.addColorStop(1, 'rgba(217,178,107,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.strokeStyle = 'rgba(217,178,107,0.35)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(36, 36, W - 72, H - 72);
+    ctx.strokeStyle = 'rgba(217,178,107,0.18)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(48, 48, W - 96, H - 96);
+
+    ctx.textAlign = 'center';
+
+    let y = 100;
+    ctx.direction = 'ltr';
+    ctx.fillStyle = '#49D6C4';
+    ctx.font = `600 22px 'Work Sans'`;
+    ctx.fillText('KUR’AN-I KERÎM', W / 2, y);
+
+    ctx.direction = 'rtl';
+    ctx.fillStyle = '#F3EEDD';
+    ctx.font = `700 ${arFont}px Amiri`;
+    arLines.forEach(line => { y += arLineHeight; ctx.fillText(line, W / 2, y); });
+
+    y += gapAfterArabic;
+    ctx.strokeStyle = 'rgba(217,178,107,0.4)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(W / 2 - 46, y); ctx.lineTo(W / 2 + 46, y); ctx.stroke();
+    ctx.fillStyle = '#D9B26B';
+    ctx.beginPath(); ctx.arc(W / 2, y, 3, 0, Math.PI * 2); ctx.fill();
+
+    ctx.direction = 'ltr';
+    ctx.fillStyle = '#C9D4CE';
+    ctx.font = `italic 500 ${mealFont}px 'Cormorant Garamond'`;
+    mealLines.forEach(line => { y += mealLineHeight; ctx.fillText(line, W / 2, y); });
+
+    y += gapAfterMeal;
+    ctx.fillStyle = '#F3CE8E';
+    ctx.font = `600 26px 'Cormorant Garamond'`;
+    ctx.fillText(data.ref, W / 2, y);
+
+    ctx.fillStyle = 'rgba(143,163,154,0.85)';
+    ctx.font = `500 20px 'Work Sans'`;
+    ctx.fillText('beyan  ·  sadece Kur’an', W / 2, H - 56);
+  }
+
+  let currentShareData = null;
+  async function openShareModal(data){
+    currentShareData = data;
+    const overlay = document.getElementById('shareModalOverlay');
+    const note = document.getElementById('shareModalNote');
+    overlay.hidden = false;
+    note.textContent = 'Görsel hazırlanıyor…';
+    await renderShareCard(document.getElementById('shareCanvas'), data);
+    note.textContent = `${data.ref} — indirip ya da kopyalayıp paylaşabilirsiniz.`;
+  }
+  function closeShareModal(){
+    document.getElementById('shareModalOverlay').hidden = true;
+  }
+
+  async function renderPage(){
+    const surah = currentSurah(), surahTr = currentSurahTr();
+    state.pageAyahs = computePageAyahs();
+    const isTefsirMode = (state.mode === 'tefsir');
+    const sources = state.sources;
+
+    if(!isTefsirMode){
+      await Promise.all(sources.map(id => ensureMealSource(id)));
+    }
+
+    document.getElementById('readerSurahTitle').textContent = surah.name;
+    document.getElementById('readerSurahSub').textContent =
+      `${surahTr.translation || surah.transliteration} Sûresi · ${surah.type === 'meccan' ? 'Mekkî' : 'Medenî'} · ${surah.total_verses} ayet`;
+    document.getElementById('prevPageBtn').disabled = (state.surahIdx === 0 && state.ayahIdx === 0);
+    document.getElementById('nextPageBtn').disabled = (state.surahIdx === arData.length - 1 && state.ayahIdx + PAGE_SIZE >= surah.verses.length);
+    document.getElementById('readerStatus').textContent = '';
+
+    const list = document.getElementById('ayahList');
+    list.classList.toggle('dinle-mode', state.mode === 'dinle');
+    list.innerHTML = state.pageAyahs.map((a, i) => {
+      const wordsHtml = renderArabicWithTajweed(a.verseAr.text, surah.id, a.verseAr.id);
+
+      let contentHtml;
+      if(isTefsirMode){
+        if(sources.length === 2){
+          contentHtml = `<div class="compare-grid">` + sources.map((sid, slot) => `
+            <div class="compare-col">
+              <span class="source-label">${sourceMeta('tefsir', sid).name}</span>
+              <div class="ayah-tefsir" data-page-index="${i}" data-source-slot="${slot}"><span class="tefsir-author">Yükleniyor…</span></div>
+            </div>`).join('') + `</div>`;
+        }else{
+          contentHtml = `<div class="ayah-tefsir" data-page-index="${i}" data-source-slot="0"><span class="tefsir-author">Yükleniyor…</span></div>`;
+        }
+      }else if(state.mode === 'dinle' && sources.length === 0){
+        contentHtml = '';
+      }else{
+        if(sources.length === 2){
+          contentHtml = `<div class="compare-grid">` + sources.map(sid => `
+            <div class="compare-col">
+              <span class="source-label">${sourceMeta(state.mode, sid).name}</span>
+              <p class="ayah-meal" style="margin:0;">${getMealText(sid, surah.id, a.verseAr.id, a.verseTr.translation)}</p>
+            </div>`).join('') + `</div>`;
+        }else{
+          contentHtml = `<p class="ayah-meal">${getMealText(sources[0], surah.id, a.verseAr.id, a.verseTr.translation)}</p>`;
+        }
+      }
+
+      return `
+        <div class="ayah-block" data-page-index="${i}" data-surah="${surah.id}" data-ayah="${a.verseAr.id}">
+          <div class="ayah-block-head">
+            <span class="ayah-number">${a.verseAr.id}</span>
+            <button class="ayah-icon-btn play-toggle" data-page-index="${i}" title="Bu ayetten dinle">🔊</button>
+            ${noteBtnHtml(surah.id, a.verseAr.id)}
+            <button class="ayah-icon-btn share-toggle" data-surah="${surah.id}" data-ayah="${a.verseAr.id}" title="Görsel olarak paylaş">📤</button>
+            ${hifzBtnHtml(surah.id, a.verseAr.id)}
+          </div>
+          <p class="ayah-arabic arabic">${wordsHtml}</p>
+          ${contentHtml}
+        </div>
+      `;
+    }).join('');
+
+    list.querySelectorAll('.note-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const s = parseInt(btn.dataset.surah, 10), a = parseInt(btn.dataset.ayah, 10);
+        if(isNoted(s, a)){
+          removeNote(s, a);
+          btn.classList.remove('saved'); btn.textContent = '☆';
+        }else{
+          const item = state.pageAyahs.find(x => x.verseAr.id === a);
+          const meal = isTefsirMode ? item.verseTr.translation : getMealText(sources[0], surah.id, a, item.verseTr.translation);
+          saveNote({
+            surah: s, ayah: a, arabic: item.verseAr.text, meal: meal,
+            ref: `${surahTr.translation || surah.transliteration} Sûresi, ${a}. Ayet`
+          });
+          btn.classList.add('saved'); btn.textContent = '★';
+        }
+      });
+    });
+    list.querySelectorAll('.play-toggle').forEach(btn => {
+      btn.addEventListener('click', () => playFromIndex(parseInt(btn.dataset.pageIndex, 10)));
+    });
+    list.querySelectorAll('.share-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const s = parseInt(btn.dataset.surah, 10), a = parseInt(btn.dataset.ayah, 10);
+        const item = state.pageAyahs.find(x => x.verseAr.id === a);
+        if(!item) return;
+        openShareModal({
+          surah: s, ayah: a,
+          arabic: item.verseAr.text,
+          meal: item.verseTr.translation,
+          ref: `${surahTr.translation || surah.transliteration} Sûresi, ${a}. Ayet`
+        });
+      });
+    });
+    list.querySelectorAll('.hifz-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const s = parseInt(btn.dataset.surah, 10), a = parseInt(btn.dataset.ayah, 10);
+        const item = state.pageAyahs.find(x => x.verseAr.id === a);
+        if(!item) return;
+        const marked = toggleHifz(s, a, {
+          arabic: item.verseAr.text,
+          meal: item.verseTr.translation,
+          ref: `${surahTr.translation || surah.transliteration} Sûresi, ${a}. Ayet`
+        });
+        btn.classList.toggle('saved', marked);
+        btn.title = marked ? 'Ezber listemden çıkar' : 'Ezberlerime ekle (tekrar planı başlasın)';
+      });
+    });
+
+    if(isTefsirMode){
+      sources.forEach((edition, slot) => {
+        const isArabicTafsir = edition.startsWith('ar-');
+        const sourceName = sourceMeta('tefsir', edition).name;
+        state.pageAyahs.forEach((a, i) => {
+          fetchTefsir(edition, surah.id, a.verseAr.id).then(text => {
+            const box = list.querySelector(`.ayah-tefsir[data-page-index="${i}"][data-source-slot="${slot}"]`);
+            if(!box) return;
+            box.classList.toggle('arabic', isArabicTafsir && !!text);
+            box.innerHTML = text
+              ? (sources.length === 1 ? `<span class="tefsir-author">${sourceName}</span>` : '') + text
+              : `<span class="tefsir-author">Tefsir alınamadı</span>İnternet bağlantınızı kontrol edin.`;
+          });
+        });
+      });
+    }
+
+    updateProgress();
+    savePosition();
+  }
+
+  /* ---- Ses oynatma + kelime kelime vurgulama (EveryAyah + quran-align) ---- */
+  function stopAudio(){
+    audioEl.pause();
+    cancelMealSpeech();
+    playing = false;
+    playIndexInPage = -1;
+    updatePlayIcon();
+    document.querySelectorAll('.ayah-block.playing').forEach(el => el.classList.remove('playing'));
+    document.querySelectorAll('.word.active').forEach(el => el.classList.remove('active'));
+  }
+
+  function updatePlayIcon(){
+    const icon = document.getElementById('playIcon');
+    icon.innerHTML = playing
+      ? '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>'
+      : '<path d="M8 5v14l11-7z"/>';
+  }
+
+  function togglePlay(){
+    if(playing){
+      audioEl.pause();
+      cancelMealSpeech();
+      playing = false;
+      updatePlayIcon();
+    }else if(playIndexInPage >= 0){
+      audioEl.play();
+      playing = true;
+      updatePlayIcon();
+      startWordSyncLoop();
+    }else{
+      playFromIndex(0);
+    }
+  }
+
+  function playFromIndex(i){
+    if(i < 0 || i >= state.pageAyahs.length) return;
+    document.querySelectorAll('.ayah-block.playing').forEach(el => el.classList.remove('playing'));
+    playIndexInPage = i;
+    const a = state.pageAyahs[i];
+    const surah = currentSurah();
+    audioEl.src = `https://everyayah.com/data/${currentReciter().folder}/${pad3(surah.id)}${pad3(a.verseAr.id)}.mp3`;
+    playing = true;
+    updatePlayIcon();
+    audioEl.play().catch(() => {
+      // Tarayıcı otomatik oynatmayı engellemiş olabilir (ör. sayfa yeni açıldı, henüz tıklama olmadı) —
+      // sessizce başa dön, kullanıcı ▶ butonuna basarak devam edebilir.
+      playing = false;
+      updatePlayIcon();
+    });
+    startWordSyncLoop();
+
+    const block = document.querySelector(`.ayah-block[data-page-index="${i}"]`);
+    if(block){
+      block.classList.add('playing');
+      block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    document.getElementById('audioCurrentRef').textContent =
+      `${currentSurahTr().translation || surah.transliteration} Sûresi, ${a.verseAr.id}. Ayet`;
+  }
+
+  function onTimeUpdate(){
+    // Sadece ilerleme çubuğu için — kelime vurgusu artık requestAnimationFrame
+    // döngüsünde (bkz. wordSyncLoop) çalışıyor, çünkü <audio>'nun native
+    // "timeupdate" olayı tarayıcıya göre sadece ~4 kez/saniye tetikleniyor
+    // (HTML spesifikasyonu 15-250ms arası diyor) — hızlı okuyan bir kâride
+    // bu, kelime vurgusunun sesle "senkron değilmiş" gibi hissettirmesine
+    // yol açıyordu. requestAnimationFrame ekranın yenileme hızında (~60/sn)
+    // çalıştığı için çok daha sıkı bir senkron sağlıyor.
+    if(playIndexInPage < 0) return;
+    document.getElementById('audioTrackFill').style.width =
+      (audioEl.duration ? (audioEl.currentTime / audioEl.duration * 100) : 0) + '%';
+  }
+
+  let wordSyncRaf = null;
+  function updateWordHighlight(){
+    if(playIndexInPage < 0) return;
+    const a = state.pageAyahs[playIndexInPage];
+    const surah = currentSurah();
+    const segments = timingsCache.get(currentReciterId)?.get(`${surah.id}:${a.verseAr.id}`);
+    const block = document.querySelector(`.ayah-block[data-page-index="${playIndexInPage}"]`);
+    if(!segments || !block) return;
+    const ms = audioEl.currentTime * 1000;
+    const seg = segments.find(s => ms >= s[2] && ms < s[3]);
+    const current = block.querySelector('.word.active');
+    const target = seg ? block.querySelector(`.word[data-idx="${seg[0]}"]`) : null;
+    if(current === target) return; // gereksiz DOM güncellemesi yapma
+    if(current) current.classList.remove('active');
+    if(target) target.classList.add('active');
+  }
+  function startWordSyncLoop(){
+    if(wordSyncRaf !== null) return;
+    const loop = () => {
+      updateWordHighlight();
+      wordSyncRaf = playing ? requestAnimationFrame(loop) : null;
+    };
+    wordSyncRaf = requestAnimationFrame(loop);
+  }
+
+  async function onAudioEnded(){
+    if(!playing) return;
+    await speakCurrentMeal();
+    if(!playing) return; // kullanıcı meal okunurken durdurmuş olabilir
+    if(playIndexInPage + 1 < state.pageAyahs.length){
+      playFromIndex(playIndexInPage + 1);
+    }else{
+      // Sayfanın son ayeti bitti — bir sonraki sayfaya geç ve devam et
+      const surah = currentSurah();
+      const atEnd = (state.surahIdx === arData.length - 1 && state.ayahIdx + PAGE_SIZE >= surah.verses.length);
+      if(atEnd){ stopAudio(); return; }
+      await turnPage(1);
+      playFromIndex(0);
+    }
+  }
+
+  init();
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

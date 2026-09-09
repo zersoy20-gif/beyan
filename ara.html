@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kur'an'da Ara — Beyan</title>
+<meta name="description" content="Kur'an'ın tamamında kelime/ifade arayın ya da Arapça kök üzerinden ayetleri bulun.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .search-tabs{display:flex; gap:10px; margin-bottom:26px; border-bottom:1px solid var(--border-soft);}
+  .search-tab-btn{background:none; border:none; color:var(--muted-2); font-size:0.92rem; padding:0 0 14px; cursor:pointer; position:relative;}
+  .search-tab-btn.active{color:var(--gold-bright);}
+  .search-tab-btn.active::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:linear-gradient(90deg,var(--gold),var(--teal));}
+  .search-panel{display:none;}
+  .search-panel.active{display:block;}
+
+  .search-box{display:flex; gap:10px; margin-bottom:18px;}
+  .search-input{flex:1; background:var(--glass-strong); border:1px solid var(--border-soft); color:var(--text); border-radius:12px; padding:14px 18px; font-size:1rem; font-family:inherit;}
+  .search-input:focus{border-color:var(--gold); outline:none;}
+  .search-input.arabic-input{font-family:'Amiri', serif; direction:rtl; font-size:1.2rem;}
+  .search-btn{padding:14px 24px; border-radius:12px; border:none; background:var(--gold); color:var(--ink); font-size:0.95rem; cursor:pointer; flex-shrink:0;}
+
+  .chip-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px;}
+  .root-chip{border:1px solid var(--border-soft); border-radius:16px; padding:7px 14px; font-size:0.8rem; color:var(--muted); background:none; cursor:pointer; transition:border-color .2s, color .2s;}
+  .root-chip:hover, .root-chip.active{border-color:var(--gold); color:var(--gold-bright);}
+  .root-chip .chip-ar{font-family:'Amiri', serif; direction:rtl; margin-right:4px;}
+
+  .result-summary{color:var(--muted-2); font-size:0.85rem; margin-bottom:18px;}
+  .result-list{display:flex; flex-direction:column; gap:14px;}
+  .result-card{border:1px solid var(--border-soft); border-radius:12px; padding:18px 22px; background:var(--glass); backdrop-filter:blur(10px);}
+  .result-card .result-ref{font-size:0.76rem; color:var(--teal); margin-bottom:8px;}
+  .result-card .result-arabic{font-family:'Amiri', serif; direction:rtl; font-size:1.35rem; line-height:2.1; color:var(--text); margin-bottom:8px;}
+  .result-card .result-meal{font-size:0.9rem; color:var(--muted); margin:0 0 10px; line-height:1.6;}
+  .result-card .result-meal mark{background:rgba(217,178,107,0.28); color:var(--gold-bright); border-radius:3px; padding:0 2px;}
+  .result-card a.read-link{font-size:0.78rem; color:var(--gold-bright); text-decoration:underline;}
+  .load-more-btn{display:block; margin:22px auto 0; background:none; border:1px solid var(--border-soft); color:var(--muted); padding:10px 22px; border-radius:20px; font-size:0.85rem; cursor:pointer;}
+  .empty-state{color:var(--muted-2); font-size:0.9rem; padding:20px 0;}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
+    <p class="kicker">Konular</p>
+    <h1 class="section-title" style="max-width:760px;">Kur'an'da <span class="grad-word">Ara</span></h1>
+    <p class="section-body" style="max-width:640px;">Bir kelime ya da ifadeyle Türkçe mealde arayın, ya da Arapça bir kökün Kur'an'da nerelerde geçtiğini bulun.</p>
+  </div>
+</header>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:860px;">
+    <div class="search-tabs">
+      <button class="search-tab-btn active" data-tab="text">Kelime / İfade Ara</button>
+      <button class="search-tab-btn" data-tab="root">Kök Ara</button>
+    </div>
+
+    <div class="search-panel active" data-panel="text">
+      <div class="search-box">
+        <input type="text" class="search-input" id="textSearchInput" placeholder="Türkçe mealde ara — ör. sabır, adalet, cennet…">
+        <button class="search-btn" id="textSearchBtn">Ara</button>
+      </div>
+      <div id="textResultArea"><p class="empty-state">Bir kelime yazıp Ara'ya basın.</p></div>
+    </div>
+
+    <div class="search-panel" data-panel="root">
+      <p style="color:var(--muted); font-size:0.86rem; margin-bottom:14px;">Popüler köklerden birine tıklayın, ya da Arapça kökü doğrudan yazın:</p>
+      <div class="chip-row" id="rootChips"></div>
+      <div class="search-box">
+        <input type="text" class="search-input arabic-input" id="rootSearchInput" placeholder="عمل ,صبر ,صلو…">
+        <button class="search-btn" id="rootSearchBtn">Ara</button>
+      </div>
+      <div id="rootResultArea"><p class="empty-state">Yukarıdan bir kök seçin ya da yazın.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:860px;">
+    <div class="topic-note">
+      <strong style="color:var(--gold-bright);">Kök arama nedir?</strong> Arapça kelimeler genelde 3 harfli bir "kök"ten türer — meselâ ك-ت-ب (k-t-b) kökünden "kitab" (yazılan şey), "kâtib" (yazan), "mektub" (yazılmış) gibi pek çok kelime türer. Bu araç, seçtiğiniz kökten türeyen kelimelerin Kur'an'da geçtiği <strong style="color:var(--text);">tüm</strong> ayetleri buluyor — Arapça'nın kendi iç mantığını görmek isteyenler için.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Kur'an metni ve Türkçe meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>Kök verisi: <a href="http://corpus.quran.com" style="color:var(--muted); text-decoration:underline;">Quranic Arabic Corpus</a> (GNU lisansı) — <a href="https://github.com/mustafa0x/quran-morphology" style="color:var(--muted); text-decoration:underline;">mustafa0x/quran-morphology</a> derlemesi üzerinden.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let arData = null, trData = null, rootsIndex = null;
+  const PAGE = 20;
+  let textResults = [], textShown = 0;
+  let rootResults = [], rootShown = 0;
+
+  const POPULAR_ROOTS = [
+    ['صلو','Namaz'], ['زكو','Zekât'], ['صبر','Sabır'], ['أمن','İman'], ['علم','İlim'],
+    ['رحم','Rahmet'], ['حمد','Hamd'], ['كتب','Kitap'], ['وقي','Takvâ'], ['جنن','Cennet'],
+    ['هدي','Hidayet'], ['عدل','Adalet'], ['ظلم','Zulüm'], ['نور','Nur'], ['رزق','Rızık'],
+    ['حقق','Hak'], ['شكر','Şükür'], ['توب','Tevbe'], ['خلق','Yaratmak'], ['قرأ','Okumak'],
+    ['سلم','Selâm'], ['قدر','Kader'], ['صدق','Sıdk'], ['غفر','Mağfiret'], ['حسن','İhsan'], ['صوم','Oruç'],
+  ];
+
+  function trLower(s){
+    return s.replace(/İ/g,'i').replace(/I/g,'ı').toLowerCase();
+  }
+
+  async function init(){
+    try{
+      const [arJson, trJson] = await Promise.all([
+        fetch('data/quran/quran-arabic.json').then(r => r.json()),
+        fetch('data/quran/quran-turkish.json').then(r => r.json()),
+      ]);
+      arData = arJson.slice().sort((a,b) => a.id - b.id);
+      trData = trJson.slice().sort((a,b) => a.id - b.id);
+    }catch(e){
+      document.getElementById('textResultArea').innerHTML =
+        '<p class="empty-state">Gerçek veri yüklenemedi — bu sayfayı bir yerel sunucu üzerinden açtığınızdan emin olun.</p>';
+      return;
+    }
+
+    document.querySelectorAll('.search-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.search-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.search-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelector(`.search-panel[data-panel="${btn.dataset.tab}"]`).classList.add('active');
+      });
+    });
+
+    document.getElementById('rootChips').innerHTML = POPULAR_ROOTS.map(([root, label]) =>
+      `<button class="root-chip" data-root="${root}"><span class="chip-ar">${root}</span>${label}</button>`
+    ).join('');
+    document.querySelectorAll('.root-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.root-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        document.getElementById('rootSearchInput').value = chip.dataset.root;
+        runRootSearch(chip.dataset.root);
+      });
+    });
+
+    document.getElementById('textSearchBtn').addEventListener('click', () => runTextSearch(document.getElementById('textSearchInput').value));
+    document.getElementById('textSearchInput').addEventListener('keydown', e => { if(e.key === 'Enter') runTextSearch(e.target.value); });
+    document.getElementById('rootSearchBtn').addEventListener('click', () => runRootSearch(document.getElementById('rootSearchInput').value.trim()));
+    document.getElementById('rootSearchInput').addEventListener('keydown', e => { if(e.key === 'Enter') runRootSearch(e.target.value.trim()); });
+  }
+
+  function surahLabel(surahAr, surahTr){
+    return surahTr.translation || surahAr.transliteration;
+  }
+
+  function highlightMeal(meal, query){
+    if(!query) return meal;
+    const idx = meal.toLowerCase().indexOf(query.toLowerCase());
+    if(idx < 0) return meal;
+    return meal.slice(0, idx) + '<mark>' + meal.slice(idx, idx + query.length) + '</mark>' + meal.slice(idx + query.length);
+  }
+
+  function resultCardHtml(item, query){
+    return `
+      <div class="result-card">
+        <p class="result-ref">${item.surahName} Sûresi, ${item.ayah}. Ayet</p>
+        <p class="result-arabic">${item.arabic}</p>
+        <p class="result-meal">${query ? highlightMeal(item.meal, query) : item.meal}</p>
+        <a class="read-link" href="oku.html?sure=${item.surah}&ayet=${item.ayah}">Bu ayetten oku →</a>
+      </div>
+    `;
+  }
+
+  function runTextSearch(query){
+    query = query.trim();
+    document.getElementById('textSearchInput').value = query;
+    const area = document.getElementById('textResultArea');
+    if(!query){ area.innerHTML = '<p class="empty-state">Bir kelime yazıp Ara\'ya basın.</p>'; return; }
+
+    const q = trLower(query);
+    textResults = [];
+    trData.forEach((surahTr, si) => {
+      const surahAr = arData[si];
+      surahTr.verses.forEach((v, vi) => {
+        if(trLower(v.translation).includes(q)){
+          textResults.push({
+            surah: surahTr.id, ayah: v.id,
+            arabic: surahAr.verses[vi].text, meal: v.translation,
+            surahName: surahLabel(surahAr, surahTr)
+          });
+        }
+      });
+    });
+    textShown = 0;
+    renderTextResults(query);
+  }
+
+  function renderTextResults(query){
+    const area = document.getElementById('textResultArea');
+    if(textResults.length === 0){
+      area.innerHTML = `<p class="empty-state">"${query}" için hiçbir ayette eşleşme bulunamadı.</p>`;
+      return;
+    }
+    const chunk = textResults.slice(0, textShown + PAGE);
+    textShown = chunk.length;
+    let html = `<p class="result-summary">${textResults.length} ayette eşleşme bulundu.</p><div class="result-list">`;
+    html += chunk.map(item => resultCardHtml(item, query)).join('');
+    html += '</div>';
+    if(textShown < textResults.length){
+      html += `<button class="load-more-btn" id="textLoadMore">Daha fazla göster (${textResults.length - textShown} kaldı)</button>`;
+    }
+    area.innerHTML = html;
+    const moreBtn = document.getElementById('textLoadMore');
+    if(moreBtn) moreBtn.addEventListener('click', () => renderTextResults(query));
+  }
+
+  async function runRootSearch(root){
+    root = root.trim();
+    if(!root) return;
+    if(!rootsIndex){
+      try{ rootsIndex = await fetch('data/quran/roots-index.json').then(r => r.json()); }
+      catch(e){ document.getElementById('rootResultArea').innerHTML = '<p class="empty-state">Kök verisi yüklenemedi.</p>'; return; }
+    }
+    const occurrences = rootsIndex[root] || [];
+    rootResults = occurrences.map(([s, a]) => {
+      const surahAr = arData.find(x => x.id === s), surahTr = trData.find(x => x.id === s);
+      const vAr = surahAr.verses.find(v => v.id === a), vTr = surahTr.verses.find(v => v.id === a);
+      return { surah: s, ayah: a, arabic: vAr.text, meal: vTr.translation, surahName: surahLabel(surahAr, surahTr) };
+    });
+    rootShown = 0;
+    renderRootResults(root);
+  }
+
+  function renderRootResults(root){
+    const area = document.getElementById('rootResultArea');
+    if(rootResults.length === 0){
+      area.innerHTML = `<p class="empty-state">"${root}" kökü bulunamadı. Kökü doğru yazdığınızdan emin olun (ör. صلو, علم, رحم).</p>`;
+      return;
+    }
+    const chunk = rootResults.slice(0, rootShown + PAGE);
+    rootShown = chunk.length;
+    let html = `<p class="result-summary">"${root}" kökü Kur'an'da <strong style="color:var(--text);">${rootResults.length}</strong> ayette geçiyor.</p><div class="result-list">`;
+    html += chunk.map(item => resultCardHtml(item, null)).join('');
+    html += '</div>';
+    if(rootShown < rootResults.length){
+      html += `<button class="load-more-btn" id="rootLoadMore">Daha fazla göster (${rootResults.length - rootShown} kaldı)</button>`;
+    }
+    area.innerHTML = html;
+    const moreBtn = document.getElementById('rootLoadMore');
+    if(moreBtn) moreBtn.addEventListener('click', () => renderRootResults(root));
+  }
+
+  init();
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

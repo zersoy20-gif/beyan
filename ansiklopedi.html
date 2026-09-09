@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İslam Ansiklopedisi — Beyan</title>
+<meta name="description" content="Bir İslami terimi arayın: Vikipedi'den özet doğrudan burada, TDV İslam Ansiklopedisi'ne doğrudan bağlantı.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .search-box{display:flex; gap:10px; margin-bottom:18px;}
+  .search-input{
+    flex:1; background:var(--glass-strong); border:1px solid var(--border-soft); color:var(--text);
+    border-radius:12px; padding:14px 18px; font-size:1rem; font-family:inherit;
+  }
+  .search-input:focus{border-color:var(--gold); outline:none;}
+  .search-btn{padding:14px 24px; border-radius:12px; border:none; background:var(--gold); color:var(--ink); font-size:0.95rem; cursor:pointer; flex-shrink:0;}
+  .chip-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:36px;}
+  .term-chip{border:1px solid var(--border-soft); border-radius:16px; padding:6px 14px; font-size:0.8rem; color:var(--muted); background:none; cursor:pointer; transition:border-color .2s, color .2s;}
+  .term-chip:hover{border-color:var(--gold); color:var(--gold-bright);}
+
+  .result-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:22px; align-items:start;}
+  @media (max-width:760px){ .result-grid{grid-template-columns:1fr;} }
+  .source-card-lg{border:1px solid var(--border-soft); border-radius:16px; padding:26px 28px; background:var(--glass); backdrop-filter:blur(12px);}
+  .source-card-lg .badge-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+  .source-badge{font-size:0.72rem; padding:4px 10px; border-radius:10px; border:1px solid var(--border);}
+  .badge-open{color:var(--teal); border-color:var(--teal);}
+  .badge-linked{color:var(--gold-bright);}
+  .source-card-lg h3{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.4rem; margin:0 0 12px; color:var(--text);}
+  .source-card-lg img{max-width:140px; border-radius:8px; float:right; margin:0 0 12px 16px;}
+  .source-card-lg p{color:var(--muted); font-size:0.92rem; line-height:1.75; margin:0 0 14px;}
+  .source-card-lg a.out-link{color:var(--teal); font-size:0.86rem; text-decoration:underline;}
+  .dia-card{border:1px solid var(--border); border-radius:16px; padding:26px 28px; background:rgba(217,178,107,0.06);}
+  .dia-card h3{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.2rem; margin:0 0 10px; color:var(--gold-bright);}
+  .dia-card p{color:var(--muted); font-size:0.86rem; line-height:1.7; margin:0 0 16px;}
+  .dia-go-btn{display:inline-block; padding:10px 20px; border-radius:20px; border:1px solid var(--gold); color:var(--gold-bright); text-decoration:none; font-size:0.86rem; margin-right:8px; margin-bottom:8px;}
+  .dia-go-btn:hover{background:var(--gold); color:var(--ink);}
+  .empty-state{color:var(--muted-2); font-size:0.9rem; padding:20px 0;}
+  .suggest-list{list-style:none; padding:0; margin:0;}
+  .suggest-list li{padding:8px 0; border-bottom:1px solid var(--border-soft);}
+  .suggest-list button{background:none; border:none; color:var(--teal); font-size:0.92rem; cursor:pointer; padding:0;}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
+    <p class="kicker">Konular</p>
+    <h1 class="section-title" style="max-width:760px;">İslam <span class="grad-word">Ansiklopedisi</span></h1>
+    <p class="section-body" style="max-width:640px;">Bir terim yazın: Vikipedi'deki özeti doğrudan burada gösteriyoruz; Türkiye'nin en kapsamlı kaynağı TDV İslam Ansiklopedisi'ne de tek tıkla yönlendiriyoruz.</p>
+  </div>
+</header>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:900px;">
+    <div class="search-box">
+      <input type="text" class="search-input" id="searchInput" placeholder="Bir terim yazın — ör. Kâbe, Zekât, Ramazan…">
+      <button class="search-btn" id="searchBtn">Ara</button>
+    </div>
+    <div class="chip-row">
+      <button class="term-chip" data-term="Kâbe">Kâbe</button>
+      <button class="term-chip" data-term="Zekât">Zekât</button>
+      <button class="term-chip" data-term="Ramazan">Ramazan</button>
+      <button class="term-chip" data-term="Hac">Hac</button>
+      <button class="term-chip" data-term="Oruç">Oruç</button>
+      <button class="term-chip" data-term="Cennet">Cennet</button>
+      <button class="term-chip" data-term="Melek">Melek</button>
+      <button class="term-chip" data-term="Tevbe">Tevbe</button>
+    </div>
+
+    <div id="resultArea">
+      <p class="empty-state">Yukarıdan bir terim arayın ya da hazır etiketlerden birine tıklayın.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:900px;">
+    <div class="topic-note">
+      <strong style="color:var(--gold-bright);">Neden iki farklı kaynak?</strong> Araştırdık: Türkçe'deki en kapsamlı İslam ansiklopedisi olan <strong style="color:var(--text);">TDV İslam Ansiklopedisi</strong> (16.000'den fazla madde) ücretsiz okunabiliyor, ama kullanım şartları "yazıların bütün olarak yayımlanması yasaktır" diyor — yani metnini sitemizde gösteremeyiz, sadece <strong style="color:var(--text);">bağlantı verebiliriz</strong>. <strong style="color:var(--text);">Türkçe Vikipedi</strong> ise CC BY-SA 4.0 lisansıyla tamamen açık — özetini doğrudan burada, atıfla gösterebiliyoruz. Bu yüzden ikisini birlikte sunuyoruz: hızlı bakış için Vikipedi, derinlemesine ve akademik kaynak için TDV İslam Ansiklopedisi.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Ansiklopedi özetleri: <a href="https://tr.wikipedia.org" style="color:var(--muted); text-decoration:underline;">Vikipedi</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>Derinlemesine kaynak: <a href="https://islamansiklopedisi.org.tr" style="color:var(--muted); text-decoration:underline;">TDV İslam Ansiklopedisi</a> — tüm telif hakları TDV İslam Araştırmaları Merkezi'ne aittir, yalnızca bağlantı veriyoruz.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function trSlug(s){
+    return s.trim()
+      .replace(/İ/g, 'i').replace(/I/g, 'i')
+      .toLowerCase()
+      .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u')
+      .replace(/â/g,'a').replace(/î/g,'i').replace(/û/g,'u')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  function diaCardHtml(term){
+    const slug = trSlug(term);
+    return `
+      <div class="dia-card">
+        <span class="source-badge badge-linked">Sadece bağlantı</span>
+        <h3>TDV İslam Ansiklopedisi</h3>
+        <p>Bu terimin akademik, derinlemesine incelemesi için Türkiye'nin en kapsamlı İslam ansiklopedisine bakın. Telif şartları gereği metnini burada gösteremiyoruz.</p>
+        <a class="dia-go-btn" href="https://islamansiklopedisi.org.tr/${slug}" target="_blank" rel="noopener">"${term}" maddesine git ›</a>
+        <a class="dia-go-btn" href="https://islamansiklopedisi.org.tr" target="_blank" rel="noopener">Ana sayfadan ara ›</a>
+      </div>
+    `;
+  }
+
+  function wikiCardHtml(data){
+    const img = data.thumbnail ? `<img src="${data.thumbnail.source}" alt="">` : '';
+    return `
+      <div class="source-card-lg">
+        <div class="badge-row">
+          <span class="source-badge badge-open">Açık lisans (CC BY-SA)</span>
+        </div>
+        ${img}
+        <h3>${data.title}</h3>
+        <p>${data.extract || 'Özet bulunamadı.'}</p>
+        <a class="out-link" href="${data.content_urls?.desktop?.page || ('https://tr.wikipedia.org/wiki/' + encodeURIComponent(data.title))}" target="_blank" rel="noopener">Vikipedi'de devamını oku →</a>
+      </div>
+    `;
+  }
+
+  function suggestHtml(term, titles){
+    if(!titles || !titles.length){
+      return `<div class="source-card-lg"><p>"${term}" için Vikipedi'de doğrudan bir madde bulunamadı.</p></div>`;
+    }
+    return `
+      <div class="source-card-lg">
+        <p style="margin-bottom:10px;">"${term}" için tam eşleşme bulunamadı. Benzer maddeler:</p>
+        <ul class="suggest-list">
+          ${titles.map(t => `<li><button data-term="${t}" class="suggest-btn">${t}</button></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  async function search(term){
+    term = (term || '').trim();
+    if(!term) return;
+    document.getElementById('searchInput').value = term;
+    const resultArea = document.getElementById('resultArea');
+    resultArea.innerHTML = '<p class="empty-state">Aranıyor…</p>';
+
+    let wikiHtml;
+    try{
+      const res = await fetch(`https://tr.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(term)}`);
+      if(res.ok){
+        const data = await res.json();
+        if(data.type === 'disambiguation'){
+          const sres = await fetch(`https://tr.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(term)}&limit=6&namespace=0&format=json&origin=*`);
+          const sdata = await sres.json();
+          wikiHtml = suggestHtml(term, sdata[1]);
+        }else{
+          wikiHtml = wikiCardHtml(data);
+        }
+      }else{
+        const sres = await fetch(`https://tr.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(term)}&limit=6&namespace=0&format=json&origin=*`);
+        const sdata = await sres.json();
+        wikiHtml = suggestHtml(term, sdata[1]);
+      }
+    }catch(e){
+      wikiHtml = `<div class="source-card-lg"><p>Vikipedi'den veri alınamadı — internet bağlantınızı kontrol edin.</p></div>`;
+    }
+
+    resultArea.innerHTML = `<div class="result-grid">${wikiHtml}${diaCardHtml(term)}</div>`;
+    resultArea.querySelectorAll('.suggest-btn').forEach(btn => {
+      btn.addEventListener('click', () => search(btn.dataset.term));
+    });
+  }
+
+  document.getElementById('searchBtn').addEventListener('click', () => search(document.getElementById('searchInput').value));
+  document.getElementById('searchInput').addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') search(e.target.value);
+  });
+  document.querySelectorAll('.term-chip').forEach(chip => {
+    chip.addEventListener('click', () => search(chip.dataset.term));
+  });
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

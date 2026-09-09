@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ezberlerim — Beyan</title>
+<meta name="description" content="Kur'an'ı Oku sayfasında işaretlediğiniz ayetler için basit, aralıklı tekrara dayalı bir hıfz (ezber) planlayıcı.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .hifz-empty{border:1px solid var(--border-soft); border-radius:16px; padding:40px 30px; text-align:center; color:var(--muted); background:var(--glass);}
+  .hifz-empty a{color:var(--gold-bright); text-decoration:underline;}
+
+  .hifz-section-title{display:flex; align-items:center; gap:10px; font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--gold-bright); margin:36px 0 16px;}
+  .hifz-section-title:first-child{margin-top:0;}
+  .hifz-count-badge{font-size:0.72rem; font-family:'Work Sans',sans-serif; color:var(--muted-2); border:1px solid var(--border-soft); border-radius:12px; padding:2px 10px;}
+
+  .hifz-card{
+    border:1px solid var(--border-soft); border-radius:14px; padding:20px 22px; background:var(--glass);
+    backdrop-filter:blur(10px); margin-bottom:12px;
+  }
+  .hifz-card.due{border-color:var(--border);}
+  .hifz-card-head{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .hifz-ref{font-size:0.92rem; color:var(--text);}
+  .hifz-meta{font-size:0.76rem; color:var(--muted-2);}
+  .hifz-reveal-btn{background:none; border:1px solid var(--border-soft); color:var(--muted); padding:6px 14px; border-radius:16px; font-size:0.78rem; cursor:pointer; transition:border-color .2s, color .2s;}
+  .hifz-reveal-btn:hover{border-color:var(--gold); color:var(--gold-bright);}
+  .hifz-content{display:none; margin-top:16px; padding-top:16px; border-top:1px solid var(--border-soft);}
+  .hifz-content.open{display:block;}
+  .hifz-content .arabic-text{font-family:'Amiri', serif; direction:rtl; font-size:1.4rem; line-height:2.1; color:var(--text); margin:0 0 10px;}
+  .hifz-content .meal-text{font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--muted); margin:0 0 16px;}
+  .hifz-actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .hifz-btn-ok{background:rgba(44,201,143,0.12); border:1px solid var(--emerald); color:var(--emerald); padding:8px 16px; border-radius:16px; font-size:0.8rem; cursor:pointer;}
+  .hifz-btn-ok:hover{background:rgba(44,201,143,0.2);}
+  .hifz-btn-reset{background:none; border:1px solid var(--border-soft); color:var(--muted); padding:8px 16px; border-radius:16px; font-size:0.8rem; cursor:pointer;}
+  .hifz-btn-reset:hover{border-color:#E8615A; color:#E8615A;}
+  .hifz-btn-remove{background:none; border:none; color:var(--muted-2); font-size:0.76rem; cursor:pointer; text-decoration:underline;}
+  .hifz-btn-remove:hover{color:#E8615A;}
+
+  .hifz-stage-dots{display:inline-flex; gap:4px; vertical-align:middle;}
+  .hifz-stage-dots span{width:7px; height:7px; border-radius:50%; background:var(--border-soft); display:inline-block;}
+  .hifz-stage-dots span.filled{background:var(--gold);}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <a class="topic-back" href="index.html#ezber">‹ Ezber Çalışmasına dön</a>
+    <p class="kicker">Ezber Çalışması</p>
+    <h1 class="section-title" style="max-width:760px;">Ezberlerim</h1>
+    <p class="section-body" style="max-width:640px;">"Kur'an'ı Oku" sayfasında bir ayetin yanındaki 🧠 butonuna bastığınızda, o ayet burada belirir. Sistem, unutma eğrisine dayalı basit bir <strong style="color:var(--text);">aralıklı tekrar</strong> takvimi tutar — hatırladıkça aralık uzar, unuttukça kısalır. <strong style="color:var(--gold-bright);">Yapay zekâ ya da ses tanıma yoktur</strong>; sadece ne zaman tekrar etmeniz gerektiğini hesaplayan bir zamanlayıcıdır, tamamen tarayıcınızda saklanır.</p>
+  </div>
+</header>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:760px;">
+    <div id="hifzRoot"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Kur'an metni ve Türkçe meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const HIFZ_KEY = 'beyan-hifz-v1';
+  const HIFZ_INTERVALS = [1, 3, 7, 16, 35, 90];
+
+  function loadHifz(){
+    try{ return JSON.parse(localStorage.getItem(HIFZ_KEY) || '{}'); }catch(e){ return {}; }
+  }
+  function saveHifzStore(data){ localStorage.setItem(HIFZ_KEY, JSON.stringify(data)); }
+
+  function fmtDate(iso){
+    const d = new Date(iso);
+    return d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  function daysUntil(iso){
+    const ms = new Date(iso).getTime() - Date.now();
+    return Math.ceil(ms / 86400000);
+  }
+  function stageDotsHtml(stage){
+    return `<span class="hifz-stage-dots">${HIFZ_INTERVALS.map((_, i) => `<span class="${i <= stage ? 'filled' : ''}"></span>`).join('')}</span>`;
+  }
+
+  function markReviewed(key, remembered){
+    const data = loadHifz();
+    const item = data[key];
+    if(!item) return;
+    item.stage = remembered ? Math.min(item.stage + 1, HIFZ_INTERVALS.length - 1) : 0;
+    item.nextReview = new Date(Date.now() + HIFZ_INTERVALS[item.stage] * 86400000).toISOString();
+    data[key] = item;
+    saveHifzStore(data);
+    render();
+  }
+  function removeItem(key){
+    const data = loadHifz();
+    delete data[key];
+    saveHifzStore(data);
+    render();
+  }
+
+  function cardHtml(key, item, due){
+    const actions = due
+      ? `<div class="hifz-actions">
+          <button class="hifz-btn-ok" data-action="ok" data-key="${key}">Hatırladım ✓</button>
+          <button class="hifz-btn-reset" data-action="reset" data-key="${key}">Hatırlamadım, sıfırla</button>
+        </div>`
+      : '';
+    return `
+      <div class="hifz-card ${due ? 'due' : ''}" data-key="${key}">
+        <div class="hifz-card-head">
+          <div>
+            <div class="hifz-ref">${item.ref} <a href="oku.html?sure=${item.surah}&ayet=${item.ayah}" style="color:var(--gold-bright); font-size:0.78rem; margin-left:6px;">oku →</a></div>
+            <div class="hifz-meta">${stageDotsHtml(item.stage)} · ${due ? 'Bugün tekrar sırası' : (daysUntil(item.nextReview) + ' gün sonra · ' + fmtDate(item.nextReview))}</div>
+          </div>
+          <button class="hifz-reveal-btn" data-toggle="${key}">Göster</button>
+        </div>
+        <div class="hifz-content" id="hifz-content-${key.replace(':','-')}">
+          <p class="arabic-text">${item.arabic}</p>
+          <p class="meal-text">${item.meal}</p>
+          ${actions}
+          <button class="hifz-btn-remove" data-action="remove" data-key="${key}" style="margin-top:6px;">Ezber listemden çıkar</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function render(){
+    const data = loadHifz();
+    const items = Object.entries(data).map(([key, v]) => ({ key, ...v }));
+    const root = document.getElementById('hifzRoot');
+
+    if(items.length === 0){
+      root.innerHTML = `
+        <div class="hifz-empty">
+          <p style="margin:0 0 10px; color:var(--text);">Henüz ezber listenizde bir ayet yok.</p>
+          <p style="margin:0;">"Kur'an'ı Oku" sayfasında bir ayetin yanındaki 🧠 simgesine basarak buraya ekleyebilirsiniz.</p>
+          <p style="margin-top:16px;"><a href="oku.html">Kur'an'ı Oku'ya git →</a></p>
+        </div>
+      `;
+      return;
+    }
+
+    const now = Date.now();
+    const due = items.filter(x => new Date(x.nextReview).getTime() <= now)
+      .sort((a, b) => new Date(a.nextReview) - new Date(b.nextReview));
+    const upcoming = items.filter(x => new Date(x.nextReview).getTime() > now)
+      .sort((a, b) => new Date(a.nextReview) - new Date(b.nextReview));
+
+    let html = '';
+    html += `<div class="hifz-section-title">Bugün Tekrar Et <span class="hifz-count-badge">${due.length}</span></div>`;
+    html += due.length
+      ? due.map(x => cardHtml(x.key, x, true)).join('')
+      : `<p style="color:var(--muted-2); font-size:0.88rem;">Bugün için bekleyen bir tekrar yok — gayet iyi gidiyorsunuz. 🌿</p>`;
+
+    if(upcoming.length){
+      html += `<div class="hifz-section-title">Yaklaşan Tekrarlar <span class="hifz-count-badge">${upcoming.length}</span></div>`;
+      html += upcoming.map(x => cardHtml(x.key, x, false)).join('');
+    }
+
+    root.innerHTML = html;
+
+    root.querySelectorAll('[data-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const el = document.getElementById(`hifz-content-${btn.dataset.toggle.replace(':', '-')}`);
+        const open = el.classList.toggle('open');
+        btn.textContent = open ? 'Gizle' : 'Göster';
+      });
+    });
+    root.querySelectorAll('[data-action="ok"]').forEach(btn => {
+      btn.addEventListener('click', () => markReviewed(btn.dataset.key, true));
+    });
+    root.querySelectorAll('[data-action="reset"]').forEach(btn => {
+      btn.addEventListener('click', () => markReviewed(btn.dataset.key, false));
+    });
+    root.querySelectorAll('[data-action="remove"]').forEach(btn => {
+      btn.addEventListener('click', () => removeItem(btn.dataset.key));
+    });
+  }
+
+  render();
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

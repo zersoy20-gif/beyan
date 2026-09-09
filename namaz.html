@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Namaz Vakti — Beyan</title>
+<meta name="description" content="Namaz vakitleri, kerahat vakitleri, kıble bulucu, zikirmatik ve bildirim ayarları — Kur'an'da namazın yeri ile birlikte.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .tool-card{border:1px solid var(--border-soft); border-radius:16px; padding:28px 30px; background:var(--glass); backdrop-filter:blur(12px); margin-bottom:24px;}
+  .tool-title{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.3rem; color:var(--gold-bright); margin:0 0 6px;}
+  .tool-sub{color:var(--muted); font-size:0.85rem; margin:0 0 20px;}
+
+  /* konum */
+  .location-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:8px;}
+  .location-name{font-size:0.95rem; color:var(--text);}
+  .location-name strong{color:var(--gold-bright);}
+  .location-select{background:var(--glass-strong); color:var(--text); border:1px solid var(--border-soft); border-radius:10px; padding:8px 12px; font-size:0.85rem; font-family:inherit;}
+  .location-status{font-size:0.78rem; color:var(--muted-2);}
+
+  /* geri sayım */
+  .countdown-box{text-align:center; padding:22px 0 6px;}
+  .countdown-label{font-size:0.82rem; color:var(--muted); margin-bottom:8px;}
+  .countdown-vakit{font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--gold-bright); margin-bottom:4px;}
+  .countdown-time{font-family:'Cormorant Garamond',serif; font-size:2.6rem; color:var(--text); letter-spacing:0.02em;}
+  .hijri-date{font-size:0.8rem; color:var(--muted-2); margin-top:10px;}
+
+  /* vakit grid */
+  .vakit-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-top:22px;}
+  @media (max-width:760px){ .vakit-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:420px){ .vakit-grid{grid-template-columns:repeat(2,1fr);} }
+  .vakit-card{border:1px solid var(--border-soft); border-radius:12px; padding:14px 8px; text-align:center; transition:border-color .2s, background .2s;}
+  .vakit-card.next{border-color:var(--gold); background:rgba(217,178,107,0.08);}
+  .vakit-card .vakit-ad{font-size:0.74rem; color:var(--muted-2); margin-bottom:6px;}
+  .vakit-card .vakit-saat{font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:var(--text);}
+  .vakit-card.next .vakit-saat{color:var(--gold-bright);}
+
+  /* kerahat */
+  .kerahat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media (max-width:700px){ .kerahat-grid{grid-template-columns:1fr;} }
+  .kerahat-card{border:1px solid rgba(217,120,107,0.35); border-radius:12px; padding:18px 20px; background:rgba(217,90,70,0.06);}
+  .kerahat-card h4{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.05rem; margin:0 0 8px; color:#E8A98F;}
+  .kerahat-card p{margin:0; font-size:0.85rem; color:var(--muted); line-height:1.6;}
+  .kerahat-card .kerahat-saat{color:var(--text); font-size:0.92rem; margin-top:6px; display:block;}
+
+  /* kıble */
+  .qibla-wrap{display:flex; align-items:center; gap:36px; flex-wrap:wrap; justify-content:center;}
+  .qibla-compass{position:relative; width:220px; height:220px; border-radius:50%; border:1px solid var(--border-soft); background:radial-gradient(circle, #101B18, #060A08); flex-shrink:0;}
+  .qibla-compass .dir-label{position:absolute; font-size:0.75rem; color:var(--muted-2); font-weight:600;}
+  .qibla-compass .dir-n{top:8px; left:50%; transform:translateX(-50%); color:var(--gold-bright);}
+  .qibla-compass .dir-e{right:8px; top:50%; transform:translateY(-50%);}
+  .qibla-compass .dir-s{bottom:8px; left:50%; transform:translateX(-50%);}
+  .qibla-compass .dir-w{left:8px; top:50%; transform:translateY(-50%);}
+  .qibla-needle{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; transition:transform .3s ease-out;}
+  .qibla-needle svg{width:38%; height:38%; filter:drop-shadow(0 0 8px rgba(217,178,107,0.5));}
+  .qibla-kaaba-icon{position:absolute; top:50%; left:50%; width:14px; height:14px; margin:-7px; border-radius:2px; background:var(--gold-bright); box-shadow:0 0 10px rgba(243,206,142,0.7);}
+  .qibla-info{flex:1; min-width:200px;}
+  .qibla-info .qibla-deg{font-family:'Cormorant Garamond',serif; font-size:2rem; color:var(--gold-bright);}
+  .qibla-info p{color:var(--muted); font-size:0.85rem; line-height:1.7; margin:8px 0 0;}
+  .qibla-permission-btn{margin-top:14px;}
+
+  /* zikirmatik */
+  .zikir-modes{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px;}
+  .zikir-mode-btn{background:none; border:1px solid var(--border-soft); color:var(--muted); padding:8px 16px; border-radius:20px; font-size:0.82rem; cursor:pointer; transition:border-color .2s, color .2s;}
+  .zikir-mode-btn.active{border-color:var(--gold); color:var(--gold-bright);}
+  .zikir-display{text-align:center; padding:10px 0 26px;}
+  .zikir-phrase{font-family:'Amiri', serif; direction:rtl; font-size:1.6rem; color:var(--text); margin-bottom:6px; min-height:2.2rem;}
+  .zikir-count{font-family:'Cormorant Garamond',serif; font-size:3.2rem; color:var(--gold-bright);}
+  .zikir-target{font-size:0.85rem; color:var(--muted-2);}
+  .zikir-tap-btn{
+    display:block; margin:22px auto 0; width:140px; height:140px; border-radius:50%; border:2px solid var(--gold);
+    background:var(--glass-strong); color:var(--gold-bright); font-size:1rem; cursor:pointer; transition:transform .1s, box-shadow .2s;
+  }
+  .zikir-tap-btn:active{transform:scale(0.94); box-shadow:0 0 40px rgba(217,178,107,0.5);}
+  .zikir-actions{display:flex; justify-content:center; gap:14px; margin-top:20px;}
+  .zikir-daily{text-align:center; font-size:0.8rem; color:var(--muted-2); margin-top:16px;}
+
+  /* bildirimler */
+  .notif-list{display:flex; flex-direction:column; gap:10px; margin-top:18px;}
+  .notif-row{display:flex; align-items:center; gap:12px; font-size:0.9rem; color:var(--text);}
+  .notif-row input{accent-color:var(--gold);}
+  .notif-status{font-size:0.82rem; color:var(--teal); margin-top:14px; min-height:1.2em;}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
+    <p class="kicker">Konular</p>
+    <h1 class="section-title" style="max-width:760px;">Namaz <span class="grad-word">Vakti</span></h1>
+    <p class="section-body" style="max-width:640px;">Vaktiniz, kerahat uyarılarınız, kıbleniz ve zikrinizi tek yerde takip edin — hesaplama Diyanet yöntemiyle yapılır.</p>
+  </div>
+</header>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:900px;">
+
+    <div class="tool-card">
+      <div class="location-row">
+        <span class="location-name" id="locationName">📍 Konum belirleniyor…</span>
+        <select class="location-select" id="citySelect"><option value="">İl seçerek değiştir…</option></select>
+      </div>
+      <p class="location-status" id="locationStatus">Tarayıcınızdan konum izni istenecek. İzin vermezseniz listeden il seçebilirsiniz.</p>
+
+      <div class="countdown-box">
+        <p class="countdown-label" id="countdownLabel">Sıradaki vakit</p>
+        <p class="countdown-vakit" id="countdownVakit">–</p>
+        <p class="countdown-time" id="countdownTime">–:–:–</p>
+        <p class="hijri-date" id="hijriDate"></p>
+      </div>
+
+      <div class="vakit-grid" id="vakitGrid"></div>
+    </div>
+
+    <div class="tool-card">
+      <p class="tool-title">Kerahat Vakitleri</p>
+      <p class="tool-sub">Bu vakitlerde farz, vacip ve nafile namaz kılınması mekruhtur (istisna: o günün henüz kılınmamış ikindi farzı).</p>
+      <div class="kerahat-grid" id="kerahatGrid"></div>
+    </div>
+
+    <div class="tool-card">
+      <p class="tool-title">Kıble Bulucu</p>
+      <p class="tool-sub">Konumunuzdan Kâbe'ye olan yön ve mesafe.</p>
+      <div class="qibla-wrap">
+        <div class="qibla-compass" id="qiblaCompass">
+          <span class="dir-label dir-n">K</span>
+          <span class="dir-label dir-e">D</span>
+          <span class="dir-label dir-s">G</span>
+          <span class="dir-label dir-w">B</span>
+          <div class="qibla-kaaba-icon"></div>
+          <div class="qibla-needle" id="qiblaNeedle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 L12 22 M12 2 L7 9 M12 2 L17 9"/></svg>
+          </div>
+        </div>
+        <div class="qibla-info">
+          <p class="qibla-deg" id="qiblaDeg">–°</p>
+          <p id="qiblaDistance">Mesafe hesaplanıyor…</p>
+          <p id="qiblaHelp">Pusula erişimi verirseniz ok otomatik olarak Kâbe'yi gösterir; vermezseniz açıyı gerçek pusulanızla kendiniz bulabilirsiniz (0° = Kuzey).</p>
+          <button class="btn-primary qibla-permission-btn" id="qiblaCompassBtn" style="border:none; cursor:pointer;">Pusulaya izin ver</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <p class="tool-title">Zikirmatik</p>
+      <p class="tool-sub">Namaz tesbihatı ya da serbest zikir için sayaç.</p>
+      <div class="zikir-modes" id="zikirModes">
+        <button class="zikir-mode-btn active" data-mode="tesbihat">Namaz Tesbihatı (33-33-33)</button>
+        <button class="zikir-mode-btn" data-mode="serbest">Serbest Sayaç</button>
+        <button class="zikir-mode-btn" data-mode="hedef">Özel Hedef</button>
+      </div>
+      <div class="zikir-display">
+        <p class="zikir-phrase" id="zikirPhrase">سُبْحَانَ اللَّهِ</p>
+        <p class="zikir-count" id="zikirCount">0</p>
+        <p class="zikir-target" id="zikirTarget">/ 33</p>
+        <button class="zikir-tap-btn" id="zikirTapBtn">Say</button>
+        <div class="zikir-actions">
+          <button class="btn-ghost-sm" id="zikirResetBtn" style="background:none; border:1px solid var(--border-soft); color:var(--muted); padding:8px 16px; border-radius:20px; font-size:0.8rem; cursor:pointer;">Sıfırla</button>
+          <input type="number" id="zikirCustomTarget" placeholder="Özel hedef (ör. 100)" hidden style="background:var(--glass-strong); color:var(--text); border:1px solid var(--border-soft); border-radius:20px; padding:8px 16px; font-size:0.82rem; width:160px;">
+        </div>
+        <p class="zikir-daily" id="zikirDaily"></p>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <p class="tool-title">Bildirim Ayarları</p>
+      <p class="tool-sub">Vakit girdiğinde bu sekme açıkken tarayıcı bildirimi alın.</p>
+      <button class="btn-primary" id="notifPermBtn" style="border:none; cursor:pointer;">Bildirimlere izin ver</button>
+      <div class="notif-list" id="notifList"></div>
+      <p class="notif-status" id="notifStatus">Not: Bu hatırlatmalar yalnızca bu sekme açıkken çalışır. Tarayıcı kapalıyken bildirim almak için ileride bir sunucu (arka plan bildirimi) eklenmesi gerekir.</p>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <p class="kicker reveal">Kur'an'da Namaz</p>
+    <h2 class="section-title" style="max-width:760px; margin-bottom:32px;">Ayetlerin kendisi <span class="grad-word">ne diyor?</span></h2>
+
+    <div class="ayah-card">
+      <h4>Namazın Farziyeti</h4>
+      <p class="ayah-arabic arabic">فَإِذَا قَضَيۡتُمُ ٱلصَّلَوٰةَ فَٱذۡكُرُواْ ٱللَّهَ قِيَٰمٗا وَقُعُودٗا وَعَلَىٰ جُنُوبِكُمۡۚ فَإِذَا ٱطۡمَأۡنَنتُمۡ فَأَقِيمُواْ ٱلصَّلَوٰةَۚ إِنَّ ٱلصَّلَوٰةَ كَانَتۡ عَلَى ٱلۡمُؤۡمِنِينَ كِتَٰبٗا مَّوۡقُوتٗا</p>
+      <p class="ayah-meal">Namazı kıldıktan başka, Allah'ı ayakta iken, otururken, yan yatarken de anın. Emniyete kavuştuğunuzda, namazı gereğince kılın. Namaz şüphesiz, inananlara belirli vakitlerde farz kılınmıştır.</p>
+      <p class="ayah-ref">Nisâ Sûresi, 103. Ayet</p>
+    </div>
+    <div class="ayah-card">
+      <h4>Vakitlere İşaret</h4>
+      <p class="ayah-arabic arabic">أَقِمِ ٱلصَّلَوٰةَ لِدُلُوكِ ٱلشَّمۡسِ إِلَىٰ غَسَقِ ٱلَّيۡلِ وَقُرۡءَانَ ٱلۡفَجۡرِۖ إِنَّ قُرۡءَانَ ٱلۡفَجۡرِ كَانَ مَشۡهُودٗا</p>
+      <p class="ayah-meal">Güneşin batıya yönelmesinden gecenin kararmasına kadar namaz kıl; sabah vakti de namaz kıl, zira sabah namazına melekler şahit olur.</p>
+      <p class="ayah-ref">İsrâ Sûresi, 78. Ayet</p>
+    </div>
+    <div class="ayah-card">
+      <h4>Namaza Devam</h4>
+      <p class="ayah-arabic arabic">حَٰفِظُواْ عَلَى ٱلصَّلَوَٰتِ وَٱلصَّلَوٰةِ ٱلۡوُسۡطَىٰ وَقُومُواْ لِلَّهِ قَٰنِتِينَ</p>
+      <p class="ayah-meal">Namazlara ve orta namaza devam edin; gönülden boyun eğerek Allah için namaza durun.</p>
+      <p class="ayah-ref">Bakara Sûresi, 238. Ayet</p>
+    </div>
+    <div class="ayah-card">
+      <h4>Namazın Amacı</h4>
+      <p class="ayah-arabic arabic">ٱتۡلُ مَآ أُوحِيَ إِلَيۡكَ مِنَ ٱلۡكِتَٰبِ وَأَقِمِ ٱلصَّلَوٰةَۖ إِنَّ ٱلصَّلَوٰةَ تَنۡهَىٰ عَنِ ٱلۡفَحۡشَآءِ وَٱلۡمُنكَرِۗ وَلَذِكۡرُ ٱللَّهِ أَكۡبَرُ</p>
+      <p class="ayah-meal">Kitap'tan sana vahyolunanı oku; namaz kıl; muhakkak ki namaz hayasızlıktan ve fenalıktan alıkor; Allah'ı anmak en büyük şeydir!</p>
+      <p class="ayah-ref">Ankebût Sûresi, 45. Ayet</p>
+    </div>
+    <div class="topic-note">Namazın rekat sayıları, kılınış şekli ve benzeri uygulama detayları Kur'an'da yer almaz, hadis ve sünnet kaynaklarında bulunur. Bu sayfa, sitenin "sadece Kur'an" ilkesi gereği yalnızca doğrudan ayetlere odaklanır; yukarıdaki vakit/kıble/zikir araçları ise pratik ihtiyaçlar için Diyanet yöntemiyle hesaplanan genel bir yardımcıdır.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Namaz vakitleri: <a href="https://aladhan.com" style="color:var(--muted); text-decoration:underline;">Al Adhan API</a> (hesaplama yöntemi: Diyanet İşleri Başkanlığı, Türkiye).</span>
+      <span>İl koordinatları: <a href="https://gist.github.com/ismailbaskin/2492196" style="color:var(--muted); text-decoration:underline;">açık kaynak il/ilçe veri seti</a> (Google Maps/Başarsoft kaynaklı).</span>
+      <span>Kur'an metni ve meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const KAABA = { lat: 21.4225, lng: 39.8262 };
+  const KERAHAT_BUFFER_MIN = 45;
+
+  let coords = null;   // {lat, lng}
+  let timings = null;  // Aladhan timings objesi
+  let cities = [];
+  let deviceHeading = null; // pusuladan gelen derece (varsa)
+
+  /* ---------- yardımcılar ---------- */
+  function toMinutes(hhmm){
+    const [h, m] = hhmm.split(':').map(Number);
+    return h * 60 + m;
+  }
+  function fromMinutes(mins){
+    mins = ((mins % 1440) + 1440) % 1440;
+    const h = Math.floor(mins / 60), m = mins % 60;
+    return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+  }
+  function todayAt(hhmm){
+    const [h, m] = hhmm.split(':').map(Number);
+    const d = new Date();
+    d.setHours(h, m, 0, 0);
+    return d;
+  }
+  function toRad(d){ return d * Math.PI / 180; }
+  function toDeg(r){ return r * 180 / Math.PI; }
+
+  function qiblaBearing(lat, lng){
+    const φ1 = toRad(lat), φ2 = toRad(KAABA.lat);
+    const Δλ = toRad(KAABA.lng - lng);
+    const y = Math.sin(Δλ) * Math.cos(φ2);
+    const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+    return (toDeg(Math.atan2(y, x)) + 360) % 360;
+  }
+  function haversineKm(lat1, lng1, lat2, lng2){
+    const R = 6371;
+    const dLat = toRad(lat2 - lat1), dLng = toRad(lng2 - lng1);
+    const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+
+  /* ---------- konum ---------- */
+  const LOCATION_KEY = 'beyan-namaz-location';
+
+  function saveLocation(loc){ localStorage.setItem(LOCATION_KEY, JSON.stringify(loc)); }
+  function loadSavedLocation(){
+    try{ return JSON.parse(localStorage.getItem(LOCATION_KEY) || 'null'); }catch(e){ return null; }
+  }
+
+  async function initLocation(){
+    try{
+      cities = await fetch('data/il-koordinatlari.json').then(r => r.json());
+      document.getElementById('citySelect').innerHTML =
+        '<option value="">İl seçerek değiştir…</option>' +
+        cities.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+    }catch(e){ /* il listesi olmadan da devam edilebilir */ }
+
+    document.getElementById('citySelect').addEventListener('change', (e) => {
+      const city = cities.find(c => c.id === parseInt(e.target.value, 10));
+      if(!city) return;
+      setLocation({ lat: city.lat, lng: city.lng, name: city.name }, true);
+    });
+
+    const saved = loadSavedLocation();
+    if(saved){ setLocation(saved); return; }
+
+    if(navigator.geolocation){
+      document.getElementById('locationStatus').textContent = 'Konum izni bekleniyor…';
+      navigator.geolocation.getCurrentPosition(
+        pos => setLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude, name: 'Bulunduğunuz konum' }, true),
+        () => {
+          document.getElementById('locationStatus').textContent = 'Konum izni verilmedi — lütfen listeden bir il seçin.';
+          document.getElementById('locationName').textContent = '📍 İl seçin';
+        },
+        { timeout: 8000 }
+      );
+    }else{
+      document.getElementById('locationStatus').textContent = 'Tarayıcınız konum servisini desteklemiyor — lütfen listeden bir il seçin.';
+    }
+  }
+
+  function setLocation(loc, persist){
+    coords = { lat: loc.lat, lng: loc.lng };
+    document.getElementById('locationName').textContent = `📍 ${loc.name}`;
+    document.getElementById('locationStatus').textContent = '';
+    if(persist) saveLocation(loc);
+    loadTimings();
+    renderQibla();
+  }
+
+  /* ---------- namaz vakitleri (Aladhan API, yöntem 13 = Diyanet) ---------- */
+  async function loadTimings(){
+    if(!coords) return;
+    try{
+      const url = `https://api.aladhan.com/v1/timings?latitude=${coords.lat}&longitude=${coords.lng}&method=13`;
+      const res = await fetch(url);
+      const json = await res.json();
+      timings = json.data.timings;
+      renderVakitGrid();
+      renderKerahat();
+      updateCountdown();
+      renderNotifList();
+      document.getElementById('hijriDate').textContent =
+        `${json.data.date.hijri.day} ${json.data.date.hijri.month.en} ${json.data.date.hijri.year} · ${json.data.date.readable}`;
+    }catch(e){
+      document.getElementById('locationStatus').textContent = 'Vakitler alınamadı — internet bağlantınızı kontrol edin.';
+    }
+  }
+
+  const VAKIT_LIST = [
+    { key: 'Fajr', label: 'İmsak' },
+    { key: 'Sunrise', label: 'Güneş' },
+    { key: 'Dhuhr', label: 'Öğle' },
+    { key: 'Asr', label: 'İkindi' },
+    { key: 'Maghrib', label: 'Akşam' },
+    { key: 'Isha', label: 'Yatsı' },
+  ];
+
+  function renderVakitGrid(){
+    const grid = document.getElementById('vakitGrid');
+    grid.innerHTML = VAKIT_LIST.map(v => `
+      <div class="vakit-card" data-key="${v.key}">
+        <div class="vakit-ad">${v.label}</div>
+        <div class="vakit-saat">${timings[v.key]}</div>
+      </div>
+    `).join('');
+  }
+
+  function nextVakit(){
+    const now = new Date();
+    const nowMin = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+    for(const v of VAKIT_LIST){
+      if(toMinutes(timings[v.key]) > nowMin) return v;
+    }
+    return VAKIT_LIST[0]; // yarının imsakı
+  }
+
+  function updateCountdown(){
+    if(!timings) return;
+    const next = nextVakit();
+    let target = todayAt(timings[next.key]);
+    if(target.getTime() < Date.now()) target.setDate(target.getDate() + 1);
+    const diffMs = target - new Date();
+    const h = Math.floor(diffMs / 3600000);
+    const m = Math.floor((diffMs % 3600000) / 60000);
+    const s = Math.floor((diffMs % 60000) / 1000);
+    document.getElementById('countdownVakit').textContent = `${next.label} vaktine`;
+    document.getElementById('countdownTime').textContent =
+      `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+    document.querySelectorAll('.vakit-card').forEach(el => {
+      el.classList.toggle('next', el.dataset.key === next.key);
+    });
+  }
+  setInterval(updateCountdown, 1000);
+
+  function renderKerahat(){
+    const sabahBaslar = timings.Sunrise;
+    const sabahBiter = fromMinutes(toMinutes(timings.Sunrise) + KERAHAT_BUFFER_MIN);
+    const istivaBaslar = fromMinutes(toMinutes(timings.Dhuhr) - KERAHAT_BUFFER_MIN);
+    const istivaBiter = timings.Dhuhr;
+    const ikindiBaslar = fromMinutes(toMinutes(timings.Maghrib) - KERAHAT_BUFFER_MIN);
+    const ikindiBiter = timings.Maghrib;
+
+    document.getElementById('kerahatGrid').innerHTML = `
+      <div class="kerahat-card">
+        <h4>🌅 Sabah Kerahati</h4>
+        <p>Güneşin doğuşundan yaklaşık 45 dakika sonrasına kadar.</p>
+        <span class="kerahat-saat">${sabahBaslar} – ${sabahBiter}</span>
+      </div>
+      <div class="kerahat-card">
+        <h4>☀️ İstivâ (Öğle) Kerahati</h4>
+        <p>Güneş tam tepedeyken, öğle ezanından hemen önceki süre.</p>
+        <span class="kerahat-saat">${istivaBaslar} – ${istivaBiter}</span>
+      </div>
+      <div class="kerahat-card">
+        <h4>🌇 İkindi Sonrası Kerahati</h4>
+        <p>Güneş sararmaya başladığından batışına kadar (o günün kılınmamış ikindi farzı hariç).</p>
+        <span class="kerahat-saat">${ikindiBaslar} – ${ikindiBiter}</span>
+      </div>
+    `;
+  }
+
+  /* ---------- kıble ---------- */
+  function renderQibla(){
+    if(!coords) return;
+    const bearing = qiblaBearing(coords.lat, coords.lng);
+    const distance = haversineKm(coords.lat, coords.lng, KAABA.lat, KAABA.lng);
+    document.getElementById('qiblaDeg').textContent = `${Math.round(bearing)}°`;
+    document.getElementById('qiblaDistance').textContent = `Kâbe'ye kuş uçuşu yaklaşık ${Math.round(distance).toLocaleString('tr-TR')} km.`;
+    applyNeedleRotation(bearing);
+    window._qiblaBearing = bearing;
+  }
+  function applyNeedleRotation(bearing){
+    const rotation = deviceHeading !== null ? (bearing - deviceHeading) : bearing;
+    document.getElementById('qiblaNeedle').style.transform = `rotate(${rotation}deg)`;
+  }
+  function handleOrientation(e){
+    let heading = null;
+    if(typeof e.webkitCompassHeading === 'number'){
+      heading = e.webkitCompassHeading; // iOS Safari
+    }else if(e.absolute && typeof e.alpha === 'number'){
+      heading = 360 - e.alpha; // Android Chrome (yaklaşık)
+    }
+    if(heading === null) return;
+    deviceHeading = heading;
+    if(window._qiblaBearing !== undefined) applyNeedleRotation(window._qiblaBearing);
+    document.getElementById('qiblaHelp').textContent = 'Telefonunuzu düz tutun — ok artık doğrudan Kâbe yönünü gösteriyor.';
+  }
+  document.getElementById('qiblaCompassBtn').addEventListener('click', async () => {
+    if(typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+      try{
+        const res = await DeviceOrientationEvent.requestPermission();
+        if(res === 'granted'){
+          window.addEventListener('deviceorientation', handleOrientation, true);
+        }else{
+          document.getElementById('qiblaHelp').textContent = 'Pusula izni reddedildi — açıyı gerçek bir pusulayla kendiniz bulabilirsiniz.';
+        }
+      }catch(e){
+        document.getElementById('qiblaHelp').textContent = 'Bu cihazda pusula desteklenmiyor.';
+      }
+    }else{
+      window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+      window.addEventListener('deviceorientation', handleOrientation, true);
+    }
+  });
+
+  /* ---------- zikirmatik ---------- */
+  const TESBIHAT_STEPS = [
+    { phrase: 'سُبْحَانَ اللَّهِ', label: 'Sübhânallah', target: 33 },
+    { phrase: 'الْحَمْدُ لِلَّهِ', label: 'Elhamdülillah', target: 33 },
+    { phrase: 'اللَّهُ أَكْبَرُ', label: 'Allâhu Ekber', target: 33 },
+  ];
+  let zikirMode = 'tesbihat';
+  let tesbihatStep = 0;
+  let zikirCount = 0;
+  let zikirTarget = 33;
+  const ZIKIR_DAILY_KEY = 'beyan-zikir-daily';
+
+  function getDailyZikir(){
+    const today = new Date().toISOString().slice(0,10);
+    try{
+      const saved = JSON.parse(localStorage.getItem(ZIKIR_DAILY_KEY) || '{}');
+      return saved.date === today ? saved.count : 0;
+    }catch(e){ return 0; }
+  }
+  function addDailyZikir(n){
+    const today = new Date().toISOString().slice(0,10);
+    const current = getDailyZikir();
+    localStorage.setItem(ZIKIR_DAILY_KEY, JSON.stringify({ date: today, count: current + n }));
+    renderZikirDaily();
+  }
+  function renderZikirDaily(){
+    document.getElementById('zikirDaily').textContent = `Bugün toplam ${getDailyZikir()} zikir çektiniz.`;
+  }
+
+  function renderZikir(){
+    if(zikirMode === 'tesbihat'){
+      const step = TESBIHAT_STEPS[tesbihatStep];
+      document.getElementById('zikirPhrase').textContent = step.phrase;
+      document.getElementById('zikirTarget').textContent = `${step.label} — / ${step.target}`;
+      zikirTarget = step.target;
+    }else if(zikirMode === 'serbest'){
+      document.getElementById('zikirPhrase').textContent = 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ';
+      document.getElementById('zikirTarget').textContent = 'Serbest sayaç';
+      zikirTarget = Infinity;
+    }else{
+      document.getElementById('zikirPhrase').textContent = 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ';
+      document.getElementById('zikirTarget').textContent = `/ ${zikirTarget}`;
+    }
+    document.getElementById('zikirCount').textContent = zikirCount;
+    document.getElementById('zikirCustomTarget').hidden = (zikirMode !== 'hedef');
+  }
+
+  document.querySelectorAll('.zikir-mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.zikir-mode-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      zikirMode = btn.dataset.mode;
+      zikirCount = 0; tesbihatStep = 0;
+      if(zikirMode === 'hedef') zikirTarget = parseInt(document.getElementById('zikirCustomTarget').value, 10) || 100;
+      renderZikir();
+    });
+  });
+  document.getElementById('zikirCustomTarget').addEventListener('input', (e) => {
+    zikirTarget = parseInt(e.target.value, 10) || 100;
+  });
+  document.getElementById('zikirTapBtn').addEventListener('click', () => {
+    zikirCount++;
+    addDailyZikir(1);
+    if(navigator.vibrate) navigator.vibrate(15);
+    if(zikirMode === 'tesbihat' && zikirCount >= zikirTarget){
+      if(navigator.vibrate) navigator.vibrate([40,60,40]);
+      if(tesbihatStep < TESBIHAT_STEPS.length - 1){
+        tesbihatStep++; zikirCount = 0;
+      }else{
+        tesbihatStep = 0; zikirCount = 0;
+      }
+    }else if(zikirMode === 'hedef' && zikirCount >= zikirTarget){
+      if(navigator.vibrate) navigator.vibrate([40,60,40]);
+    }
+    renderZikir();
+  });
+  document.getElementById('zikirResetBtn').addEventListener('click', () => {
+    zikirCount = 0; tesbihatStep = 0;
+    renderZikir();
+  });
+
+  /* ---------- bildirimler ---------- */
+  const NOTIF_PREFS_KEY = 'beyan-namaz-notif-prefs';
+  let scheduledTimers = [];
+
+  function getNotifPrefs(){
+    try{
+      return JSON.parse(localStorage.getItem(NOTIF_PREFS_KEY) || 'null') ||
+        Object.fromEntries(VAKIT_LIST.map(v => [v.key, true]));
+    }catch(e){ return Object.fromEntries(VAKIT_LIST.map(v => [v.key, true])); }
+  }
+  function saveNotifPrefs(prefs){ localStorage.setItem(NOTIF_PREFS_KEY, JSON.stringify(prefs)); }
+
+  function renderNotifList(){
+    const prefs = getNotifPrefs();
+    document.getElementById('notifList').innerHTML = VAKIT_LIST.map(v => `
+      <label class="notif-row">
+        <input type="checkbox" data-key="${v.key}" ${prefs[v.key] ? 'checked' : ''}>
+        ${v.label} (${timings ? timings[v.key] : '–'})
+      </label>
+    `).join('');
+    document.querySelectorAll('#notifList input').forEach(cb => {
+      cb.addEventListener('change', () => {
+        const prefs = getNotifPrefs();
+        prefs[cb.dataset.key] = cb.checked;
+        saveNotifPrefs(prefs);
+        scheduleNotifications();
+      });
+    });
+  }
+
+  function scheduleNotifications(){
+    scheduledTimers.forEach(t => clearTimeout(t));
+    scheduledTimers = [];
+    if(Notification.permission !== 'granted' || !timings) return;
+    const prefs = getNotifPrefs();
+    VAKIT_LIST.forEach(v => {
+      if(!prefs[v.key]) return;
+      const target = todayAt(timings[v.key]);
+      const delay = target - new Date();
+      if(delay <= 0) return; // bugünkü vakit geçmiş, yarınki için sekme kapanıp yeniden açıldığında planlanır
+      const timer = setTimeout(() => {
+        new Notification('Namaz Vakti — Beyan', { body: `${v.label} vakti girdi.` });
+      }, delay);
+      scheduledTimers.push(timer);
+    });
+    document.getElementById('notifStatus').textContent =
+      'Bildirimler bu sekme açık kaldığı sürece planlandı. Not: Tarayıcı kapalıyken bildirim alınamaz — bunun için ileride bir sunucu eklenmesi gerekir.';
+  }
+
+  document.getElementById('notifPermBtn').addEventListener('click', async () => {
+    if(!('Notification' in window)){
+      document.getElementById('notifStatus').textContent = 'Bu tarayıcı bildirimleri desteklemiyor.';
+      return;
+    }
+    const perm = await Notification.requestPermission();
+    if(perm === 'granted'){
+      scheduleNotifications();
+    }else{
+      document.getElementById('notifStatus').textContent = 'Bildirim izni verilmedi.';
+    }
+  });
+
+  /* ---------- başlat ---------- */
+  renderZikir();
+  renderZikirDaily();
+  initLocation();
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

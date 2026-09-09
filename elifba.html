@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elif-Bâ — Beyan</title>
+<meta name="description" content="Sıfırdan ileri seviyeye adım adım Kur'an okuma ve tecvid öğreticisi: harfler, harekeler, sükun, şedde, tenvin, med, kalın-ince harfler, şemsî-kamerî lâm, vasıl hemzesi, nun sakin/tenvin hükümleri, gunne-kalkale ve med çeşitleri.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .elifba-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:30px; border-bottom:1px solid var(--border-soft); padding-bottom:0;}
+  .elifba-tab-btn{
+    background:none; border:none; color:var(--muted-2); font-size:0.88rem; padding:0 0 14px; cursor:pointer;
+    position:relative; font-family:inherit; white-space:nowrap;
+  }
+  .elifba-tab-btn.active{color:var(--gold-bright);}
+  .elifba-tab-btn.active::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:linear-gradient(90deg,var(--gold),var(--teal));}
+  .elifba-tab-btn.done::before{content:"✓ "; color:var(--emerald);}
+
+  .elifba-panel{display:none;}
+  .elifba-panel.active{display:block;}
+
+  .harf-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(90px, 1fr)); gap:10px; margin-bottom:24px;}
+  .harf-card{
+    border:1px solid var(--border-soft); border-radius:12px; padding:16px 8px; text-align:center; background:var(--glass);
+    backdrop-filter:blur(8px); cursor:default; transition:border-color .2s;
+  }
+  .harf-card:hover{border-color:var(--border);}
+  .harf-card.kalin{border-color:rgba(232,97,90,0.35);}
+  .harf-card .harf-ar{font-family:'Amiri', serif; font-size:2.1rem; color:var(--gold-bright); direction:rtl; margin-bottom:6px; display:block;}
+  .harf-card .harf-name{font-size:0.72rem; color:var(--muted);}
+  .kalin-dot{width:7px; height:7px; border-radius:50%; background:#E8615A; display:inline-block; margin-right:6px;}
+
+  .ders-lead{color:var(--muted); font-size:0.95rem; line-height:1.75; margin-bottom:24px; max-width:640px;}
+  .ders-lead strong{color:var(--text);}
+
+  .ornek-row{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:28px;}
+  .ornek-card{
+    border:1px solid var(--border-soft); border-radius:14px; padding:22px 26px; background:var(--glass);
+    backdrop-filter:blur(10px); text-align:center; min-width:130px;
+  }
+  .ornek-card .ornek-ar{font-family:'Amiri', serif; font-size:2.4rem; color:var(--text); direction:rtl; margin-bottom:10px; display:block;}
+  .ornek-card .ornek-ses{font-size:0.85rem; color:var(--gold-bright); margin-bottom:4px;}
+  .ornek-card .ornek-aciklama{font-size:0.72rem; color:var(--muted-2);}
+
+  .quiz-box{border:1px solid var(--border); border-radius:14px; padding:24px 26px; background:rgba(217,178,107,0.06); margin-top:20px;}
+  .quiz-box .quiz-q{color:var(--text); font-size:0.95rem; margin-bottom:16px;}
+  .quiz-box .quiz-ar{font-family:'Amiri', serif; font-size:1.8rem; color:var(--gold-bright); direction:rtl; margin-bottom:16px; display:block;}
+  .quiz-opts{display:flex; gap:10px; flex-wrap:wrap;}
+  .quiz-opt{background:none; border:1px solid var(--border-soft); color:var(--muted); padding:9px 18px; border-radius:18px; font-size:0.85rem; cursor:pointer; font-family:inherit; transition:border-color .2s, color .2s;}
+  .quiz-opt:hover{border-color:var(--gold);}
+  .quiz-opt.correct{border-color:var(--emerald); background:rgba(44,201,143,0.14); color:var(--emerald);}
+  .quiz-opt.wrong{border-color:#E8615A; background:rgba(232,97,90,0.1); color:#E8615A;}
+  .quiz-feedback{margin-top:14px; font-size:0.85rem; min-height:1.2em;}
+  .quiz-feedback.ok{color:var(--emerald);}
+  .quiz-feedback.no{color:#E8615A;}
+
+  .ders-nav{display:flex; justify-content:space-between; margin-top:36px; padding-top:22px; border-top:1px solid var(--border-soft);}
+  .btn-ghost-sm{background:none; border:1px solid var(--border-soft); color:var(--muted); padding:8px 16px; border-radius:20px; font-size:0.8rem; cursor:pointer; transition:border-color .2s, color .2s; font-family:inherit;}
+  .btn-ghost-sm:hover{border-color:var(--gold); color:var(--gold-bright);}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
+    <p class="kicker">Elif-Bâ</p>
+    <h1 class="section-title" style="max-width:760px;">Sıfırdan <span class="grad-word">Kur'an Okumaya</span></h1>
+    <p class="section-body" style="max-width:660px;">Arap harflerini hiç bilmiyor olsanız bile buradan başlayabilirsiniz. Sıra, Diyanet'in ve geleneksel Kur'an kurslarının izlediği yaygın öğretim sırasıyla aynı: önce harfler, sonra harekeler, sükun, şedde, tenvin ve med harfleri — ardından "Kur'an'ı Oku" sayfasındaki tecvid renklerini anlamlandırmanızı sağlayacak ileri seviye 6 tecvid dersiyle devam eder.</p>
+  </div>
+</header>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:820px;">
+    <div class="topic-note" style="margin-bottom:28px;">
+      <strong style="color:var(--gold-bright);">Kapsam notu:</strong> Öğretici iki katmandan oluşur. <strong style="color:var(--text);">1–6. dersler (temel seviye)</strong> harfleri, harekeleri ve heceleme mantığını öğretir — bunları bitirdiğinizde kısa sureleri hecelemeye başlayabilecek düzeyde olursunuz. <strong style="color:var(--text);">7–12. dersler (ileri seviye / tecvid)</strong> ise "Kur'an'ı Oku" sayfasındaki tecvid renklerinin (Kalkale, İdgam, İhfâ, İklab, Med, Gunne) neye karşılık geldiğini adım adım açıklar — bu iki bölümü bitirdiğinizde renklendirilmiş bir ayeti neden öyle okunduğunu bilerek takip edebilirsiniz.
+    </div>
+
+    <div class="elifba-tabs" id="elifbaTabs">
+      <button class="elifba-tab-btn active" data-tab="harfler">1. Harfler</button>
+      <button class="elifba-tab-btn" data-tab="harekeler">2. Harekeler</button>
+      <button class="elifba-tab-btn" data-tab="sukun">3. Sükun</button>
+      <button class="elifba-tab-btn" data-tab="sedde">4. Şedde</button>
+      <button class="elifba-tab-btn" data-tab="tenvin">5. Tenvin</button>
+      <button class="elifba-tab-btn" data-tab="med">6. Med Harfleri</button>
+      <button class="elifba-tab-btn" data-tab="kalininfo">7. Kalın-İnce Harfler</button>
+      <button class="elifba-tab-btn" data-tab="eliflam">8. Elif-Lâm Takısı</button>
+      <button class="elifba-tab-btn" data-tab="vasl">9. Vasıl Hemzesi</button>
+      <button class="elifba-tab-btn" data-tab="nunsakin">10. Nun Sakin ve Tenvin</button>
+      <button class="elifba-tab-btn" data-tab="gunnekalkale">11. Gunne ve Kalkale</button>
+      <button class="elifba-tab-btn" data-tab="medileri">12. Med Çeşitleri</button>
+    </div>
+
+    <!-- 1. HARFLER -->
+    <div class="elifba-panel active" data-panel="harfler">
+      <p class="ders-lead">Arap alfabesi (Kur'an'da kullanılan hâliyle) <strong>28 harften</strong> oluşur, sağdan sola yazılır ve okunur. Bunlardan <span class="kalin-dot"></span><strong>7 tanesi "kalın" (tefhim) harftir</strong> — bu harfler diğerlerinden daha kalın/dolgun bir sesle çıkar (aşağıda kırmızı noktayla işaretli). Şimdilik harfleri tanımaya çalışın; adlarını ezberlemeniz gerekmiyor, tekrar tekrar görünce kendiliğinden yerleşecek.</p>
+      <div class="harf-grid" id="harfGrid"></div>
+      <div class="quiz-box">
+        <p class="quiz-q">Küçük bir alıştırma: Bu harf hangisi?</p>
+        <span class="quiz-ar" id="harfQuizAr"></span>
+        <div class="quiz-opts" id="harfQuizOpts"></div>
+        <p class="quiz-feedback" id="harfQuizFeedback"></p>
+      </div>
+    </div>
+
+    <!-- 2. HAREKELER -->
+    <div class="elifba-panel" data-panel="harekeler" hidden>
+      <p class="ders-lead">Harfler tek başına <strong>sessizdir</strong> — Türkçe'deki ünsüzler gibi. Onlara ses veren küçük işaretlere <strong>hareke</strong> denir. Üç hareke vardır: <strong>üstün</strong> (a/e sesi), <strong>esre</strong> (i sesi), <strong>ötre</strong> (u/ü sesi). Aşağıda tek bir harf (ب — Bâ) üzerinde üçünü de görebilirsiniz:</p>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">بَ</span><p class="ornek-ses">"be"</p><p class="ornek-aciklama">Üstün (fetha) — üstte küçük bir çizgi</p></div>
+        <div class="ornek-card"><span class="ornek-ar">بِ</span><p class="ornek-ses">"bi"</p><p class="ornek-aciklama">Esre (kesre) — altta küçük bir çizgi</p></div>
+        <div class="ornek-card"><span class="ornek-ar">بُ</span><p class="ornek-ses">"bu"</p><p class="ornek-aciklama">Ötre (damme) — üstte küçük bir virgül</p></div>
+      </div>
+      <p class="ders-lead">Bu üç hareke <strong>her harfe</strong> aynı şekilde eklenir. Örneğin ك (Kef) harfiyle: كَ (ke), كِ (ki), كُ (ku).</p>
+      <div class="quiz-box">
+        <p class="quiz-q">Bu harekeli harf nasıl okunur?</p>
+        <span class="quiz-ar">مُ</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="false">me</button>
+          <button class="quiz-opt" data-correct="false">mi</button>
+          <button class="quiz-opt" data-correct="true">mu</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="harekeler"></p>
+      </div>
+    </div>
+
+    <!-- 3. SÜKUN -->
+    <div class="elifba-panel" data-panel="sukun" hidden>
+      <p class="ders-lead">Bazen bir harfin hiç hareke <strong>almadığını</strong>, yani sessiz/ünsüz olarak kaldığını göstermek gerekir. Bunun için harfin üzerine küçük bir daire konur — buna <strong>sükun</strong> (cezim) denir. Sükunlu bir harf, kendinden önceki harfle birleşerek okunur, tek başına bir sesli harf üretmez.</p>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">بْ</span><p class="ornek-ses">"b" (sessiz)</p><p class="ornek-aciklama">Sükunlu Bâ — tek başına anlamsız, bir önceki harfle birleşir</p></div>
+        <div class="ornek-card"><span class="ornek-ar">اَبْ</span><p class="ornek-ses">"eb"</p><p class="ornek-aciklama">Üstünlü elif + sükunlu bâ = "eb"</p></div>
+      </div>
+      <p class="ders-lead">Bu şekilde iki harf bir araya gelip tek bir hece oluşturur: bir <strong>harekeli</strong> harf + bir <strong>sükunlu</strong> harf.</p>
+      <div class="quiz-box">
+        <p class="quiz-q">اِنْ (i + n-sükun) nasıl okunur?</p>
+        <span class="quiz-ar">اِنْ</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="true">in</button>
+          <button class="quiz-opt" data-correct="false">ini</button>
+          <button class="quiz-opt" data-correct="false">ne</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="sukun"></p>
+      </div>
+    </div>
+
+    <!-- 4. ŞEDDE -->
+    <div class="elifba-panel" data-panel="sedde" hidden>
+      <p class="ders-lead">Aynı harf art arda iki kez gelip birincisi sükunlu, ikincisi harekeli olduğunda, bu iki harfi ayrı ayrı yazmak yerine harfin üstüne küçük bir <strong>"w" şeklinde işaret (ّ)</strong> konur — buna <strong>şedde</strong> denir. Şeddeli bir harf, o harfi <strong>iki kat vurgulu/uzun</strong> okutur.</p>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">بَّ</span><p class="ornek-ses">"bbe"</p><p class="ornek-aciklama">Şeddeli Bâ — sanki iki "b" art arda</p></div>
+        <div class="ornek-card"><span class="ornek-ar">رَبّ</span><p class="ornek-ses">"rabb"</p><p class="ornek-aciklama">Gerçek bir Kur'an kelimesi: "Rabb" (Terbiye eden, Rab)</p></div>
+      </div>
+      <div class="quiz-box">
+        <p class="quiz-q">ّ işareti (şedde) ne anlama gelir?</p>
+        <span class="quiz-ar">مّ</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="false">Harf sessizdir</button>
+          <button class="quiz-opt" data-correct="true">Harf iki kez, vurgulu okunur</button>
+          <button class="quiz-opt" data-correct="false">Harf uzatılır</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="sedde"></p>
+      </div>
+    </div>
+
+    <!-- 5. TENVİN -->
+    <div class="elifba-panel" data-panel="tenvin" hidden>
+      <p class="ders-lead">Bir harekenin <strong>iki kez üst üste</strong> yazılmasına <strong>tenvin</strong> denir; harfin sonuna bir "n" sesi ekler. Genelde belirsiz (nekre) isimlerin sonunda görülür.</p>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">بً</span><p class="ornek-ses">"ben"</p><p class="ornek-aciklama">İki üstün (tenvin-i fetha)</p></div>
+        <div class="ornek-card"><span class="ornek-ar">بٍ</span><p class="ornek-ses">"bin"</p><p class="ornek-aciklama">İki esre (tenvin-i kesre)</p></div>
+        <div class="ornek-card"><span class="ornek-ar">بٌ</span><p class="ornek-ses">"bun"</p><p class="ornek-aciklama">İki ötre (tenvin-i damme)</p></div>
+      </div>
+      <p class="ders-lead">Kur'an'da çok sık geçen bir örnek: Fâtiha Sûresi'nin son ayetindeki <strong style="color:var(--text);">"...وَلَا الضَّالِّينَ"</strong> ifadesinden önceki <strong style="color:var(--text);">"عَلَيْهِمْ"</strong> gibi pek çok kelimede farklı hareke ve tenvin bir aradadır — ilk başta karmaşık görünse de, tek tek harf+hareke okumaya alıştıkça hızlanacaksınız.</p>
+      <div class="quiz-box">
+        <p class="quiz-q">بٍ nasıl okunur?</p>
+        <span class="quiz-ar">بٍ</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="false">ben</button>
+          <button class="quiz-opt" data-correct="true">bin</button>
+          <button class="quiz-opt" data-correct="false">bun</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="tenvin"></p>
+      </div>
+    </div>
+
+    <!-- 6. MED HARFLERİ -->
+    <div class="elifba-panel" data-panel="med" hidden>
+      <p class="ders-lead">Üç harf — <strong>elif ا، vav و، ye ي</strong> — harekesiz (sükunlu) olarak, kendisiyle uyumlu bir harekeden hemen sonra geldiğinde, o sesi <strong>uzatma</strong> görevi görür. Buna <strong>med</strong> denir: üstünden sonra gelen sükunlu elif "â" diye uzar, ötreden sonra gelen sükunlu vav "û" diye uzar, esreden sonra gelen sükunlu ye "î" diye uzar.</p>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">بَا</span><p class="ornek-ses">"bâ" (uzun a)</p><p class="ornek-aciklama">Üstün + sükunlu elif</p></div>
+        <div class="ornek-card"><span class="ornek-ar">بُو</span><p class="ornek-ses">"bû" (uzun u)</p><p class="ornek-aciklama">Ötre + sükunlu vav</p></div>
+        <div class="ornek-card"><span class="ornek-ar">بِي</span><p class="ornek-ses">"bî" (uzun i)</p><p class="ornek-aciklama">Esre + sükunlu ye</p></div>
+      </div>
+      <p class="ders-lead">Bu, gerçek bir Kur'an kelimesinde: <strong style="color:var(--text);">قَالَ</strong> (kâle — "dedi") kelimesinde ق'dan sonraki اَ + ا tam bir med örneğidir. Besmelede de <strong style="color:var(--text);">الرَّحْمَٰنِ</strong> kelimesinin ortasındaki uzun "â" sesi bir med harfidir.</p>
+      <div class="quiz-box">
+        <p class="quiz-q">بِي nasıl okunur?</p>
+        <span class="quiz-ar">بِي</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="false">bi</button>
+          <button class="quiz-opt" data-correct="true">bî (uzun i)</button>
+          <button class="quiz-opt" data-correct="false">bû</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="med"></p>
+      </div>
+      <div class="topic-note" style="margin-top:28px;">
+        <strong style="color:var(--gold-bright);">Temel seviye tamamlandı.</strong> Buraya kadarki 6 dersle artık harekeli/sükunlu/şeddeli/tenvinli kelimeleri heceleyebilirsiniz. Dilerseniz burada durup <a href="oku.html" style="color:var(--gold-bright);">"Kur'an'ı Oku"</a> sayfasında pratik yapabilir, dilerseniz aşağıdaki 7. dersten itibaren devam ederek tecvid kurallarını (kalın-ince harfler, elif-lâm takısı, nun sakin hükümleri, med çeşitleri) öğrenebilirsiniz.
+      </div>
+    </div>
+
+    <!-- 7. KALIN-İNCE HARFLER (İLERİ) -->
+    <div class="elifba-panel" data-panel="kalininfo" hidden>
+      <p class="ders-lead">1. derste kısaca gördüğünüz 7 "kalın" (tefhim) harfi şimdi derinlemesine ele alalım: <strong>خ ص ض ط ظ غ ق</strong> (Hı, Sâd, Dâd, Tı, Zı, Ğayn, Kaf). Bu harfler ağzın arkasına doğru, dolgun ve kalın bir sesle; geri kalan <strong>21 harf ise "ince" (terkik)</strong> — ağzın önünde, ince ve hafif bir sesle çıkar. Bu ayrım Kur'an okumanın tınısını doğrudan belirler; bir kelimeyi kalın harfle ince, ya da ince harfi kalın okumak telaffuzu bozar.</p>
+      <div class="harf-grid" id="kalinHarfGrid"></div>
+      <p class="ders-lead"><strong style="color:var(--text);">Lafza-i Celâl kuralı (Allah lafzının okunuşu):</strong> "اللّٰه" kelimesindeki lâm harfi normalde ince okunur, ama önceki harfin harekesine göre değişir:</p>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">قَالَ اللّٰهُ</span><p class="ornek-ses">kalın "Allâhu"</p><p class="ornek-aciklama">Öncesi üstün/ötre ise (kāle A<u>llâhu</u>) — lâm kalın okunur</p></div>
+        <div class="ornek-card"><span class="ornek-ar">بِاللّٰهِ</span><p class="ornek-ses">ince "billâhi"</p><p class="ornek-aciklama">Öncesi esre ise (bi<u>llâhi</u>) — lâm ince okunur</p></div>
+      </div>
+      <p class="ders-lead"><strong style="color:var(--text);">Râ (ر) harfinin özel durumu:</strong> Râ harfi tek başına hem kalın hem ince okunabilen tek harftir — kendi harekesi üstün/ötre ise ya da sakin olup öncesi üstün/ötreyse <strong>kalın</strong>; kendi harekesi esre ise ya da sakin olup öncesinde esre veya med harfi "ye" varsa <strong>ince</strong> okunur. Örnek: <strong style="color:var(--text);">رَبَّنَا</strong> (Rabbenâ — kalın râ) ile <strong style="color:var(--text);">مِنْ خَيْرٍ</strong> (min hayrin — ince râ, çünkü esreden sonra geliyor).</p>
+      <div class="quiz-box">
+        <p class="quiz-q">Aşağıdaki harflerden hangisi "kalın" (tefhim) harflerden biridir?</p>
+        <span class="quiz-ar">ق</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="false">Hayır, ince bir harftir</button>
+          <button class="quiz-opt" data-correct="true">Evet, 7 kalın harften biridir (Kaf)</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="kalininfo"></p>
+      </div>
+    </div>
+
+    <!-- 8. ELİF-LÂM TAKISI -->
+    <div class="elifba-panel" data-panel="eliflam" hidden>
+      <p class="ders-lead">Arapça'da isimlerin başına eklenen <strong>"اَلْـ" (elif-lâm / harf-i tarîf)</strong> takısı, Türkçedeki "the" gibi belirlilik bildirir. Bu takının okunuşu, kendisinden sonra gelen harfe göre iki farklı şekilde gerçekleşir — harfler bu yüzden <strong>şemsî</strong> ve <strong>kamerî</strong> olmak üzere iki gruba ayrılır.</p>
+      <p class="ders-lead"><strong style="color:var(--text);">Şemsî harfler (14 harf)</strong> — lâm harfi <strong>hiç okunmaz</strong>, yazıda durur ama telaffuzda kendinden sonraki harfe "erir" ve o harf şeddeli okunur:</p>
+      <div class="harf-grid" id="semsiHarfGrid"></div>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">اَلشَّمْسُ</span><p class="ornek-ses">"eş-şemsü"</p><p class="ornek-aciklama">Güneş — lâm okunmaz, şın şeddeli</p></div>
+        <div class="ornek-card"><span class="ornek-ar">اَلرَّحْمٰنُ</span><p class="ornek-ses">"er-rahmân"</p><p class="ornek-aciklama">Lâm okunmaz, râ şeddeli</p></div>
+      </div>
+      <p class="ders-lead"><strong style="color:var(--text);">Kamerî harfler (14 harf)</strong> — lâm harfi <strong>açıkça okunur</strong>, kendinden sonraki harf şeddesiz kalır:</p>
+      <div class="harf-grid" id="kameriHarfGrid"></div>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">اَلْقَمَرُ</span><p class="ornek-ses">"el-kamerü"</p><p class="ornek-aciklama">Ay — lâm net duyulur</p></div>
+        <div class="ornek-card"><span class="ornek-ar">اَلْكِتَابُ</span><p class="ornek-ses">"el-kitâbü"</p><p class="ornek-aciklama">Lâm net duyulur, kef şeddesiz</p></div>
+      </div>
+      <div class="quiz-box">
+        <p class="quiz-q">اَلشَّمْسُ kelimesinde lâm harfi nasıl okunur?</p>
+        <span class="quiz-ar">اَلشَّمْسُ</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="false">Açıkça "el-" diye okunur</button>
+          <button class="quiz-opt" data-correct="true">Hiç okunmaz, şın harfi şeddeli okunur</button>
+          <button class="quiz-opt" data-correct="false">Sakin olarak "l" sesiyle okunur</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="eliflam"></p>
+      </div>
+    </div>
+
+    <!-- 9. VASIL HEMZESİ -->
+    <div class="elifba-panel" data-panel="vasl" hidden>
+      <p class="ders-lead">Bazı kelimeler <strong>hemzesiz bir elif (ٱ)</strong> ile başlar — buna <strong>hemze-i vasl (vasıl hemzesi)</strong> denir. Bu harf, cümlenin/ayetin en başında okunmaya başlanırken bir harekeyle telaffuz edilir; ama bir önceki kelimeye <strong>bağlanarak (vasledilerek)</strong> okunduğunda tamamen <strong>düşer, hiç seslendirilmez</strong>.</p>
+      <p class="ders-lead">En sık görüldüğü üç yer: <strong>(1)</strong> elif-lâm takısının başı (اَلْـ), <strong>(2)</strong> bazı isimlerin başı (ör. اسْمِ — "isim"), <strong>(3)</strong> emir kipi ve bazı fiillerin başı (ör. اِقْرَأْ — "oku").</p>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">بِسْمِ اللّٰهِ</span><p class="ornek-ses">"bismillâhi"</p><p class="ornek-aciklama">اسْمِ'nin başındaki vasıl hemzesi, önceki "bi" harf-i cerrine bağlanınca düşer — "bi-ismi" değil "bismi" okunur</p></div>
+        <div class="ornek-card"><span class="ornek-ar">قُلِ اقْرَأْ</span><p class="ornek-ses">"kul-ıkra" değil "kuli’kra"</p><p class="ornek-aciklama">Cümle başında اِقْرَأْ ("ikra'") diye okunur, ama önceki kelimeye bağlanınca hemze düşer</p></div>
+      </div>
+      <p class="ders-lead">"Kur'an'ı Oku" sayfasındaki tecvid renklerinde bu harfler <strong style="color:#8FA39A;">gri/soluk renkle "okunmaz"</strong> olarak işaretlenir — şemsî lâm ile aynı renk kategorisindedir, çünkü ikisi de "yazılır ama seslendirilmez" mantığıyla çalışır.</p>
+      <div class="quiz-box">
+        <p class="quiz-q">Vasıl hemzesi bir önceki kelimeye bağlanarak okunduğunda ne olur?</p>
+        <span class="quiz-ar">بِسْمِ</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="false">Uzatılarak okunur</button>
+          <button class="quiz-opt" data-correct="true">Hiç seslendirilmez, düşer</button>
+          <button class="quiz-opt" data-correct="false">Şeddeli okunur</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="vasl"></p>
+      </div>
+    </div>
+
+    <!-- 10. NUN SAKİN VE TENVİN HÜKÜMLERİ -->
+    <div class="elifba-panel" data-panel="nunsakin" hidden>
+      <p class="ders-lead">Sakin (harekesiz) bir <strong>nun (نْ)</strong> ya da bir <strong>tenvin</strong> (ـً ـٍ ـٌ), kendinden sonra gelen harfe göre <strong>4 farklı şekilde</strong> okunur. Bu dört hüküm, "Kur'an'ı Oku" sayfasındaki tecvid renklerinin en sık karşınıza çıkan dört rengidir.</p>
+
+      <p class="ders-lead"><strong style="color:var(--text);">1) İzhar (açık okuma)</strong> — sonrasında "halk harfleri" denen 6 harften biri gelirse, nun/tenvin hiçbir değişikliğe uğramadan <strong>açıkça</strong> okunur:</p>
+      <div class="harf-grid" id="izharHarfGrid"></div>
+      <div class="ornek-row"><div class="ornek-card"><span class="ornek-ar">مَنْ آمَنَ</span><p class="ornek-ses">"men âmene"</p><p class="ornek-aciklama">Nun açık ve net okunur</p></div></div>
+
+      <p class="ders-lead"><strong style="color:var(--text);">2) İdgam (katma)</strong> — sonrasında <strong>ي ر م ل و ن</strong> harflerinden biri gelirse, nun/tenvin kendi sesini kaybedip o harfe karışır:</p>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">مِنْ رَبِّهِمْ</span><p class="ornek-ses">"mir-rabbihim"</p><p class="ornek-aciklama">Bilâ gunne (ل، ر) — gunnesiz, doğrudan katılır</p></div>
+        <div class="ornek-card"><span class="ornek-ar">مَنْ يَقُولُ</span><p class="ornek-ses">"mey-yekūlü"</p><p class="ornek-aciklama">Bi'l-gunne (ي، ن، م، و) — genizden gelen "gunne" sesiyle katılır</p></div>
+      </div>
+      <p class="ders-lead" style="font-size:0.85rem;"><strong style="color:var(--text);">İstisna:</strong> nun sakin ile bu harflerden biri <em>aynı kelimenin içinde</em> yan yana geldiğinde idgam uygulanmaz, açık okunur (izhar-ı mutlak). Kur'an'da bunun sadece 4 örneği vardır: <strong style="color:var(--text);">دُنْيَا، بُنْيَان، قِنْوَان، صِنْوَان</strong>.</p>
+
+      <p class="ders-lead"><strong style="color:var(--text);">3) İklab (çevirme)</strong> — sonrasında yalnızca <strong>ب</strong> harfi gelirse, nun sesi gunneli bir <strong>"m"</strong> sesine dönüşür:</p>
+      <div class="ornek-row"><div class="ornek-card"><span class="ornek-ar">مِنْۢ بَعْدِ</span><p class="ornek-ses">"mim ba'di"</p><p class="ornek-aciklama">Nun, "b"den önce "m"ye döner — Mushaf'ta üstüne küçük bir mim işareti konur</p></div></div>
+
+      <p class="ders-lead"><strong style="color:var(--text);">4) İhfâ (gizleme)</strong> — geri kalan 15 harften biri gelirse (<strong>ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك</strong>), nun ne tam açık ne tam kapalı; genizden gelen hafif bir "ñ" tonuyla <strong>gizlenerek</strong> okunur:</p>
+      <div class="harf-grid" id="ihfaHarfGrid"></div>
+      <div class="ornek-row"><div class="ornek-card"><span class="ornek-ar">مَنْ تَابَ</span><p class="ornek-ses">"me(ñ)tâbe"</p><p class="ornek-aciklama">Nun genizden gizlenerek okunur</p></div></div>
+
+      <div class="topic-note" style="margin-top:8px;">
+        <strong style="color:var(--gold-bright);">Bonus — Mim sakin (مْ) hükümleri:</strong> Aynı mantık mim sakin için de geçerlidir, sadece 3 hükümle: sonrasında <strong>ب</strong> gelirse <strong>ihfâ-i şefevî</strong> (dudaklar hafif kapanarak gunneyle), sonrasında <strong>mim</strong> gelirse <strong>idgam-ı şefevî</strong> (iki mim birleşip şeddeli gibi), diğer 26 harfte ise <strong>izhar-ı şefevî</strong> (mim açıkça okunur).
+      </div>
+
+      <div class="quiz-box">
+        <p class="quiz-q">مِنْۢ بَعْدِ ifadesindeki nun sesi neye döner?</p>
+        <span class="quiz-ar">مِنْۢ بَعْدِ</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="false">Hiçbir şeye, olduğu gibi kalır (izhar)</button>
+          <button class="quiz-opt" data-correct="true">Gunneli bir "m" sesine (iklab)</button>
+          <button class="quiz-opt" data-correct="false">Sonraki harfe tamamen karışır (idgam)</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="nunsakin"></p>
+      </div>
+    </div>
+
+    <!-- 11. GUNNE VE KALKALE -->
+    <div class="elifba-panel" data-panel="gunnekalkale" hidden>
+      <p class="ders-lead"><strong style="color:var(--text);">Gunne</strong>, nun ve mim harflerinin burundan gelen genizsi/nazal sesidir (kabaca 2 hareke süre). En belirgin olduğu yer <strong>şeddeli nun (نّ) ve şeddeli mim (مّ)</strong>dir; bir önceki derste gördüğünüz idgam-ı bi'l-gunne, iklab ve ihfâ hükümlerinde de bu genizsi ton mevcuttur — isimlerinden de anlaşılacağı gibi.</p>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">إِنَّ</span><p class="ornek-ses">"inne"</p><p class="ornek-aciklama">Şeddeli nun — belirgin gunne</p></div>
+        <div class="ornek-card"><span class="ornek-ar">ثُمَّ</span><p class="ornek-ses">"sümme"</p><p class="ornek-aciklama">Şeddeli mim — belirgin gunne</p></div>
+      </div>
+
+      <p class="ders-lead"><strong style="color:var(--text);">Kalkale</strong> ise şu 5 harften biri <strong>sakin</strong> olduğunda, harfin mahrecinden ayrılırken çıkan hafif bir "sıçrama/yankı" sesidir:</p>
+      <div class="harf-grid" id="kalkaleHarfGrid"></div>
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">يَقْطَعُونَ</span><p class="ornek-ses">"yakṭaʿūne"</p><p class="ornek-aciklama">Kalkale-i suğrâ (küçük) — kelime içinde zaten sakin olan ط</p></div>
+        <div class="ornek-card"><span class="ornek-ar">وَتَبَّ ‎(durakta)</span><p class="ornek-ses">"veteBB"</p><p class="ornek-aciklama">Kalkale-i kübrâ (büyük) — durma (vakıf) sebebiyle sonradan sakin kalan ب, daha belirgin sıçrar</p></div>
+      </div>
+      <div class="quiz-box">
+        <p class="quiz-q">Kalkale harfleri hangi 5 harftir?</p>
+        <span class="quiz-ar">ق ط ب ج د</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="true">Doğru, bu 5 harf kalkale harfleridir</button>
+          <button class="quiz-opt" data-correct="false">Hayır, bunlar halk harfleridir</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="gunnekalkale"></p>
+      </div>
+    </div>
+
+    <!-- 12. MED ÇEŞİTLERİ (İLERİ) -->
+    <div class="elifba-panel" data-panel="medileri" hidden>
+      <p class="ders-lead">6. derste gördüğünüz med (elif/vav/ye ile uzatma), aslında <strong>medd-i tabiî</strong> adını taşır ve süresi yaklaşık <strong>1 elif (2 hareke)</strong>'dir — "hareke", bir parmağınızı açıp kapatacak kadar kısa bir zaman birimidir. Medden sonra bir <strong>hemze</strong> ya da bir <strong>sükun</strong> geldiğinde ise süre uzar; buna <strong>medd-i fer'î</strong> denir ve dört alt türü vardır:</p>
+
+      <div class="ornek-row">
+        <div class="ornek-card"><span class="ornek-ar">جَآءَ</span><p class="ornek-ses">4-5 hareke</p><p class="ornek-aciklama"><strong>Medd-i muttasıl</strong> (bitişik, vacip) — med harfinden hemen sonra hemze <em>aynı kelimede</em></p></div>
+        <div class="ornek-card"><span class="ornek-ar">يَا أَيُّهَا</span><p class="ornek-ses">2, 4 veya 5 hareke</p><p class="ornek-aciklama"><strong>Medd-i munfasıl</strong> (ayrık, caiz) — med harfi bir kelimenin sonunda, hemze bir sonraki kelimenin başında</p></div>
+        <div class="ornek-card"><span class="ornek-ar">الضَّآلِّينَ</span><p class="ornek-ses">6 hareke (sabit)</p><p class="ornek-aciklama"><strong>Medd-i lâzım</strong> (gerekli) — medden sonra kelimenin aslında hep bulunan bir sükun (çoğu zaman şeddeli harf)</p></div>
+        <div class="ornek-card"><span class="ornek-ar">نَسْتَعِينُ ‎(durakta)</span><p class="ornek-ses">2, 4 veya 6 hareke</p><p class="ornek-aciklama"><strong>Medd-i ârız</strong> (durak medi, caiz) — sükun yalnızca durma (vakıf) sebebiyle oluşur; devam edilirse normal (2 hareke) okunur</p></div>
+      </div>
+      <p class="ders-lead" style="font-size:0.85rem;">Hafs rivayetinde en yaygın uygulama şudur: muttasıl ve munfasılda 4-5 hareke, lâzımda sabit 6 hareke, ârızda ise okuyana bağlı olarak 2, 4 ya da 6 hareke arasında tercih yapılır.</p>
+
+      <div class="quiz-box">
+        <p class="quiz-q">Medd-i lâzımın süresi kaç harekedir?</p>
+        <span class="quiz-ar">الضَّآلِّينَ</span>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="false">2 hareke</button>
+          <button class="quiz-opt" data-correct="false">4 hareke</button>
+          <button class="quiz-opt" data-correct="true">6 hareke — sabit ve değişmez</button>
+        </div>
+        <p class="quiz-feedback" data-quiz="medileri"></p>
+      </div>
+
+      <div class="topic-note" style="margin-top:28px;">
+        <strong style="color:var(--gold-bright);">Öğretici tamamlandı — şimdi ne yapmalıyım?</strong> 12 dersi de bitirdiyseniz, <a href="oku.html" style="color:var(--gold-bright);">"Kur'an'ı Oku"</a> sayfasında tecvid renklerini açın (Arapça metnin altındaki "Tecvid renklerini göster" kutusu): Kalkale, İdgam, İhfâ, İklab, Med, Gunne ve "okunmaz" (vasıl hemzesi/şemsî lâm) renklerinin her birinin artık neye karşılık geldiğini biliyorsunuz. Gerçek bir kâri sesini dinleyip kelime kelime sesli vurgulamayı takip ederek öğrendiklerinizi pekiştirebilirsiniz. Dinî pratik bilgileri (namaz, oruç, zekât vb.) için <a href="ilmihal.html" style="color:var(--gold-bright);">İlmihal</a> sayfasına da göz atabilirsiniz.
+      </div>
+    </div>
+
+    <div class="ders-nav">
+      <button class="btn-ghost-sm" id="dersPrevBtn">‹ Önceki ders</button>
+      <button class="btn-ghost-sm" id="dersNextBtn">Sonraki ders ›</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Öğretim sırası (harfler → harekeler → sükun → şedde → tenvin → med), Diyanet'in ve geleneksel Kur'an kurslarının yaygın kullandığı sırayla aynıdır; 7-12. dersler ise klasik tecvid kaynaklarında (kalın-ince harfler, elif-lâm takısı, vasıl hemzesi, nun sakin/tenvin hükümleri, gunne-kalkale, med çeşitleri) yer alan standart sınıflandırmayı izler.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let HARFLER = [];
+  const tabs = document.querySelectorAll('.elifba-tab-btn');
+  const panels = document.querySelectorAll('.elifba-panel');
+  const tabOrder = ['harfler', 'harekeler', 'sukun', 'sedde', 'tenvin', 'med', 'kalininfo', 'eliflam', 'vasl', 'nunsakin', 'gunnekalkale', 'medileri'];
+
+  // 7-12. derslerdeki sabit harf grupları — küçük ve değişmeyen listeler olduğu için
+  // (ana harfGrid'in aksine) fetch() gerektirmez, dosyayı doğrudan (file://) açanlarda da çalışır.
+  const HARF_GRUPLARI = {
+    kalinHarfGrid: [
+      { ar: 'خ', name: 'Hı' }, { ar: 'ص', name: 'Sâd' }, { ar: 'ض', name: 'Dâd' }, { ar: 'ط', name: 'Tı' },
+      { ar: 'ظ', name: 'Zı' }, { ar: 'غ', name: 'Ğayn' }, { ar: 'ق', name: 'Kaf' },
+    ],
+    semsiHarfGrid: [
+      { ar: 'ت', name: 'Tâ' }, { ar: 'ث', name: 'Sâ' }, { ar: 'د', name: 'Dâl' }, { ar: 'ذ', name: 'Zel' },
+      { ar: 'ر', name: 'Râ' }, { ar: 'ز', name: 'Ze' }, { ar: 'س', name: 'Sîn' }, { ar: 'ش', name: 'Şîn' },
+      { ar: 'ص', name: 'Sâd' }, { ar: 'ض', name: 'Dâd' }, { ar: 'ط', name: 'Tı' }, { ar: 'ظ', name: 'Zı' },
+      { ar: 'ل', name: 'Lâm' }, { ar: 'ن', name: 'Nûn' },
+    ],
+    kameriHarfGrid: [
+      { ar: 'ا', name: 'Elif' }, { ar: 'ب', name: 'Bâ' }, { ar: 'ج', name: 'Cîm' }, { ar: 'ح', name: 'Hâ' },
+      { ar: 'خ', name: 'Hı' }, { ar: 'ع', name: 'Ayn' }, { ar: 'غ', name: 'Ğayn' }, { ar: 'ف', name: 'Fâ' },
+      { ar: 'ق', name: 'Kaf' }, { ar: 'ك', name: 'Kef' }, { ar: 'م', name: 'Mîm' }, { ar: 'ه', name: 'He' },
+      { ar: 'و', name: 'Vav' }, { ar: 'ي', name: 'Ye' },
+    ],
+    izharHarfGrid: [
+      { ar: 'ء', name: 'Hemze' }, { ar: 'ه', name: 'He' }, { ar: 'ع', name: 'Ayn' },
+      { ar: 'ح', name: 'Hâ' }, { ar: 'غ', name: 'Ğayn' }, { ar: 'خ', name: 'Hı' },
+    ],
+    ihfaHarfGrid: [
+      { ar: 'ت', name: 'Tâ' }, { ar: 'ث', name: 'Sâ' }, { ar: 'ج', name: 'Cîm' }, { ar: 'د', name: 'Dâl' },
+      { ar: 'ذ', name: 'Zel' }, { ar: 'ز', name: 'Ze' }, { ar: 'س', name: 'Sîn' }, { ar: 'ش', name: 'Şîn' },
+      { ar: 'ص', name: 'Sâd' }, { ar: 'ض', name: 'Dâd' }, { ar: 'ط', name: 'Tı' }, { ar: 'ظ', name: 'Zı' },
+      { ar: 'ف', name: 'Fâ' }, { ar: 'ق', name: 'Kaf' }, { ar: 'ك', name: 'Kef' },
+    ],
+    kalkaleHarfGrid: [
+      { ar: 'ق', name: 'Kaf' }, { ar: 'ط', name: 'Tı' }, { ar: 'ب', name: 'Bâ' }, { ar: 'ج', name: 'Cîm' }, { ar: 'د', name: 'Dâl' },
+    ],
+  };
+  function renderHarfGruplari(){
+    Object.keys(HARF_GRUPLARI).forEach(id => {
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.innerHTML = HARF_GRUPLARI[id].map(h => `
+        <div class="harf-card">
+          <span class="harf-ar">${h.ar}</span>
+          <span class="harf-name">${h.name}</span>
+        </div>
+      `).join('');
+    });
+  }
+  renderHarfGruplari();
+
+  function showTab(name){
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    panels.forEach(p => {
+      const match = p.dataset.panel === name;
+      p.classList.toggle('active', match);
+      p.hidden = !match;
+    });
+    window.scrollTo({ top: document.getElementById('elifbaTabs').offsetTop - 100, behavior: 'smooth' });
+  }
+  tabs.forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+
+  document.getElementById('dersPrevBtn').addEventListener('click', () => {
+    const current = tabOrder.indexOf(document.querySelector('.elifba-tab-btn.active').dataset.tab);
+    if(current > 0) showTab(tabOrder[current - 1]);
+  });
+  document.getElementById('dersNextBtn').addEventListener('click', () => {
+    const current = tabOrder.indexOf(document.querySelector('.elifba-tab-btn.active').dataset.tab);
+    if(current < tabOrder.length - 1){
+      document.querySelector(`.elifba-tab-btn[data-tab="${tabOrder[current]}"]`).classList.add('done');
+      showTab(tabOrder[current + 1]);
+    }
+  });
+
+  // basit çoktan seçmeli alıştırmalar (2-12. dersler) — statik HTML içinde tanımlı
+  document.querySelectorAll('.quiz-box').forEach(box => {
+    const opts = box.querySelectorAll('.quiz-opt');
+    const feedback = box.querySelector('.quiz-feedback');
+    if(opts.length === 0 || !feedback) return;
+    opts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        const correct = opt.dataset.correct === 'true';
+        opts.forEach(o => o.classList.remove('correct', 'wrong'));
+        opt.classList.add(correct ? 'correct' : 'wrong');
+        feedback.textContent = correct ? 'Doğru! 👍' : 'Tekrar deneyin.';
+        feedback.className = 'quiz-feedback ' + (correct ? 'ok' : 'no');
+      });
+    });
+  });
+
+  async function init(){
+    try{
+      HARFLER = await fetch('data/elifba/harfler.json').then(r => r.json());
+    }catch(e){
+      document.getElementById('harfGrid').innerHTML = '<p style="color:var(--muted-2);">Veri yüklenemedi — bu sayfayı bir yerel sunucu üzerinden açtığınızdan emin olun.</p>';
+      return;
+    }
+
+    document.getElementById('harfGrid').innerHTML = HARFLER.map(h => `
+      <div class="harf-card ${h.kalin ? 'kalin' : ''}">
+        <span class="harf-ar">${h.ar}</span>
+        <span class="harf-name">${h.kalin ? '<span class="kalin-dot"></span>' : ''}${h.name}</span>
+      </div>
+    `).join('');
+
+    // harf tanıma alıştırması: rastgele bir harf + 3 seçenek (1 doğru + 2 yanlış)
+    const target = HARFLER[Math.floor(Math.random() * HARFLER.length)];
+    const others = HARFLER.filter(h => h.name !== target.name).sort(() => Math.random() - 0.5).slice(0, 2);
+    const options = [target, ...others].sort(() => Math.random() - 0.5);
+    document.getElementById('harfQuizAr').textContent = target.ar;
+    document.getElementById('harfQuizOpts').innerHTML = options.map(o =>
+      `<button class="quiz-opt" data-correct="${o.name === target.name}">${o.name}</button>`
+    ).join('');
+    document.getElementById('harfQuizOpts').querySelectorAll('.quiz-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const correct = opt.dataset.correct === 'true';
+        document.getElementById('harfQuizOpts').querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('correct','wrong'));
+        opt.classList.add(correct ? 'correct' : 'wrong');
+        const fb = document.getElementById('harfQuizFeedback');
+        fb.textContent = correct ? 'Doğru! 👍' : `Yanlış — doğrusu: ${target.name}`;
+        fb.className = 'quiz-feedback ' + (correct ? 'ok' : 'no');
+      });
+    });
+  }
+  init();
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

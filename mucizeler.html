@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kur'an'da Mucizeler — Beyan</title>
+<meta name="description" content="Kur'an'ın anlattığı olağanüstü olaylar, ayet metnine sadık kalınarak.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero">
+  <div class="wrap">
+    <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
+    <p class="kicker">Konular</p>
+    <h1 class="section-title" style="max-width:760px;">Kur'an'da <span class="grad-word">Mucizeler</span></h1>
+    <p class="section-body" style="max-width:640px;">Kur'an'ın anlattığı olağanüstü olaylar, ayet metnine sadık kalınarak.</p>
+  </div>
+</header>
+<section><div class="wrap">
+      <div class="ayah-card">
+        <h4>Mûsâ'nın Asası</h4>
+        <p class="ayah-arabic arabic">قَالَ أَلۡقِهَا يَٰمُوسَىٰ ﴿١٩﴾ فَأَلۡقَىٰهَا فَإِذَا هِيَ حَيَّةٞ تَسۡعَىٰ ﴿٢٠﴾</p>
+        <p class="ayah-meal">Allah: "Ey Mûsâ! Bırak onu" dedi. Bırakınca, değnek hemen, koşan bir yılan oluverdi.</p>
+        <p class="ayah-ref">Tâhâ Sûresi, 19-20. Ayetler</p>
+      </div>
+      <div class="ayah-card">
+        <h4>Kızıldeniz'in Yarılması</h4>
+        <p class="ayah-arabic arabic">فَأَوۡحَيۡنَآ إِلَىٰ مُوسَىٰٓ أَنِ ٱضۡرِب بِّعَصَاكَ ٱلۡبَحۡرَۖ فَٱنفَلَقَ فَكَانَ كُلُّ فِرۡقٖ كَٱلطَّوۡدِ ٱلۡعَظِيمِ</p>
+        <p class="ayah-meal">Biz Mûsâ'ya: "Değneğinle denize vur" diye vahyettik. Hemen deniz ikiye ayrıldı, her parçası yüce bir dağ gibiydi.</p>
+        <p class="ayah-ref">Şuarâ Sûresi, 63. Ayet</p>
+      </div>
+      <div class="ayah-card">
+        <h4>İsa'nın Mucizeleri</h4>
+        <p class="ayah-arabic arabic">وَأُبۡرِئُ ٱلۡأَكۡمَهَ وَٱلۡأَبۡرَصَ وَأُحۡيِ ٱلۡمَوۡتَىٰ بِإِذۡنِ ٱللَّهِ</p>
+        <p class="ayah-meal">"...anadan doğma körleri, alacalıları iyi edeceğim; Allah'ın izniyle, ölüleri dirilteceğim..."</p>
+        <p class="ayah-ref">Âl-i İmrân Sûresi, 49. Ayet (bir bölümü)</p>
+      </div>
+      <div class="ayah-card">
+        <h4>Nûh'un Gemisi</h4>
+        <p class="ayah-arabic arabic">وَقِيلَ يَـٰٓأَرۡضُ ٱبۡلَعِي مَآءَكِ وَيَٰسَمَآءُ أَقۡلِعِي وَغِيضَ ٱلۡمَآءُ وَقُضِيَ ٱلۡأَمۡرُ وَٱسۡتَوَتۡ عَلَى ٱلۡجُودِيِّ</p>
+        <p class="ayah-meal">Yere, "Suyunu çek!", göğe, "Ey gök sen de tut!" denildi. Su çekildi, iş de bitti; gemi Cûdî'ye oturdu.</p>
+        <p class="ayah-ref">Hûd Sûresi, 44. Ayet</p>
+      </div>
+      <div class="ayah-card">
+        <h4>Yûnus ve Balık</h4>
+        <p class="ayah-arabic arabic">فَٱلۡتَقَمَهُ ٱلۡحُوتُ وَهُوَ مُلِيمٞ</p>
+        <p class="ayah-meal">Kendini kınarken onu bir balık yutmuştu.</p>
+        <p class="ayah-ref">Sâffât Sûresi, 142. Ayet</p>
+      </div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Kur'an metni ve Türkçe meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> (Arapça aslı QuranEnc.com, harf çevirisi Tanzil.net, meal Diyanet kaynaklı) — CC BY-SA 4.0 lisansı ile; atıf zorunlu ve bu veriyle üretilen türev de aynı lisansla paylaşılmalıdır.</span>
+      <span>Tefsir örnekleri: <a href="https://github.com/spa5k/tafsir_api" style="color:var(--muted); text-decoration:underline;">spa5k/tafsir_api</a> (qul.tarteel.ai üzerinden) — her tefsirin telif durumu kendi orijinal kaynağına tabidir.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

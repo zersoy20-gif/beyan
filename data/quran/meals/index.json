@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ates",
+    "name": "Süleyman Ateş",
+    "source": "Tanzil.net",
+    "file": "ates.json"
+  },
+  {
+    "id": "bulac",
+    "name": "Ali Bulaç",
+    "source": "Tanzil.net",
+    "file": "bulac.json"
+  },
+  {
+    "id": "golpinarli",
+    "name": "Abdulbaki Gölpınarlı",
+    "source": "Tanzil.net",
+    "file": "golpinarli.json"
+  },
+  {
+    "id": "ozturk",
+    "name": "Yaşar Nuri Öztürk",
+    "source": "Tanzil.net",
+    "file": "ozturk.json"
+  },
+  {
+    "id": "vakfi",
+    "name": "Diyanet Vakfı (Kur'an Yolu)",
+    "source": "Tanzil.net",
+    "file": "vakfi.json"
+  },
+  {
+    "id": "yazir",
+    "name": "Elmalılı Hamdi Yazır",
+    "source": "Tanzil.net",
+    "file": "yazir.json"
+  },
+  {
+    "id": "yildirim",
+    "name": "Suat Yıldırım",
+    "source": "Tanzil.net",
+    "file": "yildirim.json"
+  },
+  {
+    "id": "yuksel",
+    "name": "Edip Yüksel",
+    "source": "Tanzil.net",
+    "file": "yuksel.json"
+  }
+]

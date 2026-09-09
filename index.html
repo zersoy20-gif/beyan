@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyan — Kur'an-ı Kerim, aracısız</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+<canvas id="stars"></canvas>
+<div class="scroll-bar" id="scrollBar"></div>
+
+<button class="replay-btn" id="replayBtn">
+  <span class="pulse"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+  Oku'yu tekrar dinle
+</button>
+
+<div class="topics-bar">
+  <div class="topics-track">
+    <a class="topic-pill" href="oku.html">Kur'an'ı Oku</a>
+    <a class="topic-pill" href="elifba.html">Elif-Bâ</a>
+    <a class="topic-pill" href="ilmihal.html">İlmihal</a>
+    <a class="topic-pill" href="#ezber">Ezber Çalışması</a>
+    <a class="topic-pill" href="#deneyimle">Deneyimleyin</a>
+    <a class="topic-pill" href="#yollar">Okuma yolları</a>
+    <a class="topic-pill" href="#konular">Konular</a>
+    <a class="topic-pill" href="#sosyal">Sosyal alan</a>
+    <a class="topic-pill" href="ansiklopedi.html">Ansiklopedi</a>
+    <a class="topic-pill" href="ara.html">Kur'an'da Ara</a>
+    <a class="topic-pill" href="isimler.html">Allah'ın İsimleri</a>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="#ezber">Ezber Çalışması</a></li>
+      <li><a href="#deneyimle">Deneyimleyin</a></li>
+      <li><a href="#yollar">Okuma yolları</a></li>
+      <li><a href="#konular">Konular</a></li>
+      <li><a href="#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-line" href="#" id="loginBtn">Giriş yap</a>
+      <a class="btn-nav-fill" href="oku.html">Uygulamayı dene</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="atmos"></div>
+  <div class="fog"><span class="f1"></span><span class="f2"></span><span class="f3"></span></div>
+  <div class="beam-wrap"><div class="beam"></div><div class="beam-reflection"></div></div>
+  <div class="horizon"></div>
+  <svg class="ornament" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4">
+    <path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/><circle cx="50" cy="50" r="42" stroke-dasharray="2 6"/>
+  </svg>
+  <div class="hero-vignette"></div>
+  <div class="spotlight" id="spotlight"></div>
+
+  <div class="hero-inner">
+    <span class="badge"><span class="dot"></span> İlk vahiy: "Oku"</span>
+    <p class="hero-ayah arabic" id="heroAyah"></p>
+    <p class="hero-meal">"Andolsun, Kur'an'ı düşünüp anlaşılması için kolaylaştırdık. Öğüt alan yok mu?"</p>
+    <p class="hero-ref">Kamer Sûresi, 17. Ayet</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="oku.html">Okumaya başla</a>
+      <a class="btn-ghost" href="#deneyimle">Nasıl çalışır</a>
+    </div>
+  </div>
+
+  <div class="hero-sources wrap">
+    <span class="label">Kaynak olarak kullanılıyor</span>
+    <div class="list">
+      <span>QuranEnc.com</span><span>Tanzil Project</span><span>Diyanet Meali</span><span>QUL (tefsir)</span>
+    </div>
+  </div>
+</header>
+
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span><i>۞</i> Âdem</span><span><i>۞</i> Nûh</span><span><i>۞</i> İbrahim</span><span><i>۞</i> Yûsuf</span>
+    <span><i>۞</i> Mûsâ</span><span><i>۞</i> Dâvûd</span><span><i>۞</i> Süleyman</span><span><i>۞</i> Yûnus</span>
+    <span><i>۞</i> Zekeriyya</span><span><i>۞</i> Yahya</span><span><i>۞</i> İsa</span><span><i>۞</i> Muhammed</span>
+    <span><i>۞</i> Âdem</span><span><i>۞</i> Nûh</span><span><i>۞</i> İbrahim</span><span><i>۞</i> Yûsuf</span>
+    <span><i>۞</i> Mûsâ</span><span><i>۞</i> Dâvûd</span><span><i>۞</i> Süleyman</span><span><i>۞</i> Yûnus</span>
+  </div>
+</div>
+
+<div class="votd-band">
+  <div class="wrap votd-inner">
+    <div class="votd-label">
+      <span class="votd-kicker">Bugün</span>
+      <span class="votd-title">Günün Ayeti</span>
+    </div>
+    <div class="votd-content">
+      <p class="votd-arabic arabic" id="votdArabic">…</p>
+      <p class="votd-meal" id="votdMeal">Yükleniyor…</p>
+      <p class="votd-ref" id="votdRef"></p>
+    </div>
+    <a class="votd-link" id="votdLink" href="oku.html">Bu ayetten oku →</a>
+  </div>
+</div>
+
+<section id="oku-teaser">
+  <div class="wrap">
+    <p class="kicker reveal">Kur'an'ı Oku</p>
+    <h2 class="section-title reveal">Fâtiha'nın ilk ayetinden başlayın, <span class="grad-word">size uygun şekilde</span></h2>
+    <p class="section-body reveal" style="margin-bottom:40px;">Okuma sayfasını açtığınızda önce size sorarız: meal ile mi, tefsirle mi, yoksa hatim modunda mı okumak istersiniz? Gerçek bir kâri sesiyle dinlerken, okunan kelime gözünüzün önünde vurgulanır.</p>
+
+    <div class="mini-grid reveal-stagger">
+      <div class="mini-card">
+        <div class="mini-shot">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <p class="mock-arabic">بِسْمِ اللَّهِ</p>
+          <span class="mock-chip">Meal ile Oku</span>
+        </div>
+        <div class="mini-body">
+          <h3>Meal ile Oku</h3>
+          <p>Her ayetin altında Türkçe meali görün, kendi hızınızda ilerleyin.</p>
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-shot">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="mock-line w1"></div><div class="mock-line w3"></div><div class="mock-line w2"></div>
+          <span class="mock-chip">Tefsirle Oku</span>
+        </div>
+        <div class="mini-body">
+          <h3>Tefsirle Oku</h3>
+          <p>Her ayetin altında gerçek bir tefsir kaynağından açıklama görün.</p>
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-shot">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="mock-line w2"></div>
+          <span class="mock-chip">Hatim Modu</span>
+        </div>
+        <div class="mini-body">
+          <h3>Hatim Modu</h3>
+          <p>Kaldığınız yerden devam edin; 6.236 ayet üzerinden ilerlemenizi takip edin.</p>
+        </div>
+      </div>
+    </div>
+
+    <a class="btn-primary reveal" href="oku.html" style="display:inline-block; margin-top:40px;">Okuma sayfasını aç</a>
+  </div>
+</section>
+
+<section id="deneyimle">
+  <div class="wrap">
+    <p class="kicker reveal">Deneyimleyin</p>
+    <h2 class="section-title reveal">Bir dokunuşta <span class="grad-word">anlam</span>, bir bakışta bağlam</h2>
+    <p class="section-body reveal" style="margin-bottom:52px;">Okuma alanı üç ilkeye dayanır: anlam her zaman elinizin altında, kaynak her zaman şeffaf, yorum her zaman size ait.</p>
+
+    <div class="mini-grid reveal-stagger">
+      <div class="mini-card">
+        <div class="mini-shot">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <p class="mock-arabic">الْحَمْدُ لِلَّهِ</p>
+          <span class="mock-chip">övgü, hamd</span>
+        </div>
+        <div class="mini-body">
+          <h3>Anlam, bir dokunuşta</h3>
+          <p>Merak ettiğiniz kelimeye dokunun, sözlük anlamı hemen orada açılsın.</p>
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-shot">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="mock-line w1"></div><div class="mock-line w2"></div><div class="mock-line w3"></div>
+          <span class="mock-chip">Taberî · İbn Kesîr · Kurtubî</span>
+        </div>
+        <div class="mini-body">
+          <h3>Birden fazla göz</h3>
+          <p>Aynı ayeti farklı müfessirlerin açıklamasıyla yan yana okuyun, kararı siz verin.</p>
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-shot">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <p class="mock-arabic">بِسْمِ اللَّهِ</p>
+          <div class="mock-line w2" style="margin-top:14px;"></div>
+        </div>
+        <div class="mini-body">
+          <h3>Dinlerken kaybolmayın</h3>
+          <p>Kâri okurken metindeki kelime otomatik vurgulanır, göz kulağı takip eder.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="yollar" class="section-alt">
+  <div class="wrap">
+    <p class="kicker reveal">Okuma yolları</p>
+    <h2 class="section-title reveal">Tek okuma alanı, <span class="grad-word">size göre şekillenir</span></h2>
+    <p class="section-body reveal" style="margin-bottom:48px;">Nasıl okumak istediğinizi siz seçersiniz — meal öncelikli, tefsir karşılaştırmalı, sesli takipli ya da not tutarak.</p>
+
+    <div class="tabsec-group">
+    <div class="tabsec-head reveal">
+      <button class="tabsec-btn active" data-t="meal">Meal ile oku</button>
+      <button class="tabsec-btn" data-t="tefsir">Tefsirle karşılaştır</button>
+      <button class="tabsec-btn" data-t="ses">Dinleyerek takip et</button>
+      <button class="tabsec-btn" data-t="not">Not tutarak çalış</button>
+    </div>
+
+    <div class="tabsec-panel active reveal" data-p="meal">
+      <div class="tabsec-visual">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <p class="demo-arabic-line" id="mealArabicLine">
+          <span class="demo-word">الْحَمْدُ<span class="demo-tooltip">övgü, hamd</span></span>
+          <span class="demo-word">لِلَّهِ<span class="demo-tooltip">Allah'a mahsus</span></span>
+          <span class="demo-word">رَبِّ<span class="demo-tooltip">Rabbine</span></span>
+          <span class="demo-word">الْعَالَمِينَ<span class="demo-tooltip">bütün âlemlerin</span></span>
+        </p>
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--muted); margin-top:14px;" id="mealTranslation">Hamd, âlemlerin Rabbi olan Allah'a mahsustur.</p>
+        <p style="font-size:0.72rem; color:var(--muted-2); margin-top:10px;" id="mealSourceNote">Fâtiha Sûresi, 2. Ayet</p>
+        <button class="note-btn" id="noteBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 4h9l5 5v11H6z"/><path d="M14 4v5h5"/></svg>
+          <span id="noteBtnText">Notlarıma ekle</span>
+        </button>
+      </div>
+      <div class="tabsec-copy">
+        <p class="eyebrow">Meal ile oku</p>
+        <h3>Arapça metnin altında, akışı bozmayan bir meal</h3>
+        <p>Okuma hızınızı siz belirlersiniz; meal her zaman ayetin hemen altında, okunaklı bir punto ile durur.</p>
+        <a class="btn-primary" href="oku.html">Okumaya başla</a>
+      </div>
+    </div>
+
+    <div class="tabsec-panel" data-p="tefsir">
+      <div class="tabsec-visual">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <p style="font-size:0.9rem; color:var(--muted); line-height:1.9;" id="tefsirCompareBox">
+          <strong style="color:var(--text);">Tefsir İbn Kesîr:</strong> "Hamd" burada övgü ile şükrü birleştirir…<br>
+          <strong style="color:var(--text);">Muhtasar Tefsir:</strong> Sûrenin açılışı doğrudan Allah'a yöneliştir…<br>
+          <strong style="color:var(--text);">Tefsir es-Sa'dî:</strong> Dil açısından "el-hamdü" marifedir…
+        </p>
+      </div>
+      <div class="tabsec-copy">
+        <p class="eyebrow">Tefsirle karşılaştır</p>
+        <h3>Tek bir isme değil, birden fazla müfessire dayanır</h3>
+        <p>Farklı tefsir kaynaklarını aynı ayette yan yana görün; hangi açıklamanın sizde karşılık bulduğuna siz karar verin.</p>
+        <a class="btn-primary" href="oku.html">Karşılaştırmalı oku</a>
+      </div>
+    </div>
+
+    <div class="tabsec-panel" data-p="ses">
+      <div class="tabsec-visual">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <p class="player-arabic">
+          <span data-i="0">بِسْمِ</span><span data-i="1">اللَّهِ</span><span data-i="2">الرَّحْمَٰنِ</span><span data-i="3">الرَّحِيمِ</span>
+        </p>
+        <div class="player-controls">
+          <button class="play-btn" id="playBtn" aria-label="Dinle">
+            <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+      </div>
+      <div class="tabsec-copy">
+        <p class="eyebrow">Dinleyerek takip et</p>
+        <h3>Kulağınız dinlerken, gözünüz metinde kalır</h3>
+        <p>Kâri okurken karşılık gelen kelime anlık olarak vurgulanır — ezber çalışırken de sadece dinlerken de işe yarar.</p>
+        <a class="btn-primary" href="oku.html">Dinlemeye başla</a>
+      </div>
+    </div>
+
+    <div class="tabsec-panel" data-p="not">
+      <div class="tabsec-visual">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="notes-list" id="notesListBox">
+          <p class="notes-empty">Henüz not eklemediniz.</p>
+        </div>
+      </div>
+      <div class="tabsec-copy">
+        <p class="eyebrow">Not tutarak çalış</p>
+        <h3>Merak ettiğiniz her ayet, sizin arşivinizde</h3>
+        <p>"Kur'an'ı Oku" bölümünde bir ayetteyken "Notlarıma ekle"ye basın; buraya kaydedilir. Notlar sadece bu tarayıcıda, sizin cihazınızda tutulur — kimseyle paylaşılmaz.</p>
+        <a class="btn-primary" href="oku.html">Not tutmaya başla</a>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section id="ezber">
+  <div class="wrap">
+    <p class="kicker reveal">Ezber çalışması</p>
+    <h2 class="section-title reveal">Namaz dualarını da, <span class="grad-word">sureleri de</span> kalıcı ezberleyin</h2>
+    <p class="section-body reveal" style="margin-bottom:48px;">Dört farklı tekrar tekniği bir arada — hangisi size uyuyorsa onunla çalışın. Örnek metin: Sübhâneke duası.</p>
+
+    <div class="tabsec-group">
+    <div class="tabsec-head reveal">
+      <button class="tabsec-btn active" data-t="kademeli">Kademeli Gizleme</button>
+      <button class="tabsec-btn" data-t="bosluk">Boşluk Doldurma</button>
+      <button class="tabsec-btn" data-t="dinle">Dinle-Tekrarla</button>
+      <button class="tabsec-btn" data-t="araliklir">Aralıklı Tekrar</button>
+    </div>
+
+    <div class="tabsec-panel active reveal" data-p="kademeli">
+      <div class="tabsec-visual">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <p class="ez-words" id="progWords"></p>
+        <p style="font-size:0.82rem; color:var(--muted-2); margin-top:14px;" id="progStatus"></p>
+      </div>
+      <div class="tabsec-copy">
+        <p class="eyebrow">Kademeli gizleme</p>
+        <h3>Her doğru turda bir kelime daha kaybolur</h3>
+        <p>Metni okuyun, "doğru okudum" deyin, bir sonraki kelime gizlensin. Sıfıra indiğinizde tamamen ezberlemiş olursunuz.</p>
+        <button class="btn-primary" id="progBtn" style="border:none; cursor:pointer;">Doğru okudum, bir kelime daha gizle</button>
+      </div>
+    </div>
+
+    <div class="tabsec-panel" data-p="bosluk">
+      <div class="tabsec-visual">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <p class="ez-words" id="blankWords"></p>
+        <p style="font-size:0.82rem; color:var(--muted-2); margin-top:14px;" id="blankStatus"></p>
+      </div>
+      <div class="tabsec-copy">
+        <p class="eyebrow">Boşluk doldurma</p>
+        <h3>Boşluklara dokunun, hafızanızı test edin</h3>
+        <p>Bazı kelimeler gizli. Önce zihninizden tamamlamayı deneyin, sonra dokunup doğrusunu görün.</p>
+      </div>
+    </div>
+
+    <div class="tabsec-panel" data-p="dinle">
+      <div class="tabsec-visual">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <p class="player-arabic arabic">سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ</p>
+        <div class="player-controls">
+          <button class="play-btn" id="repeatBtn" aria-label="Dinle">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div class="progress-track"><div class="progress-fill" id="repeatFill"></div></div>
+        </div>
+        <p style="font-size:0.82rem; color:var(--muted-2); margin-top:10px;" id="repeatCountText">0 / 20 tekrar</p>
+      </div>
+      <div class="tabsec-copy">
+        <p class="eyebrow">Dinle-tekrarla sayaç</p>
+        <h3>Her tekrarda bir adım daha yakınsınız</h3>
+        <p>Dinleyin, ardından yüksek sesle tekrar edin. Sistem tekrar sayınızı tutar; çoğu hoca kısa dualar için 20-40 tekrar önerir.</p>
+      </div>
+    </div>
+
+    <div class="tabsec-panel" data-p="araliklir">
+      <div class="tabsec-visual">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <p style="font-size:0.95rem; color:var(--text); margin-bottom:18px;">Bugün Sübhâneke duasını hatırladınız mı?</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="note-btn" id="spacedHard">Hayır, unuttum</button>
+          <button class="note-btn" id="spacedOk">Zordu ama hatırladım</button>
+          <button class="note-btn" id="spacedEasy">Evet, kolayca</button>
+        </div>
+        <p style="font-size:0.85rem; color:var(--teal); margin-top:18px;" id="spacedResult"></p>
+      </div>
+      <div class="tabsec-copy">
+        <p class="eyebrow">Aralıklı tekrar</p>
+        <h3>Unutma eğrisine göre hatırlatılır</h3>
+        <p>Kolay hatırladıysanız aralık uzar, zorlandıysanız kısalır. Böylece emek, en çok ihtiyaç duyulan yere gider.</p>
+        <p style="font-size:0.85rem; margin-top:10px;">Bu, yukarıdaki demo — gerçek Kur'an ayetleriniz için kalıcı sürümünü deneyin: <a href="ezberlerim.html" style="color:var(--gold-bright); text-decoration:underline;">Ezberlerim →</a></p>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section id="konular">
+  <div class="wrap">
+    <p class="kicker reveal">İçerik alanları</p>
+    <h2 class="section-title reveal">Ayetin ötesinde, yine <span class="grad-word">Kur'an ekseninde</span></h2>
+    <p class="section-body reveal" style="margin-bottom:56px;">Her başlık doğrudan Kur'an metnine dayanır; rivayet ya da cemaat yorumu değil, ayetlerin kendisi konuşur.</p>
+
+    <div class="tiles reveal-stagger">
+      <a class="tile tile-a" href="peygamberler.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v4M8 7h8l-1 5H9L8 7Z"/><path d="M6 21c1-4 3-6 6-6s5 2 6 6"/></svg>
+        <h3>Peygamberler Hayatı</h3>
+        <p>Kur'an'da adı geçen peygamberlerin kıssaları, doğrudan ilgili ayetlerle birlikte anlatılır.</p>
+      </a>
+      <a class="tile tile-b" href="mucizeler.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+        <h3>Kur'an'da Mucizeler</h3>
+        <p>Kur'an'ın anlattığı olağanüstü olaylar, ayet metnine sadık kalınarak aktarılır.</p>
+      </a>
+      <a class="tile tile-c" href="bilim.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="12" rx="9" ry="3.5"/><ellipse cx="12" cy="12" rx="3.5" ry="9"/></svg>
+        <h3>Kur'an ve Bilim</h3>
+        <p>Ayet metni ile bilimsel gözlemler arasındaki dikkat çekici ilişkiler, temkinli bir dille sunulur.</p>
+      </a>
+      <a class="tile tile-d" href="namaz.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M6 21h12M8 8h8"/><path d="M12 3c-2 2-3 4-3 6a3 3 0 0 0 6 0c0-2-1-4-3-6Z"/></svg>
+        <h3>Namaz</h3>
+        <p>Namazın Kur'an'daki yeri, vakitleri ve okunan sûrelerin anlamı bir arada.</p>
+      </a>
+      <a class="tile tile-e" href="bayramlar.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 4a7 7 0 1 0 0 14 6 6 0 1 1 0-14Z"/><path d="M19 9l.6 1.6L21 11l-1.4.6L19 13l-.6-1.4L17 11l1.4-.4Z"/></svg>
+        <h3>Bayramlar ve Mübarek Vakitler</h3>
+        <p>Ramazan, Kadir Gecesi ve dini günlerin Kur'an'daki ve takvimdeki yeri.</p>
+      </a>
+      <a class="tile tile-h" href="ansiklopedi.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+        <div class="tile-f-text">
+          <h3>İslam Ansiklopedisi</h3>
+          <p>Bir terim mi merak ettiniz? Vikipedi özetini burada okuyun, TDV İslam Ansiklopedisi'ne tek tıkla gidin.</p>
+        </div>
+        <span class="tile-f-cta">Ara</span>
+      </a>
+      <a class="tile tile-i" href="isimler.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 L14.5 9 L22 9 L16 13.5 L18 21 L12 16.5 L6 21 L8 13.5 L2 9 L9.5 9 Z"/></svg>
+        <div class="tile-f-text">
+          <h3>Allah'ın İsimleri</h3>
+          <p>Yaygın "99 isim" listesi değil — Kur'an'da doğrudan geçen isim ve sıfatlar, her biri ayet referansıyla.</p>
+        </div>
+        <span class="tile-f-cta">Gör</span>
+      </a>
+      <div class="tile tile-f" id="elifba">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 4v16"/><path d="M12 6v11a2.5 2.5 0 0 1-2.5 2.5"/><circle cx="9.3" cy="20.7" r="0.6" fill="currentColor" stroke="none"/><path d="M18 5v11a2.5 2.5 0 0 1-2.5 2.5"/><circle cx="16.3" cy="4.2" r="0.6" fill="currentColor" stroke="none"/><circle cx="19.7" cy="4.2" r="0.6" fill="currentColor" stroke="none"/></svg>
+        <div class="tile-f-text">
+          <h3>Elif-Bâ ile Oku</h3>
+          <p>Arap harflerinden harekelere, sıfırdan başlayanlar için adım adım Kur'an okuma öğreticisi.</p>
+        </div>
+        <a class="tile-f-cta" href="elifba.html">Derse başla</a>
+      </div>
+      <div class="tile tile-g">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0 1 14-5"/><path d="M18 4v3h-3"/><path d="M20 12a8 8 0 0 1-14 5"/><path d="M6 20v-3h3"/></svg>
+        <div class="tile-f-text">
+          <h3>Ezber Çalışması</h3>
+          <p>Tekrar planları, gizle-göster modu ve ayet ayet dinleyerek ezberlemenizi destekleyen araçlar.</p>
+        </div>
+        <a class="tile-f-cta" href="#ezber">Ezbere başla</a>
+      </div>
+      <div class="tile tile-j" id="ilmihal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M9 7h7M9 11h7"/></svg>
+        <div class="tile-f-text">
+          <h3>İlmihal</h3>
+          <p>İman esasları, temizlik, namaz, oruç, zekât ve hac bilgileri — kaynağı ayet mi hadis/fıkıh mı, her başlıkta açıkça belirtilir.</p>
+        </div>
+        <a class="tile-f-cta" href="ilmihal.html">Öğren</a>
+      </div>
+    </div>
+
+    <div class="trust-strip reveal-stagger">
+      <div class="trust-item"><span class="num" data-target="0">0</span><p>Hadis. Sadece Kur'an metnine ve bağlamına dayanan bir okuma.</p></div>
+      <div class="trust-item"><span class="num" data-target="8">0</span><p>Farklı tefsir kaynağı, aynı ayette yan yana karşılaştırmalı okunur.</p></div>
+      <div class="trust-item"><span class="num" data-target="60" data-suffix="+">0</span><p>Dilde meal seçeneği — herkes kendi dilinde okur.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sosyal" class="section-alt">
+  <div class="wrap">
+    <p class="kicker reveal">Sosyal alan</p>
+    <h2 class="section-title reveal">Kur'an'ın içinden çıkan <span class="grad-word">konu başlıkları</span></h2>
+    <p class="section-body reveal" style="margin-bottom:48px;">Yorumlar meal ve tefsirin altına karışmaz; ayrı bir forum alanında, Kur'an metninden doğan ilgi çekici konular üzerine paylaşım yapılır.</p>
+
+    <div class="forum-list reveal-stagger" id="forumList">
+      <div class="forum-card active" data-thread="Kur'an'da Adı Geçen Cennet İsimleri">
+        <div class="forum-icon">🌿</div>
+        <div class="forum-body">
+          <h4>Kur'an'da Adı Geçen Cennet İsimleri</h4>
+          <p>Firdevs, Adn, Me'vâ, Naîm, Dârüsselâm... Her birinin ayetteki bağlamı nedir?</p>
+        </div>
+        <div class="forum-meta"><span>18 yorum</span><span>·</span><span>bugün aktif</span></div>
+      </div>
+      <div class="forum-card" data-thread="Kur'an'da Adı Geçen Yiyecek ve İçecekler">
+        <div class="forum-icon">🍇</div>
+        <div class="forum-body">
+          <h4>Kur'an'da Adı Geçen Yiyecek ve İçecekler</h4>
+          <p>Bal, süt, hurma, nar, üzüm, zencefil... Kur'an'ın rızık diliyle konuşması üzerine.</p>
+        </div>
+        <div class="forum-meta"><span>11 yorum</span><span>·</span><span>dün aktif</span></div>
+      </div>
+      <div class="forum-card" data-thread="Kur'an'da Geçen Hayvanlar">
+        <div class="forum-icon">🐝</div>
+        <div class="forum-body">
+          <h4>Kur'an'da Geçen Hayvanlar</h4>
+          <p>Arı, karınca, örümcek, fil, deve... Sûrelere isim olmuş hayvanlar ve verdikleri mesaj.</p>
+        </div>
+        <div class="forum-meta"><span>9 yorum</span><span>·</span><span>2 gün önce</span></div>
+      </div>
+      <div class="forum-card" data-thread="Peygamberlerin Kur'an'daki Duaları">
+        <div class="forum-icon">🕊️</div>
+        <div class="forum-body">
+          <h4>Peygamberlerin Kur'an'daki Duaları</h4>
+          <p>Her peygamberin kendine özgü bir duası var — Yunus'un, İbrahim'in, Musa'nın duası ne anlatıyor?</p>
+        </div>
+        <div class="forum-meta"><span>14 yorum</span><span>·</span><span>3 gün önce</span></div>
+      </div>
+      <div class="forum-card" data-thread="Bu Ayet Beni Neden Etkiledi?">
+        <div class="forum-icon">💭</div>
+        <div class="forum-body">
+          <h4>"Bu Ayet Beni Neden Etkiledi?"</h4>
+          <p>Serbest paylaşım konusu — sizi en çok düşündüren ayeti ve sebebini anlatın.</p>
+        </div>
+        <div class="forum-meta"><span>27 yorum</span><span>·</span><span>bugün aktif</span></div>
+      </div>
+      <div class="forum-card" data-thread="Kur'an'da Kadının Yeri">
+        <div class="forum-icon">🌸</div>
+        <div class="forum-body">
+          <h4>Kur'an'da Kadının Yeri</h4>
+          <p>Hz. Meryem, Hz. Havva, Belkıs... Kur'an'da adı geçen kadınlar ve ayetlerin bu konudaki ifadeleri üzerine.</p>
+        </div>
+        <div class="forum-meta"><span>22 yorum</span><span>·</span><span>bugün aktif</span></div>
+      </div>
+      <div class="forum-card" data-thread="Kur'an ve Bilim: Çelişki mi, Uyum mu?">
+        <div class="forum-icon">🔭</div>
+        <div class="forum-body">
+          <h4>Kur'an ve Bilim: Çelişki mi, Uyum mu?</h4>
+          <p>Ayetlerin bilimsel bulgularla ilişkisi tartışmalı bir alan — hem örtüşen hem tartışmalı örnekleri birlikte konuşalım.</p>
+        </div>
+        <div class="forum-meta"><span>31 yorum</span><span>·</span><span>bugün aktif</span></div>
+      </div>
+      <div class="forum-card" data-thread="Kur'an'da Geçen Yer İsimleri">
+        <div class="forum-icon">🗺️</div>
+        <div class="forum-body">
+          <h4>Kur'an'da Geçen Yer İsimleri</h4>
+          <p>Mekke, Medine, Sînâ, Bâbil, Âd ve Semûd diyarları... Kur'an'ın coğrafyası üzerine.</p>
+        </div>
+        <div class="forum-meta"><span>13 yorum</span><span>·</span><span>2 gün önce</span></div>
+      </div>
+      <div class="forum-card" data-thread="Kur'an'daki Mucizeler">
+        <div class="forum-icon">✨</div>
+        <div class="forum-body">
+          <h4>Kur'an'daki Mucizeler</h4>
+          <p>Hz. Mûsâ'nın asası, Hz. İsa'nın mucizeleri, Hz. Nûh'un gemisi... Kur'an'ın anlattığı olağanüstü olaylar üzerine sohbet.</p>
+        </div>
+        <div class="forum-meta"><span>19 yorum</span><span>·</span><span>dün aktif</span></div>
+      </div>
+      <div class="forum-card" data-thread="Kur'an'da Geçen Sayılar ve Anlamları">
+        <div class="forum-icon">🔢</div>
+        <div class="forum-body">
+          <h4>Kur'an'da Geçen Sayılar ve Anlamları</h4>
+          <p>Yedi gök, kırk yıl, üç gece... Kur'an'da tekrar eden sayılar neyi işaret ediyor?</p>
+        </div>
+        <div class="forum-meta"><span>8 yorum</span><span>·</span><span>3 gün önce</span></div>
+      </div>
+      <div class="forum-card" data-thread="Kur'an'da Cuma Namazı">
+        <div class="forum-icon">🕌</div>
+        <div class="forum-body">
+          <h4>Kur'an'da Cuma Namazı</h4>
+          <p>Cuma sûresinin çağrısı, toplu ibadetin Kur'an'daki yeri ve öğrettikleri üzerine.</p>
+        </div>
+        <div class="forum-meta"><span>12 yorum</span><span>·</span><span>dün aktif</span></div>
+      </div>
+      <div class="forum-card" data-thread="Kur'an'da Cehennem">
+        <div class="forum-icon">🔥</div>
+        <div class="forum-body">
+          <h4>Kur'an'da Cehennem</h4>
+          <p>Cehennem, Sakar, Hutame, Cahîm... Kur'an'ın cehennemi anlatış biçimi ve verdiği mesaj üzerine.</p>
+        </div>
+        <div class="forum-meta"><span>16 yorum</span><span>·</span><span>2 gün önce</span></div>
+      </div>
+      <div class="forum-card" data-thread="Kur'an'da Faiz">
+        <div class="forum-icon">💰</div>
+        <div class="forum-body">
+          <h4>Kur'an'da Faiz</h4>
+          <p>Bakara sûresindeki faiz ayetleri ve bugünün ekonomisiyle ilişkisi üzerine.</p>
+        </div>
+        <div class="forum-meta"><span>10 yorum</span><span>·</span><span>bugün aktif</span></div>
+      </div>
+    </div>
+
+    <div class="forum-thread open reveal" id="forumThread">
+      <p class="forum-thread-title" id="forumThreadTitle">Kur'an'da Adı Geçen Cennet İsimleri</p>
+      <div class="thread">
+        <div class="bubble"><p class="who">bir okuyucu</p><p>Firdevs'in "en yüksek cennet" olarak anılması Kehf sûresinde geçiyor, hep merak etmişimdir neden en üstte o.</p></div>
+        <div class="bubble right"><p class="who">bir okuyucu</p><p>Dârüsselâm ismi de çok güzel — "esenlik yurdu" anlamı Yunus sûresinde geçiyor.</p></div>
+        <div class="bubble"><p class="who">bir okuyucu</p><p>Bu isimlerin hepsini tek bir listede görmek isterdim, kim bilir kaç tane var.</p></div>
+      </div>
+    </div>
+
+    <button class="btn-ghost" style="margin-top:36px;" id="newTopicBtn">+ Yeni konu öner</button>
+    <p style="font-size:0.76rem; color:var(--muted-2); margin-top:10px;">Önerdiğiniz konu şimdilik sadece bu tarayıcıda görünür — herkese açık paylaşım için ileride bir sunucu gerekecek.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="#top">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="#deneyimle">Deneyimleyin</a></li><li><a href="#yollar">Okuma yolları</a></li><li><a href="#konular">Konular</a></li><li><a href="#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Kur'an metni ve Türkçe meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> (Arapça aslı QuranEnc.com, harf çevirisi Tanzil.net, meal Diyanet kaynaklı) — CC BY-SA 4.0 lisansı ile; atıf zorunlu ve bu veriyle üretilen türev de aynı lisansla paylaşılmalıdır.</span>
+      <span>Tefsir örnekleri: <a href="https://github.com/spa5k/tafsir_api" style="color:var(--muted); text-decoration:underline;">spa5k/tafsir_api</a> (qul.tarteel.ai üzerinden) — her tefsirin telif durumu kendi orijinal kaynağına tabidir.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Gerçek veri: /data klasöründeki Kur'an metni + tefsir örnekleri ----
+     Not: fetch() dosya (file://) olarak açılan sayfalarda çalışmaz; bu yüzden
+     sayfa yerel bir sunucu (ör. `python3 -m http.server`) üzerinden açılmalı.
+     Sunucu yoksa bu blok sessizce başarısız olur ve sayfadaki örnek/mock
+     metinler olduğu gibi kalır — sayfa yine de bozulmadan çalışır. */
+  let arData = null, trData = null;
+
+  function fillMealAndTafsirDemo(tafsirIbnKesir, tafsirMokhtasar, tafsirSaadi){
+    const fatihaAr = arData.find(s => s.id === 1);
+    const fatihaTr = trData.find(s => s.id === 1);
+    const ayahAr = fatihaAr.verses.find(v => v.id === 2).text;
+    const ayahTr = fatihaTr.verses.find(v => v.id === 2).translation;
+
+    // Meal ile oku demosu: gerçek Arapça metin + gerçek Diyanet kaynaklı meal
+    const mealLine = document.getElementById('mealArabicLine');
+    if(mealLine){
+      const glosses = ['övgü, hamd','Allah\'a mahsus','Rabbine','bütün âlemlerin'];
+      const words = ayahAr.split(' ');
+      mealLine.innerHTML = words.map((w,i) =>
+        `<span class="demo-word">${w}<span class="demo-tooltip">${glosses[i] || ''}</span></span>`
+      ).join('');
+      // tıklama olayını yeniden bağla (innerHTML değişince eski listener'lar kaybolur)
+      mealLine.querySelectorAll('.demo-word').forEach(word => {
+        word.addEventListener('click', () => {
+          const wasOpen = word.classList.contains('open');
+          document.querySelectorAll('.demo-word.open').forEach(w => w.classList.remove('open'));
+          if(!wasOpen) word.classList.add('open');
+        });
+      });
+    }
+    const mealTranslation = document.getElementById('mealTranslation');
+    if(mealTranslation) mealTranslation.textContent = ayahTr;
+
+    // Tefsirle karşılaştır demosu: 3 gerçek Türkçe tefsir kaynağından kısa alıntı
+    const tefsirBox = document.getElementById('tefsirCompareBox');
+    if(tefsirBox){
+      const truncate = (s, n) => s.length > n ? s.slice(0, n).trim() + '…' : s;
+      tefsirBox.innerHTML = `
+        <strong style="color:var(--text);">Tefsir İbn Kesîr:</strong> ${truncate(tafsirIbnKesir.text, 160)}<br>
+        <strong style="color:var(--text);">Muhtasar Tefsir:</strong> ${truncate(tafsirMokhtasar.text, 160)}<br>
+        <strong style="color:var(--text);">Tefsir es-Sa'dî:</strong> ${truncate(tafsirSaadi.text, 160)}
+      `;
+    }
+  }
+
+  async function loadRealQuranData(){
+    try{
+      const [arJson, trJson, tafsirIbnKesir, tafsirMokhtasar, tafsirSaadi] = await Promise.all([
+        fetch('data/quran/quran-arabic.json').then(r => r.json()),
+        fetch('data/quran/quran-turkish.json').then(r => r.json()),
+        fetch('data/tafsir/samples/tr-tafsir-ibne-kathir/2.json').then(r => r.json()),
+        fetch('data/tafsir/samples/turkish-mokhtasar/2.json').then(r => r.json()),
+        fetch('data/tafsir/samples/turkish-tafsir-as-saadi-turkish/2.json').then(r => r.json()),
+      ]);
+      arData = arJson; trData = trJson;
+
+      fillMealAndTafsirDemo(tafsirIbnKesir, tafsirMokhtasar, tafsirSaadi);
+      renderNotesList();
+    }catch(err){
+      // Yerel sunucu üzerinden açılmadıysa (file://) ya da veri bulunamadıysa
+      // sayfa örnek/mock metinlerle sorunsuz çalışmaya devam eder.
+      console.info('Gerçek Kur\'an verisi yüklenemedi (yerel sunucu gerekli olabilir):', err.message);
+    }
+  }
+  loadRealQuranData();
+
+  /* ---- Günün Ayeti: küratörlü listeden, güne göre sabit bir seçim ---- */
+  async function loadVerseOfTheDay(){
+    try{
+      const list = await fetch('data/quran/gunun-ayeti.json').then(r => r.json());
+      const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+      const item = list[dayOfYear % list.length];
+      document.getElementById('votdArabic').textContent = item.arabic;
+      document.getElementById('votdMeal').textContent = item.meal;
+      document.getElementById('votdRef').textContent = `${item.surahName} Sûresi, ${item.ayah}. Ayet`;
+      document.getElementById('votdLink').href = `oku.html?sure=${item.surah}&ayet=${item.ayah}`;
+    }catch(err){
+      console.info('Günün ayeti yüklenemedi:', err.message);
+    }
+  }
+  loadVerseOfTheDay();
+
+  /* ---- Notlarım: localStorage tabanlı kalıcı not defteri ---- */
+  const NOTES_KEY = 'beyan-notes-v1';
+  function getNotes(){
+    try{ return JSON.parse(localStorage.getItem(NOTES_KEY) || '[]'); }catch(e){ return []; }
+  }
+  function isNoted(surah, ayah){
+    return getNotes().some(n => n.surah === surah && n.ayah === ayah);
+  }
+  function saveNote(note){
+    const notes = getNotes();
+    if(isNoted(note.surah, note.ayah)) return;
+    notes.unshift(note);
+    localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+    renderNotesList();
+  }
+  function removeNote(surah, ayah){
+    const notes = getNotes().filter(n => !(n.surah === surah && n.ayah === ayah));
+    localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+    renderNotesList();
+    // ilgili buton görünürdeyse etiketini geri al
+    if(readerState.surahId === surah && getCurrentAyahId() === ayah) updateReaderNoteBtn();
+    if(surah === 1 && ayah === 2) updateDemoNoteBtn();
+  }
+  function renderNotesList(){
+    const box = document.getElementById('notesListBox');
+    if(!box) return;
+    const notes = getNotes();
+    if(notes.length === 0){
+      box.innerHTML = '<p class="notes-empty">Henüz not eklemediniz.</p>';
+      return;
+    }
+    box.innerHTML = notes.map(n => `
+      <div class="note-card">
+        <p class="note-ref">${n.ref}</p>
+        <p class="note-arabic">${n.arabic}</p>
+        <p class="note-meal">${n.meal}</p>
+        <button class="note-remove" data-surah="${n.surah}" data-ayah="${n.ayah}">Kaldır</button>
+      </div>
+    `).join('');
+    box.querySelectorAll('.note-remove').forEach(btn => {
+      btn.addEventListener('click', () => removeNote(parseInt(btn.dataset.surah,10), parseInt(btn.dataset.ayah,10)));
+    });
+  }
+
+  function updateDemoNoteBtn(){
+    const btn = document.getElementById('noteBtn');
+    const text = document.getElementById('noteBtnText');
+    if(!btn) return;
+    const noted = isNoted(1, 2);
+    btn.classList.toggle('saved', noted);
+    text.textContent = noted ? 'Notlarımda kayıtlı' : 'Notlarıma ekle';
+  }
+
+  const ayahEl = document.getElementById('heroAyah');
+  const ayahText = "اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ";
+  ayahText.split('').forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.textContent = ch; span.style.setProperty('--i', i);
+    ayahEl.appendChild(span);
+  });
+
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let w,h,stars=[];
+  function resize(){ w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; }
+  function initStars(){
+    stars=[];
+    const count = Math.min(130, Math.floor((w*h)/13000));
+    for(let i=0;i<count;i++){
+      stars.push({x:Math.random()*w, y:Math.random()*h*0.65, r:Math.random()*1.2+0.3, base:Math.random()*0.5+0.15, speed:Math.random()*0.015+0.004, phase:Math.random()*Math.PI*2});
+    }
+  }
+  resize(); initStars();
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  function drawStars(t){
+    ctx.clearRect(0,0,w,h); ctx.fillStyle='#F3EEDD';
+    stars.forEach(s=>{ const tw=s.base+Math.sin(t*s.speed+s.phase)*0.35; ctx.globalAlpha=Math.max(0,tw); ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); });
+    ctx.globalAlpha=1;
+    if(!reduced) requestAnimationFrame(drawStars);
+  }
+  requestAnimationFrame(drawStars);
+
+  const bar = document.getElementById('scrollBar');
+  window.addEventListener('scroll', () => {
+    const d = document.documentElement;
+    bar.style.width = (d.scrollTop/(d.scrollHeight-d.clientHeight)*100) + '%';
+  });
+
+  const hero = document.querySelector('.hero');
+  const spotlight = document.getElementById('spotlight');
+  hero.addEventListener('mousemove', e => {
+    const r = hero.getBoundingClientRect();
+    spotlight.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    spotlight.style.setProperty('--my', ((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target, target = parseInt(el.dataset.target,10), suffix = el.dataset.suffix || '';
+        if(target === 0){ el.textContent='0'; cio.unobserve(el); return; }
+        let cur=0; const step=Math.max(1,Math.round(target/40));
+        const tick=()=>{ cur+=step; if(cur>=target){ el.textContent=target+suffix; return; } el.textContent=cur+suffix; requestAnimationFrame(tick); };
+        tick(); cio.unobserve(el);
+      }
+    });
+  }, {threshold:0.5});
+  document.querySelectorAll('.trust-item .num').forEach(el => cio.observe(el));
+
+  document.querySelectorAll('.demo-word').forEach(word => {
+    word.addEventListener('click', () => {
+      const wasOpen = word.classList.contains('open');
+      document.querySelectorAll('.demo-word.open').forEach(w => w.classList.remove('open'));
+      if(!wasOpen) word.classList.add('open');
+    });
+  });
+  const noteBtn = document.getElementById('noteBtn');
+  if(noteBtn){
+    noteBtn.addEventListener('click', () => {
+      if(isNoted(1, 2)){
+        removeNote(1, 2);
+      }else{
+        const words = Array.from(document.querySelectorAll('#mealArabicLine .demo-word'))
+          .map(w => w.childNodes[0].textContent.trim());
+        saveNote({
+          surah: 1, ayah: 2,
+          arabic: words.join(' '),
+          meal: document.getElementById('mealTranslation').textContent,
+          ref: document.getElementById('mealSourceNote').textContent || 'Fâtiha Sûresi, 2. Ayet'
+        });
+      }
+      updateDemoNoteBtn();
+    });
+    updateDemoNoteBtn();
+  }
+
+  document.querySelectorAll('.tabsec-group').forEach(group => {
+    const btns = group.querySelectorAll('.tabsec-btn');
+    const panels = group.querySelectorAll('.tabsec-panel');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const key = btn.dataset.t;
+        panels.forEach(p => p.classList.toggle('active', p.dataset.p === key));
+      });
+    });
+  });
+
+  const ezWords = ["سُبْحَانَكَ","اللَّهُمَّ","وَبِحَمْدِكَ","وَتَبَارَكَ","اسْمُكَ","وَتَعَالَى","جَدُّكَ","وَلَا","إِلَهَ","غَيْرُكَ"];
+
+  let progHidden = 0;
+  function renderProgressive(){
+    const el = document.getElementById('progWords');
+    if(!el) return;
+    el.innerHTML = '';
+    ezWords.forEach((w,i) => {
+      const span = document.createElement('span');
+      span.className = 'ez-w';
+      if(i >= ezWords.length - progHidden){ span.textContent='••••'; span.classList.add('blank'); }
+      else { span.textContent = w; }
+      el.appendChild(span);
+    });
+    const status = document.getElementById('progStatus');
+    if(progHidden === 0) status.textContent = 'Tüm kelimeler görünür — okuyup başlayın';
+    else if(progHidden >= ezWords.length) status.textContent = 'Tamamen ezberlediniz! 🎉';
+    else status.textContent = `${progHidden} / ${ezWords.length} kelime gizli`;
+    const btn = document.getElementById('progBtn');
+    if(btn) btn.textContent = progHidden >= ezWords.length ? 'Baştan başla' : 'Doğru okudum, bir kelime daha gizle';
+  }
+  const progBtn = document.getElementById('progBtn');
+  if(progBtn) progBtn.addEventListener('click', () => {
+    progHidden = progHidden >= ezWords.length ? 0 : progHidden + 1;
+    renderProgressive();
+  });
+  renderProgressive();
+
+  const blankIndices = [1,4,7];
+  const revealedBlanks = new Set();
+  function renderBlank(){
+    const el = document.getElementById('blankWords');
+    if(!el) return;
+    el.innerHTML = '';
+    ezWords.forEach((w,i) => {
+      const span = document.createElement('span');
+      span.className = 'ez-w';
+      if(blankIndices.includes(i) && !revealedBlanks.has(i)){
+        span.classList.add('blank','clickable');
+        span.textContent = '____';
+        span.addEventListener('click', () => { revealedBlanks.add(i); renderBlank(); });
+      } else { span.textContent = w; }
+      el.appendChild(span);
+    });
+    const status = document.getElementById('blankStatus');
+    if(status) status.textContent = `${revealedBlanks.size} / ${blankIndices.length} boşluk tamamlandı`;
+  }
+  renderBlank();
+
+  let repeatCount = 0;
+  const repeatTarget = 20;
+  const repeatBtn2 = document.getElementById('repeatBtn');
+  if(repeatBtn2){
+    repeatBtn2.addEventListener('click', () => {
+      if('speechSynthesis' in window){
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(ezWords.join(' '));
+        u.lang = 'ar-SA'; u.rate = 0.72;
+        window.speechSynthesis.speak(u);
+      }
+      repeatCount++;
+      document.getElementById('repeatCountText').textContent = `${repeatCount} / ${repeatTarget} tekrar`;
+      document.getElementById('repeatFill').style.width = Math.min(100, (repeatCount/repeatTarget)*100) + '%';
+    });
+  }
+
+  function scheduleNext(days){
+    const d = new Date();
+    d.setDate(d.getDate() + days);
+    const formatted = d.toLocaleDateString('tr-TR', {day:'numeric', month:'long'});
+    const el = document.getElementById('spacedResult');
+    if(el) el.innerHTML = `Harika! Bir sonraki hatırlatma: <strong>${formatted}</strong>`;
+  }
+  const spacedHard = document.getElementById('spacedHard');
+  const spacedOk = document.getElementById('spacedOk');
+  const spacedEasy = document.getElementById('spacedEasy');
+  if(spacedHard) spacedHard.addEventListener('click', () => scheduleNext(1));
+  if(spacedOk) spacedOk.addEventListener('click', () => scheduleNext(3));
+  if(spacedEasy) spacedEasy.addEventListener('click', () => scheduleNext(7));
+
+  const forumList = document.getElementById('forumList');
+  const forumThread = document.getElementById('forumThread');
+  const forumThreadTitle = document.getElementById('forumThreadTitle');
+  // Event delegation: sonradan eklenen (kullanıcının önerdiği) kartlar için de çalışır
+  forumList.addEventListener('click', (e) => {
+    const card = e.target.closest('.forum-card');
+    if(!card) return;
+    forumList.querySelectorAll('.forum-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    forumThreadTitle.textContent = card.dataset.thread;
+    forumThread.classList.add('open');
+    forumThread.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  /* ---- Yeni konu öner (yalnızca bu tarayıcıda, localStorage) ---- */
+  const TOPICS_KEY = 'beyan-user-topics-v1';
+  function getUserTopics(){
+    try{ return JSON.parse(localStorage.getItem(TOPICS_KEY) || '[]'); }catch(e){ return []; }
+  }
+  function addUserTopicCard(topic){
+    const card = document.createElement('div');
+    card.className = 'forum-card';
+    card.dataset.thread = topic.title;
+    card.innerHTML = `
+      <div class="forum-icon">💬</div>
+      <div class="forum-body">
+        <h4>${topic.title}</h4>
+        <p>${topic.desc}</p>
+      </div>
+      <div class="forum-meta"><span>sizin önerdiğiniz</span></div>
+    `;
+    forumList.insertBefore(card, forumList.firstChild);
+  }
+  getUserTopics().forEach(addUserTopicCard);
+
+  const newTopicBtn = document.getElementById('newTopicBtn');
+  if(newTopicBtn){
+    newTopicBtn.addEventListener('click', () => {
+      const title = prompt('Önereceğiniz konu başlığı nedir?');
+      if(!title || !title.trim()) return;
+      const desc = prompt('Bu konuyu kısaca açıklayın (isteğe bağlı):') || 'Yeni önerilen tartışma konusu.';
+      const topic = { title: title.trim(), desc: desc.trim() };
+      const topics = getUserTopics();
+      topics.unshift(topic);
+      localStorage.setItem(TOPICS_KEY, JSON.stringify(topics));
+      addUserTopicCard(topic);
+    });
+  }
+
+  /* ---- Giriş yap (henüz üyelik sistemi yok — dürüst bilgilendirme) ---- */
+  const loginBtn = document.getElementById('loginBtn');
+  if(loginBtn){
+    loginBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Üyelik sistemi henüz yok. Notlarınız ve önerdiğiniz konular şimdilik yalnızca bu tarayıcıda (bu cihazda) saklanıyor.');
+    });
+  }
+
+  const playBtn = document.getElementById('playBtn');
+  const playIcon = document.getElementById('playIcon');
+  const progressFill = document.getElementById('progressFill');
+  const words = document.querySelectorAll('.player-arabic span');
+  let playing=false, idx=0, timer=null;
+  function resetPlayer(){ words.forEach(w=>w.classList.remove('active')); if(progressFill) progressFill.style.width='0%'; idx=0; }
+  function stepWord(){
+    words.forEach(w=>w.classList.remove('active'));
+    words[idx].classList.add('active');
+    progressFill.style.width=(((idx+1)/words.length)*100)+'%';
+    idx++;
+    if(idx>=words.length){ clearInterval(timer); setTimeout(()=>{ playing=false; playIcon.innerHTML='<path d="M8 5v14l11-7z"/>'; resetPlayer(); },600); }
+  }
+  if(playBtn){
+    playBtn.addEventListener('click', () => {
+      if(playing){ clearInterval(timer); playing=false; playIcon.innerHTML='<path d="M8 5v14l11-7z"/>'; return; }
+      playing=true; resetPlayer();
+      playIcon.innerHTML='<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>';
+      stepWord(); timer=setInterval(stepWord,850);
+    });
+  }
+
+  function speakIkraOnce(onDone){
+    if(!('speechSynthesis' in window)){ onDone && onDone(); return; }
+    const u = new SpeechSynthesisUtterance('اقرأ');
+    u.lang = 'ar-SA'; u.rate = 0.72; u.pitch = 1.05; u.volume = 1;
+    u.onend = () => onDone && onDone();
+    u.onerror = () => onDone && onDone();
+    window.speechSynthesis.speak(u);
+  }
+  function speakIkraThrice(){
+    if(!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    let count = 0;
+    function next(){
+      if(count >= 3) return;
+      speakIkraOnce(() => { count++; if(count < 3) setTimeout(next, 550); });
+    }
+    next();
+  }
+  window.addEventListener('load', () => { setTimeout(speakIkraThrice, 700); });
+  document.getElementById('replayBtn').addEventListener('click', speakIkraThrice);
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>
