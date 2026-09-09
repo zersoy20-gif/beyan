@@ -89,12 +89,6 @@
   }
   @keyframes pulseDot{ 0%{box-shadow:0 0 0 0 rgba(73,214,196,0.55);} 70%{box-shadow:0 0 0 9px rgba(73,214,196,0);} 100%{box-shadow:0 0 0 0 rgba(73,214,196,0);} }
 
-  .topics-bar{
-    position:relative; z-index:41; background:var(--void); border-bottom:1px solid var(--border-soft);
-    overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
-  }
-  .topics-bar::-webkit-scrollbar{display:none;}
-  .topics-track{display:flex; gap:10px; padding:12px 20px; width:max-content;}
   .topic-pill{
     flex-shrink:0; padding:8px 16px; border:1px solid var(--border-soft); border-radius:20px;
     color:var(--muted); text-decoration:none; font-size:0.82rem; white-space:nowrap;
@@ -107,16 +101,20 @@
     backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
     border-bottom:1px solid var(--border-soft);
   }
-  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
-  .brand{display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--text);}
+  .nav .wrap{display:flex; align-items:center; gap:24px; height:76px;}
+  .brand{display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--text); flex-shrink:0;}
   .brand svg{width:22px; height:22px; color:var(--gold); filter:drop-shadow(0 0 6px rgba(217,178,107,0.5));}
   .brand-name{font-family:'Cormorant Garamond', serif; font-size:1.32rem; letter-spacing:0.01em;}
-  .nav-links{display:flex; gap:34px; list-style:none; margin:0; padding:0; font-size:0.88rem;}
-  .nav-links a{text-decoration:none; color:var(--muted); transition:color .25s; position:relative;}
-  .nav-links a::after{content:""; position:absolute; left:0; right:0; bottom:-6px; height:1px; background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform .3s ease;}
-  .nav-links a:hover{color:var(--text);}
-  .nav-links a:hover::after{transform:scaleX(1);}
-  .nav-btns{display:flex; align-items:center; gap:10px;}
+  /* Eskiden ayrı, sabit olmayan bir "konu şeridi" (topics-bar) + altında tekrar eden
+     bir bağlantı listesi (nav-links) vardı — ikisi aynı bağlantıları gösteriyordu.
+     Artık TEK bir yapışkan (sticky) çubukta birleştirildi: marka + kaydırılabilir
+     konu rozetleri + sağdaki butonlar. */
+  .nav-topics-scroll{
+    flex:1; min-width:0; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .nav-topics-scroll::-webkit-scrollbar{display:none;}
+  .nav-topics-scroll .topics-track{display:flex; gap:10px; width:max-content;}
+  .nav-btns{display:flex; align-items:center; gap:10px; flex-shrink:0;}
   .btn-nav-fill{
     padding:9px 18px; background:var(--text); color:var(--void); text-decoration:none;
     font-size:0.84rem; border-radius:20px; border:1px solid var(--text); transition:opacity .2s;
@@ -140,12 +138,24 @@
   :root[data-theme="light"] .theme-toggle .icon-sun{display:block;}
   :root[data-theme="light"] .theme-toggle .icon-moon{display:none;}
 
-  @media (max-width:900px){ .nav-links{display:none;} }
+  @media (max-width:640px){
+    .nav .wrap{gap:10px;}
+    .brand-name{display:none;}
+    .nav-topics-scroll{min-width:70px;}
+    #loginBtn{display:none;}
+    .nav-btns .btn-nav-fill{padding:9px 13px; font-size:0.78rem;}
+  }
 
   .hero{position:relative; min-height:100vh; display:flex; flex-direction:column; overflow:hidden; isolation:isolate;}
   .atmos{position:absolute; inset:0; z-index:0;
     background:
       linear-gradient(180deg, #0B1013 0%, #131B1F 34%, #1B2429 55%, #0E1416 78%, #050906 100%);
+  }
+  /* Açık temada kahraman (hero) bölümü artık koyu/gece hissi yerine yumuşak,
+     sıcak bir gündüz aydınlığına geçiyor — --void zincirini kullanarak sitenin
+     geri kalanıyla aynı açık tema paletine uyum sağlıyor. */
+  :root[data-theme="light"] .atmos{
+    background: linear-gradient(180deg, #FFFDF6 0%, var(--void) 40%, var(--void-2) 72%, var(--void-3) 100%);
   }
   .fog{position:absolute; inset:0; z-index:1; mix-blend-mode:screen;}
   .fog span{position:absolute; border-radius:50%; filter:blur(60px); opacity:0.28;}
@@ -178,10 +188,10 @@
 
   .hero-vignette{
     position:absolute; inset:0; z-index:2;
-    /* Kahraman bölümü her iki temada da bilinçli olarak koyu/atmosferik kalıyor
-       (bkz. .atmos'un da sabit koyu tonları) — bu yüzden --void yerine sabit
-       koyu renk kullanılıyor, açık temada uyumsuz bir geçiş oluşmasın diye. */
     background:radial-gradient(ellipse 70% 60% at 50% 78%, rgba(5,9,6,0) 0%, rgba(5,9,6,0.75) 70%, #050906 100%);
+  }
+  :root[data-theme="light"] .hero-vignette{
+    background:radial-gradient(ellipse 70% 60% at 50% 78%, rgba(247,241,228,0) 0%, rgba(247,241,228,0.7) 70%, var(--void) 100%);
   }
   .spotlight{position:absolute; inset:0; z-index:3; pointer-events:none; background:radial-gradient(circle 380px at var(--mx,50%) var(--my,50%), rgba(217,178,107,0.08), transparent 70%);}
 

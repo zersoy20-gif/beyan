@@ -35,37 +35,27 @@
   Oku'yu tekrar dinle
 </button>
 
-<div class="topics-bar">
-  <div class="topics-track">
-    <a class="topic-pill" href="oku.html">Kur'an'ı Oku</a>
-    <a class="topic-pill" href="elifba.html">Elif-Bâ</a>
-    <a class="topic-pill" href="ilmihal.html">İlmihal</a>
-    <a class="topic-pill" href="#ezber">Ezber Çalışması</a>
-    <a class="topic-pill" href="#deneyimle">Deneyimleyin</a>
-    <a class="topic-pill" href="#yollar">Okuma yolları</a>
-    <a class="topic-pill" href="#konular">Konular</a>
-    <a class="topic-pill" href="#sosyal">Sosyal alan</a>
-    <a class="topic-pill" href="ansiklopedi.html">Ansiklopedi</a>
-    <a class="topic-pill" href="ara.html">Kur'an'da Ara</a>
-    <a class="topic-pill" href="isimler.html">Allah'ın İsimleri</a>
-  </div>
-</div>
-
 <nav class="nav">
   <div class="wrap">
     <a class="brand" href="#top">
       <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
       <span class="brand-name">Beyan</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="oku.html">Kur'an'ı Oku</a></li>
-      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
-      <li><a href="#ezber">Ezber Çalışması</a></li>
-      <li><a href="#deneyimle">Deneyimleyin</a></li>
-      <li><a href="#yollar">Okuma yolları</a></li>
-      <li><a href="#konular">Konular</a></li>
-      <li><a href="#sosyal">Sosyal alan</a></li>
-    </ul>
+    <div class="nav-topics-scroll">
+      <div class="topics-track">
+        <a class="topic-pill" href="oku.html">Kur'an'ı Oku</a>
+        <a class="topic-pill" href="elifba.html">Elif-Bâ</a>
+        <a class="topic-pill" href="ilmihal.html">İlmihal</a>
+        <a class="topic-pill" href="#ezber">Ezber Çalışması</a>
+        <a class="topic-pill" href="#deneyimle">Deneyimleyin</a>
+        <a class="topic-pill" href="#yollar">Okuma yolları</a>
+        <a class="topic-pill" href="#konular">Konular</a>
+        <a class="topic-pill" href="#sosyal">Sosyal alan</a>
+        <a class="topic-pill" href="ansiklopedi.html">Ansiklopedi</a>
+        <a class="topic-pill" href="ara.html">Kur'an'da Ara</a>
+        <a class="topic-pill" href="isimler.html">Allah'ın İsimleri</a>
+      </div>
+    </div>
     <div class="nav-btns">
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
@@ -804,9 +794,14 @@
   resize(); initStars();
   window.addEventListener('resize', () => { resize(); initStars(); });
   function drawStars(t){
-    ctx.clearRect(0,0,w,h); ctx.fillStyle='#F3EEDD';
-    stars.forEach(s=>{ const tw=s.base+Math.sin(t*s.speed+s.phase)*0.35; ctx.globalAlpha=Math.max(0,tw); ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); });
-    ctx.globalAlpha=1;
+    ctx.clearRect(0,0,w,h);
+    // Açık temada (gündüz ışığında) yıldızlar görünmez — bu yüzden çizilmiyor,
+    // canvas boş bırakılıyor; koyu temada (gece) her zamanki gibi parlıyorlar.
+    if(document.documentElement.getAttribute('data-theme') !== 'light'){
+      ctx.fillStyle='#F3EEDD';
+      stars.forEach(s=>{ const tw=s.base+Math.sin(t*s.speed+s.phase)*0.35; ctx.globalAlpha=Math.max(0,tw); ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); });
+      ctx.globalAlpha=1;
+    }
     if(!reduced) requestAnimationFrame(drawStars);
   }
   requestAnimationFrame(drawStars);
