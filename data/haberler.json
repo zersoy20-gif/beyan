@@ -1,0 +1,123 @@
+{
+ "son_guncelleme": "2026-09-10",
+ "kategoriler": [
+  {"id": "cami", "ad": "Yeni Camiler", "ikon": "🕌"},
+  {"id": "yarisma", "ad": "Kur'an Yarışmaları", "ikon": "🏆"},
+  {"id": "sanat", "ad": "İslam Sanatı & Sergiler", "ikon": "🎨"},
+  {"id": "akademik", "ad": "Akademik Araştırmalar", "ikon": "📜"},
+  {"id": "yardim", "ad": "Yardımlaşma & Dayanışma", "ikon": "🤝"},
+  {"id": "hac", "ad": "Hac & Umre Duyuruları", "ikon": "🕋"},
+  {"id": "takvim", "ad": "Dini Takvim Duyuruları", "ikon": "🌙"},
+  {"id": "burs", "ad": "Burs & Eğitim Fırsatları", "ikon": "🎓"}
+ ],
+ "haberler": [
+  {
+   "id": "dubai-quran-award-28",
+   "kategori": "yarisma",
+   "baslik": "28. Dubai Uluslararası Kur'an-ı Kerim Ödülü sahiplerini buldu",
+   "ozet": "105 ülkeden 5.618 başvurunun değerlendirildiği yarışmada erkek kategorisinde Irak'tan Karrar Layth Saad, kadın kategorisinde Mısır'dan Jana Ehab Ramadan birinci oldu; her ikisi de 1 milyon dirhem ödül kazandı. Toplam ödül havuzu 12 milyon dirhemin üzerindeydi.",
+   "tarih": "2026-03-03",
+   "kaynak_adi": "Dubai Media Office",
+   "kaynak_url": "https://mediaoffice.ae/en/news/2026/march/03-03/mohammed-bin-rashid-honours-winners-of-most-beautiful-quran-recitation"
+  },
+  {
+   "id": "kral-abdulaziz-yarisma-46",
+   "kategori": "yarisma",
+   "baslik": "46. Kral Abdülaziz Uluslararası Kur'an Yarışması'nda bir ilk: kadın yarışmacılar",
+   "ozet": "133 ülkeden 334 yarışmacının katıldığı yarışma, tarihinde ilk kez kadın yarışmacılara da açıldı. Kazanan sayısı 12'den 50'ye, toplam ödül tutarı da 1,1 milyon riyalden 10 milyon riyalin üzerine çıkarıldı; birinci kategoride Suudi Arabistan'dan Abdulrahman bin Muhtar 500.000 riyalle birinci oldu.",
+   "tarih": "2026-08-20",
+   "kaynak_adi": "Suudi Basın Ajansı (SPA)",
+   "kaynak_url": "https://www.spa.gov.sa/en/N2658057"
+  },
+  {
+   "id": "seul-islam-sanati-sergisi",
+   "kategori": "sanat",
+   "baslik": "Seul'de Kore'nin ilk uzun süreli İslam sanatı sergisi açıldı",
+   "ozet": "Güney Kore Ulusal Müzesi'nde, Katar Doha'daki İslam Sanatları Müzesi'nden (MIA) 83 eserin yer aldığı \"İslam Sanatı: Bir Görkem Yolculuğu\" sergisi açıldı — Timur döneminden dev bir Kur'an yaprağı ve 17. yüzyıl Safevi taht halısı gibi parçalar sergileniyor.",
+   "tarih": "2025-11-22",
+   "kaynak_adi": "The Korea Herald",
+   "kaynak_url": "https://www.koreaherald.com/article/10621317"
+  },
+  {
+   "id": "louvre-smithsonian-sergi",
+   "kategori": "sanat",
+   "baslik": "Louvre'un İslam sanatı hazineleri ilk kez ABD'de bir arada",
+   "ozet": "Washington'daki Smithsonian Ulusal Asya Sanatları Müzesi, Louvre'dan 7.-19. yüzyıllar arasına ait 26 İslam sanatı eserini (İspanya'dan Hindistan'a) \"From the Louvre: Masterpieces of Islamic Art\" sergisinde bir araya getiriyor — bu eserlerin tamamının ABD'de aynı anda sergilenmesi ilk kez gerçekleşiyor.",
+   "tarih": "2026-09-26",
+   "kaynak_adi": "Smithsonian Magazine",
+   "kaynak_url": "https://www.smithsonianmag.com/smart-news/for-the-first-time-a-selection-of-islamic-masterpieces-from-the-louvre-is-coming-to-the-united-states-see-the-treasures-soon-to-be-displayed-at-the-smithsonians-national-museum-of-asian-art-180989402/"
+  },
+  {
+   "id": "garib-ul-kuran-elyazmasi",
+   "kategori": "akademik",
+   "baslik": "Suudi Arabistan'da 1000 yıllık nadir bir Kur'an ilimleri el yazması tanıtıldı",
+   "ozet": "Kral Abdülaziz Halk Kütüphanesi, erken dönem âlimi Ebû Ubeyde Ma'mer b. el-Müsennâ'ya ait \"Garîbü'l-Kur'ân\" (Kur'an'ın az bilinen kelimeleri) adlı 23 varaklık, Endülüs hattıyla yazılmış el yazmasını tanıttı. Kütüphanenin koleksiyonunda tefsir alanında 185'ten fazla nadir el yazması bulunuyor.",
+   "tarih": "2026-04-01",
+   "kaynak_adi": "Saudi Gazette",
+   "kaynak_url": "https://saudigazette.com.sa/article/660170/saudi-arabia/king-abdulaziz-public-library-unveils-rare-1000-year-old-quran-manuscript"
+  },
+  {
+   "id": "islamic-relief-2025-rapor",
+   "kategori": "yardim",
+   "baslik": "Islamic Relief Worldwide 2025'te 13 milyondan fazla kişiye ulaştı",
+   "ozet": "Uluslararası yardım kuruluşu, yıllık etki raporunda 41 ülkede 802 insani yardım ve kalkınma projesi yürüttüğünü, bunlarla 13 milyondan fazla kişiye doğrudan, 18 milyon kişiye de dolaylı olarak ulaştığını açıkladı.",
+   "tarih": "2026-08-07",
+   "kaynak_adi": "Islamic Relief Worldwide",
+   "kaynak_url": "https://islamic-relief.org/news/a-year-of-impact-around-the-world/"
+  },
+  {
+   "id": "tdv-su-kuyusu-projesi",
+   "kategori": "yardim",
+   "baslik": "Türkiye Diyanet Vakfı'nın su kuyuları yılda 13,5 milyon kişiye ulaşıyor",
+   "ozet": "2015'ten bu yana sürdürülen \"Su Kuyusu ve Vakıf Çeşmesi\" projesi kapsamında 41 ülkede 1.667 kuyu ve çeşme hizmete açıldı; bunlardan yılda 13,5 milyondan fazla kişi temiz içme suyuna erişiyor, bugüne kadar toplam faydalanan sayısı 70 milyona yaklaştı.",
+   "tarih": "2026-07-05",
+   "kaynak_adi": "Diyanet Haber",
+   "kaynak_url": "https://www.diyanethaber.com.tr/tdvnin-su-kuyulari-ve-vakif-cesmelerinden-yilda-135-milyon-kisi-faydalaniyor"
+  },
+  {
+   "id": "umre-1448-takvimi",
+   "kategori": "hac",
+   "baslik": "Suudi Arabistan 1448 Hicrî Umre sezonu takvimini açıkladı",
+   "ozet": "Hac ve Umre Bakanlığı'nın açıkladığı takvime göre umre vizesi başvuruları ve hacı adaylarının ülkeye girişi 31 Mayıs 2026'da başlıyor; Nusuk uygulaması üzerinden Mekke'ye giriş ve umre izinleri 1 Haziran 2026'dan itibaren alınabiliyor.",
+   "tarih": "2026-05-17",
+   "kaynak_adi": "Suudi Arabistan Hac ve Umre Bakanlığı",
+   "kaynak_url": "https://haj.gov.sa/en/Media-Center/Ministry-News/2026/Ministry-of-Hajj-and-Umrah-Announces-the-Umrah-Season-Calendar-for-1448-AH"
+  },
+  {
+   "id": "diyanet-2027-ramazan-takvimi",
+   "kategori": "takvim",
+   "baslik": "Diyanet'in 2027 takvimine göre Ramazan 8 Şubat'ta başlıyor",
+   "ozet": "Diyanet İşleri Başkanlığı'nın dini günler takvimine göre 2027 yılında Ramazan ayı 8 Şubat Pazartesi günü başlayacak, Ramazan Bayramı ise 9 Mart Salı günü. Bu tarihler hesaplanmış takvime dayanır; kesin başlangıç resmi hilal duyurusuyla teyit edilir.",
+   "tarih": "2026-09-03",
+   "kaynak_adi": "Diyanet takvimine dayanan haber (Milliyet)",
+   "kaynak_url": "https://www.milliyet.com.tr/galeri/2027-ramazan-ne-zaman-basliyor-diyanet-takvimi-ile-2027-ramazan-ayi-baslangic-tarihi-7653097"
+  },
+  {
+   "id": "tdv-ilahiyat-akademi-bursu",
+   "kategori": "burs",
+   "baslik": "TDV Lisansüstü İlahiyat Akademi Bursu başvuruları açıldı",
+   "ozet": "Türkiye Diyanet Vakfı'nın İlahiyat ve İslami İlimler Fakültelerinde yüksek lisans/doktora yapan öğrencilere yönelik burs programına 2026-2027 dönemi başvuruları 29 Ağustos - 26 Eylül 2026 tarihleri arasında alınıyor. Burs 12 ay boyunca ödeniyor.",
+   "tarih": "2026-08-29",
+   "kaynak_adi": "Türkiye Diyanet Vakfı",
+   "kaynak_url": "https://diyanetburslari.tdv.org/en/"
+  },
+  {
+   "id": "dearborn-heights-cami",
+   "kategori": "cami",
+   "baslik": "ABD'nin en büyük camilerinden biri Michigan'da açıldı",
+   "ozet": "Dearborn Heights'ta (Michigan) İslami Enstitü'nün 16 milyon dolarlık yeni kampüsü ve 1.000'den fazla kişi kapasiteli İmam El-Hasaneyn Camii törenle açıldı — caminin ABD'nin en büyük camilerinden biri olması bekleniyor.",
+   "tarih": "2026-06-12",
+   "kaynak_adi": "Arab American News",
+   "kaynak_url": "https://arabamericannews.com/2026/06/12/hundreds-gather-for-grand-opening-of-the-imam-al-hasanain-mosque-and-islamic-institute-of-americas-new-campus-in-dearborn-heights/"
+  },
+  {
+   "id": "dubai-al-bashayer-cami",
+   "kategori": "cami",
+   "baslik": "Dubai'de yılın 10. yeni camisi hizmete açıldı",
+   "ozet": "Dubai İslami İşler ve Hayır Faaliyetleri Dairesi (IACAD), Al Barsha bölgesinde 600 kişilik \"Al Bashayer\" Camii'ni açtı — Dubai bu yılın başından beri 10 yeni cami açtığını, Ramazan'a kadar 5 cami daha açmayı planladığını duyurdu.",
+   "tarih": "2026-05-20",
+   "kaynak_adi": "Gulf Today",
+   "kaynak_url": "https://www.gulftoday.ae/news/2026/05/20/new-mosque-al-bashayer-inaugurated-in-al-barsha-to-accomodate-600-worshippers"
+  }
+ ]
+}

@@ -357,15 +357,16 @@
   .tile-i{grid-column:span 3; display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
   .tile-j{grid-column:span 6; display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
   .tile-k{grid-column:span 6; display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
-  .tile-f svg, .tile-g svg, .tile-h svg, .tile-i svg, .tile-j svg, .tile-k svg{margin-bottom:0; flex-shrink:0; width:34px; height:34px;}
-  .tile-f .tile-f-text, .tile-g .tile-f-text, .tile-h .tile-f-text, .tile-i .tile-f-text, .tile-j .tile-f-text, .tile-k .tile-f-text{flex:1; min-width:180px;}
-  .tile-j .tile-f-text, .tile-k .tile-f-text{max-width:620px;}
-  .tile-f .tile-f-cta, .tile-g .tile-f-cta, .tile-h .tile-f-cta, .tile-i .tile-f-cta, .tile-j .tile-f-cta, .tile-k .tile-f-cta{
+  .tile-l{grid-column:span 6; display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
+  .tile-f svg, .tile-g svg, .tile-h svg, .tile-i svg, .tile-j svg, .tile-k svg, .tile-l svg{margin-bottom:0; flex-shrink:0; width:34px; height:34px;}
+  .tile-f .tile-f-text, .tile-g .tile-f-text, .tile-h .tile-f-text, .tile-i .tile-f-text, .tile-j .tile-f-text, .tile-k .tile-f-text, .tile-l .tile-f-text{flex:1; min-width:180px;}
+  .tile-j .tile-f-text, .tile-k .tile-f-text, .tile-l .tile-f-text{max-width:620px;}
+  .tile-f .tile-f-cta, .tile-g .tile-f-cta, .tile-h .tile-f-cta, .tile-i .tile-f-cta, .tile-j .tile-f-cta, .tile-k .tile-f-cta, .tile-l .tile-f-cta{
     flex-shrink:0; padding:9px 20px; border:1px solid var(--border); border-radius:20px;
     color:var(--gold-bright); text-decoration:none; font-size:0.82rem; transition:background .2s, color .2s;
   }
-  .tile-f .tile-f-cta:hover, .tile-g .tile-f-cta:hover, .tile-h .tile-f-cta:hover, .tile-i .tile-f-cta:hover, .tile-j .tile-f-cta:hover, .tile-k .tile-f-cta:hover{background:var(--gold); color:var(--ink);}
-  @media (max-width:900px){ .tiles{grid-template-columns:1fr 1fr;} .tile-a,.tile-b,.tile-c,.tile-d,.tile-e,.tile-f,.tile-g,.tile-h,.tile-i,.tile-j,.tile-k{grid-column:span 1;} .tile-f,.tile-g,.tile-h,.tile-i,.tile-j,.tile-k{flex-direction:column; align-items:flex-start; text-align:left;} }
+  .tile-f .tile-f-cta:hover, .tile-g .tile-f-cta:hover, .tile-h .tile-f-cta:hover, .tile-i .tile-f-cta:hover, .tile-j .tile-f-cta:hover, .tile-k .tile-f-cta:hover, .tile-l .tile-f-cta:hover{background:var(--gold); color:var(--ink);}
+  @media (max-width:900px){ .tiles{grid-template-columns:1fr 1fr;} .tile-a,.tile-b,.tile-c,.tile-d,.tile-e,.tile-f,.tile-g,.tile-h,.tile-i,.tile-j,.tile-k,.tile-l{grid-column:span 1;} .tile-f,.tile-g,.tile-h,.tile-i,.tile-j,.tile-k,.tile-l{flex-direction:column; align-items:flex-start; text-align:left;} }
   @media (max-width:560px){ .tiles{grid-template-columns:1fr;} }
 
   .trust-strip{display:flex; gap:48px; flex-wrap:wrap; margin-top:56px; padding-top:40px; border-top:1px solid var(--border-soft);}
@@ -444,6 +445,24 @@
   .ayah-card .ayah-meal{font-family:'Cormorant Garamond', serif; font-size:1.05rem; color:var(--muted); margin-bottom:8px;}
   .ayah-card .ayah-ref{font-size:0.76rem; color:var(--teal);}
   .topic-note{border:1px solid var(--border); border-radius:12px; padding:20px 24px; background:rgba(217,178,107,0.06); font-size:0.88rem; color:var(--muted); margin-top:8px;}
+
+  /* ---------- haberler.html: "İslam Dünyasından" kart + filtre ---------- */
+  .haber-filter-row{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px;}
+  .haber-filter-pill{padding:8px 16px; border:1px solid var(--border-soft); border-radius:20px; background:none; color:var(--muted); font-size:0.82rem; cursor:pointer; transition:border-color .2s, color .2s, background .2s; font-family:inherit;}
+  .haber-filter-pill:hover{border-color:var(--gold); color:var(--gold-bright);}
+  .haber-filter-pill.active{background:var(--gold); border-color:var(--gold); color:var(--ink);}
+
+  .haber-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:20px;}
+  @media (max-width:760px){ .haber-grid{grid-template-columns:1fr;} }
+
+  .haber-card{background:var(--glass); border:1px solid var(--border-soft); border-radius:14px; padding:22px 24px; display:flex; flex-direction:column; gap:10px;}
+  .haber-card-top{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+  .haber-kategori-tag{display:inline-flex; align-items:center; gap:6px; font-size:0.76rem; color:var(--teal); border:1px solid rgba(73,214,196,0.3); background:rgba(73,214,196,0.08); padding:4px 10px; border-radius:12px; white-space:nowrap;}
+  .haber-tarih{font-size:0.76rem; color:var(--muted-2); white-space:nowrap;}
+  .haber-baslik{font-family:'Cormorant Garamond', serif; font-size:1.2rem; color:var(--text); margin:0; line-height:1.4;}
+  .haber-ozet{font-size:0.9rem; color:var(--muted); line-height:1.65; margin:0;}
+  .haber-kaynak-link{font-size:0.82rem; color:var(--gold-bright); text-decoration:none; margin-top:auto; padding-top:8px;}
+  .haber-kaynak-link:hover{text-decoration:underline;}
 
   /* ---------- Günlük Bülten (nav ile peygamber isimleri şeridi arasında) ----------
      Eskiden bu alanda ayrı, tek satırlık bir "günün ayeti" şeridi (.votd-band) vardı —
