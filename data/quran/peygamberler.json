@@ -170,14 +170,14 @@
      "ayet_id": 13,
      "sure_adi": "Kamer",
      "ar": "وَحَمَلۡنَٰهُ عَلَىٰ ذَاتِ أَلۡوَٰحٖ وَدُسُرٖ",
-     "tr": "Onu, tahtadan yapılmış, mıhla çakılmış bir gemiye bindirdik; inkar edilmiş olan Nuh'a mükafat olarak verdiğimiz gemi nezaretimiz altında yüzüyordu"
+     "tr": "Nuh'u da tahtalardan yapılmış, çivilerle çakılmış gemiye bindirdik."
     },
     {
      "sure_id": 54,
      "ayet_id": 14,
      "sure_adi": "Kamer",
      "ar": "تَجۡرِي بِأَعۡيُنِنَا جَزَآءٗ لِّمَن كَانَ كُفِرَ",
-     "tr": "Onu, tahtadan yapılmış, mıhla çakılmış bir gemiye bindirdik; inkar edilmiş olan Nuh'a mükafat olarak verdiğimiz gemi nezaretimiz altında yüzüyordu"
+     "tr": "İnkar edilmiş olana (Nuh'a) bir mükafat olmak üzere gemi, gözlerimizin önünde akıp gidiyordu."
     }
    ],
    "hadis_html": "<p>Mi'rac hadisinde (Buhârî, Müslim) Hz. Peygamber'in gök katlarında karşılaştığı peygamberler arasında Nûh da anılır. Bunun dışında, Kur'an'ın anlattığı tufan kıssasına sahih hadislerde önemli bir ekleme yapılmaz; kavminin putlarının isimleri (Vedd, Suvâ' gibi, Nûh 71:23'te geçer) ve tufanın coğrafi kapsamı gibi konular tefsir birikimine, kısmen de İsrâiliyat'a dayanır.</p>",
@@ -252,7 +252,7 @@
      "ayet_id": 77,
      "sure_adi": "A'râf",
      "ar": "فَعَقَرُواْ ٱلنَّاقَةَ وَعَتَوۡاْ عَنۡ أَمۡرِ رَبِّهِمۡ وَقَالُواْ يَٰصَٰلِحُ ٱئۡتِنَا بِمَا تَعِدُنَآ إِن كُنتَ مِنَ ٱلۡمُرۡسَلِينَ",
-     "tr": "Büyüklük taslayanlar, \"Sizin inandığınızı biz inkar ediyoruz\" dediler ve dişi deveyi kesip devirdiler; Rablerinin buyruğuna baş kaldırdılar, \"Ey Salih, eğer sen peygambersen bizi tehdit ettiğin azaba uğrat bakalım\" dediler"
+     "tr": "Derken o dişi deveyi ayaklarını keserek öldürdüler ve Rablerinin emrinden dışarı çıktılar da: Ey Salih! Eğer sen gerçekten peygamberlerdensen bizi tehdit ettiğin azabı bize getir, dediler."
     },
     {
      "sure_id": 91,
@@ -407,7 +407,7 @@
      "ayet_id": 33,
      "sure_adi": "Ankebût",
      "ar": "وَلَمَّآ أَن جَآءَتۡ رُسُلُنَا لُوطٗا سِيٓءَ بِهِمۡ وَضَاقَ بِهِمۡ ذَرۡعٗاۖ وَقَالُواْ لَا تَخَفۡ وَلَا تَحۡزَنۡ إِنَّا مُنَجُّوكَ وَأَهۡلَكَ إِلَّا ٱمۡرَأَتَكَ كَانَتۡ مِنَ ٱلۡغَٰبِرِينَ",
-     "tr": "Elçilerimiz Lut'a gelince, onun fenasına gitti; çok sıkıldı. Ona, \"Korkma ve üzülme, doğrusu biz seni ve geride kalacaklardan olan karının dışında, aileni kurtaracağız. Bu kent halkına yaptıkları yolsuzluklardan ötürü gökten, elbette bir azap indireceğiz\" dediler"
+     "tr": "Elçilerimiz Lut'a gelince, Lut onlar hakkında tasalandı ve (onları korumak için) ne yapacağını bilemedi. Ona: Korkma, tasalanma! Çünkü biz seni de aileni de kurtaracağız. Yalnız, (azapta) kalacaklar arasında bulunan karın müstesna, dediler."
     }
    ],
    "hadis_html": null,
@@ -795,21 +795,21 @@
      "ayet_id": 29,
      "sure_adi": "Tâhâ",
      "ar": "وَٱجۡعَل لِّي وَزِيرٗا مِّنۡ أَهۡلِي",
-     "tr": "Musa: \"Rabbim! Göğsümü genişlet, işimi kolaylaştır, dilimin düğümünü çöz ki sözümü iyi anlasınlar. Ailemden kardeşim Harun'u bana vezir yap, beni onunla destekle, onu görevimde ortak kıl ki Seni daha çok tesbih edelim ve çokça analım. Şüphesiz Sen bizi görmektesin\" dedi"
+     "tr": "Bana ailemden bir de vezir (yardımcı) ver,"
     },
     {
      "sure_id": 20,
      "ayet_id": 30,
      "sure_adi": "Tâhâ",
      "ar": "هَٰرُونَ أَخِي",
-     "tr": "Musa: \"Rabbim! Göğsümü genişlet, işimi kolaylaştır, dilimin düğümünü çöz ki sözümü iyi anlasınlar. Ailemden kardeşim Harun'u bana vezir yap, beni onunla destekle, onu görevimde ortak kıl ki Seni daha çok tesbih edelim ve çokça analım. Şüphesiz Sen bizi görmektesin\" dedi"
+     "tr": "Kardeşim Harun'u."
     },
     {
      "sure_id": 20,
      "ayet_id": 32,
      "sure_adi": "Tâhâ",
      "ar": "وَأَشۡرِكۡهُ فِيٓ أَمۡرِي",
-     "tr": "Musa: \"Rabbim! Göğsümü genişlet, işimi kolaylaştır, dilimin düğümünü çöz ki sözümü iyi anlasınlar. Ailemden kardeşim Harun'u bana vezir yap, beni onunla destekle, onu görevimde ortak kıl ki Seni daha çok tesbih edelim ve çokça analım. Şüphesiz Sen bizi görmektesin\" dedi"
+     "tr": "Ve onu işime ortak kıl."
     }
    ],
    "hadis_html": null,
@@ -845,7 +845,7 @@
      "ayet_id": 10,
      "sure_adi": "Sebe'",
      "ar": "۞وَلَقَدۡ ءَاتَيۡنَا دَاوُۥدَ مِنَّا فَضۡلٗاۖ يَٰجِبَالُ أَوِّبِي مَعَهُۥ وَٱلطَّيۡرَۖ وَأَلَنَّا لَهُ ٱلۡحَدِيدَ",
-     "tr": "Ey dağlar ve kuşlar! Davud tesbih ettikçe siz de onu tekrarlayın\" diyerek and olsun ki, ona katımızdan lütufta bulunduk; \"geniş zırhlar yap, dokumasını sağlam tut\" diye ona demiri yumuşak kıldık. Yararlı iş işleyin; doğrusu Ben yaptıklarınızı görenim"
+     "tr": "Andolsun, Davud'a tarafımızdan bir üstünlük verdik. \"Ey dağlar ve kuşlar! Onunla beraber tesbih edin\" dedik. Ona demiri yumuşattık."
     },
     {
      "sure_id": 38,
@@ -1069,7 +1069,7 @@
      "ayet_id": 5,
      "sure_adi": "Meryem",
      "ar": "وَإِنِّي خِفۡتُ ٱلۡمَوَٰلِيَ مِن وَرَآءِي وَكَانَتِ ٱمۡرَأَتِي عَاقِرٗا فَهَبۡ لِي مِن لَّدُنكَ وَلِيّٗا",
-     "tr": "Doğrusu, benden sonra yerime geçecek yakınlarımın iyi hareket etmeyeceklerinden korkuyorum. Karım da kısırdır. Katından bana bir oğul bağışla ki, bana ve Yakub oğullarına mirasçı olsun. Rabbim! Onun, rızanı kazanmasını da sağla"
+     "tr": "Doğrusu ben, arkamdan iş başına geçecek olan yakınlarımdan endişe ediyorum. Karım da kısırdır. Tarafından bana bir veli (oğul) ver."
     },
     {
      "sure_id": 19,
@@ -1114,21 +1114,21 @@
      "ayet_id": 12,
      "sure_adi": "Meryem",
      "ar": "يَٰيَحۡيَىٰ خُذِ ٱلۡكِتَٰبَ بِقُوَّةٖۖ وَءَاتَيۡنَٰهُ ٱلۡحُكۡمَ صَبِيّٗا",
-     "tr": "Ey Yahya! Kitaba kuvvetle sarıl\" deyip daha çocukken ona hikmet, katımızdan kalp yumuşaklığı ve safiyet verdik. O, Allah'tan sakınan ve anasına babasına karşı iyi davranan bir kimse idi, baş kaldıran bir zorba değildi"
+     "tr": "\"Ey Yahya! Kitab'a (Tevrat'a) vargücünle sarıl!\" (dedik) ve henüz sabi iken ona (ilim ve) hikmet verdik."
     },
     {
      "sure_id": 19,
      "ayet_id": 13,
      "sure_adi": "Meryem",
      "ar": "وَحَنَانٗا مِّن لَّدُنَّا وَزَكَوٰةٗۖ وَكَانَ تَقِيّٗا",
-     "tr": "Ey Yahya! Kitaba kuvvetle sarıl\" deyip daha çocukken ona hikmet, katımızdan kalp yumuşaklığı ve safiyet verdik. O, Allah'tan sakınan ve anasına babasına karşı iyi davranan bir kimse idi, baş kaldıran bir zorba değildi"
+     "tr": "Tarafımızdan ona kalp yumuşaklığı ve temizlik de (verdik). O, çok sakınan bir kimse idi."
     },
     {
      "sure_id": 19,
      "ayet_id": 14,
      "sure_adi": "Meryem",
      "ar": "وَبَرَّۢا بِوَٰلِدَيۡهِ وَلَمۡ يَكُن جَبَّارًا عَصِيّٗا",
-     "tr": "Ey Yahya! Kitaba kuvvetle sarıl\" deyip daha çocukken ona hikmet, katımızdan kalp yumuşaklığı ve safiyet verdik. O, Allah'tan sakınan ve anasına babasına karşı iyi davranan bir kimse idi, baş kaldıran bir zorba değildi"
+     "tr": "Ana-babasına çok iyi davranırdı; o, isyankar bir zorba değildi."
     },
     {
      "sure_id": 19,
@@ -1180,28 +1180,28 @@
      "ayet_id": 49,
      "sure_adi": "Âl-i İmrân",
      "ar": "وَرَسُولًا إِلَىٰ بَنِيٓ إِسۡرَـٰٓءِيلَ أَنِّي قَدۡ جِئۡتُكُم بِـَٔايَةٖ مِّن رَّبِّكُمۡ أَنِّيٓ أَخۡلُقُ لَكُم مِّنَ ٱلطِّينِ كَهَيۡـَٔةِ ٱلطَّيۡرِ فَأَنفُخُ فِيهِ فَيَكُونُ طَيۡرَۢا بِإِذۡنِ ٱللَّهِۖ وَأُبۡرِئُ ٱلۡأَكۡمَهَ وَٱلۡأَبۡرَصَ وَأُحۡيِ ٱلۡمَوۡتَىٰ بِإِذۡنِ ٱللَّهِۖ وَأُنَبِّئُكُم بِمَا تَأۡكُلُونَ وَمَا تَدَّخِرُونَ فِي بُيُوتِكُمۡۚ إِنَّ فِي ذَٰلِكَ لَأٓيَةٗ لَّكُمۡ إِن كُنتُم مُّؤۡمِنِينَ",
-     "tr": "Ona Kitabı, hikmeti, Tevrat'ı ve İncil'i öğretecek, İsrailoğullarına şöyle diyen bir peygamber kılacak: \"Ben size Rabbinizden bir ayet getirdim. Ben size çamurdan kuş gibi bir şey yapıp ona üfleyeceğim, Allah'ın izniyle, hemen kuş olacaktır; anadan doğma körleri, alacalıları iyi edeceğim; Allah'ın izniyle, ölüleri dirilteceğim; yediklerinizi ve evlerinizde sakladıklarınızı da size haber vereceğim. İnanmışsanız bunda size delil vardır"
+     "tr": "İsrailoğullarına bir elçi olacak (ve onlara şöyle diyecek:) Size Rabbinizden bir mucize getirdim: Size çamurdan bir kuş sureti yapar, ona üflerim ve Allah'ın izni ile o kuş oluverir. Yine Allah'ın izni ile körü ve alacalıyı iyileştirir, ölüleri diriltirim. Ayrıca evlerinizde ne yeyip ne biriktirdiğinizi size haber veririm. Eğer inanan kimseler iseniz, bunda sizin için bir ibret vardır."
     },
     {
      "sure_id": 19,
      "ayet_id": 30,
      "sure_adi": "Meryem",
      "ar": "قَالَ إِنِّي عَبۡدُ ٱللَّهِ ءَاتَىٰنِيَ ٱلۡكِتَٰبَ وَجَعَلَنِي نَبِيّٗا",
-     "tr": "Çocuk: \"Ben şüphesiz Allah'ın kuluyum. Bana kitap verdi ve beni peygamber yaptı, nerede olursam olayım beni mübarek kıldı. Yaşadığım müddetçe namaz kılmamı, zekat vermemi ve anneme iyi davranmamı emretti. Beni bedbaht bir zorba kılmadı. Doğduğum günde, öleceğim günde, dirileceğim günde bana selam olsun\" dedi"
+     "tr": "Çocuk şöyle dedi: \"Ben, Allah'ın kuluyum. O, bana Kitab'ı verdi ve beni peygamber yaptı.\""
     },
     {
      "sure_id": 4,
      "ayet_id": 157,
      "sure_adi": "Nisâ",
      "ar": "وَقَوۡلِهِمۡ إِنَّا قَتَلۡنَا ٱلۡمَسِيحَ عِيسَى ٱبۡنَ مَرۡيَمَ رَسُولَ ٱللَّهِ وَمَا قَتَلُوهُ وَمَا صَلَبُوهُ وَلَٰكِن شُبِّهَ لَهُمۡۚ وَإِنَّ ٱلَّذِينَ ٱخۡتَلَفُواْ فِيهِ لَفِي شَكّٖ مِّنۡهُۚ مَا لَهُم بِهِۦ مِنۡ عِلۡمٍ إِلَّا ٱتِّبَاعَ ٱلظَّنِّۚ وَمَا قَتَلُوهُ يَقِينَۢا",
-     "tr": "Bu, bir de inkarlarından, Meryem'e büyük bir iftirada bulunmalarından ve: \"Meryem oğlu İsa Mesih'i, Allah'ın elçisini öldürdük\" demelerinden ötürüdür. Oysa onu öldürmediler ve asmadılar, fakat onlara öyle göründü. Ayrılığa düştükleri şeyde doğrusu şüphededirler, bu husustaki bilgileri ancak sanıya uymaktan ibarettir, kesin olarak onu öldürmediler, bilakis Allah onu kendi katına yükseltti. Allah Güçlü'dür, Hakim'dir"
+     "tr": "Ve \"Allah elçisi Meryem oğlu İsa'yı öldürdük\" demeleri yüzünden (onları lanetledik). Halbuki onu ne öldürdüler, ne de astılar; fakat (öldürdükleri) onlara İsa gibi gösterildi. Onun hakkında ihtilafa düşenler bundan dolayı tam bir kararsızlık içindedirler; bu hususta zanna uymak dışında hiçbir (sağlam) bilgileri yoktur ve kesin olarak onu öldürmediler."
     },
     {
      "sure_id": 4,
      "ayet_id": 158,
      "sure_adi": "Nisâ",
      "ar": "بَل رَّفَعَهُ ٱللَّهُ إِلَيۡهِۚ وَكَانَ ٱللَّهُ عَزِيزًا حَكِيمٗا",
-     "tr": "Bu, bir de inkarlarından, Meryem'e büyük bir iftirada bulunmalarından ve: \"Meryem oğlu İsa Mesih'i, Allah'ın elçisini öldürdük\" demelerinden ötürüdür. Oysa onu öldürmediler ve asmadılar, fakat onlara öyle göründü. Ayrılığa düştükleri şeyde doğrusu şüphededirler, bu husustaki bilgileri ancak sanıya uymaktan ibarettir, kesin olarak onu öldürmediler, bilakis Allah onu kendi katına yükseltti. Allah Güçlü'dür, Hakim'dir"
+     "tr": "Bilakis Allah onu (İsa'yı) kendi nezdine kaldırmıştır. Allah izzet ve hikmet sahibidir."
     }
    ],
    "hadis_html": "<p>Hz. Îsâ'nın kıyamete yakın bir vakitte yeryüzüne tekrar ineceği (nüzûl-i Îsâ), Deccâl'i öldüreceği, adaletle hükmedeceği inancı; Sahih Müslim başta olmak üzere pek çok hadis kaynağında ayrıntılı olarak anlatılır. Bu, Kur'an'da açıkça yer almayan ama sahih hadislere dayanan, Sünni akaidinde yaygın kabul gören bir inançtır — bu ayrımı okuyucuya açıkça belirtmek isteriz.</p>",
@@ -1333,7 +1333,7 @@
      "ayet_id": 96,
      "sure_adi": "Kehf",
      "ar": "ءَاتُونِي زُبَرَ ٱلۡحَدِيدِۖ حَتَّىٰٓ إِذَا سَاوَىٰ بَيۡنَ ٱلصَّدَفَيۡنِ قَالَ ٱنفُخُواْۖ حَتَّىٰٓ إِذَا جَعَلَهُۥ نَارٗا قَالَ ءَاتُونِيٓ أُفۡرِغۡ عَلَيۡهِ قِطۡرٗا",
-     "tr": "Rabbimin bana verdikleri sizinkinden daha iyidir. Bana gücünüzle yardım edin de sizinle onların arasına sağlam bir sed yapayım. Bana demir kütleleri getirin\" dedi. Bunlar iki dağın arasını doldurunca: \"Körükleyin\" dedi. Demirler akkor haline gelince; \"Bana erimiş bakır getirin de üzerine dökeyim\" dedi"
+     "tr": "\"Bana, demir kütleleri getirin.\" Nihayet dağın iki yanı arasını aynı seviyeye getirince (vadiyi doldurunca): \"Üfleyin (körükleyin)!\" dedi. Artık onu kor haline sokunca: \"Getirin bana, üzerine bir miktar erimiş bakır dökeyim\" dedi."
     },
     {
      "sure_id": 18,

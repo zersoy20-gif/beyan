@@ -186,11 +186,12 @@ Kuran OkumaSayfası/
 - [ ] Secde ayetleri işaretleme, Kur'an içi tekrarlanan ayetler/çapraz referans (2026-09 rakip araştırmasında bulundu, kendi verimizden üretilebilir, henüz yapılmadı)
 
 ## Lisans / kaynak notu
-- **Kur'an metni + Türkçe meal:** [risan/quran-json](https://github.com/risan/quran-json) üzerinden (Arapça aslı QuranEnc.com, harf çevirisi Tanzil.net, meal Diyanet kaynaklı) — **CC BY-SA 4.0**. Atıf zorunlu; bu veriyle oluşturulan türev (yani bu sitenin kendisi) de aynı CC BY-SA 4.0 lisansıyla paylaşılmalıdır — projeyi kapalı/özel tutamazsınız.
+- **Kur'an metni (Arapça):** [risan/quran-json](https://github.com/risan/quran-json) üzerinden (Arapça aslı QuranEnc.com, harf çevirisi Tanzil.net) — **CC BY-SA 4.0**. Atıf zorunlu; bu veriyle oluşturulan türev (yani bu sitenin kendisi) de aynı CC BY-SA 4.0 lisansıyla paylaşılmalıdır — projeyi kapalı/özel tutamazsınız.
+- **Türkçe meal (varsayılan):** Diyanet Vakfı (Kur'an Yolu), [Tanzil.net](https://tanzil.net/trans/) kaynaklı — **⚠️ 10 Eylül 2026'da düzeltildi:** önceki veri "Diyanet kaynaklı" diye etiketlenmişti ama doğrulanmamıştı ve 6.236 ayetin 1.413'ünde (%22,7) ardışık ayetlerin çevirisi karışmış/tekrarlanmış halde bulundu; tamamı bu doğrulanmış meal ile yeniden oluşturuldu (detay: `data/README.md`). Bu meal de Tanzil'in **yalnızca ticari olmayan kullanım** şartına tabidir (aşağıya bkz.), artık CC BY-SA değildir.
 - **Tefsir örnekleri:** [spa5k/tafsir_api](https://github.com/spa5k/tafsir_api) (qul.tarteel.ai) — katalog MIT lisanslı ama her tefsirin metni kendi orijinal kaynağının telif durumuna tabidir. Klasik Arapça tefsirler (İbn Kesir, Taberî, Kurtubî) kamu malı; Türkçe çeviriler atıfla serbest dağıtım amaçlı yayınlanmış.
 - **Ses (kâri):** [EveryAyah.com](https://everyayah.com) CDN'inden doğrudan linkleniyor, kendi sunucumuzda barındırılmıyor. 4 kâri seçeneği var: Mişarî Raşid el-Afâsî, Abdülbâsıt Abdüssamed, Mahmûd Halîl el-Husarî, Suûd eş-Şüreym.
 - **Kelime zamanlaması:** [cpfair/quran-align](https://github.com/cpfair/quran-align) — CC BY 4.0, atıf yeterli.
-- **8 ek meal (Vakfı, Yazır, Ateş, Öztürk, Bulaç, Gölpınarlı, Yıldırım, Yüksel):** [Tanzil.net](https://tanzil.net/trans/) — **⚠️ SADECE TİCARİ OLMAYAN KULLANIM**, 3'ten fazla çeviri kullanıldığı için Tanzil'e link zorunlu (footer'da mevcut). Detay ve önemli notlar için `data/README.md`.
+- **7 ek meal (Yazır, Ateş, Öztürk, Bulaç, Gölpınarlı, Yıldırım, Yüksel):** [Tanzil.net](https://tanzil.net/trans/) — **⚠️ SADECE TİCARİ OLMAYAN KULLANIM**, 3'ten fazla çeviri kullanıldığı için Tanzil'e link zorunlu (footer'da mevcut). Detay ve önemli notlar için `data/README.md`.
 - **Namaz vakitleri:** [Al Adhan API](https://aladhan.com) — Diyanet İşleri Başkanlığı hesaplama yöntemi (method=13) ile.
 - **İl koordinatları:** [açık kaynak il/ilçe veri seti](https://gist.github.com/ismailbaskin/2492196).
 - **Ansiklopedi özetleri:** [Türkçe Vikipedi](https://tr.wikipedia.org) — CC BY-SA 4.0, canlı API ile.

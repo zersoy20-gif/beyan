@@ -94,7 +94,7 @@
   <div class="hero-sources wrap">
     <span class="label">Kaynak olarak kullanılıyor</span>
     <div class="list">
-      <span>QuranEnc.com</span><span>Tanzil Project</span><span>Diyanet Meali</span><span>QUL (tefsir)</span>
+      <span>QuranEnc.com</span><span>Tanzil Project</span><span>Diyanet Vakfı Meali</span><span>QUL (tefsir)</span>
     </div>
   </div>
 </header>
@@ -637,7 +637,8 @@
       </div>
     </div>
     <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
-      <span>Kur'an metni ve Türkçe meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> (Arapça aslı QuranEnc.com, harf çevirisi Tanzil.net, meal Diyanet kaynaklı) — CC BY-SA 4.0 lisansı ile; atıf zorunlu ve bu veriyle üretilen türev de aynı lisansla paylaşılmalıdır.</span>
+      <span>Kur'an metni: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> (Arapça aslı QuranEnc.com, harf çevirisi Tanzil.net) — CC BY-SA 4.0 lisansı ile; atıf zorunlu ve bu veriyle üretilen türev de aynı lisansla paylaşılmalıdır.</span>
+      <span>Türkçe meal (varsayılan): Diyanet Vakfı (Kur'an Yolu) — <a href="https://tanzil.net/trans/" style="color:var(--muted); text-decoration:underline;">Tanzil.net</a> üzerinden, yalnızca ticari olmayan kullanım şartıyla.</span>
       <span>Tefsir örnekleri: <a href="https://github.com/spa5k/tafsir_api" style="color:var(--muted); text-decoration:underline;">spa5k/tafsir_api</a> (qul.tarteel.ai üzerinden) — her tefsirin telif durumu kendi orijinal kaynağına tabidir.</span>
       <span>© Beyan</span>
     </div>
@@ -660,7 +661,7 @@
     const ayahAr = fatihaAr.verses.find(v => v.id === 2).text;
     const ayahTr = fatihaTr.verses.find(v => v.id === 2).translation;
 
-    // Meal ile oku demosu: gerçek Arapça metin + gerçek Diyanet kaynaklı meal
+    // Meal ile oku demosu: gerçek Arapça metin + gerçek Diyanet Vakfı (Kur'an Yolu) meali
     const mealLine = document.getElementById('mealArabicLine');
     if(mealLine){
       const glosses = ['övgü, hamd','Allah\'a mahsus','Rabbine','bütün âlemlerin'];

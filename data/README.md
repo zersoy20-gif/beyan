@@ -4,14 +4,38 @@ Bu klasördeki tüm veriler gerçek, açık kaynaklardan çekilmiştir (uydurma/
 
 ## `/quran/quran-arabic.json` ve `/quran/quran-turkish.json`
 
-- **Kaynak proje:** [risan/quran-json](https://github.com/risan/quran-json) (GitHub)
+- **Kaynak proje (Arapça metin):** [risan/quran-json](https://github.com/risan/quran-json) (GitHub)
 - **Arapça metin aslı:** The Noble Qur'an Encyclopedia (quranenc.com)
 - **Harf çevirisi (transliteration):** Tanzil.net
-- **Türkçe meal:** Diyanet kaynaklı (quran-json projesi üzerinden)
-- **Lisans:** Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)
+- **Lisans (Arapça metin):** Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)
   - Atıf zorunlu (kaynağı belirtmeniz gerekir).
   - **ShareAlike şartı önemli:** Bu veriyi kullanarak oluşturduğunuz türev de aynı CC BY-SA 4.0 lisansıyla paylaşılmalıdır. Yani veri setinizi/derlemenizi kapalı/özel tutamazsınız — bu, projenizin zaten "ücretsiz ve açık" ruhuyla uyumlu.
 - **İçerik:** 114 sûre, 6.236 ayetin tamamı, hem Arapça hem Türkçe.
+
+### ⚠️ Türkçe meal alanı — 10 Eylül 2026 tarihli düzeltme (önemli)
+
+`quran-turkish.json` içindeki `translation` alanı **artık quran-json projesinden gelmiyor.**
+Önceki hal, kaynağı doğrulanmadan "Diyanet kaynaklı" diye etiketlenmişti; yapılan tam veri
+denetiminde şu bulundu:
+
+1. Metin, bilinen hiçbir yayınlanmış Diyanet mealiyle (ne Diyanet İşleri Başkanlığı'nın kendi
+   meali ne de Diyanet Vakfı/Kur'an Yolu) birebir örtüşmüyordu — gerçek kaynağı belirsizdi.
+2. Çok daha ciddisi: **6.236 ayetin 1.413'ünde (%22,7), 114 sûrenin 96'sında**, art arda gelen
+   ayetlerin çevirisi birbirine karışmış/tekrarlanmış durumdaydı. En uç örnek: Nâs sûresinin
+   (114) 6 ayetinin **tamamı**, sûrenin tümünü kapsayan tek ve aynı paragrafı gösteriyordu.
+
+**Yapılan düzeltme:** `quran-turkish.json`'daki her ayetin `translation` alanı, aşağıda anlatılan
+`meals/vakfi.json` (gerçek ve doğrulanmış Diyanet Vakfı — Kur'an Yolu meali, Tanzil.net kaynaklı)
+içeriğiyle **birebir, ayet numarası eşleştirilerek** yeniden yazıldı. Değişiklikten önce iki
+dosyanın da aynı 114 sûre / 6.236 ayet yapısına sahip olduğu ve `vakfi.json`'ın kendi doğal
+tekrar oranının (yalnızca ~20/6.236 ≈ %0,3, elle örneklenip makul bulundu) bu tür bir bozulma
+taşımadığı doğrulandı.
+
+**Lisans sonucu (önemli değişiklik):** Bu değişiklikle birlikte `quran-turkish.json`'daki meal
+metni artık CC BY-SA 4.0 ile değil, aşağıdaki `/quran/meals/*.json` bölümünde açıklanan
+**Tanzil.net'in "yalnızca ticari olmayan kullanım" şartına** tabidir — çünkü asıl kaynağı odur.
+Arapça metin (`quran-arabic.json` ve `quran-turkish.json`'daki `text` alanı) bundan etkilenmedi,
+CC BY-SA 4.0 olarak kalmaya devam ediyor.
 
 ## `/tafsir/editions.json`
 
@@ -82,7 +106,7 @@ Diyanet dışında **8 farklı Türkçe meal** — her biri `{"sûre:ayet": "met
 - **⚠️ LİSANS UYARISI — SADECE TİCARİ OLMAYAN KULLANIM:** Tanzil'in kendi ifadesiyle *"The translations provided at this page are for non-commercial purposes only."* Yani bu 8 meal, sitenizde reklam/ücretli üyelik gibi ticari bir model olursa kullanılamaz. Sitenin şu anki "ücretsiz, bağış temelli" modeli buna uygun görünüyor, ama ileride ticarileşme düşünülürse bu meallerin ya kaldırılması ya da doğrudan çevirmen/yayıncıdan izin alınması gerekir.
 - **Ek şart:** Üçten fazla çeviri kullanıldığı için (8 tanesini kullanıyoruz) Tanzil'e geri link vermek zorunludur — footer'da bu link mevcut.
 - **Not (Edip Yüksel):** Bu meal, klasik Sünni tefsir çizgisinden belirgin şekilde ayrılan, tartışmalı bir yorum çizgisini (bazı ayetlerin metin bütünlüğüne dair iddialar dahil) yansıtır. Tanzil onu editoryal onay vermeden, tarafsız bir kaynak listesi olarak barındırıyor; biz de aynı şekilde nötr sunuyoruz. İsterseniz kolayca listeden çıkarılabilir.
-- Diyanet meali burada YOK çünkü zaten `/quran/quran-turkish.json` içinde mevcut (risan/quran-json üzerinden, CC BY-SA 4.0).
+- `vakfi.json` (Diyanet Vakfı — Kur'an Yolu) burada listelenen 8 alternatif mealin dışındadır çünkü aynı zamanda `/quran/quran-turkish.json`'ın **varsayılan** meali olarak da gömülüdür (bkz. yukarıdaki "10 Eylül 2026 tarihli düzeltme" notu) — iki yerde de birebir aynı, Tanzil.net kaynaklı metin kullanılır.
 
 ## `/il-koordinatlari.json`
 

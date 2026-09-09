@@ -1,252 +1,252 @@
 [
-  {
-    "arabic": "عَٰلِمُ الْغَيْبِ وَالشَّهَادَةِ",
-    "translit": "Âlimü'l-Gayb ve'ş-Şehâde",
-    "meaning": "Görüneni de görünmeyeni de bilen",
-    "surah": 59,
-    "ayah": 22,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَۖ عَٰلِمُ ٱلۡغَيۡبِ وَٱلشَّهَٰدَةِۖ هُوَ ٱلرَّحۡمَٰنُ ٱلرَّحِيمُ",
-    "ayahMeal": "O, görüleni de görülmeyeni de bilen, kendisinden başka tanrı olmayan Allah'tır. O, acıyıcı olandır, acıyandır"
-  },
-  {
-    "arabic": "الرَّحْمَٰنُ",
-    "translit": "Er-Rahmân",
-    "meaning": "Rahmeti her şeyi kuşatan",
-    "surah": 1,
-    "ayah": 1,
-    "surahName": "Fâtiha",
-    "ayahArabic": "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
-    "ayahMeal": "Rahman ve Rahim olan Allah'ın adıyla"
-  },
-  {
-    "arabic": "الرَّحِيمُ",
-    "translit": "Er-Rahîm",
-    "meaning": "Çok merhametli",
-    "surah": 1,
-    "ayah": 1,
-    "surahName": "Fâtiha",
-    "ayahArabic": "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
-    "ayahMeal": "Rahman ve Rahim olan Allah'ın adıyla"
-  },
-  {
-    "arabic": "الْمَلِكُ",
-    "translit": "El-Melik",
-    "meaning": "Mutlak hükümdar",
-    "surah": 59,
-    "ayah": 23,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
-    "ayahMeal": "O, kendisinden başka tanrı olmayan, hükümran, çok kutsal; esenlik veren, güvenlik veren, görüp gözeten, güçlü, buyruğunu herşeye geçiren, ulu olan, Allah'tır. Allah onların koştukları eşlerden (ortaklardan) münezzehtir"
-  },
-  {
-    "arabic": "الْقُدُّوسُ",
-    "translit": "El-Kuddûs",
-    "meaning": "Her türlü eksiklikten uzak, tertemiz",
-    "surah": 59,
-    "ayah": 23,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
-    "ayahMeal": "O, kendisinden başka tanrı olmayan, hükümran, çok kutsal; esenlik veren, güvenlik veren, görüp gözeten, güçlü, buyruğunu herşeye geçiren, ulu olan, Allah'tır. Allah onların koştukları eşlerden (ortaklardan) münezzehtir"
-  },
-  {
-    "arabic": "السَّلَامُ",
-    "translit": "Es-Selâm",
-    "meaning": "Esenlik ve kurtuluşun kaynağı",
-    "surah": 59,
-    "ayah": 23,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
-    "ayahMeal": "O, kendisinden başka tanrı olmayan, hükümran, çok kutsal; esenlik veren, güvenlik veren, görüp gözeten, güçlü, buyruğunu herşeye geçiren, ulu olan, Allah'tır. Allah onların koştukları eşlerden (ortaklardan) münezzehtir"
-  },
-  {
-    "arabic": "الْمُؤْمِنُ",
-    "translit": "El-Mü'min",
-    "meaning": "Güven ve huzur veren",
-    "surah": 59,
-    "ayah": 23,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
-    "ayahMeal": "O, kendisinden başka tanrı olmayan, hükümran, çok kutsal; esenlik veren, güvenlik veren, görüp gözeten, güçlü, buyruğunu herşeye geçiren, ulu olan, Allah'tır. Allah onların koştukları eşlerden (ortaklardan) münezzehtir"
-  },
-  {
-    "arabic": "الْمُهَيْمِنُ",
-    "translit": "El-Müheymin",
-    "meaning": "Gözetip koruyan",
-    "surah": 59,
-    "ayah": 23,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
-    "ayahMeal": "O, kendisinden başka tanrı olmayan, hükümran, çok kutsal; esenlik veren, güvenlik veren, görüp gözeten, güçlü, buyruğunu herşeye geçiren, ulu olan, Allah'tır. Allah onların koştukları eşlerden (ortaklardan) münezzehtir"
-  },
-  {
-    "arabic": "الْعَزِيزُ",
-    "translit": "El-Azîz",
-    "meaning": "Karşı konulmaz güç ve izzet sahibi",
-    "surah": 59,
-    "ayah": 23,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
-    "ayahMeal": "O, kendisinden başka tanrı olmayan, hükümran, çok kutsal; esenlik veren, güvenlik veren, görüp gözeten, güçlü, buyruğunu herşeye geçiren, ulu olan, Allah'tır. Allah onların koştukları eşlerden (ortaklardan) münezzehtir"
-  },
-  {
-    "arabic": "الْجَبَّارُ",
-    "translit": "El-Cebbâr",
-    "meaning": "İradesini her durumda yürüten",
-    "surah": 59,
-    "ayah": 23,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
-    "ayahMeal": "O, kendisinden başka tanrı olmayan, hükümran, çok kutsal; esenlik veren, güvenlik veren, görüp gözeten, güçlü, buyruğunu herşeye geçiren, ulu olan, Allah'tır. Allah onların koştukları eşlerden (ortaklardan) münezzehtir"
-  },
-  {
-    "arabic": "الْمُتَكَبِّرُ",
-    "translit": "El-Mütekebbir",
-    "meaning": "Büyüklükte eşi olmayan",
-    "surah": 59,
-    "ayah": 23,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
-    "ayahMeal": "O, kendisinden başka tanrı olmayan, hükümran, çok kutsal; esenlik veren, güvenlik veren, görüp gözeten, güçlü, buyruğunu herşeye geçiren, ulu olan, Allah'tır. Allah onların koştukları eşlerden (ortaklardan) münezzehtir"
-  },
-  {
-    "arabic": "الْخَالِقُ",
-    "translit": "El-Hâlık",
-    "meaning": "Yaratan",
-    "surah": 59,
-    "ayah": 24,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلۡخَٰلِقُ ٱلۡبَارِئُ ٱلۡمُصَوِّرُۖ لَهُ ٱلۡأَسۡمَآءُ ٱلۡحُسۡنَىٰۚ يُسَبِّحُ لَهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۖ وَهُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ",
-    "ayahMeal": "O, vareden, güzel yaratan, yarattıklarına şekil veren, en güzel adlar kendisinin olan Allah'tır. Göklerde ve yerde olanlar O'nu tesbih ederler. O güçlüdür, Hakim'dir"
-  },
-  {
-    "arabic": "الْبَارِئُ",
-    "translit": "El-Bâri'",
-    "meaning": "Kusursuzca var eden",
-    "surah": 59,
-    "ayah": 24,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلۡخَٰلِقُ ٱلۡبَارِئُ ٱلۡمُصَوِّرُۖ لَهُ ٱلۡأَسۡمَآءُ ٱلۡحُسۡنَىٰۚ يُسَبِّحُ لَهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۖ وَهُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ",
-    "ayahMeal": "O, vareden, güzel yaratan, yarattıklarına şekil veren, en güzel adlar kendisinin olan Allah'tır. Göklerde ve yerde olanlar O'nu tesbih ederler. O güçlüdür, Hakim'dir"
-  },
-  {
-    "arabic": "الْمُصَوِّرُ",
-    "translit": "El-Musavvir",
-    "meaning": "Her varlığa kendine özgü şekil veren",
-    "surah": 59,
-    "ayah": 24,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلۡخَٰلِقُ ٱلۡبَارِئُ ٱلۡمُصَوِّرُۖ لَهُ ٱلۡأَسۡمَآءُ ٱلۡحُسۡنَىٰۚ يُسَبِّحُ لَهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۖ وَهُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ",
-    "ayahMeal": "O, vareden, güzel yaratan, yarattıklarına şekil veren, en güzel adlar kendisinin olan Allah'tır. Göklerde ve yerde olanlar O'nu tesbih ederler. O güçlüdür, Hakim'dir"
-  },
-  {
-    "arabic": "الْحَكِيمُ",
-    "translit": "El-Hakîm",
-    "meaning": "Her işi yerli yerinde olan",
-    "surah": 59,
-    "ayah": 24,
-    "surahName": "Haşr",
-    "ayahArabic": "هُوَ ٱللَّهُ ٱلۡخَٰلِقُ ٱلۡبَارِئُ ٱلۡمُصَوِّرُۖ لَهُ ٱلۡأَسۡمَآءُ ٱلۡحُسۡنَىٰۚ يُسَبِّحُ لَهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۖ وَهُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ",
-    "ayahMeal": "O, vareden, güzel yaratan, yarattıklarına şekil veren, en güzel adlar kendisinin olan Allah'tır. Göklerde ve yerde olanlar O'nu tesbih ederler. O güçlüdür, Hakim'dir"
-  },
-  {
-    "arabic": "رَبِّ الْعَالَمِينَ",
-    "translit": "Rabbü'l-Âlemîn",
-    "meaning": "Bütün alemlerin Rabbi",
-    "surah": 1,
-    "ayah": 2,
-    "surahName": "Fâtiha",
-    "ayahArabic": "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ",
-    "ayahMeal": "Hamd, Alemlerin Rabbi Allah'a mahsustur"
-  },
-  {
-    "arabic": "الْحَيُّ",
-    "translit": "El-Hayy",
-    "meaning": "Diri, hayatın kaynağı",
-    "surah": 2,
-    "ayah": 255,
-    "surahName": "Bakara",
-    "ayahArabic": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
-    "ayahMeal": "Allah, O'ndan başka tanrı olmayan, kendisini uyuklama ve uyku tutmayan, diri, her an yaratıklarını gözetip durandır. Göklerde olan ve yerde olan ancak O'nundur. O'nun izni olmadan katında şefaat edecek kimdir? Onların işlediklerini ve işleyeceklerini bilir, dilediğinden başka ilminden hiçbir şeyi kavrayamazlar. Hükümranlığı gökleri ve yeri kaplamıştır, onların gözetilmesi O'na ağır gelmez. O yücedir, büyüktür"
-  },
-  {
-    "arabic": "الْقَيُّومُ",
-    "translit": "El-Kayyûm",
-    "meaning": "Her şeyi ayakta tutan",
-    "surah": 2,
-    "ayah": 255,
-    "surahName": "Bakara",
-    "ayahArabic": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
-    "ayahMeal": "Allah, O'ndan başka tanrı olmayan, kendisini uyuklama ve uyku tutmayan, diri, her an yaratıklarını gözetip durandır. Göklerde olan ve yerde olan ancak O'nundur. O'nun izni olmadan katında şefaat edecek kimdir? Onların işlediklerini ve işleyeceklerini bilir, dilediğinden başka ilminden hiçbir şeyi kavrayamazlar. Hükümranlığı gökleri ve yeri kaplamıştır, onların gözetilmesi O'na ağır gelmez. O yücedir, büyüktür"
-  },
-  {
-    "arabic": "الْعَلِيُّ",
-    "translit": "El-Aliyy",
-    "meaning": "Yüce",
-    "surah": 2,
-    "ayah": 255,
-    "surahName": "Bakara",
-    "ayahArabic": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
-    "ayahMeal": "Allah, O'ndan başka tanrı olmayan, kendisini uyuklama ve uyku tutmayan, diri, her an yaratıklarını gözetip durandır. Göklerde olan ve yerde olan ancak O'nundur. O'nun izni olmadan katında şefaat edecek kimdir? Onların işlediklerini ve işleyeceklerini bilir, dilediğinden başka ilminden hiçbir şeyi kavrayamazlar. Hükümranlığı gökleri ve yeri kaplamıştır, onların gözetilmesi O'na ağır gelmez. O yücedir, büyüktür"
-  },
-  {
-    "arabic": "الْعَظِيمُ",
-    "translit": "El-Azîm",
-    "meaning": "Büyüklükte eşsiz",
-    "surah": 2,
-    "ayah": 255,
-    "surahName": "Bakara",
-    "ayahArabic": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
-    "ayahMeal": "Allah, O'ndan başka tanrı olmayan, kendisini uyuklama ve uyku tutmayan, diri, her an yaratıklarını gözetip durandır. Göklerde olan ve yerde olan ancak O'nundur. O'nun izni olmadan katında şefaat edecek kimdir? Onların işlediklerini ve işleyeceklerini bilir, dilediğinden başka ilminden hiçbir şeyi kavrayamazlar. Hükümranlığı gökleri ve yeri kaplamıştır, onların gözetilmesi O'na ağır gelmez. O yücedir, büyüktür"
-  },
-  {
-    "arabic": "الْأَحَدُ",
-    "translit": "El-Ehad",
-    "meaning": "Bir ve tek",
-    "surah": 112,
-    "ayah": 1,
-    "surahName": "İhlâs",
-    "ayahArabic": "قُلۡ هُوَ ٱللَّهُ أَحَدٌ",
-    "ayahMeal": "De ki: O Allah bir tektir"
-  },
-  {
-    "arabic": "الصَّمَدُ",
-    "translit": "Es-Samed",
-    "meaning": "Hiçbir şeye muhtaç olmayan, her şeyin muhtaç olduğu",
-    "surah": 112,
-    "ayah": 2,
-    "surahName": "İhlâs",
-    "ayahArabic": "ٱللَّهُ ٱلصَّمَدُ",
-    "ayahMeal": "Allah her şeyden müstağni ve her şey O'na muhtaçtır"
-  },
-  {
-    "arabic": "الْحَكِيمُ الْخَبِيرُ",
-    "translit": "El-Habîr",
-    "meaning": "Her şeyden haberdar",
-    "surah": 6,
-    "ayah": 18,
-    "surahName": "En'âm",
-    "ayahArabic": "وَهُوَ ٱلۡقَاهِرُ فَوۡقَ عِبَادِهِۦۚ وَهُوَ ٱلۡحَكِيمُ ٱلۡخَبِيرُ",
-    "ayahMeal": "O, kullarının üstünde yegane tasarruf sahibidir. Hakim'dir, haberdardır"
-  },
-  {
-    "arabic": "شَاكِرٌ عَلِيمٌ",
-    "translit": "Eş-Şâkir / El-Alîm",
-    "meaning": "Şükrün karşılığını veren, her şeyi bilen",
-    "surah": 2,
-    "ayah": 158,
-    "surahName": "Bakara",
-    "ayahArabic": "۞إِنَّ ٱلصَّفَا وَٱلۡمَرۡوَةَ مِن شَعَآئِرِ ٱللَّهِۖ فَمَنۡ حَجَّ ٱلۡبَيۡتَ أَوِ ٱعۡتَمَرَ فَلَا جُنَاحَ عَلَيۡهِ أَن يَطَّوَّفَ بِهِمَاۚ وَمَن تَطَوَّعَ خَيۡرٗا فَإِنَّ ٱللَّهَ شَاكِرٌ عَلِيمٌ",
-    "ayahMeal": "Şüphesiz Safa ile Merve Allah'ın nişanelerindendir. Kim Kabe'yi hacceder veya umre yaparsa, bu ikisini de tavaf etmesinde bir beis yoktur. Kim gönülden iyilik yaparsa, karşılığını görür. Doğrusu Allah şükrün karşılığını verendir ve bilendir"
-  },
-  {
-    "arabic": "الْمَوْلَىٰ",
-    "translit": "El-Mevlâ",
-    "meaning": "Sahip, dost, koruyucu",
-    "surah": 22,
-    "ayah": 78,
-    "surahName": "Hac",
-    "ayahArabic": "وَجَٰهِدُواْ فِي ٱللَّهِ حَقَّ جِهَادِهِۦۚ هُوَ ٱجۡتَبَىٰكُمۡ وَمَا جَعَلَ عَلَيۡكُمۡ فِي ٱلدِّينِ مِنۡ حَرَجٖۚ مِّلَّةَ أَبِيكُمۡ إِبۡرَٰهِيمَۚ هُوَ سَمَّىٰكُمُ ٱلۡمُسۡلِمِينَ مِن قَبۡلُ وَفِي هَٰذَا لِيَكُونَ ٱلرَّسُولُ شَهِيدًا عَلَيۡكُمۡ وَتَكُونُواْ شُهَدَآءَ عَلَى ٱلنَّاسِۚ فَأَقِيمُواْ ٱلصَّلَوٰةَ وَءَاتُواْ ٱلزَّكَوٰةَ وَٱعۡتَصِمُواْ بِٱللَّهِ هُوَ مَوۡلَىٰكُمۡۖ فَنِعۡمَ ٱلۡمَوۡلَىٰ وَنِعۡمَ ٱلنَّصِيرُ",
-    "ayahMeal": "Allah uğrunda gereği gibi cihat edin. O, sizi seçmiş, babanız İbrahim'in yolu olan dinde sizin için bir zorluk kılmamıştır. Daha önce ve Kuran'da, peygamberin size şahit olması, sizin de insanlara şahit olmanız için size müslüman adını veren O'dur. Artık, namaz kılın, zekat verin, Allah'a sarılın. O sizin sahibinizdir. Ne güzel sahip ve ne güzel yardımcıdır"
-  }
+ {
+  "arabic": "عَٰلِمُ الْغَيْبِ وَالشَّهَادَةِ",
+  "translit": "Âlimü'l-Gayb ve'ş-Şehâde",
+  "meaning": "Görüneni de görünmeyeni de bilen",
+  "surah": 59,
+  "ayah": 22,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَۖ عَٰلِمُ ٱلۡغَيۡبِ وَٱلشَّهَٰدَةِۖ هُوَ ٱلرَّحۡمَٰنُ ٱلرَّحِيمُ",
+  "ayahMeal": "O, öyle Allah'tır ki, O'ndan başka tanrı yoktur. Görülmeyeni ve görüleni bilendir. O, esirgeyendir, bağışlayandır."
+ },
+ {
+  "arabic": "الرَّحْمَٰنُ",
+  "translit": "Er-Rahmân",
+  "meaning": "Rahmeti her şeyi kuşatan",
+  "surah": 1,
+  "ayah": 1,
+  "surahName": "Fâtiha",
+  "ayahArabic": "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
+  "ayahMeal": "Rahman (ve) rahim (olan) Allah'ın adıyla."
+ },
+ {
+  "arabic": "الرَّحِيمُ",
+  "translit": "Er-Rahîm",
+  "meaning": "Çok merhametli",
+  "surah": 1,
+  "ayah": 1,
+  "surahName": "Fâtiha",
+  "ayahArabic": "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
+  "ayahMeal": "Rahman (ve) rahim (olan) Allah'ın adıyla."
+ },
+ {
+  "arabic": "الْمَلِكُ",
+  "translit": "El-Melik",
+  "meaning": "Mutlak hükümdar",
+  "surah": 59,
+  "ayah": 23,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
+  "ayahMeal": "O, öyle Allah'tır ki, kendisinden başka hiçbir tanrı yoktur. O, mülkün sahibidir, eksiklikten münezzehtir, selamet verendir, emniyete kavuşturandır, gözetip koruyandır, üstündür, istediğini zorla yaptıran, büyüklükte eşi olmayandır. Allah, müşriklerin ortak koştukları şeylerden münezzehtir."
+ },
+ {
+  "arabic": "الْقُدُّوسُ",
+  "translit": "El-Kuddûs",
+  "meaning": "Her türlü eksiklikten uzak, tertemiz",
+  "surah": 59,
+  "ayah": 23,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
+  "ayahMeal": "O, öyle Allah'tır ki, kendisinden başka hiçbir tanrı yoktur. O, mülkün sahibidir, eksiklikten münezzehtir, selamet verendir, emniyete kavuşturandır, gözetip koruyandır, üstündür, istediğini zorla yaptıran, büyüklükte eşi olmayandır. Allah, müşriklerin ortak koştukları şeylerden münezzehtir."
+ },
+ {
+  "arabic": "السَّلَامُ",
+  "translit": "Es-Selâm",
+  "meaning": "Esenlik ve kurtuluşun kaynağı",
+  "surah": 59,
+  "ayah": 23,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
+  "ayahMeal": "O, öyle Allah'tır ki, kendisinden başka hiçbir tanrı yoktur. O, mülkün sahibidir, eksiklikten münezzehtir, selamet verendir, emniyete kavuşturandır, gözetip koruyandır, üstündür, istediğini zorla yaptıran, büyüklükte eşi olmayandır. Allah, müşriklerin ortak koştukları şeylerden münezzehtir."
+ },
+ {
+  "arabic": "الْمُؤْمِنُ",
+  "translit": "El-Mü'min",
+  "meaning": "Güven ve huzur veren",
+  "surah": 59,
+  "ayah": 23,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
+  "ayahMeal": "O, öyle Allah'tır ki, kendisinden başka hiçbir tanrı yoktur. O, mülkün sahibidir, eksiklikten münezzehtir, selamet verendir, emniyete kavuşturandır, gözetip koruyandır, üstündür, istediğini zorla yaptıran, büyüklükte eşi olmayandır. Allah, müşriklerin ortak koştukları şeylerden münezzehtir."
+ },
+ {
+  "arabic": "الْمُهَيْمِنُ",
+  "translit": "El-Müheymin",
+  "meaning": "Gözetip koruyan",
+  "surah": 59,
+  "ayah": 23,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
+  "ayahMeal": "O, öyle Allah'tır ki, kendisinden başka hiçbir tanrı yoktur. O, mülkün sahibidir, eksiklikten münezzehtir, selamet verendir, emniyete kavuşturandır, gözetip koruyandır, üstündür, istediğini zorla yaptıran, büyüklükte eşi olmayandır. Allah, müşriklerin ortak koştukları şeylerden münezzehtir."
+ },
+ {
+  "arabic": "الْعَزِيزُ",
+  "translit": "El-Azîz",
+  "meaning": "Karşı konulmaz güç ve izzet sahibi",
+  "surah": 59,
+  "ayah": 23,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
+  "ayahMeal": "O, öyle Allah'tır ki, kendisinden başka hiçbir tanrı yoktur. O, mülkün sahibidir, eksiklikten münezzehtir, selamet verendir, emniyete kavuşturandır, gözetip koruyandır, üstündür, istediğini zorla yaptıran, büyüklükte eşi olmayandır. Allah, müşriklerin ortak koştukları şeylerden münezzehtir."
+ },
+ {
+  "arabic": "الْجَبَّارُ",
+  "translit": "El-Cebbâr",
+  "meaning": "İradesini her durumda yürüten",
+  "surah": 59,
+  "ayah": 23,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
+  "ayahMeal": "O, öyle Allah'tır ki, kendisinden başka hiçbir tanrı yoktur. O, mülkün sahibidir, eksiklikten münezzehtir, selamet verendir, emniyete kavuşturandır, gözetip koruyandır, üstündür, istediğini zorla yaptıran, büyüklükte eşi olmayandır. Allah, müşriklerin ortak koştukları şeylerden münezzehtir."
+ },
+ {
+  "arabic": "الْمُتَكَبِّرُ",
+  "translit": "El-Mütekebbir",
+  "meaning": "Büyüklükte eşi olmayan",
+  "surah": 59,
+  "ayah": 23,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ",
+  "ayahMeal": "O, öyle Allah'tır ki, kendisinden başka hiçbir tanrı yoktur. O, mülkün sahibidir, eksiklikten münezzehtir, selamet verendir, emniyete kavuşturandır, gözetip koruyandır, üstündür, istediğini zorla yaptıran, büyüklükte eşi olmayandır. Allah, müşriklerin ortak koştukları şeylerden münezzehtir."
+ },
+ {
+  "arabic": "الْخَالِقُ",
+  "translit": "El-Hâlık",
+  "meaning": "Yaratan",
+  "surah": 59,
+  "ayah": 24,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلۡخَٰلِقُ ٱلۡبَارِئُ ٱلۡمُصَوِّرُۖ لَهُ ٱلۡأَسۡمَآءُ ٱلۡحُسۡنَىٰۚ يُسَبِّحُ لَهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۖ وَهُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ",
+  "ayahMeal": "O, yaratan, var eden, şekil veren Allah'tır. En güzel isimler O'nundur. Göklerde ve yerde olanlar O'nun şanını yüceltmektedirler. O, galiptir, hikmet sahibidir."
+ },
+ {
+  "arabic": "الْبَارِئُ",
+  "translit": "El-Bâri'",
+  "meaning": "Kusursuzca var eden",
+  "surah": 59,
+  "ayah": 24,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلۡخَٰلِقُ ٱلۡبَارِئُ ٱلۡمُصَوِّرُۖ لَهُ ٱلۡأَسۡمَآءُ ٱلۡحُسۡنَىٰۚ يُسَبِّحُ لَهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۖ وَهُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ",
+  "ayahMeal": "O, yaratan, var eden, şekil veren Allah'tır. En güzel isimler O'nundur. Göklerde ve yerde olanlar O'nun şanını yüceltmektedirler. O, galiptir, hikmet sahibidir."
+ },
+ {
+  "arabic": "الْمُصَوِّرُ",
+  "translit": "El-Musavvir",
+  "meaning": "Her varlığa kendine özgü şekil veren",
+  "surah": 59,
+  "ayah": 24,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلۡخَٰلِقُ ٱلۡبَارِئُ ٱلۡمُصَوِّرُۖ لَهُ ٱلۡأَسۡمَآءُ ٱلۡحُسۡنَىٰۚ يُسَبِّحُ لَهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۖ وَهُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ",
+  "ayahMeal": "O, yaratan, var eden, şekil veren Allah'tır. En güzel isimler O'nundur. Göklerde ve yerde olanlar O'nun şanını yüceltmektedirler. O, galiptir, hikmet sahibidir."
+ },
+ {
+  "arabic": "الْحَكِيمُ",
+  "translit": "El-Hakîm",
+  "meaning": "Her işi yerli yerinde olan",
+  "surah": 59,
+  "ayah": 24,
+  "surahName": "Haşr",
+  "ayahArabic": "هُوَ ٱللَّهُ ٱلۡخَٰلِقُ ٱلۡبَارِئُ ٱلۡمُصَوِّرُۖ لَهُ ٱلۡأَسۡمَآءُ ٱلۡحُسۡنَىٰۚ يُسَبِّحُ لَهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۖ وَهُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ",
+  "ayahMeal": "O, yaratan, var eden, şekil veren Allah'tır. En güzel isimler O'nundur. Göklerde ve yerde olanlar O'nun şanını yüceltmektedirler. O, galiptir, hikmet sahibidir."
+ },
+ {
+  "arabic": "رَبِّ الْعَالَمِينَ",
+  "translit": "Rabbü'l-Âlemîn",
+  "meaning": "Bütün alemlerin Rabbi",
+  "surah": 1,
+  "ayah": 2,
+  "surahName": "Fâtiha",
+  "ayahArabic": "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ",
+  "ayahMeal": "Hamd (övme ve övülme), alemlerin Rabbi Allah'a mahsustur."
+ },
+ {
+  "arabic": "الْحَيُّ",
+  "translit": "El-Hayy",
+  "meaning": "Diri, hayatın kaynağı",
+  "surah": 2,
+  "ayah": 255,
+  "surahName": "Bakara",
+  "ayahArabic": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
+  "ayahMeal": "Allah, O'ndan başka tanrı yoktur; O, hayydir, kayyumdur. Kendisine ne uyku gelir ne de uyuklama. Göklerde ve yerdekilerin hepsi O'nundur. İzni olmadan O'nun katında kim şefaat edebilir? O, kullarının yaptıklarını ve yapacaklarını bilir. (O'na hiçbir şey gizli kalmaz.) O'nun bildirdiklerinin dışında insanlar O'nun ilminden hiçbir şeyi tam olarak bilemezler. O'nun kürsüsü gökleri ve yeri içine alır, onları koruyup gözetmek kendisine zor gelmez. O, yücedir, büyüktür."
+ },
+ {
+  "arabic": "الْقَيُّومُ",
+  "translit": "El-Kayyûm",
+  "meaning": "Her şeyi ayakta tutan",
+  "surah": 2,
+  "ayah": 255,
+  "surahName": "Bakara",
+  "ayahArabic": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
+  "ayahMeal": "Allah, O'ndan başka tanrı yoktur; O, hayydir, kayyumdur. Kendisine ne uyku gelir ne de uyuklama. Göklerde ve yerdekilerin hepsi O'nundur. İzni olmadan O'nun katında kim şefaat edebilir? O, kullarının yaptıklarını ve yapacaklarını bilir. (O'na hiçbir şey gizli kalmaz.) O'nun bildirdiklerinin dışında insanlar O'nun ilminden hiçbir şeyi tam olarak bilemezler. O'nun kürsüsü gökleri ve yeri içine alır, onları koruyup gözetmek kendisine zor gelmez. O, yücedir, büyüktür."
+ },
+ {
+  "arabic": "الْعَلِيُّ",
+  "translit": "El-Aliyy",
+  "meaning": "Yüce",
+  "surah": 2,
+  "ayah": 255,
+  "surahName": "Bakara",
+  "ayahArabic": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
+  "ayahMeal": "Allah, O'ndan başka tanrı yoktur; O, hayydir, kayyumdur. Kendisine ne uyku gelir ne de uyuklama. Göklerde ve yerdekilerin hepsi O'nundur. İzni olmadan O'nun katında kim şefaat edebilir? O, kullarının yaptıklarını ve yapacaklarını bilir. (O'na hiçbir şey gizli kalmaz.) O'nun bildirdiklerinin dışında insanlar O'nun ilminden hiçbir şeyi tam olarak bilemezler. O'nun kürsüsü gökleri ve yeri içine alır, onları koruyup gözetmek kendisine zor gelmez. O, yücedir, büyüktür."
+ },
+ {
+  "arabic": "الْعَظِيمُ",
+  "translit": "El-Azîm",
+  "meaning": "Büyüklükte eşsiz",
+  "surah": 2,
+  "ayah": 255,
+  "surahName": "Bakara",
+  "ayahArabic": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
+  "ayahMeal": "Allah, O'ndan başka tanrı yoktur; O, hayydir, kayyumdur. Kendisine ne uyku gelir ne de uyuklama. Göklerde ve yerdekilerin hepsi O'nundur. İzni olmadan O'nun katında kim şefaat edebilir? O, kullarının yaptıklarını ve yapacaklarını bilir. (O'na hiçbir şey gizli kalmaz.) O'nun bildirdiklerinin dışında insanlar O'nun ilminden hiçbir şeyi tam olarak bilemezler. O'nun kürsüsü gökleri ve yeri içine alır, onları koruyup gözetmek kendisine zor gelmez. O, yücedir, büyüktür."
+ },
+ {
+  "arabic": "الْأَحَدُ",
+  "translit": "El-Ehad",
+  "meaning": "Bir ve tek",
+  "surah": 112,
+  "ayah": 1,
+  "surahName": "İhlâs",
+  "ayahArabic": "قُلۡ هُوَ ٱللَّهُ أَحَدٌ",
+  "ayahMeal": "De ki: O, Allah birdir."
+ },
+ {
+  "arabic": "الصَّمَدُ",
+  "translit": "Es-Samed",
+  "meaning": "Hiçbir şeye muhtaç olmayan, her şeyin muhtaç olduğu",
+  "surah": 112,
+  "ayah": 2,
+  "surahName": "İhlâs",
+  "ayahArabic": "ٱللَّهُ ٱلصَّمَدُ",
+  "ayahMeal": "Allah sameddir."
+ },
+ {
+  "arabic": "الْحَكِيمُ الْخَبِيرُ",
+  "translit": "El-Habîr",
+  "meaning": "Her şeyden haberdar",
+  "surah": 6,
+  "ayah": 18,
+  "surahName": "En'âm",
+  "ayahArabic": "وَهُوَ ٱلۡقَاهِرُ فَوۡقَ عِبَادِهِۦۚ وَهُوَ ٱلۡحَكِيمُ ٱلۡخَبِيرُ",
+  "ayahMeal": "O, kullarının üstünde her türlü tasarrufa sahiptir. O, hüküm ve hikmet sahibidir, herşeyden haberdardır."
+ },
+ {
+  "arabic": "شَاكِرٌ عَلِيمٌ",
+  "translit": "Eş-Şâkir / El-Alîm",
+  "meaning": "Şükrün karşılığını veren, her şeyi bilen",
+  "surah": 2,
+  "ayah": 158,
+  "surahName": "Bakara",
+  "ayahArabic": "۞إِنَّ ٱلصَّفَا وَٱلۡمَرۡوَةَ مِن شَعَآئِرِ ٱللَّهِۖ فَمَنۡ حَجَّ ٱلۡبَيۡتَ أَوِ ٱعۡتَمَرَ فَلَا جُنَاحَ عَلَيۡهِ أَن يَطَّوَّفَ بِهِمَاۚ وَمَن تَطَوَّعَ خَيۡرٗا فَإِنَّ ٱللَّهَ شَاكِرٌ عَلِيمٌ",
+  "ayahMeal": "Şüphe yok ki, Safa ile Merve Allah'ın koyduğu nişanlardandır. Her kim Beytullah'ı ziyaret eder veya umre yaparsa onları tavaf etmesinde kendisine bir günah yoktur. Her kim gönüllü olarak bir iyilik yaparsa şüphesiz Allah kabul eder ve (yapılanı) hakkıyla bilir."
+ },
+ {
+  "arabic": "الْمَوْلَىٰ",
+  "translit": "El-Mevlâ",
+  "meaning": "Sahip, dost, koruyucu",
+  "surah": 22,
+  "ayah": 78,
+  "surahName": "Hac",
+  "ayahArabic": "وَجَٰهِدُواْ فِي ٱللَّهِ حَقَّ جِهَادِهِۦۚ هُوَ ٱجۡتَبَىٰكُمۡ وَمَا جَعَلَ عَلَيۡكُمۡ فِي ٱلدِّينِ مِنۡ حَرَجٖۚ مِّلَّةَ أَبِيكُمۡ إِبۡرَٰهِيمَۚ هُوَ سَمَّىٰكُمُ ٱلۡمُسۡلِمِينَ مِن قَبۡلُ وَفِي هَٰذَا لِيَكُونَ ٱلرَّسُولُ شَهِيدًا عَلَيۡكُمۡ وَتَكُونُواْ شُهَدَآءَ عَلَى ٱلنَّاسِۚ فَأَقِيمُواْ ٱلصَّلَوٰةَ وَءَاتُواْ ٱلزَّكَوٰةَ وَٱعۡتَصِمُواْ بِٱللَّهِ هُوَ مَوۡلَىٰكُمۡۖ فَنِعۡمَ ٱلۡمَوۡلَىٰ وَنِعۡمَ ٱلنَّصِيرُ",
+  "ayahMeal": "Allah uğrunda, hakkını vererek cihad edin. O, sizi seçti; din hususunda üzerinize hiçbir zorluk yüklemedi; babanız İbrahim'in dininde (de böyleydi). Peygamberin size şahit olması, sizin de insanlara şahit olmanız için, O, gerek daha önce (gelmiş kitaplarda), gerekse bunda (Kur'an'da) size \"müslümanlar\" adını verdi. Öyle ise namazı kılın; zekatı verin ve Allah'a sımsıkı sarılın. O, sizin mevlanızdır. Ne güzel mevladır, ne güzel yardımcıdır!"
+ }
 ]

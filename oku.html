@@ -417,7 +417,8 @@
       </div>
     </div>
     <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
-      <span>Kur'an metni ve Türkçe meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>Kur'an metni: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>Türkçe meal (varsayılan): Diyanet Vakfı (Kur'an Yolu) — <a href="https://tanzil.net/trans/" style="color:var(--muted); text-decoration:underline;">Tanzil.net</a> üzerinden, yalnızca ticari olmayan kullanım şartıyla.</span>
       <span>Tefsir: <a href="https://github.com/spa5k/tafsir_api" style="color:var(--muted); text-decoration:underline;">spa5k/tafsir_api</a> (qul.tarteel.ai üzerinden).</span>
       <span>Ses: <a href="https://everyayah.com" style="color:var(--muted); text-decoration:underline;">EveryAyah.com</a> · Kelime zamanlaması: <a href="https://github.com/cpfair/quran-align" style="color:var(--muted); text-decoration:underline;">cpfair/quran-align</a> (CC BY 4.0).</span>
       <span>© Beyan</span>
@@ -463,10 +464,19 @@
 
   const pad3 = n => String(n).padStart(3, '0');
 
-  /* ---- Meal kaynakları: Diyanet (yerleşik) + Tanzil.net'ten 8 meal (ihtiyaç anında indirilir) ---- */
+  /* ---- Meal kaynakları: Diyanet Vakfı (yerleşik) + Tanzil.net'ten 7 meal (ihtiyaç anında indirilir) ----
+     ÖNEMLİ DÜZELTME (2026-09-10): Bu 'diyanet' seçeneği önceden ayrı bir gömülü veri setine
+     (quran-turkish.json, risan/quran-json projesinden) dayanıyordu ve "Diyanet İşleri Başkanlığı"
+     diye etiketlenmişti — ama bu iddia hiç doğrulanmamıştı. Denetimde şu çıktı: (1) o verinin metni
+     bilinen 8 mealin HİÇBİRİYLE birebir eşleşmiyordu, gerçek yazarı belirsizdi; (2) çok daha ciddisi,
+     6236 ayetin 1413'ünde (%22.7) ardışık ayetlerin çevirisi birbirine karışmış/tekrar etmiş halde
+     bulundu (ör. Nâs sûresinin 6 ayetinin TAMAMI aynı, sûrenin tümünü içeren tek bir paragrafı
+     gösteriyordu). Bu veri artık kullanılmıyor; quran-turkish.json'un içeriği doğrulanmış, düzgün
+     ayet-hizalı Diyanet Vakfı (Kur'an Yolu) mealiyle (meals/vakfi.json, Tanzil.net kaynaklı) TAMAMEN
+     yeniden oluşturuldu — bu yüzden eskiden ayrı görünen 'vakfi' seçeneği kaldırıldı (aynı metni iki
+     farklı isimle göstermek anlamsız olurdu). */
   const MEAL_SOURCES = [
-    { id: 'diyanet',    name: 'Diyanet İşleri Başkanlığı' },
-    { id: 'vakfi',      name: "Diyanet Vakfı (Kur'an Yolu)" },
+    { id: 'diyanet',    name: "Diyanet Vakfı (Kur'an Yolu)" },
     { id: 'yazir',      name: 'Elmalılı Hamdi Yazır' },
     { id: 'ates',       name: 'Süleyman Ateş' },
     { id: 'ozturk',     name: 'Yaşar Nuri Öztürk' },
