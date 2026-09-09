@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İslam Tarihi Haritası — Beyan</title>
+<meta name="description" content="Peygamberlerin Kur'an'da adı geçen yaşadığı yerler, Hz. Muhammed'in hicret rotası ve Hz. Mûsâ'nın çıkış yolculuğu — interaktif bir bölge haritası ve zaman çizelgesi üzerinde, kaynağı ayet mi gelenek mi tarih mi olduğu açıkça belirtilerek.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .kaynak-etiket{display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; padding:5px 12px; border-radius:12px;}
+  .kaynak-etiket.ayet{color:var(--teal); border:1px solid rgba(73,214,196,0.35); background:rgba(73,214,196,0.08);}
+  .kaynak-etiket.gelenek{color:var(--gold-bright); border:1px solid var(--border); background:rgba(217,178,107,0.08);}
+  .kaynak-etiket.tarih{color:var(--emerald); border:1px solid rgba(44,201,143,0.35); background:rgba(44,201,143,0.08);}
+  .kaynak-etiket .dot{width:6px; height:6px; border-radius:50%; background:currentColor;}
+
+  .map-legend{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:22px;}
+
+  .map-container{
+    border:1px solid var(--border-soft); border-radius:16px; background:linear-gradient(155deg, #101B18, #0A1310);
+    padding:18px; backdrop-filter:blur(10px); margin-bottom:22px;
+  }
+  :root[data-theme="light"] .map-container{background:linear-gradient(155deg, var(--void-2), var(--void-3));}
+  .region-map{width:100%; height:auto; display:block; max-height:660px; margin:0 auto;}
+  .map-landmass{fill:var(--glass-strong); stroke:var(--border); stroke-width:1;}
+
+  .map-marker{cursor:pointer;}
+  .map-marker .m-hit{fill:transparent;}
+  .map-marker .m-dot{transition:r .15s; stroke:var(--void); stroke-width:1.5;}
+  .map-marker:hover .m-dot{r:7.5;}
+  .map-marker.kaynak-ayet .m-dot{fill:var(--teal);}
+  .map-marker.kaynak-gelenek .m-dot{fill:var(--gold-bright);}
+  .map-marker.kaynak-tarih .m-dot{fill:var(--emerald);}
+  .map-marker .m-ring{fill:none; stroke-width:2; opacity:0; transform-origin:center; transform-box:fill-box;}
+  .map-marker.active .m-dot{r:8;}
+  .map-marker.active .m-ring{animation:markerPing 1.8s ease-out infinite;}
+  .map-marker.kaynak-ayet .m-ring{stroke:var(--teal);}
+  .map-marker.kaynak-gelenek .m-ring{stroke:var(--gold-bright);}
+  .map-marker.kaynak-tarih .m-ring{stroke:var(--emerald);}
+  @keyframes markerPing{ 0%{transform:scale(1); opacity:0.7;} 100%{transform:scale(3.4); opacity:0;} }
+  .map-marker .m-label-bg{fill:var(--void); opacity:0.88;}
+  .map-marker .m-label{font-size:15px; font-family:'Cormorant Garamond',serif; fill:var(--gold-bright);}
+
+  .map-route path{fill:none; stroke-width:2.5; stroke-dasharray:7 6; opacity:0; transition:opacity .3s;}
+  .map-route.active path{opacity:0.95;}
+  .map-route.active path.r-anim{animation:routeFlow 1.4s linear infinite;}
+  .map-route.kaynak-tarih path{stroke:var(--emerald);}
+  .map-route.kaynak-gelenek path{stroke:var(--gold-bright);}
+  @keyframes routeFlow{ to{stroke-dashoffset:-26;} }
+  .map-route .r-point{fill:var(--text); opacity:0; transition:opacity .3s;}
+  .map-route.active .r-point{opacity:1;}
+
+  .timeline-strip{display:flex; gap:10px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:2px 2px 14px; margin-bottom:26px; scrollbar-width:thin;}
+  .timeline-card{
+    flex-shrink:0; border:1px solid var(--border-soft); border-radius:14px; padding:12px 18px;
+    background:var(--glass); backdrop-filter:blur(8px); cursor:pointer; text-align:left; min-width:150px;
+    transition:border-color .2s, transform .2s;
+  }
+  .timeline-card:hover{border-color:var(--border); transform:translateY(-2px);}
+  .timeline-card.active{border-color:var(--gold); background:rgba(217,178,107,0.08);}
+  .timeline-card .tc-dot{width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:6px;}
+  .timeline-card.kaynak-ayet .tc-dot{background:var(--teal);}
+  .timeline-card.kaynak-gelenek .tc-dot{background:var(--gold-bright);}
+  .timeline-card.kaynak-tarih .tc-dot{background:var(--emerald);}
+  .timeline-card h4{margin:0; font-family:'Cormorant Garamond',serif; font-weight:500; font-size:0.95rem; color:var(--text); white-space:nowrap;}
+  .timeline-card p{margin:4px 0 0; font-size:0.72rem; color:var(--muted-2); white-space:nowrap;}
+
+  .map-detail{border:1px solid var(--border-soft); border-radius:16px; padding:28px 30px; background:var(--glass); backdrop-filter:blur(10px);}
+  .map-detail h3{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.4rem; color:var(--text); margin:0 0 6px;}
+  .map-detail .md-konum{font-size:0.82rem; color:var(--muted-2); margin:0 0 14px;}
+  .map-detail .md-aciklama{color:var(--muted); font-size:0.95rem; line-height:1.8; margin:0 0 18px; max-width:680px;}
+  .md-peygamberler{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;}
+  .md-peygamberler a{
+    font-size:0.78rem; color:var(--gold-bright); text-decoration:none; border:1px solid var(--border);
+    border-radius:14px; padding:5px 12px; transition:background .2s, color .2s;
+  }
+  .md-peygamberler a:hover{background:var(--gold); color:var(--ink);}
+  .md-tarih-notu{font-size:0.82rem; color:var(--muted-2); border-left:2px solid var(--border); padding-left:12px; margin-top:8px;}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="tarih-haritasi.html">Tarih Haritası</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+
+<header class="topic-hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
+    <p class="kicker">Konular</p>
+    <h1 class="section-title" style="max-width:760px;">İnteraktif <span class="grad-word">İslam Tarihi Haritası</span></h1>
+    <p class="section-body" style="max-width:660px;">Peygamberlerin Kur'an'da adı geçen yaşadığı yerler, Hz. Muhammed'in hicret rotası ve Hz. Mûsâ'nın çıkış yolculuğu — bir bölge haritası ve zaman çizelgesi üzerinde.</p>
+  </div>
+</header>
+
+<section style="padding-top:0;">
+  <div class="wrap" style="max-width:900px;">
+
+    <div class="topic-note" style="margin-bottom:28px;">
+      <strong style="color:var(--gold-bright);">Kapsam notu:</strong> Bu haritada Kur'an'da adı geçen <strong style="color:var(--text);">25 peygamberin tamamı değil</strong>, yalnızca Kur'an'ın doğrudan bir yer adı verdiği veya güçlü bir geleneksel coğrafi eşleşmesi bulunan <strong style="color:var(--text);">12 konum ve 2 tarihi rota</strong> gösteriliyor (Âdem, İdris, Eyyûb, İlyâs, Elyesa' ve Zülkifl gibi bazı peygamberler için Kur'an bağımsız bir coğrafi ipucu vermez — bu yüzden haritaya eklenmedi). Her noktanın altındaki renkli etiket kaynağını gösterir: <span class="kaynak-etiket ayet" style="padding:2px 8px;"><span class="dot"></span>Ayet</span> Kur'an'da yer adı açıkça geçiyor, <span class="kaynak-etiket gelenek" style="padding:2px 8px;"><span class="dot"></span>Gelenek</span> geleneksel/tarihi bir eşleştirme (Kur'an kesin yer belirtmez), <span class="kaynak-etiket tarih" style="padding:2px 8px;"><span class="dot"></span>Tarih</span> belgelenmiş gerçek tarih (yalnızca Hz. Muhammed'in hicreti). Peygamberlerin çoğu için <strong style="color:var(--text);">kesin bir tarih (yıl) yoktur</strong> — bu yüzden zaman çizelgesi yıl değil, Kur'an'ın anlattığı geleneksel sıraya göre düzenlendi.
+    </div>
+
+    <div class="map-legend">
+      <span class="kaynak-etiket ayet"><span class="dot"></span>Ayette adı geçen yer</span>
+      <span class="kaynak-etiket gelenek"><span class="dot"></span>Geleneksel eşleştirme</span>
+      <span class="kaynak-etiket tarih"><span class="dot"></span>Belgelenmiş tarih</span>
+    </div>
+
+    <div class="map-container">
+      <svg class="region-map" id="regionMap" viewBox="0 0 800 1018" role="img" aria-label="Ortadoğu, Arabistan ve Mısır bölgesi haritası">
+        <path class="map-landmass" d="M-197.5,1155.1L-225.3,1139.2L-237.8,1128.7L-240.2,1117.4L-234.3,1102.3L-234.4,1087.4L-255.4,1064.7L-259.4,1049.2L-259.0,1040.4L-272.4,1029.7L-272.8,1008.6L-280.4,994.5L-293.2,996.6L-289.5,983.3L-280.1,968.1L-284.3,953.0L-272.3,941.9L-279.9,933.4L-270.3,911.0L-253.7,884.2L-222.3,886.7L-224.1,742.4L-223.7,727.1L-181.8,727.0L-181.8,654.4L-35.6,654.4L105.4,654.4L249.7,654.4L261.5,690.1L253.5,696.7L258.7,734.1L272.1,777.5L285.9,786.5L305.8,799.9L287.4,820.7L260.7,826.7L249.2,837.8L245.6,862.0L229.9,915.4L233.8,929.9L227.9,961.2L213.3,997.0L191.3,1015.0L175.7,1042.8L172.0,1057.6L154.8,1067.8L144.0,1105.8L144.6,1138.5L144.2,1110.2L139.1,1109.5L139.7,1091.4L135.4,1078.9L116.7,1064.6L112.2,1038.3L116.7,1011.5L99.8,1009.0L97.3,1017.1L75.4,1019.0L84.2,1029.6L87.2,1051.4L67.3,1071.4L49.3,1097.6L30.4,1101.4L-0.1,1080.1L-13.8,1087.6L-17.6,1098.2L-36.4,1105.1L-37.5,1112.6L-73.8,1112.6L-78.8,1105.1L-105.0,1103.9L-118.0,1110.1L-128.1,1107.0L-146.8,1085.8L-153.1,1075.8L-179.3,1080.7L-189.3,1097.6L-198.7,1130.1L-211.1,1136.9L-222.3,1140.9L-197.5,1155.1ZM208.0,265.1L201.6,276.5L188.5,271.5L181.0,295.7L190.0,299.8L180.7,304.8L179.1,314.4L196.3,309.4L197.2,323.6L179.0,381.7L175.5,372.3L155.2,319.2L165.6,307.3L163.1,305.2L172.8,288.2L180.2,260.8L185.4,251.6L186.4,251.2L198.6,251.3L201.9,244.9L211.7,244.4L212.2,259.3L207.3,264.8L208.0,265.1ZM211.7,244.4L201.9,244.9L198.6,251.3L186.4,251.2L199.4,221.6L217.5,196.0L218.1,194.7L234.5,196.6L240.4,210.8L220.6,224.5L211.7,244.4ZM196.3,309.4L179.1,314.4L180.7,304.8L190.0,299.8L181.0,295.7L188.5,271.5L201.6,276.5L201.6,298.8L196.3,309.4ZM201.6,276.5L208.0,265.1L248.5,279.5L319.7,240.7L334.4,285.0L327.4,290.5L254.7,308.7L290.9,345.1L278.9,351.3L272.9,363.4L245.1,368.5L236.5,381.6L220.7,392.8L180.2,387.0L179.0,381.7L197.2,323.6L196.3,309.4L201.6,298.8L201.6,276.5ZM784.7,572.8L791.1,571.0L792.6,581.0L821.0,575.3L851.1,576.2L873.1,577.3L897.9,552.7L925.0,529.4L948.1,507.0L954.9,519.4L959.9,548.1L941.3,548.3L938.3,571.9L944.8,576.9L928.3,584.1L928.2,599.0L917.6,614.0L916.7,628.7L909.3,636.4L800.0,618.0L786.1,581.2L784.7,572.8ZM756.7,554.3L754.3,527.8L764.2,508.8L774.1,504.8L785.1,516.2L785.8,537.5L777.8,558.9L767.7,561.5L756.7,554.3ZM653.7,364.5L661.3,380.5L658.0,388.8L669.6,416.2L644.0,417.2L634.9,399.8L602.5,396.3L629.2,361.4L653.7,364.5ZM334.4,285.0L319.7,240.7L400.2,202.9L414.0,158.9L410.6,132.4L430.5,123.4L449.1,100.7L464.6,95.0L507.0,99.8L519.7,109.0L537.2,102.9L560.7,146.2L584.5,157.1L587.3,178.4L569.1,190.9L560.6,219.3L585.9,253.9L630.4,273.8L649.1,301.4L643.1,327.8L654.7,327.8L655.1,347.1L675.1,366.2L653.7,364.5L629.2,361.4L602.5,396.3L534.9,393.4L432.3,320.3L378.2,294.9L334.4,285.0ZM916.7,628.7L917.6,614.0L928.2,599.0L928.3,584.1L944.8,576.9L938.3,571.9L941.3,548.3L959.9,548.1L976.2,572.9L996.5,586.1L1023.1,590.9L1044.7,597.5L1061.1,618.4L1070.9,630.4L1084.0,635.0L1083.8,643.2L1070.6,664.8L1064.9,675.0L1049.5,686.7L1035.9,711.5L1019.4,709.6L1011.8,718.3L1006.1,736.7L1010.5,761.1L1007.1,765.5L990.4,765.4L967.6,779.0L964.1,796.7L955.8,804.4L933.2,804.1L918.9,813.2L919.0,827.9L901.5,838.0L881.5,834.6L857.1,846.8L840.3,848.9L828.4,823.5L800.0,763.5L909.1,727.1L933.3,654.4L916.7,628.7ZM954.9,519.4L948.1,507.0L958.6,494.6L963.1,497.7L959.7,512.8L954.9,519.4ZM675.1,366.2L655.1,347.1L654.7,327.8L643.1,327.8L649.1,301.4L630.4,273.8L585.9,253.9L560.6,219.3L569.1,190.9L587.3,178.4L584.5,157.1L560.7,146.2L537.2,102.9L517.3,73.8L524.5,62.5L513.1,20.8L537.9,10.4L543.7,24.2L562.2,41.0L587.0,45.8L600.3,44.7L643.1,17.9L656.7,15.2L667.4,25.9L655.0,43.8L677.6,62.9L686.7,61.1L698.2,87.9L732.6,95.5L757.9,113.7L809.6,120.0L866.4,110.4L869.9,101.8L901.9,94.8L927.7,74.0L952.0,75.0L968.0,68.3L993.8,71.7L1034.1,90.1L1063.0,94.1L1104.7,126.2L1131.8,127.5L1134.9,158.2L1120.1,203.5L1110.2,229.9L1126.0,235.3L1110.4,255.2L1122.3,284.2L1125.2,307.3L1152.7,313.4L1155.7,336.8L1122.7,369.8L1140.7,388.9L1155.3,410.9L1190.1,426.8L1191.1,458.8L1208.5,464.8L1211.5,481.5L1159.1,500.3L1145.4,542.5L1076.9,531.5L1037.2,523.2L996.3,518.5L980.8,473.9L963.4,467.4L935.4,473.9L898.7,491.5L854.4,479.5L817.6,451.5L782.6,441.2L758.3,406.7L731.4,358.2L711.9,364.1L688.8,352.0L675.1,366.2ZM208.0,265.1L207.3,264.8L212.2,259.3L211.7,244.4L220.6,224.5L240.4,210.8L234.5,196.6L218.1,194.7L214.7,166.9L223.6,151.9L233.3,144.0L243.1,136.0L245.1,115.7L257.0,122.8L297.1,112.6L316.3,119.5L346.3,119.4L388.2,105.8L407.7,106.4L449.1,100.7L430.5,123.4L410.6,132.4L414.0,158.9L400.2,202.9L319.7,240.7L248.5,279.5L208.0,265.1ZM537.2,102.9L519.7,109.0L507.0,99.8L464.6,95.0L449.1,100.7L407.7,106.4L388.2,105.8L346.3,119.4L316.3,119.5L297.1,112.6L257.0,122.8L245.1,115.7L243.1,136.0L233.3,144.0L223.6,151.9L210.3,135.4L224.0,121.8L201.9,124.9L171.4,116.5L146.4,137.4L91.3,141.5L61.8,122.0L22.5,120.8L14.2,135.8L-11.0,140.2L-46.0,120.8L-85.7,121.5L-107.3,85.3L-133.9,65.1L-116.2,36.9L-139.3,19.5L-98.9,-15.3L-42.9,-16.7L-27.6,-44.3L41.7,-39.5L85.4,-63.1L127.8,-73.4L187.9,-74.2L251.4,-48.5L303.6,-34.5L345.9,-40.1L377.2,-36.8L420.1,-55.8L458.9,-57.6L494.0,-39.7L500.1,-26.9L496.6,-9.2L523.7,-0.2L537.9,10.4L513.1,20.8L524.5,62.5L517.3,73.8L537.2,102.9ZM-141.2,-66.4L-104.2,-77.9L-72.9,-73.0L-68.6,-59.0L-36.8,-47.3L-43.4,-38.4L-86.6,-36.3L-102.1,-25.1L-132.4,-5.5L-143.8,-22.5L-143.4,-29.9L-134.8,-34.1L-123.5,-56.8L-141.2,-66.4ZM233.8,929.9L229.9,915.4L245.6,862.0L249.2,837.8L260.7,826.7L287.4,820.7L305.8,799.9L326.9,842.0L337.0,875.4L356.9,893.1L406.5,927.4L426.7,948.1L446.4,969.1L457.8,981.6L475.6,992.6L464.8,1001.4L449.2,998.3L436.7,986.5L421.8,965.2L405.6,953.5L396.3,941.0L364.6,926.4L339.6,926.0L330.8,918.3L309.5,926.9L287.5,910.4L276.1,937.5L233.8,929.9ZM800.0,763.5L828.4,823.5L840.3,848.9L814.0,858.7L807.0,874.8L806.2,887.2L769.9,902.5L711.8,919.5L679.2,945.2L663.2,947.2L652.4,945.0L631.0,960.1L607.8,967.1L577.3,969.0L568.2,971.1L560.2,980.7L550.6,983.3L545.0,992.6L527.1,991.8L515.4,996.7L490.3,994.8L480.9,973.6L481.9,953.7L475.9,943.0L468.8,916.1L458.4,901.2L465.7,899.4L461.9,882.8L466.3,875.8L464.8,859.9L480.6,848.3L476.9,833.0L486.6,815.1L501.6,824.6L511.4,821.3L553.4,820.4L559.9,824.1L595.2,827.8L609.0,825.9L618.2,838.0L635.2,831.9L661.3,793.8L695.2,777.4L800.0,763.5ZM180.2,387.0L220.7,392.8L236.5,381.6L245.1,368.5L272.9,363.4L278.9,351.3L290.9,345.1L254.7,308.7L327.4,290.5L334.4,285.0L378.2,294.9L432.3,320.3L534.9,393.4L602.5,396.3L634.9,399.8L644.0,417.2L669.6,416.2L683.9,447.6L701.8,455.9L708.0,468.6L732.9,484.0L735.0,498.9L731.4,511.0L736.0,523.3L746.5,533.4L751.3,545.4L756.7,554.3L767.7,561.5L777.8,558.9L784.7,572.8L786.1,581.2L800.0,618.0L909.3,636.4L916.7,628.7L933.3,654.4L909.1,727.1L800.0,763.5L695.2,777.4L661.3,793.8L635.2,831.9L618.2,838.0L609.0,825.9L595.2,827.8L559.9,824.1L553.4,820.4L511.4,821.3L501.6,824.6L486.6,815.1L476.9,833.0L480.6,848.3L464.8,859.9L459.9,844.4L449.1,833.5L446.2,819.0L427.5,805.9L408.1,775.5L397.7,745.8L372.6,720.8L356.4,714.8L332.3,680.2L328.1,654.9L329.7,633.4L308.9,593.1L291.8,578.8L272.2,571.3L260.2,550.5L262.1,542.3L252.0,523.5L241.4,515.3L227.3,488.3L205.0,459.0L186.6,434.0L168.4,434.2L174.1,414.2L175.7,401.5L180.2,387.0ZM249.7,654.4L105.4,654.4L-35.6,654.4L-181.8,654.4L-181.8,520.6L-181.8,391.3L-192.7,362.0L-183.4,339.5L-189.0,324.0L-175.8,306.5L-127.5,305.9L-92.4,315.5L-56.4,326.3L-39.5,332.0L-11.5,320.4L3.4,310.0L35.5,307.0L61.4,311.6L71.2,329.6L79.8,317.7L108.8,326.4L137.2,328.4L155.2,319.2L175.5,372.3L179.0,381.7L168.8,396.3L160.9,423.8L151.1,442.7L142.6,449.1L130.4,437.3L114.1,421.1L88.1,369.0L84.3,372.3L99.4,410.7L121.8,447.2L149.3,503.8L162.6,523.6L174.4,544.1L207.0,584.4L199.8,590.7L201.0,614.4L243.3,647.0L249.7,654.4Z"/>
+        <g id="mapRoutes"></g>
+        <g id="mapMarkers"></g>
+      </svg>
+    </div>
+
+    <div class="timeline-strip" id="timelineStrip"></div>
+
+    <div class="map-detail" id="mapDetail">
+      <p style="color:var(--muted-2); font-size:0.9rem;">Yükleniyor…</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="tarih-haritasi.html">Tarih Haritası</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Ayet metni ve meal: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> — CC BY-SA 4.0 lisansı ile.</span>
+      <span>Kıyı/sınır çizgileri: <a href="https://github.com/topojson/world-atlas" style="color:var(--muted); text-decoration:underline;">world-atlas</a> (Natural Earth verisine dayanır, ISC lisansı) — basitleştirilip sitenin kendi renk paletiyle yeniden çizildi.</span>
+      <span>Konum ve rota bilgileri Kur'an ayetlerine ve yaygın kabul gören geleneksel/tarihi coğrafi eşleştirmelere dayanır; her biri sayfada ayrı ayrı etiketlenmiştir.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const ORDER = ['cudi','ahkaf','hicr','kabe','olu_deniz','kenan','misir','medyen','sina','exodus','sebe','kudus','ninova','hicret'];
+  const LABEL_OFFSET = { misir:[14,-12], ahkaf:[-14,-12], sebe:[14,-14] };
+
+  let DATA = null;
+  let currentId = null;
+
+  function kaynakLabel(k){ return k==='ayet' ? 'Ayet' : (k==='tarih' ? 'Tarih' : 'Gelenek'); }
+
+  function findItem(id){
+    const n = DATA.noktalar.find(x => x.id === id);
+    if(n) return { item: n, isRoute: false };
+    const r = DATA.rotalar.find(x => x.id === id);
+    if(r) return { item: r, isRoute: true };
+    return null;
+  }
+
+  function ayahCardHtml(a){
+    return `
+      <div class="ayah-card" style="margin-top:4px;">
+        <p class="ayah-arabic arabic">${a.ar}</p>
+        <p class="ayah-meal">"${a.tr}."</p>
+        <p class="ayah-ref">${a.sure_adi} Sûresi, ${a.ayet_id}. Ayet · <a href="oku.html?sure=${a.sure_id}&ayet=${a.ayet_id}" style="font-size:0.76rem; color:var(--teal); text-decoration:underline;">ayete git →</a></p>
+      </div>
+    `;
+  }
+
+  const PEYGAMBER_ADI = {
+    adem:'Âdem', ibrahim:'İbrâhîm', ismail:'İsmâîl', ishak:'İshâk', yakub:"Ya'kūb",
+    yusuf:'Yûsuf', nuh:'Nûh', hud:'Hûd', salih:'Sâlih', lut:'Lût', suayb:'Şuayb',
+    musa:'Mûsâ', harun:'Hârûn', davud:'Dâvûd', suleyman:'Süleymân', yunus:'Yûnus',
+    zekeriya:'Zekeriyyâ', yahya:'Yahyâ', isa:'Îsâ', muhammed:'Muhammed',
+  };
+  function peygamberLinkleri(ids){
+    return ids.map(id => {
+      const name = PEYGAMBER_ADI[id] || (id.charAt(0).toUpperCase() + id.slice(1));
+      return `<a href="peygamber.html?id=${id}">${name} →</a>`;
+    }).join('');
+  }
+
+  function renderDetail(id){
+    const found = findItem(id);
+    if(!found) return;
+    const { item, isRoute } = found;
+    const panel = document.getElementById('mapDetail');
+    let html = `
+      <span class="kaynak-etiket ${item.kaynak_tipi}" style="margin-bottom:14px;"><span class="dot"></span>${kaynakLabel(item.kaynak_tipi)}</span>
+      <h3>${item.baslik}</h3>
+    `;
+    if(!isRoute){
+      html += `<p class="md-konum">${item.konum_adi}</p>`;
+    }
+    html += `<p class="md-aciklama">${item.aciklama}</p>`;
+    if(item.peygamberler && item.peygamberler.length){
+      html += `<div class="md-peygamberler">${peygamberLinkleri(item.peygamberler)}</div>`;
+    }
+    if(item.ayet){
+      html += ayahCardHtml(item.ayet);
+    }
+    if(item.tarih_notu){
+      html += `<p class="md-tarih-notu">📅 ${item.tarih_notu}</p>`;
+    }
+    panel.innerHTML = html;
+  }
+
+  function selectItem(id){
+    currentId = id;
+    document.querySelectorAll('.map-marker').forEach(el => el.classList.toggle('active', el.dataset.id === id));
+    document.querySelectorAll('.map-route').forEach(el => el.classList.toggle('active', el.dataset.id === id));
+    document.querySelectorAll('.timeline-card').forEach(el => el.classList.toggle('active', el.dataset.id === id));
+    renderDetail(id);
+    renderActiveLabel(id);
+  }
+
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  function svgEl(tag, attrs){
+    const el = document.createElementNS(SVGNS, tag);
+    for(const k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+
+  function renderMarkers(){
+    const g = document.getElementById('mapMarkers');
+    DATA.noktalar.forEach(n => {
+      const group = svgEl('g', { class: `map-marker kaynak-${n.kaynak_tipi}`, 'data-id': n.id });
+      group.appendChild(svgEl('circle', { class:'m-hit', cx:n.x, cy:n.y, r:14 }));
+      group.appendChild(svgEl('circle', { class:'m-ring', cx:n.x, cy:n.y, r:6 }));
+      group.appendChild(svgEl('circle', { class:'m-dot', cx:n.x, cy:n.y, r:5.5 }));
+      const title = svgEl('title', {}); title.textContent = n.baslik;
+      group.appendChild(title);
+      group.addEventListener('click', () => selectItem(n.id));
+      g.appendChild(group);
+    });
+  }
+
+  function renderActiveLabel(id){
+    const g = document.getElementById('mapMarkers');
+    let old = g.querySelector('.m-label-group');
+    if(old) old.remove();
+    const n = DATA.noktalar.find(x => x.id === id);
+    if(!n) return;
+    const [dx, dy] = LABEL_OFFSET[id] || [12, -12];
+    const anchor = dx < 0 ? 'end' : 'start';
+    const lg = svgEl('g', { class:'m-label-group' });
+    const text = svgEl('text', { class:'m-label', x:n.x+dx, y:n.y+dy, 'text-anchor':anchor });
+    text.textContent = n.baslik;
+    lg.appendChild(text);
+    g.appendChild(lg);
+  }
+
+  function routePathD(waypoints){
+    return waypoints.map((p,i) => (i===0?'M':'L') + p.x + ',' + p.y).join('');
+  }
+
+  function renderRoutes(){
+    const g = document.getElementById('mapRoutes');
+    DATA.rotalar.forEach(r => {
+      const group = svgEl('g', { class:`map-route kaynak-${r.kaynak_tipi}`, 'data-id': r.id });
+      const d = routePathD(r.waypoints);
+      group.appendChild(svgEl('path', { class:'r-anim', d }));
+      r.waypoints.forEach((p, i) => {
+        if(i===0 || i===r.waypoints.length-1){
+          group.appendChild(svgEl('circle', { class:'r-point', cx:p.x, cy:p.y, r:4 }));
+        }
+      });
+      group.style.cursor = 'pointer';
+      group.addEventListener('click', () => selectItem(r.id));
+      g.appendChild(group);
+    });
+  }
+
+  function renderTimeline(){
+    const strip = document.getElementById('timelineStrip');
+    strip.innerHTML = ORDER.map(id => {
+      const found = findItem(id);
+      if(!found) return '';
+      const { item } = found;
+      const alt = item.konum_adi || (item.tarih_notu || '');
+      return `
+        <div class="timeline-card kaynak-${item.kaynak_tipi}" data-id="${id}">
+          <h4><span class="tc-dot"></span>${item.baslik}</h4>
+          <p>${alt}</p>
+        </div>
+      `;
+    }).join('');
+    strip.querySelectorAll('.timeline-card').forEach(card => {
+      card.addEventListener('click', () => {
+        selectItem(card.dataset.id);
+        card.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+      });
+    });
+  }
+
+  async function init(){
+    try{
+      DATA = await fetch('data/quran/tarih-haritasi.json').then(r => r.json());
+    }catch(e){
+      document.getElementById('mapDetail').innerHTML = '<p style="color:var(--muted-2);">Veri yüklenemedi — bu sayfayı bir yerel sunucu üzerinden açtığınızdan emin olun.</p>';
+      return;
+    }
+    renderMarkers();
+    renderRoutes();
+    renderTimeline();
+
+    // URL'den ?focus=<id> ile dogrudan bir konuma odaklanma (peygamber.html'den gelen derin baglanti)
+    const params = new URLSearchParams(location.search);
+    const focus = params.get('focus');
+    const initial = (focus && findItem(focus)) ? focus : ORDER[0];
+    selectItem(initial);
+    const card = document.querySelector(`.timeline-card[data-id="${initial}"]`);
+    if(card) card.scrollIntoView({ inline:'center', block:'nearest' });
+  }
+  init();
+</script>
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

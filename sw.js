@@ -12,7 +12,7 @@
 // veriler günlük/canlı kalmalı; (3) basit ve hataya kapalı tutmak, karmaşık
 // çapraz-origin önbellekleme hatalarından kaçınmak için.
 
-const CACHE_NAME = 'beyan-v2';
+const CACHE_NAME = 'beyan-v3';
 
 // "Uygulama iskeleti": ilk kurulumda hemen önbelleğe alınan dosyalar.
 // Kur'an'ın Arapça+Türkçe (Diyanet) metni de dahil edildi ki meal modunda
@@ -39,6 +39,7 @@ const PRECACHE_URLS = [
   'ezberlerim.html',
   'elifba.html',
   'ilmihal.html',
+  'tarih-haritasi.html',
   'manifest.json',
   'assets/css/style.css',
   'assets/icons/icon-192.png',

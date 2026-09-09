@@ -1,0 +1,357 @@
+{
+ "noktalar": [
+  {
+   "id": "kabe",
+   "tur": "nokta",
+   "baslik": "Kâbe / Mekke",
+   "peygamberler": [
+    "ibrahim",
+    "ismail",
+    "muhammed"
+   ],
+   "konum_adi": "Kâbe / Mekke",
+   "lat": 21.4225,
+   "lon": 39.8262,
+   "x": 357.3,
+   "y": 675.4,
+   "kaynak_tipi": "ayet",
+   "aciklama": "İbrâhîm ile oğlu İsmâîl'in yeniden yükselttiği, İslam'ın kıble ve hac merkezi. Hz. Muhammed'in de doğduğu ve peygamberliğinin ilk 13 yılını geçirdiği şehir.",
+   "ayet": {
+    "sure_id": 2,
+    "ayet_id": 127,
+    "sure_adi": "Bakara",
+    "ar": "وَإِذۡ يَرۡفَعُ إِبۡرَٰهِـۧمُ ٱلۡقَوَاعِدَ مِنَ ٱلۡبَيۡتِ وَإِسۡمَٰعِيلُ رَبَّنَا تَقَبَّلۡ مِنَّآۖ إِنَّكَ أَنتَ ٱلسَّمِيعُ ٱلۡعَلِيمُ",
+    "tr": "İbrahim ve İsmail, Kabenin temellerini yükseltiyordu: \"Rabbimiz! Yaptığımızı kabul buyur. Şüphesiz ki, Sen hem işitir hem bilirsin"
+   }
+  },
+  {
+   "id": "cudi",
+   "tur": "nokta",
+   "baslik": "Cûdî Dağı",
+   "peygamberler": [
+    "nuh"
+   ],
+   "konum_adi": "Cûdî Dağı",
+   "lat": 37.33,
+   "lon": 42.28,
+   "x": 446.5,
+   "y": 97.1,
+   "kaynak_tipi": "ayet",
+   "aciklama": "Tufan sona erdiğinde Nûh'un gemisinin üzerine oturduğu bildirilen dağ — günümüzde Türkiye'nin Şırnak ilinde, Irak sınırına yakın bir bölgede kabul edilir.",
+   "ayet": {
+    "sure_id": 11,
+    "ayet_id": 44,
+    "sure_adi": "Hûd",
+    "ar": "وَقِيلَ يَـٰٓأَرۡضُ ٱبۡلَعِي مَآءَكِ وَيَٰسَمَآءُ أَقۡلِعِي وَغِيضَ ٱلۡمَآءُ وَقُضِيَ ٱلۡأَمۡرُ وَٱسۡتَوَتۡ عَلَى ٱلۡجُودِيِّۖ وَقِيلَ بُعۡدٗا لِّلۡقَوۡمِ ٱلظَّـٰلِمِينَ",
+    "tr": "Yere, \"Suyunu çek!\", göğe, \"Ey gök sen de tut!\" denildi. Su çekildi, iş de bitti; gemi Cudi'ye oturdu. \"Haksızlık yapan millet Allah'ın rahmetinden uzak olsun\" denildi"
+   }
+  },
+  {
+   "id": "ahkaf",
+   "tur": "nokta",
+   "baslik": "Ahkāf Bölgesi",
+   "peygamberler": [
+    "hud"
+   ],
+   "konum_adi": "Ahkāf Bölgesi",
+   "lat": 19.0,
+   "lon": 50.5,
+   "x": 745.5,
+   "y": 763.5,
+   "kaynak_tipi": "ayet",
+   "aciklama": "Hûd'un gönderildiği Âd kavminin yaşadığı, kum tepeleriyle kaplı bölge — geleneksel olarak günümüz Yemen-Umman sınırı, Rub'ul-Hâlî çölünün güneydoğu kenarında kabul edilir.",
+   "ayet": {
+    "sure_id": 46,
+    "ayet_id": 21,
+    "sure_adi": "Ahkāf",
+    "ar": "۞وَٱذۡكُرۡ أَخَا عَادٍ إِذۡ أَنذَرَ قَوۡمَهُۥ بِٱلۡأَحۡقَافِ وَقَدۡ خَلَتِ ٱلنُّذُرُ مِنۢ بَيۡنِ يَدَيۡهِ وَمِنۡ خَلۡفِهِۦٓ أَلَّا تَعۡبُدُوٓاْ إِلَّا ٱللَّهَ إِنِّيٓ أَخَافُ عَلَيۡكُمۡ عَذَابَ يَوۡمٍ عَظِيمٖ",
+    "tr": "Ad milletinin kardeşi Hud'u an; ondan önce ve sonra, \"Allah'tan başkasına kulluk etmeyin\" diyen nice uyarıcılar gelip geçmişken, Ahkaf bölgesindeki milletini uyarmış \"Doğrusu sizin için, büyük günün azabından korkuyorum\" demişti"
+   }
+  },
+  {
+   "id": "hicr",
+   "tur": "nokta",
+   "baslik": "Hicr (Medâin Sâlih)",
+   "peygamberler": [
+    "salih"
+   ],
+   "konum_adi": "Hicr (Medâin Sâlih)",
+   "lat": 26.7936,
+   "lon": 37.954,
+   "x": 289.2,
+   "y": 480.1,
+   "kaynak_tipi": "ayet",
+   "aciklama": "Sâlih'in gönderildiği Semûd kavminin kayaları oyarak evler yaptığı yer — bugünkü Suudi Arabistan'da, arkeolojik olarak da doğrulanmış Medâin Sâlih (el-Hicr / Hegra) bölgesi.",
+   "ayet": {
+    "sure_id": 15,
+    "ayet_id": 80,
+    "sure_adi": "Hicr",
+    "ar": "وَلَقَدۡ كَذَّبَ أَصۡحَٰبُ ٱلۡحِجۡرِ ٱلۡمُرۡسَلِينَ",
+    "tr": "And olsun ki, Hicr halkı peygamberi yalanlamışlardı"
+   }
+  },
+  {
+   "id": "misir",
+   "tur": "nokta",
+   "baslik": "Mısır",
+   "peygamberler": [
+    "yusuf",
+    "musa",
+    "harun"
+   ],
+   "konum_adi": "Mısır",
+   "lat": 30.0444,
+   "lon": 31.2357,
+   "x": 44.9,
+   "y": 362.0,
+   "kaynak_tipi": "ayet",
+   "aciklama": "Yûsuf'un vezir olduğu, ailesinin yerleştiği; yıllar sonra Mûsâ'nın Firavun'a karşı mücadele verdiği ülke.",
+   "ayet": {
+    "sure_id": 12,
+    "ayet_id": 99,
+    "sure_adi": "Yûsuf",
+    "ar": "فَلَمَّا دَخَلُواْ عَلَىٰ يُوسُفَ ءَاوَىٰٓ إِلَيۡهِ أَبَوَيۡهِ وَقَالَ ٱدۡخُلُواْ مِصۡرَ إِن شَآءَ ٱللَّهُ ءَامِنِينَ",
+    "tr": "Yusuf'un yanına geldiklerinde, o, anasını babasını bağrına bastı, \"Allah'ın dileğince, güven içinde Mısır'da yerleşin\" dedi"
+   }
+  },
+  {
+   "id": "kenan",
+   "tur": "nokta",
+   "baslik": "Ken'an / Filistin Bölgesi",
+   "peygamberler": [
+    "yakub",
+    "yusuf"
+   ],
+   "konum_adi": "Ken'an / Filistin Bölgesi",
+   "lat": 32.22,
+   "lon": 35.26,
+   "x": 191.3,
+   "y": 282.9,
+   "kaynak_tipi": "gelenek",
+   "aciklama": "Ya'kūb ve ailesinin yaşadığı, Yûsuf'un kardeşleri tarafından satılmadan önce büyüdüğü bölge — Kur'an bu bölgeye özel bir isim vermez, geleneksel olarak günümüz Filistin/İsrail/Ürdün çevresiyle özdeşleştirilir.",
+   "ayet": null
+  },
+  {
+   "id": "olu_deniz",
+   "tur": "nokta",
+   "baslik": "Lût Gölü (Ölü Deniz) Bölgesi",
+   "peygamberler": [
+    "lut"
+   ],
+   "konum_adi": "Lût Gölü (Ölü Deniz) Bölgesi",
+   "lat": 31.5,
+   "lon": 35.47,
+   "x": 198.9,
+   "y": 309.0,
+   "kaynak_tipi": "gelenek",
+   "aciklama": "Lût kavminin (Kur'an'da \"Mü'tefikât\" olarak da anılır) helâk edildiği bölge — geleneksel olarak günümüz Ölü Deniz (Lût Gölü) çevresiyle özdeşleştirilir; Kur'an kesin bir coğrafi isim vermez.",
+   "ayet": null
+  },
+  {
+   "id": "sina",
+   "tur": "nokta",
+   "baslik": "Tûr-i Sînâ",
+   "peygamberler": [
+    "musa"
+   ],
+   "konum_adi": "Tûr-i Sînâ",
+   "lat": 28.5392,
+   "lon": 33.9734,
+   "x": 144.5,
+   "y": 416.7,
+   "kaynak_tipi": "ayet",
+   "aciklama": "Mûsâ'nın ilk vahyi aldığı, Allah'ın kendisiyle konuştuğu kutsal dağ.",
+   "ayet": {
+    "sure_id": 95,
+    "ayet_id": 2,
+    "sure_adi": "Tîn",
+    "ar": "وَطُورِ سِينِينَ",
+    "tr": "And olsun Sina dağına"
+   }
+  },
+  {
+   "id": "medyen",
+   "tur": "nokta",
+   "baslik": "Medyen",
+   "peygamberler": [
+    "musa",
+    "suayb"
+   ],
+   "konum_adi": "Medyen",
+   "lat": 28.47,
+   "lon": 34.98,
+   "x": 181.1,
+   "y": 419.2,
+   "kaynak_tipi": "ayet",
+   "aciklama": "Mûsâ'nın Mısır'dan kaçtıktan sonra sığındığı, kayınpederiyle tanıştığı yer; aynı zamanda Şuayb'ın kendi kavmine gönderildiği bölge.",
+   "ayet": {
+    "sure_id": 28,
+    "ayet_id": 22,
+    "sure_adi": "Kasas",
+    "ar": "وَلَمَّا تَوَجَّهَ تِلۡقَآءَ مَدۡيَنَ قَالَ عَسَىٰ رَبِّيٓ أَن يَهۡدِيَنِي سَوَآءَ ٱلسَّبِيلِ",
+    "tr": "Medyen'e doğru yöneldiğinde: \"Rabbimin bana doğru yolu göstereceğini umarım\" dedi"
+   }
+  },
+  {
+   "id": "ninova",
+   "tur": "nokta",
+   "baslik": "Ninova / Musul Bölgesi",
+   "peygamberler": [
+    "yunus"
+   ],
+   "konum_adi": "Ninova / Musul Bölgesi",
+   "lat": 36.3489,
+   "lon": 43.1189,
+   "x": 477.1,
+   "y": 132.7,
+   "kaynak_tipi": "gelenek",
+   "aciklama": "Yûnus'un gönderildiği \"yüz bin veya daha fazla\" nüfuslu şehir — Kur'an şehrin adını vermez, geleneksel olarak günümüz Irak'ın Musul kentindeki antik Ninova ile özdeşleştirilir; bu kavim, azap gelmeden önce topluca iman edip kurtulan tek örnek olarak anılır.",
+   "ayet": {
+    "sure_id": 37,
+    "ayet_id": 147,
+    "sure_adi": "Sâffât",
+    "ar": "وَأَرۡسَلۡنَٰهُ إِلَىٰ مِاْئَةِ أَلۡفٍ أَوۡ يَزِيدُونَ",
+    "tr": "Onu, yüzbin veya daha çok kişiye peygamber olarak gönderdik"
+   }
+  },
+  {
+   "id": "sebe",
+   "tur": "nokta",
+   "baslik": "Sebe' (Yemen)",
+   "peygamberler": [
+    "suleyman"
+   ],
+   "konum_adi": "Sebe' (Yemen)",
+   "lat": 15.4295,
+   "lon": 45.3416,
+   "x": 557.9,
+   "y": 893.3,
+   "kaynak_tipi": "ayet",
+   "aciklama": "Süleymân'a Hüdhüd kuşunun haber getirdiği, melikesi Belkıs'ın hükmettiği güçlü ve müreffeh krallık.",
+   "ayet": {
+    "sure_id": 27,
+    "ayet_id": 22,
+    "sure_adi": "Neml",
+    "ar": "فَمَكَثَ غَيۡرَ بَعِيدٖ فَقَالَ أَحَطتُ بِمَا لَمۡ تُحِطۡ بِهِۦ وَجِئۡتُكَ مِن سَبَإِۭ بِنَبَإٖ يَقِينٍ",
+    "tr": "Çok geçmeden Hüdhüd gelip Süleyman'a: \"Senin bilmediğin bir şeyi öğrendim. Sana Sebe'den doğru bir haber getirdim. Ora halkına hükmeden, herşeyden kendisine bolca verilen ve büyük bir tahta sahip olan bir kadın buldum; onun ve milletinin Allah'ı bırakıp güneşe secde ettiklerini gördüm. Göklerde ve yerde gizli olanları ortaya koyan, gizlediğiniz ve açıkladığınız şeyleri bilen Allah'a secde etmemeleri için şeytan, kendilerine, yaptıklarını güzel göstermiş, onları doğru yoldan alıkoymuştur. Bunun için, doğru yolu bulamazlar. O çok büyük arşın sahibi olan Allah'tan başka tanrı yoktur\" dedi"
+   }
+  },
+  {
+   "id": "kudus",
+   "tur": "nokta",
+   "baslik": "Kudüs Bölgesi",
+   "peygamberler": [
+    "suleyman",
+    "zekeriya",
+    "yahya",
+    "isa"
+   ],
+   "konum_adi": "Kudüs Bölgesi",
+   "lat": 31.7767,
+   "lon": 35.2345,
+   "x": 190.3,
+   "y": 299.0,
+   "kaynak_tipi": "gelenek",
+   "aciklama": "Süleymân döneminde mabedin inşa edildiği; yüzyıllar sonra Zekeriyyâ, Yahyâ, Meryem ve Îsâ'nın yaşadığı kabul edilen bölge — Kur'an bu olaylar için tek bir şehir ismi vermez.",
+   "ayet": null
+  }
+ ],
+ "rotalar": [
+  {
+   "id": "hicret",
+   "tur": "rota",
+   "baslik": "Hicret Rotası: Mekke → Medine",
+   "peygamberler": [
+    "muhammed"
+   ],
+   "waypoints": [
+    {
+     "lat": 21.4225,
+     "lon": 39.8262,
+     "x": 357.3,
+     "y": 675.4
+    },
+    {
+     "lat": 21.29,
+     "lon": 39.87,
+     "x": 358.9,
+     "y": 680.2
+    },
+    {
+     "lat": 22.7,
+     "lon": 39.15,
+     "x": 332.7,
+     "y": 629.0
+    },
+    {
+     "lat": 23.6,
+     "lon": 39.3,
+     "x": 338.2,
+     "y": 596.3
+    },
+    {
+     "lat": 24.4672,
+     "lon": 39.6111,
+     "x": 349.5,
+     "y": 564.7
+    }
+   ],
+   "kaynak_tipi": "tarih",
+   "aciklama": "Hz. Muhammed'in Mekkeli müşriklerin baskısı üzerine Ebû Bekir ile birlikte önce Sevr Mağarası'na sığındığı, ardından batı Arabistan kıyı güzergâhını izleyerek Medine'ye ulaştığı yolculuk. İslam takviminin (Hicrî) başlangıcı kabul edilir.",
+   "ayet": {
+    "sure_id": 9,
+    "ayet_id": 40,
+    "sure_adi": "Tevbe",
+    "ar": "إِلَّا تَنصُرُوهُ فَقَدۡ نَصَرَهُ ٱللَّهُ إِذۡ أَخۡرَجَهُ ٱلَّذِينَ كَفَرُواْ ثَانِيَ ٱثۡنَيۡنِ إِذۡ هُمَا فِي ٱلۡغَارِ إِذۡ يَقُولُ لِصَٰحِبِهِۦ لَا تَحۡزَنۡ إِنَّ ٱللَّهَ مَعَنَاۖ فَأَنزَلَ ٱللَّهُ سَكِينَتَهُۥ عَلَيۡهِ وَأَيَّدَهُۥ بِجُنُودٖ لَّمۡ تَرَوۡهَا وَجَعَلَ كَلِمَةَ ٱلَّذِينَ كَفَرُواْ ٱلسُّفۡلَىٰۗ وَكَلِمَةُ ٱللَّهِ هِيَ ٱلۡعُلۡيَاۗ وَٱللَّهُ عَزِيزٌ حَكِيمٌ",
+    "tr": "Ona (Muhammed'e) yardım etmezseniz, bilin ki, inkar edenler onu Mekke'den çıkardıklarında mağarada bulunan iki kişiden biri olarak Allah ona yardım etmişti. Arkadaşına (Ebu Bekir'e) \"Üzülme, Allah bizimledir\" diyordu; Allah da ona güven vermiş, görmediğiniz askerlerle onu desteklemiş, inkar edenlerin sözünü alçaltmıştı. Ancak Allah'ın sözü yücedir. Allah güçlüdür, hakimdir"
+   },
+   "tarih_notu": "622 (Hicrî 1. yıl, Rebîülevvel ayı)"
+  },
+  {
+   "id": "exodus",
+   "tur": "rota",
+   "baslik": "Çıkış Rotası: Mısır → Sînâ",
+   "peygamberler": [
+    "musa"
+   ],
+   "waypoints": [
+    {
+     "lat": 30.0444,
+     "lon": 31.2357,
+     "x": 44.9,
+     "y": 362.0
+    },
+    {
+     "lat": 29.95,
+     "lon": 32.55,
+     "x": 92.7,
+     "y": 365.4
+    },
+    {
+     "lat": 28.5392,
+     "lon": 33.9734,
+     "x": 144.5,
+     "y": 416.7
+    }
+   ],
+   "kaynak_tipi": "gelenek",
+   "aciklama": "Mûsâ'nın İsrailoğulları'yla birlikte Mısır'dan çıkışı; Kur'an denizin asayla vurulup ikiye ayrılmasını anlatır, ama tam coğrafi güzergâh (Kızıldeniz'in hangi noktadan geçildiği) Kur'an'da belirtilmez — burada gösterilen rota geleneksel/tahmini bir çizimdir.",
+   "ayet": {
+    "sure_id": 26,
+    "ayet_id": 63,
+    "sure_adi": "Şuarâ",
+    "ar": "فَأَوۡحَيۡنَآ إِلَىٰ مُوسَىٰٓ أَنِ ٱضۡرِب بِّعَصَاكَ ٱلۡبَحۡرَۖ فَٱنفَلَقَ فَكَانَ كُلُّ فِرۡقٖ كَٱلطَّوۡدِ ٱلۡعَظِيمِ",
+    "tr": "Bunun üzerine Biz Musa'ya: \"Değneğinle denize vur\" diye vahyettik. Hemen deniz ikiye ayrıldı, her parçası yüce bir dağ gibiydi"
+   },
+   "tarih_notu": null
+  }
+ ],
+ "projeksiyon": {
+  "lon_min": 30.0,
+  "lon_max": 52.0,
+  "lat_min": 12.0,
+  "lat_max": 40.0,
+  "vb_w": 800.0,
+  "vb_h": 1018.0
+ }
+}

@@ -67,7 +67,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="oku.html">Kur'an'ı Oku</a></li>
-      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="tarih-haritasi.html">Tarih Haritası</a></li>
       <li><a href="index.html#ezber">Ezber Çalışması</a></li>
       <li><a href="index.html#konular">Konular</a></li>
       <li><a href="index.html#sosyal">Sosyal alan</a></li>
@@ -125,6 +125,10 @@
       <div class="prophet-section" id="pNotSection" hidden>
         <div class="other-figures-note" id="pNot"></div>
       </div>
+
+      <div class="prophet-section" id="pMapSection" hidden>
+        <a class="btn-ghost-sm" id="pMapLink" href="#" style="text-decoration:none;">🗺️ Bu peygamberi haritada gör →</a>
+      </div>
     </div>
 
     <div class="prophet-picker">
@@ -156,7 +160,7 @@
         </div>
         <div class="footer-col">
           <h4>Kaynaklar</h4>
-          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="tarih-haritasi.html">Tarih Haritası</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
         </div>
       </div>
     </div>
@@ -286,6 +290,17 @@
     }
     renderProphet(p, isOther);
     buildPickerAndNav(id, isOther);
+
+    // Bu peygamberin Tarih Haritası'nda bir karşılığı var mı? (nokta veya rota)
+    try{
+      const mapData = await fetch('data/quran/tarih-haritasi.json').then(r => r.json());
+      const allEntries = [...mapData.noktalar, ...mapData.rotalar];
+      const match = allEntries.find(e => e.peygamberler && e.peygamberler.includes(id));
+      if(match){
+        document.getElementById('pMapLink').href = `tarih-haritasi.html?focus=${match.id}`;
+        document.getElementById('pMapSection').hidden = false;
+      }
+    }catch(e){ /* harita verisi olmadan da sayfa sorunsuz çalışır */ }
   }
   init();
 </script>
