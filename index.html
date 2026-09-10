@@ -136,6 +136,29 @@
   </header>
 </div>
 
+<!-- ---- Keşfet Akışı ----
+     Kullanıcı isteğiyle sayfanın EN ÜSTÜNE (splash bitince ilk görülen bölüm)
+     eklendi, altındaki her şey (Günlük Bülten, marquee, İhtiyaç bölümü, vs.)
+     AYNEN kalıyor. Amaç: hıfız/namaz odaklı olmayan, "meraktan bir kere bakıp
+     çıkan" kullanıcı için düşük eforlu, tek sürekli kaydırılan bir akış —
+     Instagram/TikTok'a alışkın bir kullanıcının hiç düşünmeden yapacağı tek
+     hareket: aşağı kaydır. HİÇBİR YENİ VERİ ÜRETİLMEDİ — zaten doğrulanmış
+     olan havuzları (ihtiyaç ayetleri, biliyor muydunuz, peygamberler, haberler,
+     kök kelimeler) karıştırıp tek şeritte sunan bir SUNUM katmanı. Günlük
+     SABİT bir set (gün tohumlu karışık sıra, sonsuz kaydırma DEĞİL) — bitince
+     dürüstçe "yarın yeni kartlar" mesajı çıkar (bkz. aşağıdaki JS). -->
+<section class="kesfet-akisi" id="kesfetAkisi">
+  <div class="wrap">
+    <p class="kicker reveal">Bugün ne var?</p>
+    <h2 class="section-title reveal">Keşfet</h2>
+    <p class="section-body reveal" style="margin-bottom:32px;">Ayetler, ilginç bilgiler, peygamber kıssaları ve haberler — kaydırarak keşfedin, hiçbir yükümlülük yok.</p>
+    <div class="kesfet-feed" id="kesfetFeed">
+      <p style="color:var(--muted);">Yükleniyor…</p>
+    </div>
+    <p class="kesfet-end" id="kesfetEnd" hidden>🌙 Bugünlük bu kadar. Yarın yeni kartlar seni bekliyor.</p>
+  </div>
+</section>
+
 <!-- ---- Günlük Bülten ----
      Nav ile peygamber-isimleri şeridi (.marquee-band) arasına, kullanıcının
      isteğiyle yerleştirilen, her gün otomatik güncellenen küçük bülten kartı.
@@ -982,6 +1005,124 @@
       el.textContent = 'Henüz bugün okumadınız — okumaya başlayın →';
     }
   })();
+
+  /* ==== Keşfet Akışı: sayfanın en üstündeki, gün-tohumlu karışık kart şeridi ====
+     HİÇBİR YENİ VERİ YOK — sadece 5 zaten-doğrulanmış havuzu (ihtiyaç ayetleri,
+     biliyor muydunuz, peygamberler, haberler, kök kelimeler) karıştırıp tek
+     şeritte sunuyor. Günlük SABİT ~16 kartlık bir set — sonsuz kaydırma değil,
+     bugün kim girerse aynı seti görür (günün ayeti ile aynı disiplin), yarın
+     hepsi değişir. */
+  function seededShuffle(arr, seed){
+    const a = arr.slice();
+    let s = seed || 1;
+    function rand(){ s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; }
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(rand() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function pickN(pool, n, seed){
+    return seededShuffle(pool.map((_, i) => i), seed).slice(0, Math.min(n, pool.length)).map(i => pool[i]);
+  }
+  function interleaveGroups(groups, seed){
+    const order = seededShuffle(groups.map((_, i) => i), seed);
+    const ptr = new Array(groups.length).fill(0);
+    const result = [];
+    let remaining = groups.reduce((s, g) => s + g.length, 0);
+    while(remaining > 0){
+      for(const gi of order){
+        if(ptr[gi] < groups[gi].length){
+          result.push(groups[gi][ptr[gi]]);
+          ptr[gi]++;
+          remaining--;
+        }
+      }
+    }
+    return result;
+  }
+  function stripHtml(s){ return (s || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(); }
+  function truncate(s, n){ return s.length > n ? s.slice(0, n).trim() + '…' : s; }
+
+  async function initKesfetAkisi(){
+    const feedEl = document.getElementById('kesfetFeed');
+    if(!feedEl) return;
+    try{
+      const [ar, tr, ihtiyac, peygamberler, haberlerData] = await Promise.all([
+        fetch('data/quran/quran-arabic.json').then(r => r.json()),
+        fetch('data/quran/quran-turkish.json').then(r => r.json()),
+        fetch('data/quran/ihtiyaclar.json').then(r => r.json()),
+        fetch('data/quran/peygamberler.json').then(r => r.json()),
+        fetch('data/haberler.json').then(r => r.json()),
+      ]);
+
+      function surahName(sureId){ const s = ar.find(x => x.id === sureId); return s ? (s.transliteration || s.name) : ''; }
+      function ayahText(sureId, ayetId){ const s = ar.find(x => x.id === sureId); const v = s && s.verses.find(x => x.id === ayetId); return v ? v.text : ''; }
+      function ayahMeal(sureId, ayetId){ const s = tr.find(x => x.id === sureId); const v = s && s.verses.find(x => x.id === ayetId); return v ? v.translation : ''; }
+      function rangeText(fn, sureId, bas, son){ const parts = []; for(let a = bas; a <= son; a++) parts.push(fn(sureId, a)); return parts.join(' '); }
+
+      // 1) Ayet kartları — ihtiyaclar.json'daki 50 girdiden, o gün Günlük Bülten'in
+      // zaten gösterdiği "Günün Ayeti"yle AYNI olmasın diye farklı bir tohum kullanılıyor.
+      const ayetler = pickN(ihtiyac.ayetler, 4, dayOfYear * 7 + 3);
+      const ayetCards = ayetler.map(e => {
+        const ref = e.ayet_bas === e.ayet_son ? `${surahName(e.sure_id)} Sûresi, ${e.ayet_bas}. Ayet` : `${surahName(e.sure_id)} Sûresi, ${e.ayet_bas}-${e.ayet_son}. Ayetler`;
+        const arabic = rangeText(ayahText, e.sure_id, e.ayet_bas, e.ayet_son);
+        const meal = rangeText(ayahMeal, e.sure_id, e.ayet_bas, e.ayet_son);
+        return `<article class="kesfet-card kesfet-ayet">
+          <span class="kesfet-tag">📖 Ayet</span>
+          <p class="ayah-arabic arabic" style="font-size:1.05rem;">${arabic}</p>
+          <p class="ayah-meal" style="font-size:0.92rem;">"${meal}"</p>
+          <div class="kesfet-foot">
+            <span class="kesfet-ref">${ref}</span>
+            <a class="kesfet-cta" href="oku.html?sure=${e.sure_id}&ayet=${e.ayet_bas}">Bu ayetten oku →</a>
+          </div>
+        </article>`;
+      });
+
+      // 2) Biliyor muydun kartları — QURAN_TRIVIA'dan, Bülten'inkinden farklı bir ofsetle.
+      const triviaIdx = pickN(QURAN_TRIVIA.map((_, i) => i), 3, dayOfYear * 11 + 5);
+      const triviaCards = triviaIdx.map(i => `<article class="kesfet-card kesfet-trivia">
+        <span class="kesfet-tag">💡 Biliyor muydun?</span>
+        <p class="kesfet-text">${QURAN_TRIVIA[i]}</p>
+      </article>`);
+
+      // 3) Peygamber keşfi kartları
+      const allProphets = peygamberler.peygamberler || [];
+      const chosenProphets = pickN(allProphets, 3, dayOfYear * 13 + 9);
+      const prophetCards = chosenProphets.map(p => `<article class="kesfet-card kesfet-peygamber">
+        <span class="kesfet-tag">🕊️ Peygamber Keşfi</span>
+        <p class="kesfet-baslik">${p.isim} <span class="kesfet-baslik-sub">(${p.unvan || ''})</span></p>
+        <p class="kesfet-text">${truncate(stripHtml(p.giris), 140)}</p>
+        <a class="kesfet-cta" href="peygamber.html?id=${p.id}">Kıssayı oku →</a>
+      </article>`);
+
+      // 4) Haber kartları
+      const chosenNews = pickN(haberlerData.haberler || [], 3, dayOfYear * 17 + 1);
+      const newsCards = chosenNews.map(h => `<article class="kesfet-card kesfet-haber">
+        <span class="kesfet-tag">🕌 İslam Dünyasından</span>
+        <p class="kesfet-baslik">${h.baslik}</p>
+        <p class="kesfet-text">${truncate(h.ozet, 130)}</p>
+        <a class="kesfet-cta" href="haberler.html">Devamını oku →</a>
+      </article>`);
+
+      // 5) Kök/kelime kartları — ihtiyaclar.json'daki 10 kategori kökünden.
+      const chosenRoots = pickN(ihtiyac.kategoriler, 3, dayOfYear * 19 + 4);
+      const rootCards = chosenRoots.map(k => `<article class="kesfet-card kesfet-kok">
+        <span class="kesfet-tag">🔤 Bugünün Kelimesi</span>
+        <p class="kesfet-baslik"><span class="arabic">${k.kok.ar}</span> — ${k.kok.tr}</p>
+        <p class="kesfet-text">${k.kok.sayi}. ${k.ikon} ${k.ad} ile ilgili ayetlere göz atın.</p>
+        <a class="kesfet-cta" href="ihtiyac.html?tur=${k.id}">${k.ad} ayetlerini gör →</a>
+      </article>`);
+
+      const merged = interleaveGroups([ayetCards, triviaCards, prophetCards, newsCards, rootCards], dayOfYear * 23 + 7);
+      feedEl.innerHTML = merged.join('');
+      document.getElementById('kesfetEnd').hidden = false;
+    }catch(err){
+      feedEl.innerHTML = '<p style="color:var(--muted);">Akış yüklenemedi — bu sayfayı bir yerel sunucu üzerinden açtığınızdan emin olun.</p>';
+      console.info('Keşfet Akışı yüklenemedi:', err.message);
+    }
+  }
+  initKesfetAkisi();
 
   /* ---- Notlarım: localStorage tabanlı kalıcı not defteri ---- */
   const NOTES_KEY = 'beyan-notes-v1';

@@ -540,6 +540,24 @@
   .ihtiyac-tefsir-label{color:var(--gold-bright); font-size:0.8rem; margin-bottom:8px;}
   .ihtiyac-loading{color:var(--muted-2); font-size:0.85rem;}
 
+  /* ---------- Keşfet Akışı (ana sayfanın en üstü) ---------- */
+  .kesfet-akisi{position:relative; z-index:3; background:var(--void-3); border-bottom:1px solid var(--border-soft); padding:56px 0 48px;}
+  .kesfet-feed{display:flex; flex-direction:column; gap:16px; max-width:620px; margin:0 auto;}
+  .kesfet-card{background:var(--glass); border:1px solid var(--border-soft); border-left:3px solid var(--gold); border-radius:12px; padding:20px 22px;}
+  .kesfet-card.kesfet-trivia{border-left-color:var(--teal);}
+  .kesfet-card.kesfet-peygamber{border-left-color:var(--emerald);}
+  .kesfet-card.kesfet-haber{border-left-color:var(--plum);}
+  .kesfet-card.kesfet-kok{border-left-color:var(--gold-bright);}
+  .kesfet-tag{display:inline-block; font-size:0.72rem; color:var(--muted-2); margin-bottom:12px; letter-spacing:0.02em;}
+  .kesfet-baslik{font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:var(--text); margin:0 0 8px;}
+  .kesfet-baslik-sub{font-size:0.82rem; color:var(--muted-2); font-family:'Work Sans', sans-serif;}
+  .kesfet-text{font-size:0.9rem; color:var(--muted); line-height:1.65; margin:0 0 12px;}
+  .kesfet-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:12px; padding-top:12px; border-top:1px solid var(--border-soft);}
+  .kesfet-ref{font-size:0.76rem; color:var(--muted-2);}
+  .kesfet-cta{font-size:0.82rem; color:var(--teal); text-decoration:none; white-space:nowrap;}
+  .kesfet-cta:hover{color:var(--gold-bright);}
+  .kesfet-end{text-align:center; color:var(--muted-2); font-size:0.86rem; margin:28px auto 0; max-width:620px;}
+
   /* ---------- Günlük Bülten (nav ile peygamber isimleri şeridi arasında) ----------
      Eskiden bu alanda ayrı, tek satırlık bir "günün ayeti" şeridi (.votd-band) vardı —
      artık onun yerini, 4 bölümlü daha zengin bir günlük bülten kartı alıyor. */
