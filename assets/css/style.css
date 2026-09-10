@@ -162,9 +162,10 @@
 
   @media (max-width:640px){
     .nav .wrap{gap:10px;}
-    .brand-name{display:none;}
+    .brand{display:none;}
     .nav-topics-scroll{display:none;}
     #loginBtn{display:none;}
+    .nav-btns{margin-left:auto;}
     .nav-btns .btn-nav-fill{padding:9px 13px; font-size:0.78rem;}
     .hamburger-btn{display:flex;}
   }
