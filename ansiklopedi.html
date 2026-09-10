@@ -16,6 +16,7 @@
   }catch(e){}
 })();
 </script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>İslam Ansiklopedisi — Beyan</title>
 <meta name="description" content="Bir İslami terimi arayın: Vikipedi'den özet doğrudan burada, TDV İslam Ansiklopedisi'ne doğrudan bağlantı.">
@@ -63,6 +64,10 @@
 
 <nav class="nav">
   <div class="wrap">
+    <button class="hamburger-btn" id="hamburgerBtn" type="button" aria-label="Menü" aria-expanded="false" aria-controls="mobileMenu">
+      <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
     <a class="brand" href="index.html">
       <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
       <span class="brand-name">Beyan</span>
@@ -83,6 +88,17 @@
     </div>
   </div>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a class="mobile-menu-link" href="oku.html">Kur'an'ı Oku</a>
+  <a class="mobile-menu-link" href="elifba.html">Elif-Bâ</a>
+  <a class="mobile-menu-link" href="ilmihal.html">İlmihal</a>
+  <a class="mobile-menu-link" href="tarih-haritasi.html">Tarih Haritası</a>
+  <a class="mobile-menu-link" href="index.html#ezber">Ezber Çalışması</a>
+  <a class="mobile-menu-link" href="index.html#konular">Konular</a>
+  <a class="mobile-menu-link" href="index.html#sosyal">Sosyal alan</a>
+</div>
+
 
 <header class="topic-hero" style="padding-bottom:20px;">
   <div class="wrap">
@@ -141,7 +157,7 @@
         </div>
         <div class="footer-col">
           <h4>Kaynaklar</h4>
-          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="tarih-haritasi.html">Tarih Haritası</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="haberler.html">İslam Dünyasından</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="tarih-haritasi.html">Tarih Haritası</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="haberler.html">İslam Dünyasından</a></li><li><a href="ihtiyac.html">İhtiyaca Göre Oku</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
         </div>
       </div>
     </div>
@@ -263,6 +279,28 @@
   });
 })();
 </script>
+<script>
+(function(){
+  var btn = document.getElementById('hamburgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  if(!btn || !menu) return;
+  function closeMenu(){
+    btn.classList.remove('open');
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('mobile-menu-open');
+  }
+  btn.addEventListener('click', function(){
+    var opening = !menu.classList.contains('open');
+    btn.classList.toggle('open', opening);
+    menu.classList.toggle('open', opening);
+    btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    document.body.classList.toggle('mobile-menu-open', opening);
+  });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+})();
+</script>
+
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });

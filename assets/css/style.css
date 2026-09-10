@@ -114,6 +114,15 @@
   }
   .nav-topics-scroll::-webkit-scrollbar{display:none;}
   .nav-topics-scroll .topics-track{display:flex; gap:10px; width:max-content;}
+  /* ---- diğer 18 sayfanın basit üst menüsü (nav-links) ----
+     Bu sınıfın ŞİMDİYE KADAR hiç CSS'i yoktu — tarayıcı varsayılanıyla (madde
+     imi + alt çizgili linkler, dikey blok) render oluyordu; masaüstünde de,
+     mobilde de bozuk görünüyordu (2026-09-10'da kullanıcı ekran görüntüsüyle
+     bildirdi). Artık .footer-col ul ile aynı sade desen: madde imi yok, yatay
+     satır, alt çizgisiz linkler. */
+  .nav-links{list-style:none; margin:0; padding:0; flex:1; min-width:0; display:flex; align-items:center; gap:20px; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); text-decoration:none; font-size:0.88rem; white-space:nowrap; transition:color .2s;}
+  .nav-links a:hover{color:var(--gold-bright);}
   .nav-btns{display:flex; align-items:center; gap:10px; flex-shrink:0;}
   .btn-nav-fill{
     padding:9px 18px; background:var(--text); color:var(--void); text-decoration:none;
@@ -138,7 +147,7 @@
   :root[data-theme="light"] .theme-toggle .icon-sun{display:block;}
   :root[data-theme="light"] .theme-toggle .icon-moon{display:none;}
 
-  /* ---- mobil hamburger menü (sadece index.html'de, dar ekranlarda) ---- */
+  /* ---- mobil hamburger menü (tüm sayfalarda, dar ekranlarda) ---- */
   .hamburger-btn{
     display:none; align-items:center; justify-content:center; width:38px; height:38px;
     border:1px solid var(--border-soft); border-radius:50%; background:none; color:var(--muted);
@@ -164,6 +173,7 @@
     .nav .wrap{gap:10px;}
     .brand{display:none;}
     .nav-topics-scroll{display:none;}
+    .nav-links{display:none;}
     #loginBtn{display:none;}
     .nav-btns{margin-left:auto;}
     .nav-btns .btn-nav-fill{padding:9px 13px; font-size:0.78rem;}
@@ -487,6 +497,48 @@
   .haber-ozet{font-size:0.9rem; color:var(--muted); line-height:1.65; margin:0;}
   .haber-kaynak-link{font-size:0.82rem; color:var(--gold-bright); text-decoration:none; margin-top:auto; padding-top:8px;}
   .haber-kaynak-link:hover{text-decoration:underline;}
+
+  /* ---------- ihtiyac.html: "Bugün ne okumak istersin?" tema seçici ---------- */
+  .ihtiyac-grid{display:grid; grid-template-columns:repeat(5, 1fr); gap:14px; margin-bottom:8px;}
+  @media (max-width:760px){ .ihtiyac-grid{grid-template-columns:repeat(3, 1fr);} }
+  @media (max-width:480px){ .ihtiyac-grid{grid-template-columns:repeat(2, 1fr);} }
+  .ihtiyac-card{
+    display:flex; flex-direction:column; align-items:center; gap:8px; padding:20px 10px;
+    background:var(--glass); border:1px solid var(--border-soft); border-radius:14px;
+    color:var(--muted); cursor:pointer; font-family:inherit; text-decoration:none;
+    transition:border-color .2s, color .2s, transform .2s;
+  }
+  .ihtiyac-card:hover{border-color:var(--gold); color:var(--gold-bright); transform:translateY(-3px);}
+  .ihtiyac-card.active{border-color:var(--gold); background:rgba(217,178,107,0.08); color:var(--gold-bright);}
+  .ihtiyac-ikon{font-size:1.6rem;}
+  .ihtiyac-ad{font-size:0.85rem; text-align:center;}
+
+  .ihtiyac-kok-box{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:32px 0 24px;
+    padding:14px 20px; border:1px solid var(--border); border-radius:12px; background:rgba(217,178,107,0.06);
+    font-size:0.86rem;
+  }
+  .ihtiyac-kok-label{color:var(--muted);}
+  .ihtiyac-kok-ar{font-family:'Amiri', serif; direction:rtl; font-size:1.1rem; color:var(--gold-bright);}
+  .ihtiyac-kok-tr{color:var(--muted);}
+
+  .ihtiyac-count{color:var(--muted-2); font-size:0.82rem; margin-bottom:16px;}
+  .ihtiyac-ayah-card{position:relative;}
+  .ihtiyac-today-badge{
+    display:inline-block; font-size:0.72rem; color:var(--gold-bright); border:1px solid var(--border);
+    background:rgba(217,178,107,0.08); padding:4px 10px; border-radius:12px; margin-bottom:12px;
+  }
+  .ihtiyac-toggles{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;}
+  .ihtiyac-toggle-btn{
+    font-size:0.8rem; color:var(--teal); background:none; border:1px solid rgba(73,214,196,0.3);
+    padding:6px 14px; border-radius:14px; cursor:pointer; font-family:inherit; transition:border-color .2s, background .2s;
+  }
+  .ihtiyac-toggle-btn:hover{border-color:var(--teal); background:rgba(73,214,196,0.08);}
+  .ihtiyac-panel{margin-top:14px; padding-top:14px; border-top:1px solid var(--border-soft); font-size:0.88rem; color:var(--muted); line-height:1.7;}
+  .ihtiyac-meal-row{margin-bottom:10px;}
+  .ihtiyac-meal-row strong{color:var(--text);}
+  .ihtiyac-tefsir-label{color:var(--gold-bright); font-size:0.8rem; margin-bottom:8px;}
+  .ihtiyac-loading{color:var(--muted-2); font-size:0.85rem;}
 
   /* ---------- Günlük Bülten (nav ile peygamber isimleri şeridi arasında) ----------
      Eskiden bu alanda ayrı, tek satırlık bir "günün ayeti" şeridi (.votd-band) vardı —

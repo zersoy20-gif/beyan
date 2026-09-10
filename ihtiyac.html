@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050906">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script>
+(function(){
+  try{
+    if (localStorage.getItem('beyan-theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }catch(e){}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Bugün Ne Okumak İstersin? — Beyan</title>
+<meta name="description" id="pageDesc" content="İhtiyacınıza göre Kur'an'dan ayetler: sabır, şükür, dua, rızık, aile, adalet, huzur, tevbe, zor zaman ve bilgi temalı ayetler, farklı mealler ve tefsirlerle bir arada.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <button class="hamburger-btn" id="hamburgerBtn" type="button" aria-label="Menü" aria-expanded="false" aria-controls="mobileMenu">
+      <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+      <span class="brand-name">Beyan</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="oku.html">Kur'an'ı Oku</a></li>
+      <li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="tarih-haritasi.html">Tarih Haritası</a></li>
+      <li><a href="index.html#ezber">Ezber Çalışması</a></li>
+      <li><a href="index.html#konular">Konular</a></li>
+      <li><a href="index.html#sosyal">Sosyal alan</a></li>
+    </ul>
+    <div class="nav-btns">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Açık/koyu temayı değiştir" title="Açık/koyu tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a class="btn-nav-fill" href="index.html">Ana sayfa</a>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a class="mobile-menu-link" href="oku.html">Kur'an'ı Oku</a>
+  <a class="mobile-menu-link" href="elifba.html">Elif-Bâ</a>
+  <a class="mobile-menu-link" href="ilmihal.html">İlmihal</a>
+  <a class="mobile-menu-link" href="tarih-haritasi.html">Tarih Haritası</a>
+  <a class="mobile-menu-link" href="index.html#ezber">Ezber Çalışması</a>
+  <a class="mobile-menu-link" href="index.html#konular">Konular</a>
+  <a class="mobile-menu-link" href="index.html#sosyal">Sosyal alan</a>
+</div>
+
+<header class="topic-hero">
+  <div class="wrap">
+    <a class="topic-back" href="index.html#konular">‹ Konulara dön</a>
+    <p class="kicker">Konular</p>
+    <h1 class="section-title" id="ihtiyacTitle" style="max-width:760px;">Bugün ne <span class="grad-word">okumak istersin?</span></h1>
+    <p class="section-body" id="ihtiyacDesc" style="max-width:640px;">İhtiyacınıza uygun bir tema seçin — ilgili ayetleri, farklı mealleri ve tefsirleri bir arada bulun.</p>
+  </div>
+</header>
+
+<section><div class="wrap" style="max-width:900px;">
+  <div class="topic-note" style="margin-bottom:28px; border-color:var(--border);">
+    <strong style="color:var(--gold-bright);">Bu bir dini hüküm değildir.</strong> Bu sayfa size ne yapmanız gerektiğini söylemez — seçtiğiniz temayla ilgili gerçek ayetleri, farklı mealleri ve tefsirleri bir araya getirir; yorum ve uygulama tamamen size bırakılır. Her ayet, kendi sûre ve numarasıyla birlikte gösterilir, "Bu ayetten oku" ile tam bağlamına gidebilirsiniz.
+  </div>
+
+  <div class="ihtiyac-grid" id="ihtiyacGrid"></div>
+
+  <div id="ihtiyacDetay" hidden>
+    <div class="ihtiyac-kok-box" id="ihtiyacKokBox"></div>
+    <div class="ihtiyac-ayet-list" id="ihtiyacAyetList"></div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" style="width:20px;height:20px;"><path d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"/></svg>
+          <span class="brand-name">Beyan</span>
+        </a>
+        <p>"Beyan" — açık bildirim, açıklama. Kur'an'ın kendisini konuşturan, yorum katmanı en aza indirilmiş bir okuma alanı.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Alanlar</h4>
+          <ul><li><a href="oku.html">Kur'an'ı Oku</a></li><li><a href="index.html#deneyimle">Deneyimleyin</a></li><li><a href="index.html#yollar">Okuma yolları</a></li><li><a href="index.html#konular">Konular</a></li><li><a href="index.html#sosyal">Sosyal alan</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul><li><a href="ara.html">Kur'an'da Ara</a></li><li><a href="ezberlerim.html">Ezberlerim</a></li><li><a href="elifba.html">Elif-Bâ</a></li><li><a href="ilmihal.html">İlmihal</a></li><li><a href="tarih-haritasi.html">Tarih Haritası</a></li><li><a href="isimler.html">Allah'ın İsimleri</a></li><li><a href="haberler.html">İslam Dünyasından</a></li><li><a href="ihtiyac.html">İhtiyaca Göre Oku</a></li><li><a href="mealler.html">Kullanılan mealler</a></li><li><a href="tefsir-kaynaklari.html">Tefsir kaynakları</a></li><li><a href="ansiklopedi.html">İslam Ansiklopedisi</a></li><li><a href="moderasyon.html">Moderasyon ilkeleri</a></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span>Kur'an metni: <a href="https://github.com/risan/quran-json" style="color:var(--muted); text-decoration:underline;">risan/quran-json</a> (Arapça aslı QuranEnc.com, harf çevirisi Tanzil.net) — CC BY-SA 4.0 lisansı ile; atıf zorunlu ve bu veriyle üretilen türev de aynı lisansla paylaşılmalıdır.</span>
+      <span>Türkçe meal (varsayılan): Diyanet Vakfı (Kur'an Yolu) — <a href="https://tanzil.net/trans/" style="color:var(--muted); text-decoration:underline;">Tanzil.net</a> üzerinden, yalnızca ticari olmayan kullanım şartıyla.</span>
+      <span>Tefsir: <a href="https://github.com/spa5k/tafsir_api" style="color:var(--muted); text-decoration:underline;">spa5k/tafsir_api</a> (qul.tarteel.ai üzerinden) — telif durumu kendi orijinal kaynağına tabidir.</span>
+      <span>© Beyan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  toggle.addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('beyan-theme', 'dark'); }catch(e){}
+    }else{
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('beyan-theme', 'light'); }catch(e){}
+    }
+  });
+})();
+</script>
+<script>
+(function(){
+  var btn = document.getElementById('hamburgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  if(!btn || !menu) return;
+  function closeMenu(){
+    btn.classList.remove('open');
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('mobile-menu-open');
+  }
+  btn.addEventListener('click', function(){
+    var opening = !menu.classList.contains('open');
+    btn.classList.toggle('open', opening);
+    menu.classList.toggle('open', opening);
+    btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    document.body.classList.toggle('mobile-menu-open', opening);
+  });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+})();
+</script>
+<script>
+(function(){
+  let DATA = null, AR = null, TR = null;
+  const mealCache = new Map();
+  const tefsirCache = new Map();
+  const ALT_MEALS = [
+    { id: 'yazir', name: 'Elmalılı Hamdi Yazır' },
+    { id: 'ozturk', name: 'Yaşar Nuri Öztürk' },
+  ];
+  const TEFSIR_EDITION = 'tr-tafsir-ibne-kathir';
+  const TEFSIR_NAME = "Tefsir İbn Kesîr";
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+
+  function ayahText(sureId, ayetId){
+    const s = AR.find(x => x.id === sureId);
+    const v = s && s.verses.find(x => x.id === ayetId);
+    return v ? v.text : '';
+  }
+  function ayahMeal(sureId, ayetId){
+    const s = TR.find(x => x.id === sureId);
+    const v = s && s.verses.find(x => x.id === ayetId);
+    return v ? v.translation : '';
+  }
+  function surahName(sureId){
+    const s = AR.find(x => x.id === sureId);
+    return s ? (s.transliteration || s.name) : '';
+  }
+  function rangeText(fn, sureId, bas, son){
+    const parts = [];
+    for(let a = bas; a <= son; a++) parts.push(fn(sureId, a));
+    return parts.join(' ');
+  }
+  async function ensureAltMeal(id){
+    if(mealCache.has(id)) return mealCache.get(id);
+    const data = await fetch(`data/quran/meals/${id}.json`).then(r => r.json());
+    mealCache.set(id, data);
+    return data;
+  }
+  async function fetchTefsir(sureId, ayetId){
+    const key = `${sureId}:${ayetId}`;
+    if(tefsirCache.has(key)) return tefsirCache.get(key);
+    try{
+      const url = `https://raw.githubusercontent.com/spa5k/tafsir_api/main/tafsir/${TEFSIR_EDITION}/${sureId}/${ayetId}.json`;
+      const res = await fetch(url);
+      if(!res.ok) throw new Error('bulunamadı');
+      const data = await res.json();
+      tefsirCache.set(key, data.text);
+      return data.text;
+    }catch(e){ return null; }
+  }
+
+  function renderGrid(activeId){
+    const grid = document.getElementById('ihtiyacGrid');
+    grid.innerHTML = DATA.kategoriler.map(k => `
+      <button class="ihtiyac-card ${k.id === activeId ? 'active' : ''}" data-kategori="${k.id}">
+        <span class="ihtiyac-ikon">${k.ikon}</span>
+        <span class="ihtiyac-ad">${k.ad}</span>
+      </button>
+    `).join('');
+    grid.querySelectorAll('.ihtiyac-card').forEach(btn => {
+      btn.addEventListener('click', () => selectCategory(btn.dataset.kategori, true));
+    });
+  }
+
+  function ayetCardHtml(entry, idx, isToday){
+    const ref = entry.ayet_bas === entry.ayet_son
+      ? `${surahName(entry.sure_id)} Sûresi, ${entry.ayet_bas}. Ayet`
+      : `${surahName(entry.sure_id)} Sûresi, ${entry.ayet_bas}-${entry.ayet_son}. Ayetler`;
+    const arabic = rangeText(ayahText, entry.sure_id, entry.ayet_bas, entry.ayet_son);
+    const meal = rangeText(ayahMeal, entry.sure_id, entry.ayet_bas, entry.ayet_son);
+    const uid = `iht-${entry.sure_id}-${entry.ayet_bas}-${entry.ayet_son}`;
+    return `
+      <div class="ayah-card ihtiyac-ayah-card">
+        ${isToday ? '<span class="ihtiyac-today-badge">⭐ Bugünün öne çıkan ayeti</span>' : ''}
+        <p class="ayah-arabic arabic">${arabic}</p>
+        <p class="ayah-meal">${meal}</p>
+        <p class="ayah-ref">${ref} · <a class="ayet-git" href="oku.html?sure=${entry.sure_id}&ayet=${entry.ayet_bas}">ayete git →</a></p>
+        <div class="ihtiyac-toggles">
+          <button class="ihtiyac-toggle-btn" data-action="meals" data-uid="${uid}">Farklı mealler</button>
+          <button class="ihtiyac-toggle-btn" data-action="tefsir" data-uid="${uid}">Tefsir</button>
+        </div>
+        <div class="ihtiyac-panel" id="${uid}-meals" hidden></div>
+        <div class="ihtiyac-panel" id="${uid}-tefsir" hidden></div>
+      </div>`;
+  }
+
+  function selectCategory(id, pushUrl){
+    const kat = DATA.kategoriler.find(k => k.id === id);
+    if(!kat) return;
+    renderGrid(id);
+    document.getElementById('ihtiyacTitle').innerHTML = `Kur'an'da <span class="grad-word">${kat.ad}</span>`;
+    document.getElementById('ihtiyacDesc').textContent = kat.aciklama;
+    document.getElementById('pageTitle').textContent = `Kur'an'da ${kat.ad} — İlgili Ayetler, Mealler ve Tefsirler — Beyan`;
+    document.getElementById('pageDesc').setAttribute('content', `Kur'an'da ${kat.ad} ile ilgili ayetler: Arapça metin, farklı mealler, tefsirler ve ilgili ayetler bir arada. ${kat.aciklama}`);
+
+    const entries = DATA.ayetler.filter(a => a.kategori === id);
+    const todayIdx = dayOfYear % entries.length;
+
+    const kokBox = document.getElementById('ihtiyacKokBox');
+    kokBox.innerHTML = `
+      <span class="ihtiyac-kok-label">Bu temanın Kur'an'daki anahtar kökü:</span>
+      <span class="ihtiyac-kok-ar arabic">${kat.kok.ar}</span>
+      <span class="ihtiyac-kok-tr">(${kat.kok.tr}) — ${kat.kok.sayi}</span>
+      <a class="bulletin-link" href="ara.html?kok=${encodeURIComponent(kat.kok.ar)}">Kök arama'da incele →</a>
+    `;
+
+    document.getElementById('ihtiyacAyetList').innerHTML =
+      `<p class="ihtiyac-count">${entries.length} ayet bulundu</p>` +
+      entries.map((e, i) => ayetCardHtml(e, i, i === todayIdx)).join('');
+
+    document.getElementById('ihtiyacDetay').hidden = false;
+    document.querySelectorAll('.ihtiyac-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => handleToggle(btn));
+    });
+
+    if(pushUrl){
+      history.pushState({ tur: id }, '', `ihtiyac.html?tur=${id}`);
+    }
+    document.getElementById('ihtiyacDetay').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  async function handleToggle(btn){
+    const uid = btn.dataset.uid;
+    const action = btn.dataset.action;
+    const panel = document.getElementById(`${uid}-${action}`);
+    if(!panel.hidden){ panel.hidden = true; return; }
+    panel.hidden = false;
+    if(panel.dataset.loaded) return;
+    panel.dataset.loaded = '1';
+
+    // uid'den sure/ayet aralığını çöz: iht-<sure>-<bas>-<son>
+    const [, sureId, bas, son] = uid.split('-').map((v, i) => i === 0 ? v : parseInt(v, 10));
+
+    if(action === 'meals'){
+      panel.innerHTML = '<p class="ihtiyac-loading">Yükleniyor…</p>';
+      const rows = [];
+      for(const m of ALT_MEALS){
+        try{
+          const data = await ensureAltMeal(m.id);
+          const parts = [];
+          for(let a = bas; a <= son; a++) parts.push(data[`${sureId}:${a}`] || '');
+          rows.push(`<div class="ihtiyac-meal-row"><strong>${m.name}:</strong> ${parts.join(' ')}</div>`);
+        }catch(e){
+          rows.push(`<div class="ihtiyac-meal-row"><strong>${m.name}:</strong> <em>yüklenemedi</em></div>`);
+        }
+      }
+      panel.innerHTML = rows.join('');
+    }else if(action === 'tefsir'){
+      panel.innerHTML = '<p class="ihtiyac-loading">Yükleniyor…</p>';
+      const parts = [];
+      for(let a = bas; a <= son; a++){
+        const t = await fetchTefsir(sureId, a);
+        if(t) parts.push(son > bas ? `<strong>${sureId}:${a}</strong> — ${t}` : t);
+      }
+      panel.innerHTML = parts.length
+        ? `<div class="ihtiyac-tefsir-label">${TEFSIR_NAME}</div>` + parts.map(p => `<p>${p}</p>`).join('')
+        : '<p class="ihtiyac-loading">Bu ayet için tefsir bulunamadı.</p>';
+    }
+  }
+
+  async function init(){
+    try{
+      [DATA, AR, TR] = await Promise.all([
+        fetch('data/quran/ihtiyaclar.json').then(r => r.json()),
+        fetch('data/quran/quran-arabic.json').then(r => r.json()),
+        fetch('data/quran/quran-turkish.json').then(r => r.json()),
+      ]);
+    }catch(e){
+      document.getElementById('ihtiyacGrid').innerHTML = '<p style="color:var(--muted);">Veri yüklenemedi — bu sayfayı bir yerel sunucu üzerinden açtığınızdan emin olun.</p>';
+      return;
+    }
+    const params = new URLSearchParams(location.search);
+    const tur = params.get('tur');
+    renderGrid(tur);
+    if(tur && DATA.kategoriler.some(k => k.id === tur)){
+      selectCategory(tur, false);
+    }
+    window.addEventListener('popstate', (e) => {
+      const t = new URLSearchParams(location.search).get('tur');
+      if(t) selectCategory(t, false);
+    });
+  }
+  init();
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+{
+ "kategoriler": [
+  {
+   "id": "huzur",
+   "ad": "Huzur",
+   "ikon": "❤️",
+   "aciklama": "Kalbin sükûnet bulması, güven ve iç rahatlığı üzerine ayetler.",
+   "kok": {
+    "ar": "سكن",
+    "tr": "sükûnet/huzur",
+    "sayi": "66 kez geçer"
+   }
+  },
+  {
+   "id": "bilgi",
+   "ad": "Bilgi",
+   "ikon": "🧠",
+   "aciklama": "İlim, öğrenmek ve bilmenin değeri üzerine ayetler.",
+   "kok": {
+    "ar": "علم",
+    "tr": "ilim",
+    "sayi": "728 kez geçer"
+   }
+  },
+  {
+   "id": "dua",
+   "ad": "Dua",
+   "ikon": "🤲",
+   "aciklama": "Allah'a yalvarma, dua etme ve icabet üzerine ayetler.",
+   "kok": {
+    "ar": "دعو",
+    "tr": "dua",
+    "sayi": "182 kez geçer"
+   }
+  },
+  {
+   "id": "zor_zaman",
+   "ad": "Zor Zaman",
+   "ikon": "🌧️",
+   "aciklama": "Sıkıntı, zorluk ve bunların ardından gelen kolaylık üzerine ayetler.",
+   "kok": {
+    "ar": "عسر",
+    "tr": "zorluk",
+    "sayi": "12 kez geçer (karşıt kavramı يسر/kolaylık ise 40 kez geçer)"
+   }
+  },
+  {
+   "id": "aile",
+   "ad": "Aile",
+   "ikon": "👨‍👩‍👧",
+   "aciklama": "Ana-babaya davranış, eşler ve aile bağları üzerine ayetler.",
+   "kok": {
+    "ar": "ولد",
+    "tr": "evlat/ana-baba",
+    "sayi": "80 kez geçer"
+   }
+  },
+  {
+   "id": "rizik",
+   "ad": "Rızık",
+   "ikon": "💰",
+   "aciklama": "Rızkın kaynağı, güvence ve şükür bağlamında rızık üzerine ayetler.",
+   "kok": {
+    "ar": "رزق",
+    "tr": "rızık",
+    "sayi": "109 kez geçer"
+   }
+  },
+  {
+   "id": "adalet",
+   "ad": "Adalet",
+   "ikon": "⚖️",
+   "aciklama": "Adaleti ayakta tutmak, hakkaniyet ve tarafsız hükmetme üzerine ayetler.",
+   "kok": {
+    "ar": "عدل",
+    "tr": "adalet",
+    "sayi": "24 kez geçer"
+   }
+  },
+  {
+   "id": "sabir",
+   "ad": "Sabır",
+   "ikon": "🫂",
+   "aciklama": "Zorluk anında sebat etmek, dayanmak ve Allah'a güvenmek üzerine ayetler.",
+   "kok": {
+    "ar": "صبر",
+    "tr": "sabır",
+    "sayi": "93 kez geçer"
+   }
+  },
+  {
+   "id": "tevbe",
+   "ad": "Tevbe",
+   "ikon": "🌱",
+   "aciklama": "Pişmanlık, Allah'a dönüş ve bağışlanma umudu üzerine ayetler.",
+   "kok": {
+    "ar": "توب",
+    "tr": "tevbe",
+    "sayi": "69 kez geçer"
+   }
+  },
+  {
+   "id": "sukur",
+   "ad": "Şükür",
+   "ikon": "☀️",
+   "aciklama": "Nimetleri fark etmek ve Allah'a şükretmek üzerine ayetler.",
+   "kok": {
+    "ar": "شكر",
+    "tr": "şükür",
+    "sayi": "69 kez geçer"
+   }
+  }
+ ],
+ "ayetler": [
+  {
+   "kategori": "sabir",
+   "sure_id": 2,
+   "ayet_bas": 153,
+   "ayet_son": 153
+  },
+  {
+   "kategori": "sabir",
+   "sure_id": 2,
+   "ayet_bas": 155,
+   "ayet_son": 157
+  },
+  {
+   "kategori": "sabir",
+   "sure_id": 3,
+   "ayet_bas": 200,
+   "ayet_son": 200
+  },
+  {
+   "kategori": "sabir",
+   "sure_id": 103,
+   "ayet_bas": 1,
+   "ayet_son": 3
+  },
+  {
+   "kategori": "sabir",
+   "sure_id": 39,
+   "ayet_bas": 10,
+   "ayet_son": 10
+  },
+  {
+   "kategori": "sukur",
+   "sure_id": 14,
+   "ayet_bas": 7,
+   "ayet_son": 7
+  },
+  {
+   "kategori": "sukur",
+   "sure_id": 31,
+   "ayet_bas": 12,
+   "ayet_son": 12
+  },
+  {
+   "kategori": "sukur",
+   "sure_id": 16,
+   "ayet_bas": 18,
+   "ayet_son": 18
+  },
+  {
+   "kategori": "sukur",
+   "sure_id": 2,
+   "ayet_bas": 152,
+   "ayet_son": 152
+  },
+  {
+   "kategori": "sukur",
+   "sure_id": 27,
+   "ayet_bas": 19,
+   "ayet_son": 19
+  },
+  {
+   "kategori": "dua",
+   "sure_id": 2,
+   "ayet_bas": 186,
+   "ayet_son": 186
+  },
+  {
+   "kategori": "dua",
+   "sure_id": 40,
+   "ayet_bas": 60,
+   "ayet_son": 60
+  },
+  {
+   "kategori": "dua",
+   "sure_id": 7,
+   "ayet_bas": 55,
+   "ayet_son": 55
+  },
+  {
+   "kategori": "dua",
+   "sure_id": 3,
+   "ayet_bas": 8,
+   "ayet_son": 8
+  },
+  {
+   "kategori": "dua",
+   "sure_id": 21,
+   "ayet_bas": 87,
+   "ayet_son": 87
+  },
+  {
+   "kategori": "zor_zaman",
+   "sure_id": 94,
+   "ayet_bas": 5,
+   "ayet_son": 6
+  },
+  {
+   "kategori": "zor_zaman",
+   "sure_id": 2,
+   "ayet_bas": 286,
+   "ayet_son": 286
+  },
+  {
+   "kategori": "zor_zaman",
+   "sure_id": 65,
+   "ayet_bas": 7,
+   "ayet_son": 7
+  },
+  {
+   "kategori": "zor_zaman",
+   "sure_id": 12,
+   "ayet_bas": 87,
+   "ayet_son": 87
+  },
+  {
+   "kategori": "zor_zaman",
+   "sure_id": 2,
+   "ayet_bas": 214,
+   "ayet_son": 214
+  },
+  {
+   "kategori": "aile",
+   "sure_id": 17,
+   "ayet_bas": 23,
+   "ayet_son": 24
+  },
+  {
+   "kategori": "aile",
+   "sure_id": 31,
+   "ayet_bas": 14,
+   "ayet_son": 14
+  },
+  {
+   "kategori": "aile",
+   "sure_id": 4,
+   "ayet_bas": 1,
+   "ayet_son": 1
+  },
+  {
+   "kategori": "aile",
+   "sure_id": 30,
+   "ayet_bas": 21,
+   "ayet_son": 21
+  },
+  {
+   "kategori": "aile",
+   "sure_id": 66,
+   "ayet_bas": 6,
+   "ayet_son": 6
+  },
+  {
+   "kategori": "rizik",
+   "sure_id": 11,
+   "ayet_bas": 6,
+   "ayet_son": 6
+  },
+  {
+   "kategori": "rizik",
+   "sure_id": 65,
+   "ayet_bas": 2,
+   "ayet_son": 3
+  },
+  {
+   "kategori": "rizik",
+   "sure_id": 51,
+   "ayet_bas": 58,
+   "ayet_son": 58
+  },
+  {
+   "kategori": "rizik",
+   "sure_id": 2,
+   "ayet_bas": 172,
+   "ayet_son": 172
+  },
+  {
+   "kategori": "rizik",
+   "sure_id": 29,
+   "ayet_bas": 60,
+   "ayet_son": 60
+  },
+  {
+   "kategori": "adalet",
+   "sure_id": 4,
+   "ayet_bas": 135,
+   "ayet_son": 135
+  },
+  {
+   "kategori": "adalet",
+   "sure_id": 16,
+   "ayet_bas": 90,
+   "ayet_son": 90
+  },
+  {
+   "kategori": "adalet",
+   "sure_id": 5,
+   "ayet_bas": 8,
+   "ayet_son": 8
+  },
+  {
+   "kategori": "adalet",
+   "sure_id": 4,
+   "ayet_bas": 58,
+   "ayet_son": 58
+  },
+  {
+   "kategori": "adalet",
+   "sure_id": 57,
+   "ayet_bas": 25,
+   "ayet_son": 25
+  },
+  {
+   "kategori": "tevbe",
+   "sure_id": 39,
+   "ayet_bas": 53,
+   "ayet_son": 53
+  },
+  {
+   "kategori": "tevbe",
+   "sure_id": 66,
+   "ayet_bas": 8,
+   "ayet_son": 8
+  },
+  {
+   "kategori": "tevbe",
+   "sure_id": 25,
+   "ayet_bas": 70,
+   "ayet_son": 70
+  },
+  {
+   "kategori": "tevbe",
+   "sure_id": 4,
+   "ayet_bas": 110,
+   "ayet_son": 110
+  },
+  {
+   "kategori": "tevbe",
+   "sure_id": 9,
+   "ayet_bas": 104,
+   "ayet_son": 104
+  },
+  {
+   "kategori": "bilgi",
+   "sure_id": 20,
+   "ayet_bas": 114,
+   "ayet_son": 114
+  },
+  {
+   "kategori": "bilgi",
+   "sure_id": 39,
+   "ayet_bas": 9,
+   "ayet_son": 9
+  },
+  {
+   "kategori": "bilgi",
+   "sure_id": 58,
+   "ayet_bas": 11,
+   "ayet_son": 11
+  },
+  {
+   "kategori": "bilgi",
+   "sure_id": 96,
+   "ayet_bas": 1,
+   "ayet_son": 5
+  },
+  {
+   "kategori": "bilgi",
+   "sure_id": 35,
+   "ayet_bas": 28,
+   "ayet_son": 28
+  },
+  {
+   "kategori": "huzur",
+   "sure_id": 13,
+   "ayet_bas": 28,
+   "ayet_son": 28
+  },
+  {
+   "kategori": "huzur",
+   "sure_id": 89,
+   "ayet_bas": 27,
+   "ayet_son": 30
+  },
+  {
+   "kategori": "huzur",
+   "sure_id": 48,
+   "ayet_bas": 4,
+   "ayet_son": 4
+  },
+  {
+   "kategori": "huzur",
+   "sure_id": 16,
+   "ayet_bas": 97,
+   "ayet_son": 97
+  },
+  {
+   "kategori": "huzur",
+   "sure_id": 6,
+   "ayet_bas": 82,
+   "ayet_son": 82
+  }
+ ]
+}
