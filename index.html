@@ -147,69 +147,35 @@
      kök kelimeler) karıştırıp tek şeritte sunan bir SUNUM katmanı. Günlük
      SABİT bir set (gün tohumlu karışık sıra, sonsuz kaydırma DEĞİL) — bitince
      dürüstçe "yarın yeni kartlar" mesajı çıkar (bkz. aşağıdaki JS). -->
+<!-- ---- Keşfet Akışı ----
+     Kullanıcı isteğiyle Günlük Bülten TAMAMEN buraya taşındı ve birleştirildi
+     (2026-09-10) — iki ayrı bölüm aynı türde içerik (ayet, biliyor muydunuz)
+     gösterip tekrar gibi durmaya başlamıştı. Artık TEK akış: ihtiyaç ayetleri +
+     GÜNÜN AYETİ (gunun-ayeti.json, düşündürücü notuyla) + bugün forumda +
+     biliyor muydunuz (Günlük Bülten'in eski trivia'sı da AYNI QURAN_TRIVIA
+     havuzuna katıldı, ayrı bir kart tipi değil) + hicrî takvim + peygamberler +
+     haberler + kök kelimeler — hepsi Keşfet kartlarıyla AYNI boyut/stilde,
+     tek yatay slider'da. Üstteki tarih+streak rozeti Bülten'den birebir
+     buraya taşındı (JS'te aynı salt-okunur kural korunuyor). İçerik
+     çakışmaması için: günün ayeti, ihtiyaç ayetleri havuzundan HARİÇ
+     tutuluyor (bkz. initKesfetAkisi()). -->
 <section class="kesfet-akisi" id="kesfetAkisi">
   <div class="wrap">
-    <p class="kicker reveal">Bugün ne var?</p>
-    <h2 class="section-title reveal">Keşfet</h2>
-    <p class="section-body reveal" style="margin-bottom:32px;">Ayetler, ilginç bilgiler, peygamber kıssaları ve haberler — kaydırarak keşfedin, hiçbir yükümlülük yok.</p>
+    <div class="kesfet-head">
+      <div class="kesfet-head-text">
+        <p class="kicker">Bugün ne var?</p>
+        <h2 class="section-title">Keşfet</h2>
+      </div>
+      <div class="kesfet-meta">
+        <span class="kesfet-date" id="kesfetDate"></span>
+        <a class="kesfet-streak" id="kesfetStreak" href="oku.html"></a>
+      </div>
+    </div>
+    <p class="section-body" style="margin-bottom:32px;">Ayetler, ilginç bilgiler, peygamber kıssaları ve haberler — kaydırarak keşfedin, hiçbir yükümlülük yok.</p>
     <div class="kesfet-feed" id="kesfetFeed">
       <p style="color:var(--muted);">Yükleniyor…</p>
     </div>
     <p class="kesfet-end" id="kesfetEnd" hidden>🌙 Bugünlük bu kadar. Yarın yeni kartlar seni bekliyor.</p>
-  </div>
-</section>
-
-<!-- ---- Günlük Bülten ----
-     Nav ile peygamber-isimleri şeridi (.marquee-band) arasına, kullanıcının
-     isteğiyle yerleştirilen, her gün otomatik güncellenen küçük bülten kartı.
-     4 bölüm: Günün Ayeti (eski .votd-band'in yerini alıyor, artık ayrı
-     gösterilmiyor — kısa düşündürücü notla birlikte tek yerde), Bugün Forumda
-     (mevcut 13 forum konusundan güne göre biri), Biliyor muydunuz? (doğrulanmış
-     Kur'an istatistikleri), Hicrî Takvim (hesaplanmış tarih + yaklaşan mübarek
-     güne geri sayım). Üstte ayrıca salt-okunur bir okuma serisi (streak)
-     rozeti var — oku.html'deki GERÇEK seriyi günceller, burada sadece gösterir. -->
-<section class="daily-bulletin" id="dailyBulletin">
-  <div class="wrap">
-    <div class="bulletin-head">
-      <div class="bulletin-head-text">
-        <p class="kicker">İkra Kur'an Günlük</p>
-        <h2 class="bulletin-title">Günlük Bülten</h2>
-      </div>
-      <div class="bulletin-meta">
-        <span class="bulletin-date" id="bulletinDate"></span>
-        <a class="bulletin-streak" id="bulletinStreak" href="oku.html"></a>
-      </div>
-    </div>
-    <div class="bulletin-grid reveal-stagger">
-      <article class="bulletin-card bulletin-ayah">
-        <h3><span class="bulletin-icon">📖</span> Günün Ayeti</h3>
-        <p class="bulletin-arabic arabic" id="bulletinAyahArabic">…</p>
-        <p class="bulletin-ayah-meal" id="bulletinAyahMeal">Yükleniyor…</p>
-        <p class="bulletin-ayah-note" id="bulletinAyahNote"></p>
-        <div class="bulletin-card-foot">
-          <span class="bulletin-ayah-ref" id="bulletinAyahRef"></span>
-          <a class="bulletin-link" id="bulletinAyahLink" href="oku.html">Bu ayetten oku →</a>
-        </div>
-      </article>
-      <article class="bulletin-card bulletin-forum">
-        <h3><span class="bulletin-icon">💬</span> Bugün Forumda</h3>
-        <div class="bulletin-forum-body" id="bulletinForumBody">Yükleniyor…</div>
-        <div class="bulletin-card-foot">
-          <span class="bulletin-forum-meta" id="bulletinForumMeta"></span>
-          <a class="bulletin-link" id="bulletinForumLink" href="#sosyal">Foruma katıl →</a>
-        </div>
-      </article>
-      <article class="bulletin-card bulletin-trivia">
-        <h3><span class="bulletin-icon">💡</span> Biliyor muydunuz?</h3>
-        <p class="bulletin-trivia-text" id="bulletinTrivia">Yükleniyor…</p>
-      </article>
-      <article class="bulletin-card bulletin-hijri">
-        <h3><span class="bulletin-icon">🌙</span> Hicrî Takvim</h3>
-        <p class="bulletin-hijri-date" id="bulletinHijriDate">Yükleniyor…</p>
-        <p class="bulletin-hijri-countdown" id="bulletinHijriCountdown"></p>
-        <p class="bulletin-hijri-note">Hesaplanmış tahmini tarihtir; resmi/gözleme dayalı takvimden 1-2 gün farklı olabilir.</p>
-      </article>
-    </div>
   </div>
 </section>
 
@@ -846,63 +812,48 @@
   }
   loadRealQuranData();
 
-  /* ==== Günlük Bülten: nav ile peygamber isimleri şeridi arasındaki kart ====
-     Tüm alt bölümler AYNI "dayOfYear" değerine göre seçiliyor — böylece
-     "Günün Ayeti" ile buradaki diğer bölümler her gün birlikte, tutarlı
-     şekilde değişiyor (eski ayrı .votd-band ile birebir aynı gün-seçim
-     mantığı: Math.floor((şimdi - yılbaşı) / gün)). */
+  /* ==== Keşfet Akışı: sayfanın en üstündeki, gün-tohumlu karışık kart şeridi ====
+     Eskiden "Günlük Bülten" ayrı bir bölümdü — 2026-09-10'da kullanıcı ikisinin
+     içeriğinin aynılaştığını fark edip TEK bölümde birleştirilmesini istedi.
+     Artık HER ŞEY burada: Günün Ayeti (+düşündürücü not), Bugün Forumda,
+     Biliyor muydunuz (Bülten'in eski trivia'sı da AYNI havuza katıldı),
+     Hicrî Takvim, + ihtiyaç ayetleri/peygamberler/haberler/kök kelimeler.
+     HİÇBİR YENİ VERİ YOK — sadece zaten-doğrulanmış havuzları karıştırıp tek
+     şeritte sunuyor. Günlük SABİT bir kart seti — sonsuz kaydırma değil,
+     bugün kim girerse aynı seti görür (günün ayeti ile aynı disiplin), yarın
+     hepsi değişir. Üstteki tarih+streak rozeti eski Bülten'den birebir aynı
+     kuralla buraya taşındı (salt okunur, oku.html'deki gerçek seriyi gösterir). */
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
 
-  (function renderBulletinDate(){
-    const el = document.getElementById('bulletinDate');
+  (function renderKesfetDate(){
+    const el = document.getElementById('kesfetDate');
     if(!el) return;
     try{
       el.textContent = new Intl.DateTimeFormat('tr-TR', { day:'numeric', month:'long', year:'numeric' }).format(new Date());
     }catch(e){ el.textContent = new Date().toLocaleDateString(); }
   })();
 
-  /* ---- 1) Günün Ayeti + kısa düşündürücü not (eski .votd-band'in yerini alıyor) ---- */
-  async function loadVerseOfTheDay(){
-    try{
-      const list = await fetch('data/quran/gunun-ayeti.json').then(r => r.json());
-      const item = list[dayOfYear % list.length];
-      document.getElementById('bulletinAyahArabic').textContent = item.arabic;
-      document.getElementById('bulletinAyahMeal').textContent = `"${item.meal}"`;
-      document.getElementById('bulletinAyahNote').textContent = item.not || '';
-      document.getElementById('bulletinAyahRef').textContent = `${item.surahName} Sûresi, ${item.ayah}. Ayet`;
-      document.getElementById('bulletinAyahLink').href = `oku.html?sure=${item.surah}&ayet=${item.ayah}`;
-    }catch(err){
-      console.info('Günün ayeti yüklenemedi:', err.message);
+  /* Okuma serisi rozeti: SALT OKUNUR — oku.html'deki GERÇEK okuma serisini
+     (beyan-reading-streak) sadece okuyup gösterir, ASLA YAZMAZ. */
+  (function renderKesfetStreak(){
+    const el = document.getElementById('kesfetStreak');
+    if(!el) return;
+    let data;
+    try{ data = JSON.parse(localStorage.getItem('beyan-reading-streak') || 'null'); }catch(e){ data = null; }
+    const today = new Date().toISOString().slice(0, 10);
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    if(data && data.lastDate === today && data.streak > 1){
+      el.textContent = `🔥 ${data.streak} gündür üst üste okuyorsunuz`;
+    }else if(data && data.lastDate === today){
+      el.textContent = '🔥 Bugün okudunuz, harika başlangıç!';
+    }else if(data && data.lastDate === yesterday && data.streak > 0){
+      el.textContent = `🔥 ${data.streak} gün üst üste okudunuz — bugün de okuyarak sürdürün →`;
+    }else{
+      el.textContent = 'Henüz bugün okumadınız — okumaya başlayın →';
     }
-  }
-  loadVerseOfTheDay();
+  })();
 
-  /* ---- 2) Bugün Forumda: mevcut 13 forum konusundan güne göre biri ----
-     Veri TEKRAR YAZILMIYOR — doğrudan #forumList'teki gerçek kartlardan
-     okunuyor, "Foruma katıl" tıklanınca o kartın kendi click-delegasyonu
-     (aşağıda forumList.addEventListener ile tanımlı) tetiklenip aynı
-     içerik açılıyor. */
-  function renderBulletinForum(){
-    const cards = document.querySelectorAll('#forumList .forum-card');
-    const linkEl = document.getElementById('bulletinForumLink');
-    if(!cards.length || !linkEl) return;
-    const card = cards[dayOfYear % cards.length];
-    const icon = card.querySelector('.forum-icon')?.textContent || '💬';
-    const title = card.querySelector('h4')?.textContent || card.dataset.thread || '';
-    const teaser = card.querySelector('.forum-body p')?.textContent || '';
-    const metaText = Array.from(card.querySelectorAll('.forum-meta span')).map(s => s.textContent).join(' ');
-    document.getElementById('bulletinForumBody').innerHTML =
-      `<span class="bulletin-forum-icon">${icon}</span><div><strong>${title}</strong><p>${teaser}</p></div>`;
-    document.getElementById('bulletinForumMeta').textContent = metaText;
-    linkEl.addEventListener('click', (e) => {
-      e.preventDefault();
-      card.click();
-      document.getElementById('sosyal').scrollIntoView({ behavior: 'smooth' });
-    });
-  }
-  renderBulletinForum();
-
-  /* ---- 3) Biliyor muydunuz?: sitenin KENDİ verisinden hesaplanmış istatistikler ----
+  /* Biliyor muydunuz? havuzu — sitenin KENDİ verisinden hesaplanmış istatistikler.
      Hiçbir sayı ezbere/hatırlanarak yazılmadı — kök sayıları data/quran/roots-index.json'dan
      (bu oturumda daha önce çapraz doğrulanmıştı), peygamber sayısı data/quran/peygamberler.json'dan,
      diğerleri (en uzun/kısa ayet, besmele, Meryem) quran-arabic.json üzerinde çalıştırılan ayrı
@@ -923,17 +874,12 @@
     'Kur\'an\'da adıyla anılan tek kadın Meryem\'dir — adı 34 kez, 12 farklı sûrede geçer ve kendi adına bir sûre (19. sûre) vardır.',
     'Kur\'an 114 sûre, 6.236 ayetten oluşur ve okuma kolaylığı için 30 cüze ayrılmıştır.',
   ];
-  (function renderBulletinTrivia(){
-    const el = document.getElementById('bulletinTrivia');
-    if(el) el.textContent = QURAN_TRIVIA[dayOfYear % QURAN_TRIVIA.length];
-  })();
 
-  /* ---- 4) Hicrî Takvim + yaklaşan mübarek güne geri sayım ----
-     Kuwaiti/tabular Hicri algoritması (astronomik gözlem DEĞİL, hesaplanmış/
-     tahmini bir takvim) kullanılıyor — bilinen 3 referans noktasıyla (Hicri
-     epok 1/1/1 = 19 Temmuz 622; 1 Muharrem 1447 ≈ 27 Haziran 2025; 1 Ramazan
-     1447 ≈ 18 Şubat 2026) çapraz doğrulandı. Yine de resmi/gözleme dayalı
-     takvimden 1-2 gün farklı çıkabileceği kart içinde AÇIKÇA belirtiliyor. */
+  /* Hicrî Takvim — Kuwaiti/tabular Hicri algoritması (astronomik gözlem DEĞİL,
+     hesaplanmış/tahmini bir takvim) kullanılıyor — bilinen 3 referans noktasıyla
+     (Hicri epok 1/1/1 = 19 Temmuz 622; 1 Muharrem 1447 ≈ 27 Haziran 2025;
+     1 Ramazan 1447 ≈ 18 Şubat 2026) çapraz doğrulandı. Yine de resmi/gözleme
+     dayalı takvimden 1-2 gün farklı çıkabileceği kart içinde AÇIKÇA belirtiliyor. */
   function gregorianToJDN(gy, gm, gd){
     const a = Math.floor((14 - gm) / 12);
     const y = gy + 4800 - a;
@@ -963,12 +909,10 @@
     { ad: 'Ramazan (Şeker) Bayramı', tamlama: "Ramazan (Şeker) Bayramı'na", ay: 10, gun: 1 },
     { ad: 'Kurban Bayramı', tamlama: "Kurban Bayramı'na", ay: 12, gun: 10 },
   ];
-  function renderBulletinHijri(){
+  function computeHijriCard(){
     const today = new Date();
     const h = gregorianToHijri(today.getFullYear(), today.getMonth() + 1, today.getDate());
-    const dateEl = document.getElementById('bulletinHijriDate');
-    if(dateEl) dateEl.textContent = `${h.day} ${HIJRI_AYLAR[h.month - 1]} ${h.year}`;
-
+    const dateStr = `${h.day} ${HIJRI_AYLAR[h.month - 1]} ${h.year}`;
     // En yakın mübarek günü, bugünden itibaren gün gün ileri tarayarak bulur
     // (ters formül yerine bilinçli olarak bu daha basit/hataya dayanıklı yöntem seçildi).
     const cursor = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -979,39 +923,10 @@
       if(match){ found = { ad: match.ad, tamlama: match.tamlama, gun: i }; break; }
       cursor.setDate(cursor.getDate() + 1);
     }
-    const cdEl = document.getElementById('bulletinHijriCountdown');
-    if(cdEl && found) cdEl.textContent = found.gun === 0 ? `🎉 Bugün: ${found.ad}` : `${found.tamlama} ${found.gun} gün`;
+    const countdownStr = found ? (found.gun === 0 ? `🎉 Bugün: ${found.ad}` : `${found.tamlama} ${found.gun} gün`) : '';
+    return { dateStr, countdownStr };
   }
-  renderBulletinHijri();
 
-  /* ---- 5) Okuma serisi rozeti: SALT OKUNUR ----
-     oku.html'deki GERÇEK okuma serisini (beyan-reading-streak) sadece okuyup
-     gösterir, ASLA YAZMAZ — ana sayfayı ziyaret etmek seriyi artırmaz, sadece
-     gerçekten "Kur'an'ı Oku"dan okumak artırır (bkz. oku.html'deki updateStreak()). */
-  (function renderBulletinStreak(){
-    const el = document.getElementById('bulletinStreak');
-    if(!el) return;
-    let data;
-    try{ data = JSON.parse(localStorage.getItem('beyan-reading-streak') || 'null'); }catch(e){ data = null; }
-    const today = new Date().toISOString().slice(0, 10);
-    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-    if(data && data.lastDate === today && data.streak > 1){
-      el.textContent = `🔥 ${data.streak} gündür üst üste okuyorsunuz`;
-    }else if(data && data.lastDate === today){
-      el.textContent = '🔥 Bugün okudunuz, harika başlangıç!';
-    }else if(data && data.lastDate === yesterday && data.streak > 0){
-      el.textContent = `🔥 ${data.streak} gün üst üste okudunuz — bugün de okuyarak sürdürün →`;
-    }else{
-      el.textContent = 'Henüz bugün okumadınız — okumaya başlayın →';
-    }
-  })();
-
-  /* ==== Keşfet Akışı: sayfanın en üstündeki, gün-tohumlu karışık kart şeridi ====
-     HİÇBİR YENİ VERİ YOK — sadece 5 zaten-doğrulanmış havuzu (ihtiyaç ayetleri,
-     biliyor muydunuz, peygamberler, haberler, kök kelimeler) karıştırıp tek
-     şeritte sunuyor. Günlük SABİT ~16 kartlık bir set — sonsuz kaydırma değil,
-     bugün kim girerse aynı seti görür (günün ayeti ile aynı disiplin), yarın
-     hepsi değişir. */
   function seededShuffle(arr, seed){
     const a = arr.slice();
     let s = seed || 1;
@@ -1048,12 +963,13 @@
     const feedEl = document.getElementById('kesfetFeed');
     if(!feedEl) return;
     try{
-      const [ar, tr, ihtiyac, peygamberler, haberlerData] = await Promise.all([
+      const [ar, tr, ihtiyac, peygamberler, haberlerData, gununAyeti] = await Promise.all([
         fetch('data/quran/quran-arabic.json').then(r => r.json()),
         fetch('data/quran/quran-turkish.json').then(r => r.json()),
         fetch('data/quran/ihtiyaclar.json').then(r => r.json()),
         fetch('data/quran/peygamberler.json').then(r => r.json()),
         fetch('data/haberler.json').then(r => r.json()),
+        fetch('data/quran/gunun-ayeti.json').then(r => r.json()),
       ]);
 
       function surahName(sureId){ const s = ar.find(x => x.id === sureId); return s ? (s.transliteration || s.name) : ''; }
@@ -1061,9 +977,25 @@
       function ayahMeal(sureId, ayetId){ const s = tr.find(x => x.id === sureId); const v = s && s.verses.find(x => x.id === ayetId); return v ? v.translation : ''; }
       function rangeText(fn, sureId, bas, son){ const parts = []; for(let a = bas; a <= son; a++) parts.push(fn(sureId, a)); return parts.join(' '); }
 
-      // 1) Ayet kartları — ihtiyaclar.json'daki 50 girdiden, o gün Günlük Bülten'in
-      // zaten gösterdiği "Günün Ayeti"yle AYNI olmasın diye farklı bir tohum kullanılıyor.
-      const ayetler = pickN(ihtiyac.ayetler, 4, dayOfYear * 7 + 3);
+      // 1) Günün Ayeti — eski Günlük Bülten'in ana kartı, düşündürücü notuyla birlikte.
+      const votdItem = gununAyeti[dayOfYear % gununAyeti.length];
+      const votdCard = `<article class="kesfet-card kesfet-ayet">
+        <span class="kesfet-tag">📖 Günün Ayeti</span>
+        <p class="ayah-arabic arabic" style="font-size:1.05rem;">${votdItem.arabic}</p>
+        <p class="ayah-meal" style="font-size:0.92rem;">"${votdItem.meal}"</p>
+        ${votdItem.not ? `<p class="kesfet-text" style="font-size:0.82rem;">${votdItem.not}</p>` : ''}
+        <div class="kesfet-foot">
+          <span class="kesfet-ref">${votdItem.surahName} Sûresi, ${votdItem.ayah}. Ayet</span>
+          <a class="kesfet-cta" href="oku.html?sure=${votdItem.surah}&ayet=${votdItem.ayah}">Bu ayetten oku →</a>
+        </div>
+      </article>`;
+
+      // 2) İhtiyaç ayetleri — ihtiyaclar.json'daki 50 girdiden. Günün Ayeti'yle
+      // AYNI ayet ikinci kez görünmesin diye o girdi havuzdan HARİÇ tutuluyor.
+      const ihtiyacHavuzu = ihtiyac.ayetler.filter(e =>
+        !(e.sure_id === votdItem.surah && e.ayet_bas <= votdItem.ayah && e.ayet_son >= votdItem.ayah)
+      );
+      const ayetler = pickN(ihtiyacHavuzu, 4, dayOfYear * 7 + 3);
       const ayetCards = ayetler.map(e => {
         const ref = e.ayet_bas === e.ayet_son ? `${surahName(e.sure_id)} Sûresi, ${e.ayet_bas}. Ayet` : `${surahName(e.sure_id)} Sûresi, ${e.ayet_bas}-${e.ayet_son}. Ayetler`;
         const arabic = rangeText(ayahText, e.sure_id, e.ayet_bas, e.ayet_son);
@@ -1079,14 +1011,15 @@
         </article>`;
       });
 
-      // 2) Biliyor muydun kartları — QURAN_TRIVIA'dan, Bülten'inkinden farklı bir ofsetle.
-      const triviaIdx = pickN(QURAN_TRIVIA.map((_, i) => i), 3, dayOfYear * 11 + 5);
+      // 3) Biliyor muydun kartları — QURAN_TRIVIA'dan TEK havuz (eski Bülten'in
+      // trivia'sı da buraya katıldı, ayrı bir kart tipi olarak tekrarlanmıyor).
+      const triviaIdx = pickN(QURAN_TRIVIA.map((_, i) => i), 4, dayOfYear * 11 + 5);
       const triviaCards = triviaIdx.map(i => `<article class="kesfet-card kesfet-trivia">
         <span class="kesfet-tag">💡 Biliyor muydun?</span>
         <p class="kesfet-text">${QURAN_TRIVIA[i]}</p>
       </article>`);
 
-      // 3) Peygamber keşfi kartları
+      // 4) Peygamber keşfi kartları
       const allProphets = peygamberler.peygamberler || [];
       const chosenProphets = pickN(allProphets, 3, dayOfYear * 13 + 9);
       const prophetCards = chosenProphets.map(p => `<article class="kesfet-card kesfet-peygamber">
@@ -1096,7 +1029,7 @@
         <a class="kesfet-cta" href="peygamber.html?id=${p.id}">Kıssayı oku →</a>
       </article>`);
 
-      // 4) Haber kartları
+      // 5) Haber kartları
       const chosenNews = pickN(haberlerData.haberler || [], 3, dayOfYear * 17 + 1);
       const newsCards = chosenNews.map(h => `<article class="kesfet-card kesfet-haber">
         <span class="kesfet-tag">🕌 İslam Dünyasından</span>
@@ -1105,7 +1038,7 @@
         <a class="kesfet-cta" href="haberler.html">Devamını oku →</a>
       </article>`);
 
-      // 5) Kök/kelime kartları — ihtiyaclar.json'daki 10 kategori kökünden.
+      // 6) Kök/kelime kartları — ihtiyaclar.json'daki 10 kategori kökünden.
       const chosenRoots = pickN(ihtiyac.kategoriler, 3, dayOfYear * 19 + 4);
       const rootCards = chosenRoots.map(k => `<article class="kesfet-card kesfet-kok">
         <span class="kesfet-tag">🔤 Bugünün Kelimesi</span>
@@ -1114,9 +1047,56 @@
         <a class="kesfet-cta" href="ihtiyac.html?tur=${k.id}">${k.ad} ayetlerini gör →</a>
       </article>`);
 
-      const merged = interleaveGroups([ayetCards, triviaCards, prophetCards, newsCards, rootCards], dayOfYear * 23 + 7);
+      // 7) Bugün Forumda — eski Bülten'in forum kartı. Veri TEKRAR YAZILMIYOR,
+      // doğrudan #forumList'teki gerçek kartlardan okunuyor; tıklanınca o kartın
+      // kendi click-delegasyonu (aşağıda forumList.addEventListener) tetikleniyor.
+      let forumCardHtml = '';
+      let forumCardRef = null;
+      const forumDomCards = document.querySelectorAll('#forumList .forum-card');
+      if(forumDomCards.length){
+        forumCardRef = forumDomCards[dayOfYear % forumDomCards.length];
+        const icon = forumCardRef.querySelector('.forum-icon')?.textContent || '💬';
+        const title = forumCardRef.querySelector('h4')?.textContent || forumCardRef.dataset.thread || '';
+        const teaser = forumCardRef.querySelector('.forum-body p')?.textContent || '';
+        const metaText = Array.from(forumCardRef.querySelectorAll('.forum-meta span')).map(s => s.textContent).join(' ');
+        forumCardHtml = `<article class="kesfet-card kesfet-forum">
+          <span class="kesfet-tag">${icon} Bugün Forumda</span>
+          <p class="kesfet-baslik">${title}</p>
+          <p class="kesfet-text">${teaser}</p>
+          <div class="kesfet-foot">
+            <span class="kesfet-ref">${metaText}</span>
+            <a class="kesfet-cta" id="kesfetForumLink" href="#sosyal">Foruma katıl →</a>
+          </div>
+        </article>`;
+      }
+
+      // 8) Hicrî Takvim — eski Bülten'in son kartı.
+      const hijri = computeHijriCard();
+      const hijriCard = `<article class="kesfet-card kesfet-hicri">
+        <span class="kesfet-tag">🌙 Hicrî Takvim</span>
+        <p class="kesfet-baslik">${hijri.dateStr}</p>
+        <p class="kesfet-text" style="color:var(--teal);">${hijri.countdownStr}</p>
+        <p class="kesfet-text" style="font-size:0.74rem;">Hesaplanmış tahmini tarihtir; resmi/gözleme dayalı takvimden 1-2 gün farklı olabilir.</p>
+      </article>`;
+
+      // votdCard, ayetCards ile AYNI görsel tipte (kesfet-ayet) — aynı grupta
+      // birleştirilmezse algoritma iki farklı grup sanıp yan yana koyabilir
+      // (aynı CSS sınıfı olduğu için kullanıcıya "aynı tip yan yana" gibi görünür).
+      const groups = [[votdCard, ...ayetCards], triviaCards, prophetCards, newsCards, rootCards, [hijriCard]];
+      if(forumCardHtml) groups.push([forumCardHtml]);
+      const merged = interleaveGroups(groups, dayOfYear * 23 + 7);
       feedEl.innerHTML = merged.join('');
       document.getElementById('kesfetEnd').hidden = false;
+
+      // Forum kartının linki DOM'a girdikten SONRA bağlanmalı (innerHTML yeni düğümler oluşturuyor).
+      const forumLinkEl = document.getElementById('kesfetForumLink');
+      if(forumLinkEl && forumCardRef){
+        forumLinkEl.addEventListener('click', (e) => {
+          e.preventDefault();
+          forumCardRef.click();
+          document.getElementById('sosyal').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
     }catch(err){
       feedEl.innerHTML = '<p style="color:var(--muted);">Akış yüklenemedi — bu sayfayı bir yerel sunucu üzerinden açtığınızdan emin olun.</p>';
       console.info('Keşfet Akışı yüklenemedi:', err.message);

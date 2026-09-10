@@ -545,6 +545,13 @@
      (gizli scrollbar, sabit genişlikli kartlar, sonraki kartın kenarı görünür
      bırakılıyor) — kullanıcı isteğiyle dikey yığından bu desene çevrildi. */
   .kesfet-akisi{position:relative; z-index:3; background:var(--void-3); border-bottom:1px solid var(--border-soft); padding:56px 0 48px;}
+  .kesfet-head{display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:6px;}
+  .kesfet-head-text .kicker{margin-bottom:4px;}
+  .kesfet-head-text .section-title{margin:0;}
+  .kesfet-meta{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .kesfet-date{font-size:0.8rem; color:var(--muted-2);}
+  .kesfet-streak{font-size:0.8rem; color:var(--gold-bright); text-decoration:none; padding:7px 14px; border:1px solid var(--border); border-radius:16px; transition:border-color .2s, background .2s; white-space:nowrap;}
+  .kesfet-streak:hover{border-color:var(--gold); background:var(--glass);}
   .kesfet-feed{
     display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x proximity;
     -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:4px;
@@ -556,6 +563,8 @@
   .kesfet-card.kesfet-peygamber{border-left-color:var(--emerald);}
   .kesfet-card.kesfet-haber{border-left-color:var(--plum);}
   .kesfet-card.kesfet-kok{border-left-color:var(--gold-bright);}
+  .kesfet-card.kesfet-forum{border-left-color:var(--teal);}
+  .kesfet-card.kesfet-hicri{border-left-color:var(--emerald);}
   .kesfet-tag{display:inline-block; font-size:0.72rem; color:var(--muted-2); margin-bottom:12px; letter-spacing:0.02em;}
   .kesfet-baslik{font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:var(--text); margin:0 0 8px;}
   .kesfet-baslik-sub{font-size:0.82rem; color:var(--muted-2); font-family:'Work Sans', sans-serif;}
@@ -566,48 +575,7 @@
   .kesfet-cta:hover{color:var(--gold-bright);}
   .kesfet-end{text-align:center; color:var(--muted-2); font-size:0.86rem; margin:20px auto 0;}
 
-  /* ---------- Günlük Bülten (nav ile peygamber isimleri şeridi arasında) ----------
-     Eskiden bu alanda ayrı, tek satırlık bir "günün ayeti" şeridi (.votd-band) vardı —
-     artık onun yerini, 4 bölümlü daha zengin bir günlük bülten kartı alıyor. */
-  .daily-bulletin{position:relative; z-index:3; border-bottom:1px solid var(--border-soft); background:var(--void-2); padding:36px 0 40px;}
-  .bulletin-head{display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:22px;}
-  .bulletin-head-text .kicker{margin-bottom:4px;}
-  .bulletin-title{font-family:'Cormorant Garamond', serif; font-size:1.55rem; color:var(--text); margin:0;}
-  .bulletin-meta{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
-  .bulletin-date{font-size:0.8rem; color:var(--muted-2);}
-  .bulletin-streak{font-size:0.8rem; color:var(--gold-bright); text-decoration:none; padding:7px 14px; border:1px solid var(--border); border-radius:16px; transition:border-color .2s, background .2s; white-space:nowrap;}
-  .bulletin-streak:hover{border-color:var(--gold); background:var(--glass);}
-
-  /* Yana doğru kaydırmalı slider — aşağı doğru yığılmak yerine (nav-topics-scroll
-     ile aynı gizli-scrollbar deseni), hem masaüstü hem mobilde tutarlı. */
-  .bulletin-grid{
-    display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x proximity;
-    -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:4px;
-  }
-  .bulletin-grid::-webkit-scrollbar{display:none;}
-
-  .bulletin-card{flex:0 0 340px; width:340px; scroll-snap-align:start; background:var(--glass); border:1px solid var(--border-soft); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;}
-  @media (max-width:480px){ .bulletin-card{flex-basis:86vw; width:86vw;} }
-  .bulletin-card h3{display:flex; align-items:center; gap:8px; font-family:'Cormorant Garamond', serif; font-size:1.05rem; font-weight:600; color:var(--gold-bright); margin:0 0 12px;}
-  .bulletin-icon{font-size:1.1rem;}
-
-  .bulletin-arabic{font-family:'Amiri', serif; direction:rtl; font-size:1.15rem; line-height:1.9; color:var(--text); margin:0 0 8px;}
-  .bulletin-ayah-meal{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:0.98rem; color:var(--muted); margin:0 0 8px;}
-  .bulletin-ayah-note{font-size:0.82rem; color:var(--muted-2); line-height:1.6; margin:0 0 14px;}
-
-  .bulletin-card-foot{margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding-top:12px; border-top:1px solid var(--border-soft);}
-  .bulletin-ayah-ref, .bulletin-forum-meta{font-size:0.74rem; color:var(--muted-2);}
-  .bulletin-link{font-size:0.82rem; color:var(--teal); text-decoration:none; white-space:nowrap; background:none; border:none; cursor:pointer; padding:0; font-family:inherit;}
-  .bulletin-link:hover{color:var(--gold-bright);}
-
-  .bulletin-forum-body{display:flex; gap:12px; margin-bottom:8px;}
-  .bulletin-forum-icon{font-size:1.5rem; flex-shrink:0; line-height:1;}
-  .bulletin-forum-body strong{color:var(--text); font-size:0.94rem; display:block; margin-bottom:4px; font-weight:600;}
-  .bulletin-forum-body p{color:var(--muted); font-size:0.84rem; line-height:1.5; margin:0;}
-
-  .bulletin-trivia{justify-content:center;}
-  .bulletin-trivia-text{color:var(--text); font-size:1rem; line-height:1.7; font-family:'Cormorant Garamond', serif; margin:0;}
-
-  .bulletin-hijri-date{font-family:'Cormorant Garamond', serif; font-size:1.25rem; color:var(--text); margin:0 0 6px;}
-  .bulletin-hijri-countdown{font-size:0.88rem; color:var(--teal); margin:0 0 12px;}
-  .bulletin-hijri-note{font-size:0.72rem; color:var(--muted-2); line-height:1.5; margin:auto 0 0;}
+  /* Not: eski "Günlük Bülten" bölümünün CSS'i buradan kaldırıldı — 2026-09-10'da
+     içeriği (Günün Ayeti, Bugün Forumda, Biliyor muydunuz, Hicrî Takvim) yukarıdaki
+     .kesfet-akisi'ye TAMAMEN taşındı (bkz. index.html'deki #kesfetAkisi ve
+     initKesfetAkisi()) — iki ayrı bölüm aynılaşmıştı, tekrar önlemek için birleştirildi. */
