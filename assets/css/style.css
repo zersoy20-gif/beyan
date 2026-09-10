@@ -553,7 +553,7 @@
   .kesfet-streak{font-size:0.8rem; color:var(--gold-bright); text-decoration:none; padding:7px 14px; border:1px solid var(--border); border-radius:16px; transition:border-color .2s, background .2s; white-space:nowrap;}
   .kesfet-streak:hover{border-color:var(--gold); background:var(--glass);}
   .kesfet-feed{
-    display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x proximity;
+    display:flex; align-items:flex-start; gap:16px; overflow-x:auto; scroll-snap-type:x proximity;
     -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:4px;
   }
   .kesfet-feed::-webkit-scrollbar{display:none;}
