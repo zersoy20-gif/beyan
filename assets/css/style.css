@@ -540,10 +540,18 @@
   .ihtiyac-tefsir-label{color:var(--gold-bright); font-size:0.8rem; margin-bottom:8px;}
   .ihtiyac-loading{color:var(--muted-2); font-size:0.85rem;}
 
-  /* ---------- Keşfet Akışı (ana sayfanın en üstü) ---------- */
+  /* ---------- Keşfet Akışı (ana sayfanın en üstü) ----------
+     Günlük Bülten'in .bulletin-grid'iyle AYNI yana-kaydırmalı slider deseni
+     (gizli scrollbar, sabit genişlikli kartlar, sonraki kartın kenarı görünür
+     bırakılıyor) — kullanıcı isteğiyle dikey yığından bu desene çevrildi. */
   .kesfet-akisi{position:relative; z-index:3; background:var(--void-3); border-bottom:1px solid var(--border-soft); padding:56px 0 48px;}
-  .kesfet-feed{display:flex; flex-direction:column; gap:16px; max-width:620px; margin:0 auto;}
-  .kesfet-card{background:var(--glass); border:1px solid var(--border-soft); border-left:3px solid var(--gold); border-radius:12px; padding:20px 22px;}
+  .kesfet-feed{
+    display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:4px;
+  }
+  .kesfet-feed::-webkit-scrollbar{display:none;}
+  .kesfet-card{flex:0 0 320px; width:320px; scroll-snap-align:start; background:var(--glass); border:1px solid var(--border-soft); border-left:3px solid var(--gold); border-radius:12px; padding:20px 22px;}
+  @media (max-width:480px){ .kesfet-card{flex-basis:86vw; width:86vw;} }
   .kesfet-card.kesfet-trivia{border-left-color:var(--teal);}
   .kesfet-card.kesfet-peygamber{border-left-color:var(--emerald);}
   .kesfet-card.kesfet-haber{border-left-color:var(--plum);}
@@ -552,11 +560,11 @@
   .kesfet-baslik{font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:var(--text); margin:0 0 8px;}
   .kesfet-baslik-sub{font-size:0.82rem; color:var(--muted-2); font-family:'Work Sans', sans-serif;}
   .kesfet-text{font-size:0.9rem; color:var(--muted); line-height:1.65; margin:0 0 12px;}
-  .kesfet-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:12px; padding-top:12px; border-top:1px solid var(--border-soft);}
+  .kesfet-foot{display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; margin-top:12px; padding-top:12px; border-top:1px solid var(--border-soft);}
   .kesfet-ref{font-size:0.76rem; color:var(--muted-2);}
   .kesfet-cta{font-size:0.82rem; color:var(--teal); text-decoration:none; white-space:nowrap;}
   .kesfet-cta:hover{color:var(--gold-bright);}
-  .kesfet-end{text-align:center; color:var(--muted-2); font-size:0.86rem; margin:28px auto 0; max-width:620px;}
+  .kesfet-end{text-align:center; color:var(--muted-2); font-size:0.86rem; margin:20px auto 0;}
 
   /* ---------- Günlük Bülten (nav ile peygamber isimleri şeridi arasında) ----------
      Eskiden bu alanda ayrı, tek satırlık bir "günün ayeti" şeridi (.votd-band) vardı —
