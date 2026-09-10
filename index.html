@@ -60,9 +60,35 @@
       </button>
       <a class="btn-nav-line" href="#" id="loginBtn">Giriş yap</a>
       <a class="btn-nav-fill" href="oku.html">Uygulamayı dene</a>
+      <button class="hamburger-btn" id="hamburgerBtn" type="button" aria-label="Menü" aria-expanded="false" aria-controls="mobileMenu">
+        <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
   </div>
 </nav>
+
+<!-- ---- Mobil menü (hamburger) ----
+     Dar ekranlarda üstteki kaydırılabilir konu şeridi (.nav-topics-scroll) çok
+     sıkışık/karışık görünüyordu — bu yüzden mobilde tamamen gizlenip yerine bu
+     tam listeyi gösteren, hamburger düğmesiyle açılıp kapanan bir panel geldi. -->
+<div class="mobile-menu" id="mobileMenu">
+  <a class="mobile-menu-link" href="oku.html">Kur'an'ı Oku</a>
+  <a class="mobile-menu-link" href="elifba.html">Elif-Bâ</a>
+  <a class="mobile-menu-link" href="ilmihal.html">İlmihal</a>
+  <a class="mobile-menu-link" href="peygamberler.html">Peygamberler</a>
+  <a class="mobile-menu-link" href="tarih-haritasi.html">Tarih Haritası</a>
+  <a class="mobile-menu-link" href="#ezber">Ezber Çalışması</a>
+  <a class="mobile-menu-link" href="#deneyimle">Deneyimleyin</a>
+  <a class="mobile-menu-link" href="#yollar">Okuma yolları</a>
+  <a class="mobile-menu-link" href="#konular">Konular</a>
+  <a class="mobile-menu-link" href="#sosyal">Sosyal alan</a>
+  <a class="mobile-menu-link" href="ansiklopedi.html">Ansiklopedi</a>
+  <a class="mobile-menu-link" href="ara.html">Kur'an'da Ara</a>
+  <a class="mobile-menu-link" href="isimler.html">Allah'ın İsimleri</a>
+  <a class="mobile-menu-link" href="haberler.html">İslam Dünyasından</a>
+  <a class="mobile-menu-link" href="#" id="mobileLoginBtn">Giriş yap</a>
+</div>
 
 <!-- ---- Giriş sunumu (intro splash) ----
      Bu blok eskiden sayfanın normal, sürekli görünen ilk bölümüydü (kahraman/hero).
@@ -1240,13 +1266,33 @@
   }
 
   /* ---- Giriş yap (henüz üyelik sistemi yok — dürüst bilgilendirme) ---- */
-  const loginBtn = document.getElementById('loginBtn');
-  if(loginBtn){
-    loginBtn.addEventListener('click', (e) => {
+  document.querySelectorAll('#loginBtn, #mobileLoginBtn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
       alert('Üyelik sistemi henüz yok. Notlarınız ve önerdiğiniz konular şimdilik yalnızca bu tarayıcıda (bu cihazda) saklanıyor.');
     });
-  }
+  });
+
+  /* ---- Mobil hamburger menü ---- */
+  (function(){
+    const btn = document.getElementById('hamburgerBtn');
+    const menu = document.getElementById('mobileMenu');
+    if(!btn || !menu) return;
+    function closeMenu(){
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('mobile-menu-open');
+    }
+    btn.addEventListener('click', () => {
+      const opening = !menu.classList.contains('open');
+      btn.classList.toggle('open', opening);
+      menu.classList.toggle('open', opening);
+      btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+      document.body.classList.toggle('mobile-menu-open', opening);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  })();
 
   const playBtn = document.getElementById('playBtn');
   const playIcon = document.getElementById('playIcon');
